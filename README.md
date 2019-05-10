@@ -1,1 +1,1 @@
-#� Metal³ Website
+# Metal³ Website
