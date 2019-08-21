@@ -1,0 +1,10 @@
+<aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Categories</h2>
+    </header> 
+    <ul>
+      {% for category in site.categories %}
+          <li><a href ="{{site.baseurl}}/blog/categories.html#{{category | first}}">{{ category | first | remove : 'blog' }}</a></li>
+      {% endfor %}
+      </ul> 
+</aside>

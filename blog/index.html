@@ -1,0 +1,60 @@
+---
+layout: default
+title: Blog
+---
+<div class="mk-masthead__content--sub">
+        <h1 class="mk-masthead__content--sub__title">Blog</h1>
+        <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
+        <!-- <form action="/search.html" method="get">
+          <label for="search-box">Search</label>
+          <input type="text" id="search-box" name="query">
+          <input type="submit" value="search">
+        </form> -->
+</div>
+</section>
+<main class="mk-main mk-blog">   
+    <section class="mk-blog__posts mk-main__content">
+        {% for post in paginator.posts %}
+        <article class="mk-blog-meta mk-main__section">
+                <h3 class="mk-heading--lg mk-blog-meta__title">{{ post.title }}</h3>
+                <time datetime="1999-12-23" class="mk-blog-meta__item mk-blog-meta__timestamp mk-blog-meta__timestamp--light">{{ post.date | date: "%A, %-d/%m/%Y" }}</time>
+                <div class="mk-blog-meta__author mk-blog-meta__item">By {{ post.author }}</div>
+                <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
+                <a class="mk-button mk-button--link" href="{{ post.url }}">Read More</a>
+        </article>         
+        {% endfor %}
+        <nav class="mk-pagination">         
+          {% if paginator.total_pages > 1 %}
+            {% if paginator.previous_page %}
+              <a class="mk-pagination__page mk-pagination__page--prev" href="{{ paginator.previous_page_path | relative_url }}" aria-label="previous page">
+                  <?xml version="1.0" encoding="UTF-8"?>
+                  <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                  <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
+                  </svg>
+                  
+              </a>
+            {% endif %}
+          
+            {% for page in (1..paginator.total_pages) %}
+              {% if page == paginator.page %}
+                <em class="mk-pagination__num mk-pagination__num--current" aria-label="current page">{{ page }}</em>
+              {% elsif page == 1 %}
+                <a class="mk-pagination__num" href="{{ paginator.previous_page_path | relative_url }}">{{ page }}</a>
+              {% else %}
+                <a class="mk-pagination__num" href="{{ site.paginate_path | relative_url | replace: ':num', page }}" aria-label="page {{ page }}">{{ page }}</a>
+              {% endif %}
+            {% endfor %}
+          
+            {% if paginator.next_page %}
+              <a class="mk-pagination__page mk-pagination__page--next" href="{{ paginator.next_page_path | relative_url }}" aria-label="next page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.6 320.1" version="1.1" viewBox="0 0 398.6 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199.6 177.1l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.7c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.5-96.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.8c9.4-9.4 24.6-9.4 33.9 0l136 136c9.4 9.3 9.4 24.6 0.1 34zm191.9-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.5c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.7z"/>
+                </svg>
+                </a>
+            {% endif %}
+          {% endif %}
+        </nav>
+    </section>
+    {% include blog-aside.html %}
+</main>
