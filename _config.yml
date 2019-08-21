@@ -26,9 +26,13 @@ github_username:  metal3-io
 # Build settings
 markdown: kramdown
 theme: minima
-plugins: [jekyll-paginate, jekyll-asciidoc, jekyll-redirect-from, jekyll-feed, jekyll-sitemap]
-paginate: 1
-paginate_path: "/blogs/page:num"
+plugins: 
+  - jekyll-feed
+  - jekyll-paginate
+
+paginate: 5
+paginate_path: "/blog/page:num"
+
 sass: 
   sass_dir: _sass
   style: compressed
@@ -49,15 +53,3 @@ sass:
 exclude:
   - GUIDELINES.md
   - README.md
-
-
-permalink: /:year/:title:output_ext
-
-
-feed:
-  categories:
-    - news
-    - updates
-    - community
-    - releases
-    - uncategorized

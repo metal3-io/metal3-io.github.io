@@ -57,6 +57,7 @@
     &__item {
         display: flex;
         flex-wrap: wrap;
+        background: none;
         border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);
         padding: var(--mk--spacer--md);
         text-align:left;
@@ -83,9 +84,10 @@
             background: var(--mk--BackgroundColor--200);
             z-index: 2;
         }
+    
         &:after {
             content:"";
-            clip-path: polygon(0% 87%, 50% 0%, 50% 0%, 100% 87%);
+            -webkit-clip-path: polygon(0% 87%, 50% 0%, 50% 0%, 100% 87%);
             position: absolute;
             bottom:-39px;
             width:45px;
