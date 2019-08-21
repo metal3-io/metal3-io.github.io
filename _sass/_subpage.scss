@@ -124,6 +124,7 @@
     }
     &__server {
         align-self: end;
+        justify-self: center;
     }
     &__description {
         border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);
