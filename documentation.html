@@ -55,13 +55,23 @@ document.addEventListener("DOMContentLoaded", function() {
                     <p>With CRDs representing bare metal inventory with configuration needed by its bare metal management workers.</p>
                 </button>
                 <div id="step2" class="mk-infograph__description">
-                    <p>The second component is the Bare Metal Actuator, which is an implementation of the Machine Actuator interface defined by the cluster-api project. This actuator reacts to changes to Machine objects and acts as a client of the BareMetalHost custom resources managed by the Bare Metal </p>
+                        <p>The architecture also includes a new <a href="https://github.com/metal3-io/baremetal-operator">Bare Metal Operator</a>, which includes the following:</p>
+                        <p>A Controller for a new Custom Resource, BareMetalHost. This custom resource represents an inventory of known (configured or automatically discovered) bare metal hosts. When a Machine is created the Bare Metal Actuator will claim one of these hosts to be provisioned as a new Kubernetes node.
+                        In response to BareMetalHost updates, will perform bare metal host provisioning actions as necessary to reach the desired state. It will do so by managing and driving a set of underlying bare metal provisioning components.
+                        The creation of the BareMetalHost inventory can be done in two ways:</p>
+                        <ul>
+                            <li>Manually via creating BareMetalHost objects.</li>
+                            <li>Optionally, automatically created via a bare metal host discovery process. Ironic is capable of doing this, which will also be integrated into Metal³ as an option.
+                                For more information about Operators, see the <a href="https://github.com/operator-framework/operator-sdk">operator-sdk</a>.</li>
+                        </ul>
+                        
                 </div>
                 <button type="button" class="mk-infograph__item">
                     <h4 class="mk-heading mk-heading--md">Bare metal management pods</h4>
                 </button>
                 <div id="step3" class="mk-infograph__description">
-                    <p>The third component is the Bare Metal Actuator, which is an implementation of the Machine Actuator interface defined by the cluster-api project. This actuator reacts to changes to Machine objects and acts as a client of the BareMetalHost custom resources managed by the Bare Metal </p>
+                    <p>The implementation will focus on using Ironic as its first implementation of the Bare Metal Management Pods, but aims to keep this as an implementation detail under the hood such that alternatives could be added in the future if the need arises.</p>
+                     <p>For more information about the choice to use Ironic, see the <a href="https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md">use-ironic design document</a>. </p>
                 </div>
                 <img class="mk-infograph__server" src="assets/images/infograph-stack.svg" alt="" />
             </div>
