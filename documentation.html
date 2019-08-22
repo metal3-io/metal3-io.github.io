@@ -59,11 +59,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         <p>A Controller for a new Custom Resource, BareMetalHost. This custom resource represents an inventory of known (configured or automatically discovered) bare metal hosts. When a Machine is created the Bare Metal Actuator will claim one of these hosts to be provisioned as a new Kubernetes node.
                         In response to BareMetalHost updates, will perform bare metal host provisioning actions as necessary to reach the desired state. It will do so by managing and driving a set of underlying bare metal provisioning components.
                         The creation of the BareMetalHost inventory can be done in two ways:</p>
-                        <ul>
+                        <ol>
                             <li>Manually via creating BareMetalHost objects.</li>
                             <li>Optionally, automatically created via a bare metal host discovery process. Ironic is capable of doing this, which will also be integrated into Metal³ as an option.
                                 For more information about Operators, see the <a href="https://github.com/operator-framework/operator-sdk">operator-sdk</a>.</li>
-                        </ul>
+                            </ol>
                         
                 </div>
                 <button type="button" class="mk-infograph__item">

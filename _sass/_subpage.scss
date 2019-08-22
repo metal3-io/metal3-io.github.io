@@ -132,6 +132,9 @@
         background: var(--mk--BackgroundColor--300);
         position: relative;
         display: none;
+        p,ul {
+            margin-bottom: var(--mk--spacer--xs);
+        }
         
         @media (min-width: $mk--breakpoint--xl){
             &:nth-of-type(1) {
