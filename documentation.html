@@ -76,71 +76,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 <img class="mk-infograph__server" src="assets/images/infograph-stack.svg" alt="" />
             </div>
     </section>
-    <section class="mk-main__section">
-        <header class="mk-main__header">
-            <h2 class="mk-heading mk-heading--xl mk-m-border">APIs</h2>
-        </header>   
-        <div class="mk-main__section__content">
-            <ol>
-                <li>Enroll nodes by creating BareMetalHost resources. This could either be manually or done by a component doing node discovery and introspection. 
-                    <br/>
-                    See the documentation in the baremetal-operator repository for details.
-                </li>
-                <li>Use the machine API to allocate a machine
-                    <br/>
-                    See the documentation in the cluster-api-provider-baremetal repository for details.
-                </li>
-                <li>
-                    Machine is associated with an available <code>BareMetalHost</code>, which triggers provisioning of that host to join the cluster. This association is done by the Actuator when it sets the <code>MachineRef</code> field on the <code>MachineRef</code>.
-                </li>
-            </ol> 
-        </div> 
-    </section>
-    <section class="mk-main__section">
-        <header class="mk-main__header">
-            <h2 class="mk-heading mk-heading--xl mk-m-border">Design Documents</h2>
-        </header>   
-        <div class="mk-main__section__content">
-            <h3 class="mk-heading mk-heading--lg">Overall Architecture</h3>
-            <ul>
-                <li><a target="_blank" href="https://github.com/metal3-io/metal3-docs/blob/master/design/nodes-machines-and-hosts.md">nodes-machines-and-hosts</a></li>
-                <li><a target="_blank" href="https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md">use-ironic</a></li>
-            </ul>
-            <h3 class="mk-heading mk-heading--lg">Implementation Details</h3>
-            <ul>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/bmc-address.md">bmc-address</a></li>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/hardware-status.md">hardware-status</a></li>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/how-ironic-works.md">how-ironic-works</a></li>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/image-ownership.md">image-ownership</a></li>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/managing-provisioning-dependencies.md">managing-provisioning-dependencies</a></li>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/worker-config-drive.md">worker-config-drive</a></li>
-            </ul>
-            <h3 class="mk-heading mk-heading--lg">Investigation</h3>
-            <ul>
-                <li><a href="https://github.com/metal3-io/metal3-docs/blob/master/design/physical-network-api-prototype.md">physical-network-api-prototype</a></li>
-            </ul>  
-        </div>
-    </section>
-    <section class="mk-main__section">
-        <header class="mk-main__header">
-        <h2 class="mk-heading mk-heading--xl mk-m-border">Around the web</h2>
-        </header>   
-        <div class="mk-main__section__content">
-                <h3 class="mk-heading mk-heading--lg">Conference Talks</h3>
-                <ul>
-                    <li><a href="https://www.pscp.tv/RedHatOfficial/1vAGRWYPjngJl?t=1h27m51s">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019</a></li>
-                    <li><a href="https://www.openstack.org/summit/denver-2019/summit-schedule/events/23779/openstack-ironic-and-bare-metal-infrastructure-all-abstractions-start-somewhere">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat</a></li>
-                    <li><a href="https://sched.co/KMyE">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat</a></li>
-                </ul>
-                <h3 class="mk-heading mk-heading--lg">In The News</h3>
-                <ul>
-                    <li><a href="https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/">The New Stack: Metal3 Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes</a></li>
-                    <li><a href="https://www.theregister.co.uk/2019/04/05/red_hat_metalkubel/">The Register: Raise some horns: Red Hat's MetalKube aims to make Kubernetes on bare machines simple</a></li>
-                </ul>
-                <h3 class="mk-heading mk-heading--lg">Blog Posts</h3>
-                <ul>
-                    <li><a href="https://blog.russellbryant.net/2019/04/30/metal%C2%B3-metal-kubed-bare-metal-provisioning-for-kubernetes/">Metal³ – Metal Kubed, Bare Metal Provisioning for Kubernetes</a></li>
-                </ul>
-        </div>     
+    <section class="mk-main__section mk-main__section__content">
+            {% capture docs %}{% include docs.md %}{% endcapture %}
+            {{ docs | markdownify }}
+          
     </section>    
 </main>

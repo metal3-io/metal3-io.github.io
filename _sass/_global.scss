@@ -115,6 +115,22 @@
                 margin-bottom: var(--mk--spacer--sm);
             }
         }
+        h1,h2,h3,h4,h5,h6 {
+            color: var(--mk--Color--400);
+            font-weight: var(--mk--FontWeight--200);
+            margin-bottom: var(--mk--spacer--md);
+        }
+
+        h2 {
+            border-left: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
+            padding-left: var(--mk--spacer--sm);
+            font-size: var(--mk--FontSize--xl);
+        }
+
+        h3 {
+            font-size: var(--mk--FontSize--lg);
+        }
+
     }
 }
 
