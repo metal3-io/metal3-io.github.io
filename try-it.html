@@ -11,9 +11,14 @@ permalink: /try-it.html
 <main>
 
 <div class="mk-main__content">
-<section class="mk-main__section">
+    <section class="mk-main__section mk-main__section__content">
+        {% capture try-it %}{% include try-it.md %}{% endcapture %}
+        {{ try-it | markdownify }}
+      
+</section> 
+<!-- <section class="mk-main__section">
     <p>Check out <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/README.md">metal3-dev-env</a> for the best way to get started!</p>
 </div>
-</section>
+</section> -->
 </div>    
 </main>
