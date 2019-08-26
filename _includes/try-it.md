@@ -18,7 +18,7 @@
 
 ### Setup
 
-tl;dr - Run `make`.
+tl;dr - Clone [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) and run `make`.
 
 The `Makefile` runs a series of scripts, described here:
 
