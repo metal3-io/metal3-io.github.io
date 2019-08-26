@@ -110,6 +110,10 @@
             margin-bottom: var(--mk--spacer--sm);
         }
 
+        p{
+            margin: var(--mk--spacer--xs) 0;
+        }
+
         ul, ol {
             margin-left: var(--mk--spacer--sm);
             &:not(:only-child){
