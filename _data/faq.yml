@@ -1,4 +1,0 @@
-- question: "What is an operator?"
-  answer: "An Operator is a method of packaging, deploying and managing a Kubernetes application. A Kubernetes application is an application that is both deployed on Kubernetes and managed using the Kubernetes APIs and kubectl tooling. You can think of Operators as the runtime that manages this type of application on Kubernetes. If you want to learn more about Operators you can check the CoreOS Operators website: https://coreos.com/operators/"
-- question: "What is Ironic?"
-  answer: "Ironic is an OpenStack component that allows to provision and manage bare metal systems. Check https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md for more details about Ironic usage in Metal³"

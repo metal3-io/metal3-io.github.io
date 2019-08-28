@@ -95,7 +95,7 @@
             opacity: 1;
         }
     }
-    &__question, &__answer {
+    &__question, &__answer[aria-hidden="false"] {
         padding: var(--mk--spacer--sm);
         border-left: var(--mk--BorderWidth--lg) solid transparent;
         @media ($mk--breakpoint--md) {

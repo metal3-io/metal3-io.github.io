@@ -19,7 +19,7 @@ layout: default
         <a href="{{ site.baseurl }}/community-resources.html" class="mk-button mk-button--secondary">Join the Conversation</a>
 </section>
 <!-- <main class="mk-main mk-main__homepage"> -->
-  <main>
+    <main>
     <div class="mk-main__content">
 <section class="mk-why-metalkubed mk-main__section">
    <header class="mk-main__header">
@@ -40,12 +40,12 @@ layout: default
 </header>
 
 <div data-aria-faq data-multi data-transition data-default="none" id="accGen">
-	{% for faq in site.data.faq %}
+	{% for faq in site.faqs %}
 	<h3 data-aria-faq-heading>
 		{{faq.question}}
 	</h3>
 	<div data-aria-faq-panel>
-      {{faq.answer}}
+      {{faq.content}}
   </div>
 	{% endfor %}
 </div>

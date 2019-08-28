@@ -16,13 +16,13 @@
   {% feed_meta %}
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146522880-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_UA }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-146522880-1');
+    gtag('config', '{{ site.google_UA }}');
   </script>
 </head>
 <body>
