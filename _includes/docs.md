@@ -20,21 +20,21 @@
 
 ### Overall Architecture
 
-- [nodes-machines-and-hosts](design/nodes-machines-and-hosts.md)
-- [use-ironic](design/use-ironic.md)
+- [nodes-machines-and-hosts](https://github.com/metal3-io/metal3-docs/design/nodes-machines-and-hosts.md)
+- [use-ironic](https://github.com/metal3-io/metal3-docs/design/use-ironic.md)
 
 ### Implementation Details
 
-- [bmc-address](design/bmc-address.md)
-- [hardware-status](design/hardware-status.md)
-- [how-ironic-works](design/how-ironic-works.md)
-- [image-ownership](design/image-ownership.md)
-- [managing-provisioning-dependencies](design/managing-provisioning-dependencies.md)
-- [worker-config-drive](design/worker-config-drive.md)
+- [bmc-address](https://github.com/metal3-io/metal3-docs/design/bmc-address.md)
+- [hardware-status](https://github.com/metal3-io/metal3-docs/design/hardware-status.md)
+- [how-ironic-works](https://github.com/metal3-io/metal3-docs/design/how-ironic-works.md)
+- [image-ownership](https://github.com/metal3-io/metal3-docs/design/image-ownership.md)
+- [managing-provisioning-dependencies](https://github.com/metal3-io/metal3-docs/design/managing-provisioning-dependencies.md)
+- [worker-config-drive](https://github.com/metal3-io/metal3-docs/design/worker-config-drive.md)
 
 ### Investigation
 
-- [physical-network-api-prototype](design/physical-network-api-prototype.md)
+- [physical-network-api-prototype](https://github.com/metal3-io/metal3-docs/design/physical-network-api-prototype.md)
 
 ## Around the Web
 
