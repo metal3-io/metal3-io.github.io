@@ -29,3 +29,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 gem 'jekyll-browsersync', group: [:jekyll_plugins]
+
+# HTML link checker
+gem "html-proofer"
