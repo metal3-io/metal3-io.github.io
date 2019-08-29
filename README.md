@@ -29,7 +29,7 @@ We more than welcome contributions in the form of blog posts, pages and/or labs,
 ### View the site
 
 Visit `http://0.0.0.0:4000` in your local browser.
-The KubeVirt.io website is a Jekyll site, hosted with GitHub Pages.
+The Metal3.io website is a Jekyll site, hosted with GitHub Pages.
 
 All pages are located under `/pages`. Each section of the site is broken out into their respective folders - `/blogs` for the various Blog pages, `/docs` for the Documentation and `/videos` for the videos that are shared.
 
