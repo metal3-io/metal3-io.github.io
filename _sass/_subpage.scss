@@ -146,6 +146,10 @@
         &:last-of-type {
             border-radius: 0 var(--mk--BorderRadius--lg)  var(--mk--BorderRadius--lg) 0;
         }
+        &:only-of-type {
+            border-radius: var(--mk--BorderRadius--lg);
+            border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--200);
+        }
         svg {
             width:20px;
             margin-right: var(--mk--spacer--xs);
