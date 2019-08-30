@@ -3,7 +3,7 @@ layout: post
 title:  "Metal³: Baremetal Provisioning for Kubernetes"
 date:   2019-04-30 20:01:58 +0000
 author: Russell Bryant
-categories: [metal3, Kubernetes]
+categories: ["metal3", "Kubernetes"]
 ---
 Originally posted at <https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/>
 
