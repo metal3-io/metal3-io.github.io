@@ -65,6 +65,7 @@
     }
     &__content {
         grid-area: content;
+        overflow: scroll;
     }
     &__aside {
         grid-area: aside;
@@ -178,6 +179,13 @@ code {
     background: var(--mk--BackgroundColor--350);
     padding:1px var(--mk--spacer--xs);
 }
+
+pre{
+    background: var(--mk--BackgroundColor--350);
+    padding: var(--mk--spacer--xs);
+    margin: var(--mk--spacer--sm) 0;
+}
+
 
 .mk-pagination {
     display: flex;

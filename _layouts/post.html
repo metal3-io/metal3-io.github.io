@@ -7,9 +7,7 @@ layout: default
 </div>
 </section>
 <main class="mk-main mk-blog">
-
-        <section class="mk-blog__post mk-main__content">
-            <article class="mk-blog-meta mk-main__section">
+            <article class="mk-blog__post mk-blog-meta mk-main__section mk-main__section mk-main__content">
                     <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">{{ page.title }}</h1>
                     <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">{{ page.date | date: "%A, %-d/%m/%Y" }}</time>
                     <div class="mk-blog-meta__item mk-blog-meta__author">By {{ page.author }}</div>
@@ -42,11 +40,7 @@ layout: default
 </svg> Share on Twitter
     </a>      
 </div>
-<section class="mk-main__section__content">
         {{ content }}
-</section>
-                    
-            </article>         
-        </section>
+</article>         
         {% include blog-aside.html %}
     </main>
