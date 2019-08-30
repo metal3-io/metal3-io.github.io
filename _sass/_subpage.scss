@@ -10,23 +10,17 @@
 }
 
 .mk-blog {
-    @media (min-width: $mk--breakpoint--md) {
-        grid-template-columns: 3fr 1fr;
-        display: grid;
-        grid-template-areas: "posts categories"
-
-    }
-    &__posts {
-        grid-area: posts;
-    }
-    &__categories {
-        grid-area: categories;
-        background: var(--mk--BackgroundColor--250);
-        padding:var(--mk--spacer--md) var(--mk--spacer--sm);
-        @media (min-width: $mk--breakpoint--md){
-            padding:var(--mk--spacer--lg) var(--mk--spacer--lg);
+    &__post {
+        &__title {
+            margin-bottom :var(--mk--spacer--md);
         }
     }
+    &__posts {
+        &__title {
+            color: var(--mk--Color--500);
+        }
+    }
+
 }
 
 .mk-main__section.mk-component-overview {
