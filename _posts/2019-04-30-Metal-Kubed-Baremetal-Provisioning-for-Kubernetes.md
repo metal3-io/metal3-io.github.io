@@ -145,7 +145,7 @@ worker-0   Ready    worker   68s   v1.13.4+d4ce02c1d
 
 The following screen cast demonstrates this process, as well:
 
-[![](https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ.svg)](https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ)
+[![Machine API driven bare metal worker deployment (OpenShift)](https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ.svg)](https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ)
 
 Removing a bare metal host from the cluster is very similar. We just have to scale this MachineSet back down to 0.
 
