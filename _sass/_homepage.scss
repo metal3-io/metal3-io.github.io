@@ -188,6 +188,9 @@
             background-position: -60px 0;
         }
     }
+    &__categories {
+        display:flex;
+    }
     &__category {
         background: var(--mk--BackgroundColor--200);
         box-shadow: var(--mk--BoxShadow--sm);
@@ -196,6 +199,9 @@
         max-width: max-content;
         border-radius: var(--mk-borderRadius--dm);
         margin-bottom: var(--mk--spacer--sm);
+        &:not(:first-of-type) {
+            margin-left:var(--mk--spacer--xs);
+        }
         &:hover, &:active, &:focus {
             text-decoration: none;
             opacity:.75;

@@ -11,24 +11,24 @@ layout: default
                     <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">{{ page.title }}</h1>
                     <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">{{ page.date | date: "%A, %-d/%m/%Y" }}</time>
                     <div class="mk-blog-meta__item mk-blog-meta__author">By {{ page.author }}</div>
-                    {% for category in page.categories %}
-  <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#{{ category | slugize }}/">
-    {{ category | remove-first }}
-  </a>
-{% endfor %}
+                    <div class="mk-blog-meta__categories">
+                                {% for category in page.categories %}
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#{{ category | slugize }}/">
+                                  {{ category | remove-first }}
+                                </a>
+                              {% endfor %}
+                </div>
+                    
 <div class="mk-share-buttons">
         
-           <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}"
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}"
             onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
             title="Share on Facebook" >
             <?xml version="1.0" encoding="UTF-8"?>
 <svg enable-background="new 0 0 1024 1024" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-<style type="text/css">
-	
-</style>
 	<path d="M1024,512C1024,229.2,794.8,0,512,0S0,229.2,0,512c0,255.6,187.2,467.4,432,505.8V660H302V512h130V399.2   C432,270.9,508.4,200,625.4,200c56,0,114.6,10,114.6,10v126h-64.6c-63.6,0-83.4,39.5-83.4,80v96h142l-22.7,148H592v357.8   C836.8,979.4,1024,767.6,1024,512z"/>
 	<path class="st0" d="M711.3,660L734,512H592v-96c0-40.5,19.8-80,83.4-80H740V210c0,0-58.6-10-114.6-10   c-117,0-193.4,70.9-193.4,199.2V512H302v148h130v357.8c26.1,4.1,52.8,6.2,80,6.2s53.9-2.1,80-6.2V660H711.3z"/>
-</svg>Share on Facebook</a>
+</svg>Share on Facebook</a> -->
 
 
         <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text={{ page.title }}&url={{ site.url }}{{ page.url }}"
