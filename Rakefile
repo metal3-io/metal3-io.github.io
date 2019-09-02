@@ -16,6 +16,7 @@ namespace :links do
             :log_level          => :info,
             :internal_domains   => ["https://instructor.labs.sysdeseng.com"],
             :external_only      => true,
+            :empty_alt_ignore   => true,
             :url_swap           => {
                                     'https://metal3.io/' => '',
                                     }
@@ -31,7 +32,8 @@ namespace :links do
             :only_4xx           => true,
             :allow_hash_href    => true,
             :log_level          => :info,
-            :disable_external   => true
+            :disable_external   => true,
+            :empty_alt_ignore   => true
         }
         puts "Checking Internal links..."
         HTMLProofer.check_directory("./_site", options).run
