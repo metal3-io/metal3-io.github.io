@@ -3,7 +3,7 @@ layout: post
 title:  "Metal³: Baremetal Provisioning for Kubernetes"
 date:   2019-04-30 20:01:58 +0000
 author: Russell Bryant
-catgories: ["openshift", "kubernetes", "metal3"]
+categories: ["openshift", "kubernetes", "metal3"]
 ---
 Originally posted at <https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/>
 
@@ -52,8 +52,8 @@ Since these hosts were provisioned earlier, they are in a special `externally pr
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true     
+openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true
 openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true
 ~~~
 
@@ -86,7 +86,7 @@ spec:
 Now to add the BareMetalHost and its IPMI credentials Secret to the cluster:
 
 ~~~sh
-$ kubectl create -f worker_crs.yaml 
+$ kubectl create -f worker_crs.yaml
 secret/openshift-worker-0-bmc-secret created
 baremetalhost.metalkube.org/openshift-worker-0 created
 ~~~
@@ -96,9 +96,9 @@ The list of BareMetalHosts now reflects a new host in the inventory that is read
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true     
-openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true     
+openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true
+openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true
 openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            true
 ~~~
 
@@ -119,9 +119,9 @@ After the new Machine was created, our cluster-api provider claimed the availabl
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      true     
-openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      true     
+openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      true
+openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      true
 openshift-worker-0   OK       provisioning             ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            true
 ~~~
 
@@ -130,10 +130,10 @@ This process takes some time. Under the hood, the baremetal-operator is driving 
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      true     
-openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      true     
-openshift-worker-0   OK       provisioned              ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            true     
+openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      true
+openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      true
+openshift-worker-0   OK       provisioned              ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            true
 
 $ kubectl get nodes
 NAME       STATUS   ROLES    AGE   VERSION
@@ -156,9 +156,9 @@ Once the Machine has been deleted, the baremetal-operator will deprovision the b
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true     
-openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true     
+openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true
+openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true
 openshift-worker-0   OK       deprovisioning                             ipmi://192.168.111.1:6233   unknown            false
 ~~~
 
@@ -167,9 +167,9 @@ Once the deprovisioning process is complete, the bare metal host will be back to
 ~~~sh
 $ kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true     
-openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true     
-openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true     
+openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      true
+openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      true
+openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true
 openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            false
 ~~~
 
