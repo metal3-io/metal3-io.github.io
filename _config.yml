@@ -26,7 +26,7 @@ google_UA: UA-146522880-1
 # Build settings
 markdown: kramdown
 theme: minima
-plugins: 
+plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-redirect-from
@@ -38,7 +38,7 @@ paginate_path: "/blog/page:num"
 collections:
   - faqs
 
-sass: 
+sass:
   sass_dir: _sass
   style: compressed
 
@@ -58,3 +58,5 @@ sass:
 exclude:
   - GUIDELINES.md
   - README.md
+
+permalink: /blog/:year/:month/:day/:title:output_ext
