@@ -65,7 +65,7 @@
     }
     &__content {
         grid-area: content;
-        overflow: scroll;
+        overflow-x: scroll;
     }
     &__aside {
         grid-area: aside;
@@ -135,7 +135,7 @@
         h2 {
             border-left: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
             padding-left: var(--mk--spacer--sm);
-            font-size: var(--mk--FontSize--xl);
+            font-size: var(--mk--FontSize--md);
             &:not(:first-child) {
                 margin-top: var(--mk--spacer--md);
             }
