@@ -8,14 +8,14 @@ permalink: blog/categories.html
     <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
 </div>
 </section>
-<main class=""> 
-    <section class="mk-blog__posts mk-main__section mk-main__content">
+<main class="mk-main"> 
+    <section class="mk-blog__posts mk-main__section mk-main__section__content mk-main__content">
         <header class="mk-main__header">
             <h2 class="mk-heading mk-heading--xl mk-m-border">Categories</h2>
         </header>
       {% for category in site.categories %}  
 <h3 class="mk-heading mk-heading--lg" id="{{ category[0] | downcase | url_escape | strip | replace: ' ', '-' }}">{{ category[0] | camelcase}}</h3>
-  <ul>
+  <ol>
     {% assign pages_list = category[1] %}
     {% for post in pages_list %}
       {% if post.title != null %}
@@ -26,7 +26,8 @@ permalink: blog/categories.html
     {% endfor %}
     {% assign pages_list = nil %}
     {% assign group = nil %}
-  </ul>
+  </ol>
 {% endfor %}
 </section>
+{% include blog-aside.html %} 
 </main>

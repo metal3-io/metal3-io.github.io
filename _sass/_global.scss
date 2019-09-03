@@ -106,7 +106,7 @@
             }
     }
     &__section__content {
-        overflow: scroll;
+        overflow-x: scroll;
         .mk-heading {
             margin-bottom: var(--mk--spacer--sm);
         }
