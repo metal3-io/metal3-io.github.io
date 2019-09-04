@@ -18,12 +18,12 @@
   --mk--spacer--2xl: 7rem; //112 blue
 
   //color
-  --mk--color-brand--100: #01EEC4;
-  --mk--color-brand--200: #00D6B0;
+  --mk--color-brand--100: #F10E04;
+  --mk--color-brand--200: #A006B0;
   --mk--color-brand--300: #00A9A9;
-  --mk--color-brand--400: #008585;
-  --mk--color-white--100: #FFF;
-  --mk--color-white--150: #FAFAFA;
+  --mk--color-brand--400: #0A8505;
+  --mk--color-white--100: #FAF;
+  --mk--color-white--150: #ABABFA;
   --mk--color-white--200: #F6F6F6;
   --mk--color-white--250: #EDEDED;
   --mk--color-black--100: #454545;
@@ -84,4 +84,4 @@
     $mk--breakpoint--md: 768px;
     $mk--breakpoint--lg: 992px;
     $mk--breakpoint--xl: 1200px;
-    $mk--breakpoint--2xl: 1450px; 
+    $mk--breakpoint--2xl: 1450px;
