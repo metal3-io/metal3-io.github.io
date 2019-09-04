@@ -2,7 +2,7 @@
 
 As Metal3.io and most of the infrastructure of the Metal³ Project are currently hosted by Red Hat Inc., this site falls under the [Red Hat Privacy Policy](https://www.redhat.com/en/about/privacy-policy){:target="_blank"}.  All terms of that privacy policy apply to this site.  Should we change our hosting in the future, this Privacy Policy will be updated.
 
-Metal3.io uses [Netlify](https://Netlify.com) [Open Source Plan](https://www.netlify.com/legal/open-source-policy/) to render the Pull Requets made against the source repo for the website.
+Metal3.io uses [Netlify](https://Netlify.com) [Open Source Plan](https://www.netlify.com/legal/open-source-policy/) to render the Pull Requests made against the source repo for the website.
 
 ## How to Contact Us
 
