@@ -144,6 +144,16 @@
         h3 {
             font-size: var(--mk--FontSize--lg);
         }
+        .footnotes {
+            margin-top: var(--mk--spacer--md);
+        }
+        .highlight span {
+            color: var(--mk--color-brand--400);
+        }
+        blockquote {
+            margin-left: var(--mk--spacer--md);
+            font-weight: bold;
+        }
 
     }
 }
