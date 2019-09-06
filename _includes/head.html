@@ -2,36 +2,22 @@
 <html class="no-js" lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <!-- # Opengraph protocol properties: https://ogp.me/ -->
-  <meta name="author" content="{% if page.author %}{{ page.author | join: ', ' }}{% else %}The {{site.title}} website team, {% for post in site.posts %}{{ post.author}}, {% endfor %}{% endif %}" />
-  <meta property="og:type" content="article" />
-  <meta name="twitter:card" content="summary">
-  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="keywords" content="{% if page.categories %}{{ page.categories | join: ', ' }}{% else %}{% for category in site.categories %}{{ category | first | slugify }}, {% endfor %}{% endif %}" />
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}"/>
-  <meta property="og:url" content="{{site.url}}{{ page.url }}" />
-  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}" />
-  <meta property="og:site_name" content="{{ site.title }}" />
-  <meta property="og:article:author" content="{% if page.author %}{{ page.author | join: ', ' }}{% else %}The {{site.title}} website team, {% for post in site.posts %}{{ post.author}}, {% endfor %}{% endif %}" />
-  <meta property="og:article:published_time" content="{% if page.date %}{{ page.date }}{% else %}{{ site.time }}{% endif %}" />
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/assets/css/styles.css">
-  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
-  <meta name="theme-color" content="#008585">
-  {% feed_meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+    <meta name="theme-color" content="#008585">
+    {% include metas-ogp.html %}
+    {% feed_meta %}
 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_UA }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_UA }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-    gtag('config', '{{ site.google_UA }}');
+      gtag('config', '{{ site.google_UA }}');
   </script>
 </head>
 <body>
