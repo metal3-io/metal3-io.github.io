@@ -65,7 +65,7 @@
     }
     &__content {
         grid-area: content;
-        overflow-x: scroll;
+        // overflow-x: scroll;
     }
     &__aside {
         grid-area: aside;
@@ -106,7 +106,7 @@
             }
     }
     &__section__content {
-        overflow-x: scroll;
+        overflow-x: auto;
         .mk-heading {
             margin-bottom: var(--mk--spacer--sm);
         }
@@ -143,6 +143,19 @@
 
         h3 {
             font-size: var(--mk--FontSize--lg);
+        }
+        .footnotes {
+            margin-top: var(--mk--spacer--md);
+        }
+        .highlight span {
+            color: var(--mk--color-brand--400);
+        }
+        blockquote {
+            margin-left: var(--mk--spacer--md);
+            font-weight: bold;
+        }
+        .highlighter-rouge {
+            overflow-x: auto;
         }
 
     }
