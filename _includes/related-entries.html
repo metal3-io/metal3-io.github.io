@@ -1,0 +1,30 @@
+<aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
+    </header> 
+    <ul>  
+        
+        {% assign maxRelated = 4 %}
+        {% assign minCommonTags =  2 %}
+        {% assign maxRelatedCounter = 0 %}    
+        {% for post in site.posts %}    
+            {% assign sameTagCount = 0 %}
+            {% assign commonTags = '' %}   
+            {% for category in post.categories %}
+              {% if post.url != page.url %}
+                {% if page.categories contains category %}
+                  {% assign sameTagCount = sameTagCount | plus: 1 %}
+                {% endif %}
+              {% endif %}
+            {% endfor %}        
+            {% if sameTagCount >= minCommonTags %}
+              <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+              {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+              {% if maxRelatedCounter >= maxRelated %}
+                {% break %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+            </ul>
+    
+</aside>
