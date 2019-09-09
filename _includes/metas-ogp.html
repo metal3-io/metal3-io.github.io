@@ -1,6 +1,4 @@
 
-    <!-- Precrete array of authors for all posts -->
-    {% assign autharray = "" | split: ',' %}
     <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
     <!-- # Opengraph protocol properties: https://ogp.me/ -->
     <meta name="author" content="{% if page.author %}{{ page.author | join: ', ' }}{% else %}The {{site.title}} website team, {{ autharray |uniq | join: ", " }}{% endif %}" />
