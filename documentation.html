@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div id="step2" class="mk-infograph__description">
                         <p>The architecture also includes a new <a href="https://github.com/metal3-io/baremetal-operator">Bare Metal Operator</a>, which includes the following:</p>
                         <p>A Controller for a new Custom Resource, BareMetalHost. This custom resource represents an inventory of known (configured or automatically discovered) bare metal hosts. When a Machine is created the Bare Metal Actuator will claim one of these hosts to be provisioned as a new Kubernetes node.
-                        In response to BareMetalHost updates, will perform bare metal host provisioning actions as necessary to reach the desired state. It will do so by managing and driving a set of underlying bare metal provisioning components.
+                        In response to BareMetalHost updates, the controller will perform bare metal host provisioning actions as necessary to reach the desired state.
                         The creation of the BareMetalHost inventory can be done in two ways:</p>
                         <ol>
                             <li>Manually via creating BareMetalHost objects.</li>
