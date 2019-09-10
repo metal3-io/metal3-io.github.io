@@ -12,7 +12,7 @@
    [cluster-api-provider-baremetal](https://github.com/metal3-io/cluster-api-provider-baremetal/blob/master/docs/api.md)
    repository for details.
 
-3. Machine is associated with an available `BareMetalHost`, which triggers
+3. The new Machine is associated with an available `BareMetalHost`, which triggers
    provisioning of that host to join the cluster.  This association is done by
    the Actuator when it sets the `MachineRef` field on the `BareMetalHost`.
 
