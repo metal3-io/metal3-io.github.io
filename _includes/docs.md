@@ -12,29 +12,13 @@
    [cluster-api-provider-baremetal](https://github.com/metal3-io/cluster-api-provider-baremetal/blob/master/docs/api.md)
    repository for details.
 
-3. Machine is associated with an available `BareMetalHost`, which triggers
+3. The new Machine is associated with an available `BareMetalHost`, which triggers
    provisioning of that host to join the cluster.  This association is done by
    the Actuator when it sets the `MachineRef` field on the `BareMetalHost`.
 
 ## Design Documents
 
-### Overall Architecture
-
-- [nodes-machines-and-hosts](https://github.com/metal3-io/metal3-docs/blob/master/design/nodes-machines-and-hosts.md)
-- [use-ironic](https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md)
-
-### Implementation Details
-
-- [bmc-address](https://github.com/metal3-io/metal3-docs/blob/master/design/bmc-address.md)
-- [hardware-status](https://github.com/metal3-io/metal3-docs/blob/master/design/hardware-status.md)
-- [how-ironic-works](https://github.com/metal3-io/metal3-docs/blob/master/design/how-ironic-works.md)
-- [image-ownership](https://github.com/metal3-io/metal3-docs/blob/master/design/image-ownership.md)
-- [managing-provisioning-dependencies](https://github.com/metal3-io/metal3-docs/blob/master/design/managing-provisioning-dependencies.md)
-- [worker-config-drive](https://github.com/metal3-io/metal3-docs/blob/master/design/worker-config-drive.md)
-
-### Investigation
-
-- [physical-network-api-prototype](https://github.com/metal3-io/metal3-docs/blob/master/design/physical-network-api-prototype.md)
+The design documents for Metal3 are all publicly available. Refer to the [metal3-io/metal3-docs github repository](https://github.com/metal3-io/metal3-docs) for details.
 
 ## Around the Web
 
