@@ -16,7 +16,7 @@ title: Blog
     <section class="mk-blog__posts mk-main__content">
         {% for post in paginator.posts %}
         <article class="mk-blog-meta mk-main__section">
-                <h3 class="mk-heading--lg mk-blog__posts__title">{{ post.title }}</h3>
+                <h3 class="mk-heading--lg mk-blog__posts__title"><a href="{{ post.url }}">{{ post.title }}</a></h3>
                 <time datetime="1999-12-23" class="mk-blog-meta__item mk-blog-meta__timestamp mk-blog-meta__timestamp--light">{{ post.date | date: "%A, %-d/%m/%Y" }}</time>
                 <div class="mk-blog-meta__author mk-blog-meta__item">By {{ post.author }}</div>
                 <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
