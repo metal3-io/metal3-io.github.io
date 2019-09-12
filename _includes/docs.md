@@ -35,5 +35,4 @@ The design documents for Metal3 are all publicly available. Refer to the [metal3
 
 ### Blog Posts
 
-- [Metal³ – Metal Kubed, Bare Metal Provisioning for Kubernetes](https://blog.russellbryant.net/2019/04/30/metal%C2%B3-metal-kubed-bare-metal-provisioning-for-kubernetes/)
-
+- [Metal³ Blog posts](/blog/)
