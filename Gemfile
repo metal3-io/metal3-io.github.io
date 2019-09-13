@@ -32,3 +32,6 @@ gem 'jekyll-browsersync', group: [:jekyll_plugins]
 
 # HTML link checker
 gem "html-proofer"
+
+# Rouge syntax hilighter
+gem "rouge"

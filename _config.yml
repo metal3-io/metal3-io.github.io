@@ -24,9 +24,21 @@ github_username:  metal3-io
 google_UA: UA-146522880-1
 type: website
 image: /assets/images/metal3logo.png
+highlighter: rouge
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: html
+    css_class: 'syntax'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
 theme: minima
 plugins:
   - jekyll-feed
