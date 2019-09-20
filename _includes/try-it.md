@@ -22,7 +22,7 @@ tl;dr - Clone [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) and 
 
 The `Makefile` runs a series of scripts, described here:
 
-* `01_install_requirements.sh` - Installs all needed packages.
+* `01_prepare_host.sh` - Installs all needed packages.
 
 * `02_configure_host.sh` - Create a set of VMs that will be managed as if they
   were bare metal hosts.
