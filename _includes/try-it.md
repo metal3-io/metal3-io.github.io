@@ -20,6 +20,8 @@
 
 tl;dr - Clone [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) and run `make`.
 
+> *PS:*  If `make` breaks, run `make clean` before running `make` again.
+
 The `Makefile` runs a series of scripts, described here:
 
 * `01_prepare_host.sh` - Installs all needed packages.
