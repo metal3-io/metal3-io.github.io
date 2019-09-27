@@ -12,10 +12,10 @@ The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), docu
 
 Quoting from the project:
 
-> The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
->    Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
->    Provision hosts with a desired image
->    Clean a host’s disk contents before or after provisioning.
+>> The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
+>>    Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
+>>    Provision hosts with a desired image
+>>    Clean a host’s disk contents before or after provisioning.
 
 ## A bit more in deep approach
 
@@ -150,8 +150,7 @@ status:
   lastUpdated: "2019-07-08T15:30:44Z"
 ```
 
-> info ""
-> In the output above, the host assigned was the one we've defined earlier as well as the other parameters like IP's, etc generated.
+As we can see, the host assigned was the one we've defined earlier as well as the other parameters like IP's, etc generated.
 
 Now, if we check baremetal hosts, we can see how it's getting provisioned:
 
