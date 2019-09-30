@@ -21,7 +21,6 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://metal3.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: metal3_io
 github_username:  metal3-io
-google_UA: UA-146522880-1
 type: website
 image: /assets/images/metal3logo.png
 highlighter: rouge
