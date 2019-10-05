@@ -14,7 +14,7 @@
 
  * System with CentOS 7 or Ubuntu 18.04
  * Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
- * run as a user with passwordless sudo access
+ * Run as a user with passwordless sudo access
 
 ### Setup
 
@@ -25,7 +25,7 @@ The `Makefile` runs a series of scripts, described here:
 * `01_prepare_host.sh` - Installs all needed packages.
 
 * `02_configure_host.sh` - Create a set of VMs that will be managed as if they
-  were bare metal hosts.
+  were bare metal hosts. It also downloads some images needed for Ironic.
 
 * `03_launch_mgmt_cluster.sh` - Launch a management cluster using `minikube` and
   run the `baremetal-operator` on that cluster.
@@ -70,8 +70,8 @@ used to create these host objects is in `bmhosts_crs.yaml`.
 ```sh
 $ kubectl get baremetalhosts -n metal3
 NAME       STATUS    PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE    ERROR
-master-0   OK        ready                           ipmi://192.168.111.1:6230   unknown            true      
-worker-0   OK        ready                           ipmi://192.168.111.1:6231   unknown            true      
+master-0   OK        ready                           ipmi://192.168.111.1:6230   unknown            true
+worker-0   OK        ready                           ipmi://192.168.111.1:6231   unknown            true
 ```
 
 You can also look at the details of a host, including the hardware information
@@ -211,8 +211,8 @@ provisioned and associated with a `Machine`.
 $ kubectl get baremetalhosts -n metal3
 
 NAME       STATUS    PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE    ERROR
-master-0   OK        ready                           ipmi://192.168.111.1:6230   unknown            true      
-worker-0   OK        provisioning          centos    ipmi://192.168.111.1:6231   unknown            true      
+master-0   OK        ready                           ipmi://192.168.111.1:6230   unknown            true
+worker-0   OK        provisioning          centos    ipmi://192.168.111.1:6231   unknown            true
 ```
 
 You should be able to ssh into your host once provisioning is complete.  See
@@ -249,8 +249,8 @@ deprovisioning process.
 $ kubectl get baremetalhosts -n metal3
 
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-master-0   OK       ready                           ipmi://192.168.111.1:6230   unknown            true     
-worker-0   OK       deprovisioning                  ipmi://192.168.111.1:6231   unknown            false    
+master-0   OK       ready                           ipmi://192.168.111.1:6230   unknown            true
+worker-0   OK       deprovisioning                  ipmi://192.168.111.1:6231   unknown            false
 ```
 
 ## Directly Provisioning Bare Metal Hosts
@@ -271,7 +271,7 @@ eventually reboot into the operating system we wrote to disk.
 ```sh
 $ kubectl get baremetalhost worker-0 -n metal3
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-worker-0   OK       provisioned                     ipmi://192.168.111.1:6231   unknown            true     
+worker-0   OK       provisioned                     ipmi://192.168.111.1:6231   unknown            true
 ```
 
 `provision_host.sh` will inject your SSH public key into the VM. To find the IP
@@ -348,20 +348,14 @@ make run
 
 ## Accessing the Ironic API
 
-Sometimes you may want to look directly at Ironic to debug something.  You can
-do this with the `openstack` command.
-
-First you must set these environment variables:
-
-```sh
-export OS_TOKEN=fake-token
-export OS_URL=http://localhost:6385/
-```
+Sometimes you may want to look directly at Ironic to debug something.
+By default, metal3-dev-env adds a "metal3" configuration to
+`$HOME/.config/openstack/clouds.yaml` for use with the `openstack` CLI:
 
 Example:
 
 ```sh
-$ openstack baremetal node list
+$ openstack --os-cloud metal3 baremetal node list
 +--------------------------------------+----------+---------------+-------------+--------------------+-------------+
 | UUID                                 | Name     | Instance UUID | Power State | Provisioning State | Maintenance |
 +--------------------------------------+----------+---------------+-------------+--------------------+-------------+
