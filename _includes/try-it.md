@@ -349,13 +349,21 @@ make run
 ## Accessing the Ironic API
 
 Sometimes you may want to look directly at Ironic to debug something.
-By default, metal3-dev-env adds a "metal3" configuration to
-`$HOME/.config/openstack/clouds.yaml` for use with the `openstack` CLI:
+The metal3-dev-env repository contains a clouds.yaml file with
+connection settings for Ironic.
+
+metal3-dev-env will install the openstack command line tool on the
+provisioning host as part of setting up the cluster. The openstack tool
+will look for clouds.yaml in the current directory or you can copy it to
+~/.config/openstack/clouds.yaml. Version 3.19.0 or higher is needed to
+interact with Ironic using clouds.yaml.
+
 
 Example:
 
 ```sh
-$ openstack --os-cloud metal3 baremetal node list
+[notstack@metal3 metal3-dev-env]$ export OS_CLOUD=metal3
+[notstack@metal3 metal3-dev-env]$ openstack baremetal node list
 +--------------------------------------+----------+---------------+-------------+--------------------+-------------+
 | UUID                                 | Name     | Instance UUID | Power State | Provisioning State | Maintenance |
 +--------------------------------------+----------+---------------+-------------+--------------------+-------------+
@@ -363,3 +371,69 @@ $ openstack --os-cloud metal3 baremetal node list
 | ac257479-d6c6-47c1-a649-64a88e6ff312 | worker-0 | None          | None        | enroll             | False       |
 +--------------------------------------+---------------+---------------+-------------+--------------------+-------------+
 ```
+
+To view a particular node's details, run the below command. The
+`last_error`, `maintenance_reason`, and `provisioning_state` fields are
+useful for troubleshooting to find out why a node did not deploy.
+
+```sh
+[notstack@metal3 metal3-dev-env]$ export OS_CLOUD=metal3
+[notstack@metal3 metal3-dev-env]$ openstack baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
++------------------------+------------------------------------------------------------+
+| Field                  | Value                                                      |
++------------------------+------------------------------------------------------------+
+| allocation_uuid        | None                                                       |
+| automated_clean        | None                                                       |
+| bios_interface         | no-bios                                                    |
+| boot_interface         | ipxe                                                       |
+| chassis_uuid           | None                                                       |
+| clean_step             | {}                                                         |
+| conductor              | localhost.localdomain                                      |
+| conductor_group        |                                                            |
+| console_enabled        | False                                                      |
+| console_interface      | no-console                                                 |
+| created_at             | 2019-10-07T19:37:36+00:00                                  |
+| deploy_interface       | direct                                                     |
+| deploy_step            | {}                                                         |
+| description            | None                                                       |
+| driver                 | ipmi                                                       |
+| driver_info            | {u'ipmi_port': u'6230', u'ipmi_username': u'admin', u'deploy_kernel': u'http://172.22.0.2/images/ironic-python-agent.kernel', u'ipmi_address': u'192.168.111.1', u'deploy_ramdisk': u'http://172.22.0.2/images/ironic-python-agent.initramfs', u'ipmi_password': u'******'} |
+| driver_internal_info   | {u'agent_enable_ata_secure_erase': True, u'agent_erase_devices_iterations': 1, u'agent_erase_devices_zeroize': True, u'disk_erasure_concurrency': 1, u'agent_continue_if_ata_erase_failed': False}                                                                          |
+| extra                  | {}                                                         |
+| fault                  | clean failure                                              |
+| inspect_interface      | inspector                                                  |
+| inspection_finished_at | None                                                       |
+| inspection_started_at  | None                                                       |
+| instance_info          | {}                                                         |
+| instance_uuid          | None                                                       |
+| last_error             | None                                                       |
+| maintenance            | True                                                       |
+| maintenance_reason     | Timeout reached while cleaning the node. Please check if the ramdisk responsible for the cleaning is running on the node. Failed on step {}.                                                                                                                                |
+| management_interface   | ipmitool                                                   |
+| name                   | master-0                                                   |
+| network_interface      | noop                                                       |
+| owner                  | None                                                       |
+| power_interface        | ipmitool                                                   |
+| power_state            | power on                                                   |
+| properties             | {u'cpu_arch': u'x86_64', u'root_device': {u'name': u'/dev/sda'}, u'local_gb': u'50'}                                                                                                                                                                                        |
+| protected              | False                                                      |
+| protected_reason       | None                                                       |
+| provision_state        | clean wait                                                 |
+| provision_updated_at   | 2019-10-07T20:09:13+00:00                                  |
+| raid_config            | {}                                                         |
+| raid_interface         | no-raid                                                    |
+| rescue_interface       | no-rescue                                                  |
+| reservation            | None                                                       |
+| resource_class         | baremetal                                                  |
+| storage_interface      | noop                                                       |
+| target_power_state     | None                                                       |
+| target_provision_state | available                                                  |
+| target_raid_config     | {}                                                         |
+| traits                 | []                                                         |
+| updated_at             | 2019-10-07T20:09:13+00:00                                  |
+| uuid                   | 882cf206-d688-43fa-bf4c-3282fcb00b12                       |
+| vendor_interface       | ipmitool                                                   |
++-------------------------------------------------------------------------------------+
+```
+
+
