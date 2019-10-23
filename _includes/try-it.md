@@ -162,7 +162,7 @@ First, run the `create_machine.sh` script to create a `Machine`.  The argument
 is a name, and does not have any special meaning.
 
 ```sh
-$ ./create_machine.sh centos
+$ ./scripts/v1alpha1/create_machine.sh centos
 
 secret/centos-user-data created
 machine.cluster.k8s.io/centos created
