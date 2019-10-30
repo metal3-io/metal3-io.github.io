@@ -12,7 +12,7 @@ The history of cloud computing has rapidly layered abstractions on abstractions 
 
 In this video, Chris and Julia show how OpenStack Ironic  is a solution to the problem of managing bare-metal infrastructure.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Nzq2S53nk9U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" style="height: 315px" src="https://www.youtube.com/embed/Nzq2S53nk9U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Speakers
 [Chris Hoge](https://twitter.com/hogepodge) is a Senior Strategic Program Manager for the OpenSatck foundation. He's been an active contributor to the Interop Working Group (formerly DefCore), and helps run the trademark program for the OpenStack Foundation. He also works on collaborations between the OpenStack and Kubernetes communities. Previously he worked as an OpenStack community manager and developer at Puppet Labs, and operated a research cloud for the College of Arts and Sciences at The University of Oregon. When not cloud computing, he enjoys long-distance running, dancing, and throwing a ball for his Border Collie.
