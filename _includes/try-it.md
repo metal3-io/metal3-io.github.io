@@ -38,6 +38,41 @@ To tear down the environment, run `make clean`.
 You can also run some tests provisioning and deprovisioning machines by running
 `make test`
 
+
+All configurations for the environment is stored in `config_${user}.sh`. You can
+configure the following.
+
+| Name | Option | Allowed values | Default |
+|------|--------|----------------|---------|
+| EXTERNAL_SUBNET | This is the subnet used on the "baremetal" libvirt network, created as the primary network interface for the virtual bare metalhosts. | <CIDR> | 192.168.111.0/24 |
+| SSH_PUB_KEY | This SSH key will be automatically injected into the provisioned host by the provision_host.sh script. | <file path> | ~/.ssh/id_rsa.pub |
+| CONTAINER_RUNTIME | Select the Container Runtime | "podman", "docker" | "podman" |
+| BMOREPO | Set the Baremetal Operator repository to clone | <URL> | https://github.com/metal3-io/baremetal-operator.git |
+| BMOBRANCH  | Set the Baremetal Operator branch to checkout |  | master |
+| CAPBMREPO | Set the Cluster Api baremetal provider repository to clone | <URL> | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
+| CAPBMBRANCH  | Set the Cluster Api baremetal provider branch to checkout |  | master |
+| FORCE_REPO_UPDATE | Force deletion of the BMO and CAPBM repositories before cloning them again | "true", "false" | "false" |
+| BMO_RUN_LOCAL | Run a local baremetal operator instead of deploying in Kubernetes | "true", "false" | "false" |
+| CAPBM_RUN_LOCAL | Run a local CAPI operator instead of deploying in Kubernetes    | "true", "false" | "false" |
+| SKIP_RETRIES | Do not retry on failure during verifications or tests of the environment. This should be false. It could only be set to false for verifications of a dev env deployment that fully completed. Otherwise failures will appear as resources are not ready. | "true", "false" | "false" |
+| TEST_TIME_INTERVAL | Interval between retries after verification or test failure (seconds) | <int> | 10 |
+| TEST_MAX_TIME | Number of maximum verification or test retries | <int> | 120 |
+| BMC_DRIVER | Set the BMC driver | "ipmi", "redfish" | "ipmi" |
+| IMAGE_OS | OS of the image to boot the nodes from, overriden by IMAGE_* if set| "Cirros", "Ubuntu", "Centos" | "Cirros" |
+| IMAGE_NAME | Image for target hosts deployment | | "cirros-0.4.0-x86_64-disk.img" |
+| IMAGE_LOCATION | Location of the image to download | <URL> | http://download.cirros-cloud.net/0.4.0 |
+| IMAGE_USERNAME | Image username for ssh | | "cirros" |
+| IRONIC_IMAGE | Container image for local ironic services |  | "quay.io/metal3-io/ironic" |
+| VBMC_IMAGE | Container image for vbmc container | | "quay.io/metal3-io/vbmc" |
+| SUSHY_TOOLS_IMAGE | Container image for sushy-tools container | | "quay.io/metal3-io/sushy-tools" |
+
+### Using a custom image
+
+You can override the three following variables: `IMAGE_NAME`,
+`IMAGE_LOCATION`, `IMAGE_USERNAME`. If a file with name `IMAGE_NAME` does not
+exist in the folder `/opt/metal3-dev-env/ironic/html`, then it will be
+downloaded from `IMAGE_LOCATION`.
+
 ### Note
 If you see this error during the installation:
 
@@ -435,5 +470,3 @@ useful for troubleshooting to find out why a node did not deploy.
 | vendor_interface       | ipmitool                                                   |
 +-------------------------------------------------------------------------------------+
 ```
-
-
