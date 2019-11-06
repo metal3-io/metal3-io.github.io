@@ -16,7 +16,7 @@ I were covered the options around Kubernetes deployments today, the specific app
 
 
 ## Speakers
-[Steve Hardy](https://twitter.com/hogepodge) is Senior Principal Software Engineer at Red Hat, currently involved in kubernetes/OpenShift deployment and architecture. He is also an active member of the OpenStack community, and has been a project team lead of both the Heat (orchestration) and TripleO (deployment) projects.
+[Steve Hardy](https://github.com/hardys) is Senior Principal Software Engineer at Red Hat, currently involved in kubernetes/OpenShift deployment and architecture. He is also an active member of the OpenStack community, and has been a project team lead of both the Heat (orchestration) and TripleO (deployment) projects.
 
 
 ## References
