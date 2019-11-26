@@ -24,7 +24,7 @@ The design documents for Metal3 are all publicly available. Refer to the [metal3
 
 ### Conference Talks
 
-- [Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019](https://www.pscp.tv/RedHatOfficial/1vAGRWYPjngJl?t=1h27m51s)
+- [Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019]({% post_url 2019-11-13-Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit %})
 - [OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat]({% post_url 2019-10-31-OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere %})
 - [Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat]({% post_url 2019-11-07-Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic %})
 
