@@ -24,6 +24,7 @@ The design documents for Metal3 are all publicly available. Refer to the [metal3
 
 ### Conference Talks
 
+- [Introducing metal3 kubernetes native bare metal host management - Kubecon NA 2019]({% post_url 2019-12-04-Introducing_metal3_kubernetes_native_bare_metal_host_management %})
 - [Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019]({% post_url 2019-11-13-Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit %})
 - [OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat]({% post_url 2019-10-31-OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere %})
 - [Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat]({% post_url 2019-11-07-Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic %})
