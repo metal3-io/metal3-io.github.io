@@ -31,7 +31,7 @@ The design documents for Metal3 are all publicly available. Refer to the [metal3
 
 ### In The News
 
-- [The New Stack: Metal3 Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes](https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/)
+- [The New Stack: Metal3 Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes]({% post_url 2019-05-13-The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes %})
 - [The Register: Raise some horns: Red Hat's MetalKube aims to make Kubernetes on bare machines simple](https://www.theregister.co.uk/2019/04/05/red_hat_metalkubel/)
 
 ### Blog Posts
