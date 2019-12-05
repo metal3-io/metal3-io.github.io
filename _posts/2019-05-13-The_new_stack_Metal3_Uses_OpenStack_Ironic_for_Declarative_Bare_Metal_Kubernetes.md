@@ -10,7 +10,7 @@ author: Pedro Ibáñez Requena
 
 [Mike Melanson](https://thenewstack.io/author/mike-melanson/) talks in this article about the Open Infrastructure Summit in Denver, Colorado. Where bare metal was one of the main leads of the event.
 
-During this event the OpenStack Foundation unveil a new project called Metal³ (pronounced “metal cubed”) that uses Ironic “as a foundation for declarative management of bare metal infrastructure for Kubernetes”.
+During this event, the OpenStack Foundation unveil a new project called Metal³ (pronounced “metal cubed”) that uses Ironic “as a foundation for declarative management of bare metal infrastructure for Kubernetes”.
 He also comments on how [James Penick](https://www.linkedin.com/in/penick/), [Chris Hoge](https://www.linkedin.com/in/hogepodge), senior strategic program manager at OpenStack Foundation,
 and [Julia Kreger](https://www.linkedin.com/in/juliaashleykreger), OpenStack Ironic Project Team Leader, took to the stage to offer a demonstration of [Metal3](https://github.com/metal3-io/baremetal-operator),
 the new project that provides “bare metal host provisioning integration for Kubernetes.”
