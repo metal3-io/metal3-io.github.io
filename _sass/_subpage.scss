@@ -20,6 +20,11 @@
             color: var(--mk--Color--500);
         }
     }
+    &__related-entries {
+        &__item {
+            margin-bottom: var(--mk--spacer--sm);
+        }
+    }
 
 }
 
@@ -176,3 +181,4 @@
         }
     }
 }
+

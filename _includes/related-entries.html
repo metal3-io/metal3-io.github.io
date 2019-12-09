@@ -2,7 +2,7 @@
     <header class="mk-main__header">
             <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
     </header> 
-    <ul>  
+    <ul class="mk-blog__related-entries">  
         
         {% assign maxRelated = 4 %}
         {% assign minCommonTags =  2 %}
@@ -18,13 +18,13 @@
               {% endif %}
             {% endfor %}        
             {% if sameTagCount >= minCommonTags %}
-              <li><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></li>
               {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
               {% if maxRelatedCounter >= maxRelated %}
                 {% break %}
               {% endif %}
             {% endif %}
           {% endfor %}
-            </ul>
+    </ul>
     
 </aside>
