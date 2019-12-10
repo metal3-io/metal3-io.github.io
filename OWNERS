@@ -1,11 +1,37 @@
 # See the OWNERS docs at https://go.k8s.io/owners
+filters:
+  ".*":
+    reviewers:
+      - iranzo
+      - knowncitizen
+      - ptrnull
+      - dhellmann
+      - hardys
+      - russellb
+    approvers:
+      - dhellmann
+      - hardys
+      - russellb
+      - iranzo
+      - knowncitizen
+      - ptrnull
 
-approvers:
- - dhellmann
- - hardys
- - iranzo
- - jparrill
- - knowncitizen
- - matthewcarleton
- - ptrnull
- - russellb
+  "^_posts/.*":
+    labels:
+      - kind/blog
+    reviewers:
+      - russellb
+      - dhellmann
+      - hardys
+    approvers:
+      - russellb
+      - dhellmann
+      - hardys
+
+  "^_(data|layouts|sass|css|js)/.*":
+    labels:
+      - kind/website
+    approvers:
+      - matthewcarleton
+    reviewers:
+      - matthewcarleton
