@@ -8,6 +8,7 @@ filters:
       - dhellmann
       - hardys
       - russellb
+      - alosadagrande
     approvers:
       - dhellmann
       - hardys
@@ -15,6 +16,7 @@ filters:
       - iranzo
       - knowncitizen
       - ptrnull
+      - alosadagrande
 
   "^_posts/.*":
     labels:
