@@ -13,11 +13,18 @@ if (menu.classList.contains('is-active')) {
   this.setAttribute('aria-expanded', 'false');
   menu.classList.remove('is-active');
 } else {
-  menu.classList.add('is-active'); 
+  menu.classList.add('is-active');
   this.setAttribute('aria-expanded', 'true');
   //menuItems[0].focus();
 }
 });
 </script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
 </body>
 </html>
