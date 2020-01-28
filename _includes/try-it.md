@@ -1,25 +1,48 @@
+
 * [Instructions](#instructions)
     * [Prerequisites](#prerequisites)
-    * [Setup](#setup)
+    * [Metal3-dev-env setup](#metal3-dev-env-setup)
 * [Working with the Environment](#working-with-the-environment)
     * [Bare Metal Hosts](#bare-metal-hosts)
-    * [Provisioning a Machine](#provisioning-a-machine)
-    * [Provisioning a cluster](#provisioning-a-cluster)
+    * [Provisioning Cluster](#provisioning-cluster)
+    * [Provisioning Machines](#provisioning-machines)
+    * [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
     * [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
-    * [Running a Custom baremetal-operator](#running-a-custom-baremetal-operator)
-    * [Accessing the Ironic API](#accessing-the-ironic-api)
+    * [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
+    * [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
+    * [Accessing the Ironic API](#accessing-ironic-api)
 
-## Instructions
+# Instructions
 
 ### Prerequisites
 
  * System with CentOS 7 or Ubuntu 18.04
  * Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
  * Run as a user with passwordless sudo access
+ * Resource requirements for the host machine vary depending on the selected
+ Linux distribution of the target nodes:
 
-### Setup
 
-tl;dr - Clone [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) and run `make`.
+ | Target distribution | host CPU | host memory (Gb) |
+ |---------------------|----------|------------------|
+ |         Centos      |     4    |        32        |
+ |         Ubuntu      |     4    |        16        |
+
+
+### Metal3-dev-env setup
+
+This is a high-level architecture of the metal³-dev-env.
+
+<p align="center">
+  <img width="752" height="713" src="../assets/images/metal3-dev-env.svg">
+</p>
+
+tl;dr - Clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
+and run
+
+```sh
+$ make
+```
 
 The `Makefile` runs a series of scripts, described here:
 
@@ -34,20 +57,32 @@ The `Makefile` runs a series of scripts, described here:
 * `04_verify.sh` - Runs a set of tests that verify that the deployment completed
   successfully
 
-To tear down the environment, run `make clean`.
+To tear down the environment, run
 
-You can also run some tests provisioning and deprovisioning machines by running
-`make test`
+```sh
+$ make clean
+```
 
+**Note**: you can also run some tests provisioning and deprovisioning machines
+by running
 
-All configurations for the environment is stored in `config_${user}.sh`. You can
-configure the following.
+```sh
+# for CAPI v1alpha1 based deployment
+$ make test
+# for CAPI v1alpha2 based deployment
+$ make test_v1a2
+# for CAPI v1alpha3 based deployment
+$ make test_v1a3
+```
+
+All configurations for the environment is stored in `config_${user}.sh`. You
+can configure the following
 
 | Name | Option | Allowed values | Default |
 |------|--------|----------------|---------|
 | EXTERNAL_SUBNET | This is the subnet used on the "baremetal" libvirt network, created as the primary network interface for the virtual bare metalhosts. | <CIDR> | 192.168.111.0/24 |
 | SSH_PUB_KEY | This SSH key will be automatically injected into the provisioned host by the provision_host.sh script. | <file path> | ~/.ssh/id_rsa.pub |
-| CONTAINER_RUNTIME | Select the Container Runtime | "podman", "docker" | "podman" |
+| CONTAINER_RUNTIME | Select the Container Runtime |  "docker", "podman" | "podman" |
 | BMOREPO | Set the Baremetal Operator repository to clone | <URL> | https://github.com/metal3-io/baremetal-operator.git |
 | BMOBRANCH  | Set the Baremetal Operator branch to checkout |  | master |
 | CAPBMREPO | Set the Cluster Api baremetal provider repository to clone | <URL> | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
@@ -59,14 +94,14 @@ configure the following.
 | TEST_TIME_INTERVAL | Interval between retries after verification or test failure (seconds) | <int> | 10 |
 | TEST_MAX_TIME | Number of maximum verification or test retries | <int> | 120 |
 | BMC_DRIVER | Set the BMC driver | "ipmi", "redfish" | "ipmi" |
-| IMAGE_OS | OS of the image to boot the nodes from, overriden by IMAGE_* if set| "Cirros", "Ubuntu", "Centos" | "Cirros" |
-| IMAGE_NAME | Image for target hosts deployment | | "cirros-0.4.0-x86_64-disk.img" |
-| IMAGE_LOCATION | Location of the image to download | <URL> | http://download.cirros-cloud.net/0.4.0 |
-| IMAGE_USERNAME | Image username for ssh | | "cirros" |
+| IMAGE_OS | OS of the image to boot the nodes from, overriden by IMAGE_* if set| "Centos", "Cirros", "FCOS", "Ubuntu" | "Centos" |
+| IMAGE_NAME | Image for target hosts deployment | | "CentOS-7-x86_64-GenericCloud-1907.qcow2" |
+| IMAGE_LOCATION | Location of the image to download | <URL> | http://cloud.centos.org/centos/7/images |
+| IMAGE_USERNAME | Image username for ssh | | "centos" |
 | IRONIC_IMAGE | Container image for local ironic services |  | "quay.io/metal3-io/ironic" |
 | VBMC_IMAGE | Container image for vbmc container | | "quay.io/metal3-io/vbmc" |
 | SUSHY_TOOLS_IMAGE | Container image for sushy-tools container | | "quay.io/metal3-io/sushy-tools" |
-| CAPI_VERSION | Version of cluster API | "v1alpha1", "v1alpha2" | "v1alpha2" |
+| CAPI_VERSION | Version of Cluster API | "v1alpha1", "v1alpha2", "v1alpha3" | "v1alpha2" |
 
 ### Using a custom image
 
@@ -85,6 +120,10 @@ error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': Permission d
 You may need to log out then login again, and run `make` again.
 
 # Working with the Environment
+
+**Example:** Metal³-dev-env set up that uses Cluster API [v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2)
+
+[![asciicast](https://asciinema.org/a/UaMEfDQbHLxPmmp3tPamjvPZ9.png)](https://asciinema.org/a/UaMEfDQbHLxPmmp3tPamjvPZ9?speed=3&theme=tango)
 
 ## Bare Metal Hosts
 
@@ -106,38 +145,36 @@ used to create these host objects is in `bmhosts_crs.yaml`.
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
-NAME       STATUS    PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE    ERROR
-node-0     OK        ready                           ipmi://192.168.111.1:6230   unknown            true
-node-1     OK        ready                           ipmi://192.168.111.1:6231   unknown            true
+NAME     STATUS   PROVISIONING STATUS   CONSUMER   BMC                         HARDWARE PROFILE   ONLINE   ERROR
+node-0   OK       ready                            ipmi://192.168.111.1:6230   unknown            true     
+node-1   OK       ready                            ipmi://192.168.111.1:6231   unknown            true     
 ```
 
 You can also look at the details of a host, including the hardware information
 gathered by doing pre-deployment introspection.
 
 ```sh
-$ kubectl get baremetalhost -n metal3 -oyaml node-0
+$ kubectl get baremetalhost -n metal3 -o yaml node-0
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"metal3.io/v1alpha1","kind":"BareMetalHost","metadata":{"annotations":{},"name":"node-0","namespace":"metal3"},"spec":{"bmc":{"address":"ipmi://192.168.111.1:6231","credentialsName":"node-0-bmc-secret"},"bootMACAddress":"00:c2:fc:3b:8e:b5","online":true}}
-  creationTimestamp: 2019-05-27T14:16:07Z
+      {"apiVersion":"metal3.io/v1alpha1","kind":"BareMetalHost","metadata":{"annotations":{},"name":"node-0","namespace":"metal3"},"spec":{"bmc":{"address":"ipmi://192.168.111.1:6230","credentialsName":"node-0-bmc-secret"},"bootMACAddress":"00:f8:16:dd:3b:9b","online":true}}
+  creationTimestamp: "2020-02-05T09:09:44Z"
   finalizers:
   - baremetalhost.metal3.io
-  generation: 2
+  generation: 1
   name: node-0
   namespace: metal3
-  resourceVersion: "1180"
+  resourceVersion: "16312"
   selfLink: /apis/metal3.io/v1alpha1/namespaces/metal3/baremetalhosts/node-0
-  uid: f878526e-8089-11e9-93f1-3c93b777d2dc
+  uid: 99f4c905-b850-45e0-bf1b-61b12f91182b
 spec:
   bmc:
-    address: ipmi://192.168.111.1:6231
+    address: ipmi://192.168.111.1:6230
     credentialsName: node-0-bmc-secret
-  bootMACAddress: 00:c2:fc:3b:8e:b5
-  description: ""
-  hardwareProfile: ""
+  bootMACAddress: 00:f8:16:dd:3b:9b
   online: true
 status:
   errorMessage: ""
@@ -145,66 +182,110 @@ status:
     credentials:
       name: node-0-bmc-secret
       namespace: metal3
-    credentialsVersion: "802"
+    credentialsVersion: "1242"
   hardware:
     cpu:
+      arch: x86_64
+      clockMegahertz: 2399.998
       count: 4
-      model: Intel(R) Xeon(R) CPU E5-2630 v4 @ 2.20GHz
-      speedGHz: 2.199996
-      type: x86_64
+      model: Intel Xeon E3-12xx v2 (Ivy Bridge)
+    firmware:
+      bios:
+        date: 04/01/2014
+        vendor: SeaBIOS
+        version: 1.10.2-1ubuntu1
+    hostname: node-0
     nics:
-    - ip: 192.168.111.21
-      mac: 00:c2:fc:3b:8e:b7
+    - ip: 192.168.111.20
+      mac: 00:f8:16:dd:3b:9d
       model: 0x1af4 0x0001
       name: eth1
-      network: Pod Networking
+      pxe: false
       speedGbps: 0
-    - ip: 172.22.0.32
-      mac: 00:c2:fc:3b:8e:b5
+      vlanId: 0
+    - ip: 172.22.0.47
+      mac: 00:f8:16:dd:3b:9b
       model: 0x1af4 0x0001
       name: eth0
-      network: Pod Networking
+      pxe: true
       speedGbps: 0
-    ramGiB: 7
+      vlanId: 0
+    ramMebibytes: 8192
     storage:
-    - hctl: "2:0:0:0"
+    - hctl: "0:0:0:0"
       model: QEMU HARDDISK
       name: /dev/sda
-      serialNumber: drive-scsi0-0-0-0
-      sizeGiB: 50
-      type: HDD
+      rotational: true
+      serialNumber: drivMetal3-dev-env setupe-scsi0-0-0-0
+      sizeBytes: 53687091200
       vendor: QEMU
     systemVendor:
-      manufacturer: Red Hat
-      productName: KVM
+      manufacturer: QEMU
+      productName: Standard PC (Q35 + ICH9, 2009)
       serialNumber: ""
   hardwareProfile: unknown
-  lastUpdated: 2019-05-27T14:20:27Z
+  lastUpdated: "2020-02-05T10:10:49Z"
+  operationHistory:
+    deprovision:
+      end: null
+      start: null
+    inspect:
+      end: "2020-02-05T09:15:08Z"
+      start: "2020-02-05T09:11:33Z"
+    provision:
+      end: null
+      start: null
+    register:
+      end: "2020-02-05T09:11:33Z"
+      start: "2020-02-05T09:10:32Z"
   operationalStatus: OK
   poweredOn: true
   provisioning:
-    ID: 36dac1b9-a2ec-40b0-98b7-89dc13ca6e29
+    ID: b605df1d-7674-44ad-9810-20ad3e3c558b
     image:
       checksum: ""
       url: ""
     state: ready
+  triedCredentials:
+    credentials:
+      name: node-0-bmc-secret
+      namespace: metal3
+    credentialsVersion: "1242"
 ```
 
-## Provisioning a Machine
+## Provisioning Cluster
 
-This section describes how to trigger provisioning of a host via `Machine`
-objects as part of the `cluster-api` integration. This uses Cluster API V1alpha1
-and assumes that metal3-dev-env was deployed with the environment variable
-**CAPI_VERSION** set to **v1alpha1**.
-
-First, run the `create_machine.sh` script to create a `Machine`.  The argument
-is a name, and does not have any special meaning.
+The v1alpha2 deployment can be done with Ubuntu 18.04 or Centos 7 target host
+images. Please make sure to meet [resource requirements](#prerequisites) for
+successfull deployment:
 
 ```sh
-$ ./scripts/v1alpha1/create_machine.sh centos
+$ ./scripts/v1alpha2/create_cluster.sh
+cluster.cluster.x-k8s.io/test1 created
+baremetalcluster.infrastructure.cluster.x-k8s.io/test1 created
+```
 
-secret/centos-user-data created
-machine.cluster.k8s.io/centos created
+## Provisioning Machines
+
+This section describes how to trigger provisioning of a host via `Machine`
+objects as part of the Cluster API integration. This uses Cluster API
+[v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2) and
+assumes that metal3-dev-env is deployed with the environment variable
+**CAPI_VERSION** set to **v1alpha2**.
+
+Run the `create_controlplane.sh` script  followed by `create_worker.sh` to
+create a controlplane and worker `Machine`.
+
+```sh
+$ ./scripts/v1alpha2/create_controlplane.sh
+machine.cluster.x-k8s.io/test1-controlplane-0 created
+baremetalmachine.infrastructure.cluster.x-k8s.io/test1-controlplane-0 created
+kubeadmconfig.bootstrap.cluster.x-k8s.io/test1-controlplane-0 created
+
+$ ./scripts/v1alpha2/create_worker.sh
+machinedeployment.cluster.x-k8s.io/test1-md-0 created
+baremetalmachinetemplate.infrastructure.cluster.x-k8s.io/test1-md-0 created
+kubeadmconfigtemplate.bootstrap.cluster.x-k8s.io/test1-md-0 created
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
@@ -212,22 +293,16 @@ At this point, the `Machine` actuator will respond and try to claim a
 here:
 
 ```sh
-$ kubectl logs -n metal3 pod/cluster-api-provider-baremetal-controller-manager-0 -c manager
+$ kubectl logs -n metal3 pod/capbm-controller-manager-7bbc6897c7-bp2pw -c manager
 
-{“level”:”info”,”ts”:1557509343.85325,”logger”:”baremetal-controller-manager”,”msg”:”Found API group metal3.io/v1alpha1”}
-{“level”:”info”,”ts”:1557509344.0471826,”logger”:”kubebuilder.controller”,”msg”:”Starting EventSource”,”controller”:”machine-controller”,”source”:”kind source: /, Kind=”}
-{“level”:”info”,”ts”:1557509344.14783,”logger”:”kubebuilder.controller”,”msg”:”Starting Controller”,”controller”:”machine-controller”}
-{“level”:”info”,”ts”:1557509344.248105,”logger”:”kubebuilder.controller”,”msg”:”Starting workers”,”controller”:”machine-controller”,”worker count”:1}
-2019/05/10 17:32:33 Checking if machine centos exists.
-2019/05/10 17:32:33 Machine centos does not exist.
-2019/05/10 17:32:33 Creating machine centos .
-2019/05/10 17:32:33 2 hosts available
-2019/05/10 17:32:33 Associating machine centos with host node-1
-2019/05/10 17:32:33 Finished creating machine centos .
-2019/05/10 17:32:33 Checking if machine centos exists.
-2019/05/10 17:32:33 Machine centos exists.
-2019/05/10 17:32:33 Updating machine centos .
-2019/05/10 17:32:33 Finished updating machine centos .
+09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="baremetalcluster"
+09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="baremetalmachine" "worker count"=1
+10:54:16.943712       Host matched hostSelector for BareMetalMachine
+10:54:16.943772       2 hosts available while choosing host for bare metal machine
+10:54:16.944087       Associating machine with host
+10:54:17.516274       Finished creating machine
+10:54:17.518718       Provisioning BaremetalHost
+
 ```
 
 If you look at the yaml representation of the `Machine`, you will see a new
@@ -249,99 +324,58 @@ provisioned and associated with a `Machine`.
 ```sh
 $ kubectl get baremetalhosts -n metal3
 
-NAME       STATUS    PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE    ERROR
-node-0     OK        ready                           ipmi://192.168.111.1:6230   unknown            true
-node-1     OK        provisioning          centos    ipmi://192.168.111.1:6231   unknown            true
+NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
+node-0   OK       provisioning          test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            true
+node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            true
 ```
 
 You should be able to ssh into your host once provisioning is complete.  See
 the libvirt DHCP leases to find the IP address for the host that was
-provisioned.  In this case, it’s `node-1`.
+provisioned.  In this case, it’s `node-1` in this case.
 
 ```sh
 $ sudo virsh net-dhcp-leases baremetal
 
- Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
+Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
 -------------------------------------------------------------------------------------------------------------------
- 2019-05-06 19:03:46  00:1c:cc:c6:29:39  ipv4      192.168.111.20/24         node-0          -
- 2019-05-06 19:04:18  00:1c:cc:c6:29:3d  ipv4      192.168.111.21/24         node-1          -
+2020-02-05 11:52:39  00:f8:16:dd:3b:9d  ipv4      192.168.111.20/24         node-0          -
+2020-02-05 11:59:18  00:f8:16:dd:3b:a1  ipv4      192.168.111.21/24         node-1          -
 ```
 
-The default user for the CentOS image is `centos`.
+The default username for the CentOS image is `centos`.
 
 ```sh
-ssh centos@192.168.111.21
+$ ssh centos@192.168.111.21
 ```
 
-Deprovisioning is done just by deleting the `Machine` object.
+##  Deprovisioning Cluster and Machines
+
+Deprovisioning of the cluster and machines is done just by deleting `Cluster`
+`Machine` objects.
 
 ```sh
-$ kubectl delete machine centos -n metal3
+$ kubectl delete machine test1-md-0-m87bq -n metal3
+machine.cluster.x-k8s.io "test1-md-0-m87bq" deleted
 
-machine.cluster.k8s.io "centos" deleted
+$ kubectl delete machine test1-controlplane-0 -n metal3
+machine.cluster.x-k8s.io "test1-controlplane-0" deleted
+
+$ kubectl delete cluster test1 -n metal3
+cluster.cluster.x-k8s.io "test1" deleted
 ```
 
-At this point you can see that the `BareMetalHost` is going through a
-deprovisioning process.
+At this point you can see that the `BareMetalHost` and `Cluster` are going
+through a deprovisioning process.
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
+NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
+node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            false     
+node-1   OK       deprovisioning        test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            false
 
-NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0     OK       ready                           ipmi://192.168.111.1:6230   unknown            true
-node-1     OK       deprovisioning                  ipmi://192.168.111.1:6231   unknown            false
-```
-
-## Provisioning a Cluster
-
-The v1alpha2 deployment can be done with Ubuntu 18.04 or Centos 7 target host
-images.
-
-### Requirements
-
-#### Dev env size
-
-The requirements for the dev env machine are, when deploying **Ubuntu** target
-hosts:
-
-* 16GB of memory
-* 4 cpus
-
-And when deploying **Centos** target hosts:
-
-* 32GB of memory
-* 4 cpus
-
-The Minikube machine is deployed with 4GB of RAM, and 2 vCPUs, and the target
-hosts with 4 vCPUs and either 4GB of RAM (Ubuntu) or 8GB of RAM (Centos).
-
-### Environment variables
-
-The following environment variables need to be set for **Centos**:
-
-```sh
-export IMAGE_CHECKSUM=http://172.22.0.1/images/centos-updated.qcow2.md5sum
-export IMAGE_NAME=centos-updated.qcow2
-export CAPI_VERSION=v1alpha2
-export IMAGE_URL=http://172.22.0.1/images/centos-updated.qcow2
-export IMAGE_OS=Centos
-export DEFAULT_HOSTS_MEMORY=8192
-```
-
-And the following environment variables need to be set for **Ubuntu**:
-
-```sh
-export CAPI_VERSION=v1alpha2
-export IMAGE_OS=Ubuntu
-export DEFAULT_HOSTS_MEMORY=4096
-```
-
-### Deploy the metal3 Dev env
-
-```sh
-./01_prepare_host.sh
-./02_configure_host.sh
-./03_launch_mgmt_cluster.sh
+$ kubectl get cluster -n metal3
+NAME    PHASE
+test1   deprovisioning
 ```
 
 ### Centos target hosts only, image update
@@ -361,24 +395,10 @@ awk '{print $1}' > \
 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2.md5sum
 ```
 
-### Deploy the target cluster
-
-```sh
-./scripts/v1alpha2/create_cluster.sh
-./scripts/v1alpha2/create_controlplane.sh
-./scripts/v1alpha2/create_worker.sh
-```
-
-### Delete the target cluster
-
-```sh
-kubectl delete cluster "${CLUSTER_NAME:-"test1"}" -n metal3
-```
-
 ## Directly Provisioning Bare Metal Hosts
 
 It’s also possible to provision via the `BareMetalHost` interface directly
-without using the `cluster-api` integration.
+without using the Cluster API integration.
 
 There is a helper script available to trigger provisioning of one of these
 hosts.  To provision a host with CentOS 7, run:
@@ -393,7 +413,7 @@ eventually reboot into the operating system we wrote to disk.
 ```sh
 $ kubectl get baremetalhost node-0 -n metal3
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0   OK       provisioned                     ipmi://192.168.111.1:6230   unknown            true
+node-0     OK       provisioned                     ipmi://192.168.111.1:6230   unknown            true
 ```
 
 `provision_host.sh` will inject your SSH public key into the VM. To find the IP
@@ -425,15 +445,14 @@ You will then see the host go into a `deprovisioning` status:
 ```sh
 $ kubectl get baremetalhost node-0 -n metal3
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0   OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            true
+node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            true
 ```
 
-## Running a Custom baremetal-operator
+## Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
-image built from the `metal3-io/baremetal-operator` github repository.  If
-you’d like to test changes to the `baremetal-operator`, you can follow this
-process.
+image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io/baremetal-operator) repository.  If you’d like to test changes to the
+`baremetal-operator`, you can follow this process.
 
 First, you must scale down the deployment of the `baremetal-operator` running
 in the cluster.
@@ -442,16 +461,18 @@ in the cluster.
 kubectl scale deployment metal3-baremetal-operator -n metal3 --replicas=0
 ```
 
-To be able to run `baremetal-operator` locally, you need to install `operator-sdk` https://github.com/operator-framework. After that, you can run the `baremetal-operator` including any custom changes.
+To be able to run `baremetal-operator` locally, you need to install
+[operator-sdk](https://github.com/operator-framework). After that, you can run
+the `baremetal-operator` including any custom changes.
 
 ```sh
 cd ~/go/src/github.com/metal3-io/baremetal-operator
 make run
 ```
 
-## Running a Custom cluster-api-provider-baremetal
+## Running Custom Cluster API Provider Baremetal
 
-There are two cluster-api related managers running in the cluster.  One
+There are two Cluster API related managers running in the cluster.  One
 includes set of generic controllers, and the other includes a custom Machine
 controller for baremetal.  If you want to try changes to
 `cluster-api-provider-baremetal`, you want to shut down the custom Machine
@@ -468,7 +489,7 @@ cd ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
 make run
 ```
 
-## Accessing the Ironic API
+## Accessing Ironic API
 
 Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
