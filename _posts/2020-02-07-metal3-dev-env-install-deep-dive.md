@@ -171,11 +171,11 @@ As stated previously, `CentOS 7` is the operating system chosen to run both in t
 
 > Notice that *SELinux* is set to *permissive* and an OS update is triggered, which will cause several packages to be upgraded since there are newer packages in the tripleo repositories (mostly python related) than in the rest of enabled repositories.
 
-> The container runtime is also installed at this point. Note that it is possible to choose between `docker` and `podman`, which is the default for `CentOS`, by setting the variable `CONTAINER_RUNTIME` defined in [common.sh](#common.sh). Remember that this behaviour can be overwriten in your config file.
+> The container runtime is also installed at this point. Note that it is possible to choose between `docker` and `podman`, which is the default for `CentOS`, by setting the variable `CONTAINER_RUNTIME` defined in [common.sh](#commonsh). Remember that this behaviour can be overwriten in your config file.
 <br>
 <br>
 
-Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually `minikube`, `kubectl` and `kustomize` are downloaded from the internet. Notice that the version of Kustomize and Kubernetes are defined by `KUSTOMIZE_VERSION` and `KUBERNETES_VERSION` variables inside [common.sh](#common.sh), but minikube is always downloading the latest version available.
+Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually `minikube`, `kubectl` and `kustomize` are downloaded from the internet. Notice that the version of Kustomize and Kubernetes are defined by `KUSTOMIZE_VERSION` and `KUBERNETES_VERSION` variables inside [common.sh](#commonsh), but minikube is always downloading the latest version available.
 
 Next step deals with cleaning ironic containers and **pods** that could be running in the host from failed deployments. Once environment is cleaned, two pods are created: `ironic-pod` and `infra-pod` to which they will be added containers during the provisioning stage.
 <br>
@@ -271,7 +271,7 @@ ansible-playbook \
   -b -vvv vm-setup/install-package-playbook.yml
   ```
 
-This playbook imports two roles. One called `packages_installation`, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables [here](vm-setup/roles/packages_installation/defaults/main.yml). The other role is based on a the [fubarhouse.golang](https://galaxy.ansible.com/fubarhouse/golang) Ansible Galaxy role. It is in charge of installing and configuring the exact `golang` version `1.12.12` defined in an Ansible variable [here](https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12)
+This playbook imports two roles. One called `packages_installation`, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables [here](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml). The other role is based on a the [fubarhouse.golang](https://galaxy.ansible.com/fubarhouse/golang) Ansible Galaxy role. It is in charge of installing and configuring the exact `golang` version `1.12.12` defined in an Ansible variable [here](https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12)
 
 Once the playbook is finished, a pod called `ironic-pod` is created. Inside that pod, a *privileged* `ironic-ipa-downloader` container is started and attached to the host network. This container is in charge of downloading the [Ironic Python Agent](https://docs.openstack.org/ironic-python-agent/latest/) (IPA) files to a shared volume defined by `IRONIC_IMAGE_DIR`. This folder is exposed by the `ironic` container through HTTP. 
 
@@ -389,7 +389,7 @@ First, an ssh-key in charge of communicating to libvirt is created if it does no
 <br>
 <br>
 
-Next, another Ansible playbook called [setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml) is run against the host. It is focused on set up the virtual infrastructure around `metal3-dev-env`. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the [common.sh](#common.sh) or the configuration file.
+Next, another Ansible playbook called [setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml) is run against the host. It is focused on set up the virtual infrastructure around `metal3-dev-env`. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the [common.sh](#commonsh) or the configuration file.
 
 ```sh
 ANSIBLE_FORCE_COLOR=true ansible-playbook \
