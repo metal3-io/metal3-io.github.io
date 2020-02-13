@@ -3,24 +3,16 @@ cache:
   bundler: true
 rvm:
 - 2.3.3
-
-# Assume bundler is being used, therefore
-# the `install` step will run `bundle install` by default.
 before_install:
-  - bundle install
-
+- bundle install
 install: true
-
 script: rake
-
-# branch whitelist, only for GitHub Pages
-# branches:
-#  only:
-#  - gh-pages     # test the gh-pages branch
-#  - /pages-(.*)/ # test every branch which starts with "pages-"
-
 env:
   global:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-
 sudo: false
+notifications:
+  slack:
+    on_success: never
+    on_failure: always
+    secure: V2HWrMzc7qtwY1l1+tkJAKnqmJTlK1NmRzPTfDaMO04VPry+Jm99837tNm7oqGz5tb1jvuw0hIpPpR6RYEpqKzHcBSJ9Ki8HwULtV43b7gHTnJhgG0mmbVjP+AHu4Adiio3W27ohMpNTQAXdVa3a9ixwtk+Im97UBqg0I9xkOImmHk9lzJSwaLkEIulRHXV/5GbuVtE33F9Tl4ETVMY7xnRLJ+igFlks2uzOoGHxVpYKT97vGD+OoLpeH6TAs070b1t4W6v0LbEMRpyiJ46t/2LIPUw9RfUDWD6gNpQfNf9NRiNhqUqlsw51z9s4yVvHu93dl1wreCjdq3+1icGhGnrHiZDm68rPG6VJ7qIRYAtN3EchL9pXIBujf6XKbVjFSC6nHmNc4I7HC9cbLjt7gbBgSc7ZBNVpQqsC9hsDsLsdlDoG4W2qR/e4UKNM17nuofPhXj+SAv9H5cnNLH+2ki8mMQGPvcH+rhRfb/ecHiFZom3BvMIlZvwhn3xAMjG4TT6vV2m5UCZszYFHVICGLnxv2NP+7swlpqoyXmQIiOvyu8IS3slJ9/hcC1u46ELKHtArbdZggVXGo5jhV9U2WjIp2up+wWJa1seNIrx7OHM6JBTIyYv4HSFux2qextWqIUzYdceSeEEWifoduTuJpfUvyF4fJqJIidhFyFSlFws=
