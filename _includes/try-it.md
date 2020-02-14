@@ -4,8 +4,7 @@
     * [Metal3-dev-env setup](#metal3-dev-env-setup)
 * [Working with the Environment](#working-with-the-environment)
     * [Bare Metal Hosts](#bare-metal-hosts)
-    * [Provisioning Cluster](#provisioning-cluster)
-    * [Provisioning Machines](#provisioning-machines)
+    * [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
     * [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
     * [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
     * [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
@@ -101,7 +100,7 @@ can configure the following
 | IRONIC_IMAGE | Container image for local ironic services |  | "quay.io/metal3-io/ironic" |
 | VBMC_IMAGE | Container image for vbmc container | | "quay.io/metal3-io/vbmc" |
 | SUSHY_TOOLS_IMAGE | Container image for sushy-tools container | | "quay.io/metal3-io/sushy-tools" |
-| CAPI_VERSION | Version of Cluster API | "v1alpha1", "v1alpha2", "v1alpha3" | "v1alpha2" |
+| CAPI_VERSION | Version of Cluster API | "v1alpha1", "v1alpha2", "v1alpha3" | "v1alpha1" |
 | CLUSTER_APIENDPOINT_IP | APIEndpoint IP for target cluster | "x.x.x.x/x" | "192.168.111.249" |
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface | "ironicendpoint"| "ironicendpoint" |
 | POD_CIDR | POD CIDR | "x.x.x.x/x" | "192.168.0.0/18" |
@@ -123,10 +122,6 @@ error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': Permission d
 You may need to log out then login again, and run `make` again.
 
 # Working with the Environment
-
-**Example:** Metal³-dev-env set up that uses Cluster API [v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2)
-
-[![asciicast](https://asciinema.org/a/UaMEfDQbHLxPmmp3tPamjvPZ9.png)](https://asciinema.org/a/UaMEfDQbHLxPmmp3tPamjvPZ9?speed=3&theme=tango)
 
 ## Bare Metal Hosts
 
@@ -256,39 +251,18 @@ status:
     credentialsVersion: "1242"
 ```
 
-## Provisioning Cluster
+## Provisioning Cluster and Machines
 
-The v1alpha2 deployment can be done with Ubuntu 18.04 or Centos 7 target host
-images. Please make sure to meet [resource requirements](#prerequisites) for
-successfull deployment:
 
-```sh
-$ ./scripts/v1alpha2/create_cluster.sh
-cluster.cluster.x-k8s.io/test1 created
-baremetalcluster.infrastructure.cluster.x-k8s.io/test1 created
-```
-
-## Provisioning Machines
-
-This section describes how to trigger provisioning of a host via `Machine`
-objects as part of the Cluster API integration. This uses Cluster API
+This section describes how to trigger provisioning of a cluster and hosts via
+`Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPI_VERSION** set to **v1alpha2**.
-
-Run the `create_controlplane.sh` script  followed by `create_worker.sh` to
-create a controlplane and worker `Machine`.
+**CAPI_VERSION** set to **v1alpha2**. The v1alpha2 deployment can be done with
+Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet [resourcerequirements](#prerequisites) for successfull deployment:
 
 ```sh
-$ ./scripts/v1alpha2/create_controlplane.sh
-machine.cluster.x-k8s.io/test1-controlplane-0 created
-baremetalmachine.infrastructure.cluster.x-k8s.io/test1-controlplane-0 created
-kubeadmconfig.bootstrap.cluster.x-k8s.io/test1-controlplane-0 created
-
-$ ./scripts/v1alpha2/create_worker.sh
-machinedeployment.cluster.x-k8s.io/test1-md-0 created
-baremetalmachinetemplate.infrastructure.cluster.x-k8s.io/test1-md-0 created
-kubeadmconfigtemplate.bootstrap.cluster.x-k8s.io/test1-md-0 created
+$ ./scripts/v1alphaX/provision_cluster.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
