@@ -368,9 +368,7 @@ awk '{print $1}' > \
 ### Deploy the target cluster
 
 ```sh
-./scripts/v1alpha2/create_cluster.sh
-./scripts/v1alpha2/create_controlplane.sh
-./scripts/v1alpha2/create_worker.sh
+./scripts/v1alphaX/provision_cluster.sh
 ```
 
 ### Delete the target cluster
