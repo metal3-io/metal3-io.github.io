@@ -30,6 +30,7 @@
     <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
 
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
 </head>
 <body>
     <!--[if IE]>
@@ -131,12 +132,10 @@
 <p>Quoting from the project:</p>
 
 <blockquote>
-  <blockquote>
-    <p>The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
+  <p>The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
    Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
    Provision hosts with a desired image
    Clean a host’s disk contents before or after provisioning.</p>
-  </blockquote>
 </blockquote>
 
 <h2 id="a-bit-more-in-deep-approach">A bit more in deep approach</h2>
@@ -361,8 +360,10 @@ status:
   lastUpdated: "2019-07-08T15:30:44Z"
 </span></pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>As we can see, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.</p>
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p>In the output above, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.</p>
 
+
+</div></div>
 <p>Now, if we check baremetal hosts, we can see how it’s getting provisioned:</p>
 
 <div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
@@ -525,3 +526,4 @@ if (menu.classList.contains('is-active')) {
     </script>
 </body>
 </html>
+

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-02-17T14:34:58+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019</title><link href="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html" rel="alternate" type="text/html" title="Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019" /><published>2020-01-20T07:10:00+00:00</published><updated>2020-01-20T07:10:00+00:00</updated><id>https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal</id><content type="html" xml:base="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">&lt;h2 id=&quot;conference-talk-metal-deploy-kubernetes-on-bare-metal---yolanda-robla-red-hat&quot;&gt;Conference talk: Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla, Red Hat&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-02-17T15:00:44+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019</title><link href="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html" rel="alternate" type="text/html" title="Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019" /><published>2020-01-20T07:10:00+00:00</published><updated>2020-01-20T07:10:00+00:00</updated><id>https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal</id><content type="html" xml:base="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">&lt;h2 id=&quot;conference-talk-metal-deploy-kubernetes-on-bare-metal---yolanda-robla-red-hat&quot;&gt;Conference talk: Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla, Red Hat&lt;/h2&gt;
 
 &lt;p&gt;Some of the most influential minds in the developer industry were landing in the gorgeous ancient city of Split, Croatia, to talk in the &lt;a href=&quot;https://dev.shiftconf.co&quot;&gt;Shift Dev 2019 - Developer Conference&lt;/a&gt; about the most cutting edge technologies, techniques and biggest trends in the developer space.&lt;/p&gt;
 
@@ -120,12 +120,10 @@ She is an active core contributor and leader in OpenStack Ironic project, which 
 &lt;p&gt;Quoting from the project:&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
+  &lt;p&gt;The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
    Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
    Provision hosts with a desired image
    Clean a host’s disk contents before or after provisioning.&lt;/p&gt;
-  &lt;/blockquote&gt;
 &lt;/blockquote&gt;
 
 &lt;h2 id=&quot;a-bit-more-in-deep-approach&quot;&gt;A bit more in deep approach&lt;/h2&gt;
@@ -350,8 +348,10 @@ status:
   lastUpdated: &quot;2019-07-08T15:30:44Z&quot;
 &lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;As we can see, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.&lt;/p&gt;
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p&gt;In the output above, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.&lt;/p&gt;
 
+
+&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Now, if we check baremetal hosts, we can see how it’s getting provisioned:&lt;/p&gt;
 
 &lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;table class=&quot;rouge-table&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;rouge-gutter gl&quot;&gt;&lt;pre class=&quot;lineno&quot;&gt;1
