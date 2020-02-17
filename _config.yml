@@ -40,6 +40,7 @@ kramdown:
       start_line: 1
 theme: minima
 plugins:
+  - premonition
   - jekyll-feed
   - jekyll-paginate
   - jekyll-redirect-from
