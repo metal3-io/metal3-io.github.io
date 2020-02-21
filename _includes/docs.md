@@ -1,6 +1,6 @@
 ## APIs
 
-1. Enroll nodes by creating `BareMetalHost` resources.  This would either be
+1. Enroll nodes by creating `BareMetalHost` resources. This would either be
    manually or done by a component doing node discovery and introspection.
 
    See the documentation in the
@@ -13,7 +13,7 @@
    repository for details.
 
 3. The new Machine is associated with an available `BareMetalHost`, which triggers
-   provisioning of that host to join the cluster.  This association is done by
+   provisioning of that host to join the cluster. This association is done by
    the Actuator when it sets the `MachineRef` field on the `BareMetalHost`.
 
 ## Design Documents

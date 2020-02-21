@@ -60,7 +60,7 @@
 
     @media (min-width: $mk--breakpoint--lg){
         grid-template-columns: 3fr minmax(350px, 1fr);
-        grid-template-areas: 
+        grid-template-areas:
         "content aside"
     }
     &__content {
@@ -209,7 +209,7 @@ pre{
     justify-content: flex-end;
     align-items: center;
     padding: var(--mk--spacer--md);
-    
+
     box-shadow: var(--mk--BoxShadow--top);
     &__page, &__num {
         padding: var(--mk--spacer--xs) var(--mk--spacer--sm);
@@ -244,7 +244,7 @@ pre{
         }
 
     }
-    
+
 }
 
 
@@ -385,4 +385,3 @@ pre .il { color: #40a070 } /* Literal.Number.Integer.Long */.syntax pre .hll { b
 .syntax pre .vi { color: #bb60d5 } /* Name.Variable.Instance */
 .syntax pre .vm { color: #bb60d5 } /* Name.Variable.Magic */
 .syntax pre .il { color: #40a070 } /* Literal.Number.Integer.Long */
-

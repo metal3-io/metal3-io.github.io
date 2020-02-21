@@ -4,7 +4,7 @@
     background-position: 0vw center;
     background-image: url("/assets/images/hero.svg");
     background-repeat: no-repeat;
-  } 
+  }
   &.mk-masthead--home {
     background-color: var(--mk--BackgroundColor--500);
     border-bottom: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
@@ -15,7 +15,7 @@
     box-shadow: var(--mk--BoxShadow--sm);
 
   }
-  
+
   @media (min-width: $mk--breakpoint--lg){
     &.mk-masthead--home, &.mk-masthead--sub {
       background-position: 30vw center;
@@ -23,9 +23,9 @@
   }
   &__content {
     padding: var(--mk--spacer--lg) var(--mk--spacer--sm);
-    
+
     @media (min-width: $mk--breakpoint--md){
-      padding: var(--mk--spacer--2xl) var(--mk--spacer--lg); 
+      padding: var(--mk--spacer--2xl) var(--mk--spacer--lg);
     }
 
     &__title {
@@ -47,26 +47,26 @@
     .mk-button {
       margin-top: var(--mk--spacer--md);
       @media (min-width: $mk--breakpoint--md){
-        margin-top: var(--mk--spacer--lg); 
+        margin-top: var(--mk--spacer--lg);
       }
     }
   }/* content */
   &__content--sub {
     padding: var(--mk--spacer--md) var(--mk--spacer--sm);
     @media (min-width: $mk--breakpoint--md){
-      padding: var(--mk--spacer--xl) var(--mk--spacer--lg); 
+      padding: var(--mk--spacer--xl) var(--mk--spacer--lg);
     }
     &__title {
       font-size: var(--mk--FontSize--2xl);
     }
     &__text {
-      
+
       max-width: 915px;
       font-size: var(--mk--FontSize--md);
       &:not(:last-child) {
         margin-bottom: var(--mk--spacer--md);
         @media (min-width: $mk--breakpoint--md){
-          margin-bottom: var(--mk--spacer--lg); 
+          margin-bottom: var(--mk--spacer--lg);
         }
       }
     }
@@ -110,7 +110,7 @@
   margin-right: var(--mk--spacer--sm);
   margin-top: -90px;
   svg {
-    max-width: rem(40); 
+    max-width: rem(40);
     width: 100%;
     path {
       fill: var(--mk--BackgroundColor--300);
@@ -189,7 +189,6 @@
     }
     @media (min-width: $mk--breakpoint--lg){
       margin:0 0 0 var(--mk--spacer--lg);
-    } 
+    }
   }
 }
-

@@ -20,8 +20,6 @@ In this video, Yolanda Robla speaks about the deployment of Kubernetes on Bare M
 
 > In my current position in Red Hat as an NFV Partner Engineer, I investigate new technologies and create proofs of concept for partners to embrace new technologies. Being the current PTL of Akraino, I am involved in designing and implementing systems based on Kubernetes for the Edge use cases, ensuring high scalability and reproducibility using a GitOps approach.
 
-
 ## References
 
-* [Video: Metal³: Deploy Kubernetes on Bare Metal video](https://www.youtube.com/watch?v=iHlaimz48vg&t=8s)
-
+- [Video: Metal³: Deploy Kubernetes on Bare Metal video](https://www.youtube.com/watch?v=iHlaimz48vg&t=8s)

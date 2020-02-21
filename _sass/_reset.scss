@@ -25,12 +25,12 @@
       padding: 0;
       margin: 0;
     }
-  
+
     html,
     body {
       height: 100%;
     }
-  
+
     h1,
     h2,
     h3,
@@ -40,11 +40,11 @@
       font-size: 100%;
       font-weight: normal;
     }
-  
+
     ul {
       list-style: none;
     }
-  
+
     button,
     input,
     optgroup,
@@ -55,7 +55,7 @@
       font-size: 100%;
       line-height: 1.5;
     }
-  
+
     img,
     embed,
     iframe,
@@ -65,38 +65,38 @@
       max-width: 100%;
       height: auto;
     }
-  
+
     iframe {
       border: 0;
     }
-  
+
     table {
       border-spacing: 0;
       border-collapse: collapse;
     }
-  
+
     td,
     th {
       padding: 0;
       text-align: left;
     }
-    
+
     *,
     *::before,
     *::after {
       box-sizing: border-box;
     }
-  
-  
+
+
     body {
-      font-family:var(--mk--font-family); 
+      font-family:var(--mk--font-family);
       font-size: var(--mk--FontSize--sm);
       font-weight: normal;
       line-height: 1.5;
       text-align: left;
       color: var(--mk--Color--400);
     }
-  
+
   a{
     color: var(--mk--color-brand--400);
     text-decoration: none;
@@ -111,7 +111,7 @@
     a {
       cursor: pointer;
     }
-  
+
     button,
     [type="button"],
     [type="reset"],
@@ -121,7 +121,7 @@
         padding: 0;
         border-style: none;
       }
-  
+
       // Restore the focus styles unset by the previous rule.
       &:-moz-focusring {
         outline: 1px dotted ButtonText;

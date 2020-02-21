@@ -1,32 +1,32 @@
-
-* [Instructions](#instructions)
-    * [Prerequisites](#prerequisites)
-    * [Metal3-dev-env setup](#metal3-dev-env-setup)
-* [Working with the Environment](#working-with-the-environment)
-    * [Bare Metal Hosts](#bare-metal-hosts)
-    * [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
-    * [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
-    * [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
-    * [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
-    * [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
-    * [Accessing the Ironic API](#accessing-ironic-api)
+- [Instructions](#instructions)
+    - [Prerequisites](#prerequisites)
+    - [Metal3-dev-env setup](#metal3-dev-env-setup)
+    - [Using a custom image](#using-a-custom-image)
+    - [Note](#note)
+- [Working with the Environment](#working-with-the-environment)
+  - [Bare Metal Hosts](#bare-metal-hosts)
+  - [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
+  - [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
+    - [Centos target hosts only, image update](#centos-target-hosts-only-image-update)
+  - [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
+  - [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
+  - [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
+  - [Accessing Ironic API](#accessing-ironic-api)
 
 # Instructions
 
 ### Prerequisites
 
- * System with CentOS 7 or Ubuntu 18.04
- * Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
- * Run as a user with passwordless sudo access
- * Resource requirements for the host machine vary depending on the selected
- Linux distribution of the target nodes:
+- System with CentOS 7 or Ubuntu 18.04
+- Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
+- Run as a user with passwordless sudo access
+- Resource requirements for the host machine vary depending on the selected
+  Linux distribution of the target nodes:
 
-
- | Target distribution | host CPU | host memory (Gb) |
- |---------------------|----------|------------------|
- |         Centos      |     4    |        32        |
- |         Ubuntu      |     4    |        16        |
-
+| Target distribution | host CPU | host memory (Gb) |
+| ------------------- | -------- | ---------------- |
+| Centos              | 4        | 32               |
+| Ubuntu              | 4        | 16               |
 
 ### Metal3-dev-env setup
 
@@ -45,15 +45,15 @@ $ make
 
 The `Makefile` runs a series of scripts, described here:
 
-* `01_prepare_host.sh` - Installs all needed packages.
+- `01_prepare_host.sh` - Installs all needed packages.
 
-* `02_configure_host.sh` - Create a set of VMs that will be managed as if they
+- `02_configure_host.sh` - Create a set of VMs that will be managed as if they
   were bare metal hosts. It also downloads some images needed for Ironic.
 
-* `03_launch_mgmt_cluster.sh` - Launch a management cluster using `minikube` and
+- `03_launch_mgmt_cluster.sh` - Launch a management cluster using `minikube` and
   run the `baremetal-operator` on that cluster.
 
-* `04_verify.sh` - Runs a set of tests that verify that the deployment completed
+- `04_verify.sh` - Runs a set of tests that verify that the deployment completed
   successfully
 
 To tear down the environment, run
@@ -77,33 +77,33 @@ $ make test_v1a3
 All configurations for the environment is stored in `config_${user}.sh`. You
 can configure the following
 
-| Name | Option | Allowed values | Default |
-|------|--------|----------------|---------|
-| EXTERNAL_SUBNET | This is the subnet used on the "baremetal" libvirt network, created as the primary network interface for the virtual bare metalhosts. | <CIDR> | 192.168.111.0/24 |
-| SSH_PUB_KEY | This SSH key will be automatically injected into the provisioned host by the provision_host.sh script. | <file path> | ~/.ssh/id_rsa.pub |
-| CONTAINER_RUNTIME | Select the Container Runtime |  "docker", "podman" | "podman" |
-| BMOREPO | Set the Baremetal Operator repository to clone | <URL> | https://github.com/metal3-io/baremetal-operator.git |
-| BMOBRANCH  | Set the Baremetal Operator branch to checkout |  | master |
-| CAPBMREPO | Set the Cluster Api baremetal provider repository to clone | <URL> | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
-| CAPBMBRANCH  | Set the Cluster Api baremetal provider branch to checkout |  | master |
-| FORCE_REPO_UPDATE | Force deletion of the BMO and CAPBM repositories before cloning them again | "true", "false" | "false" |
-| BMO_RUN_LOCAL | Run a local baremetal operator instead of deploying in Kubernetes | "true", "false" | "false" |
-| CAPBM_RUN_LOCAL | Run a local CAPI operator instead of deploying in Kubernetes    | "true", "false" | "false" |
-| SKIP_RETRIES | Do not retry on failure during verifications or tests of the environment. This should be false. It could only be set to false for verifications of a dev env deployment that fully completed. Otherwise failures will appear as resources are not ready. | "true", "false" | "false" |
-| TEST_TIME_INTERVAL | Interval between retries after verification or test failure (seconds) | <int> | 10 |
-| TEST_MAX_TIME | Number of maximum verification or test retries | <int> | 120 |
-| BMC_DRIVER | Set the BMC driver | "ipmi", "redfish" | "ipmi" |
-| IMAGE_OS | OS of the image to boot the nodes from, overriden by IMAGE_* if set| "Centos", "Cirros", "FCOS", "Ubuntu" | "Centos" |
-| IMAGE_NAME | Image for target hosts deployment | | "CentOS-7-x86_64-GenericCloud-1907.qcow2" |
-| IMAGE_LOCATION | Location of the image to download | <URL> | http://cloud.centos.org/centos/7/images |
-| IMAGE_USERNAME | Image username for ssh | | "centos" |
-| IRONIC_IMAGE | Container image for local ironic services |  | "quay.io/metal3-io/ironic" |
-| VBMC_IMAGE | Container image for vbmc container | | "quay.io/metal3-io/vbmc" |
-| SUSHY_TOOLS_IMAGE | Container image for sushy-tools container | | "quay.io/metal3-io/sushy-tools" |
-| CAPI_VERSION | Version of Cluster API | "v1alpha1", "v1alpha2", "v1alpha3" | "v1alpha1" |
-| CLUSTER_APIENDPOINT_IP | APIEndpoint IP for target cluster | "x.x.x.x/x" | "192.168.111.249" |
-| CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface | "ironicendpoint"| "ironicendpoint" |
-| POD_CIDR | POD CIDR | "x.x.x.x/x" | "192.168.0.0/18" |
+| Name                           | Option                                                                                                                                                                                                                                                   | Allowed values                       | Default                                                         |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------- |
+| EXTERNAL_SUBNET                | This is the subnet used on the "baremetal" libvirt network, created as the primary network interface for the virtual bare metalhosts.                                                                                                                    | <CIDR>                               | 192.168.111.0/24                                                |
+| SSH_PUB_KEY                    | This SSH key will be automatically injected into the provisioned host by the provision_host.sh script.                                                                                                                                                   | <file path>                          | ~/.ssh/id_rsa.pub                                               |
+| CONTAINER_RUNTIME              | Select the Container Runtime                                                                                                                                                                                                                             | "docker", "podman"                   | "podman"                                                        |
+| BMOREPO                        | Set the Baremetal Operator repository to clone                                                                                                                                                                                                           | <URL>                                | https://github.com/metal3-io/baremetal-operator.git             |
+| BMOBRANCH                      | Set the Baremetal Operator branch to checkout                                                                                                                                                                                                            |                                      | master                                                          |
+| CAPBMREPO                      | Set the Cluster Api baremetal provider repository to clone                                                                                                                                                                                               | <URL>                                | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
+| CAPBMBRANCH                    | Set the Cluster Api baremetal provider branch to checkout                                                                                                                                                                                                |                                      | master                                                          |
+| FORCE_REPO_UPDATE              | Force deletion of the BMO and CAPBM repositories before cloning them again                                                                                                                                                                               | "true", "false"                      | "false"                                                         |
+| BMO_RUN_LOCAL                  | Run a local baremetal operator instead of deploying in Kubernetes                                                                                                                                                                                        | "true", "false"                      | "false"                                                         |
+| CAPBM_RUN_LOCAL                | Run a local CAPI operator instead of deploying in Kubernetes                                                                                                                                                                                             | "true", "false"                      | "false"                                                         |
+| SKIP_RETRIES                   | Do not retry on failure during verifications or tests of the environment. This should be false. It could only be set to false for verifications of a dev env deployment that fully completed. Otherwise failures will appear as resources are not ready. | "true", "false"                      | "false"                                                         |
+| TEST_TIME_INTERVAL             | Interval between retries after verification or test failure (seconds)                                                                                                                                                                                    | <int>                                | 10                                                              |
+| TEST_MAX_TIME                  | Number of maximum verification or test retries                                                                                                                                                                                                           | <int>                                | 120                                                             |
+| BMC_DRIVER                     | Set the BMC driver                                                                                                                                                                                                                                       | "ipmi", "redfish"                    | "ipmi"                                                          |
+| IMAGE_OS                       | OS of the image to boot the nodes from, overriden by IMAGE\_\* if set                                                                                                                                                                                    | "Centos", "Cirros", "FCOS", "Ubuntu" | "Centos"                                                        |
+| IMAGE_NAME                     | Image for target hosts deployment                                                                                                                                                                                                                        |                                      | "CentOS-7-x86_64-GenericCloud-1907.qcow2"                       |
+| IMAGE_LOCATION                 | Location of the image to download                                                                                                                                                                                                                        | <URL>                                | http://cloud.centos.org/centos/7/images                         |
+| IMAGE_USERNAME                 | Image username for ssh                                                                                                                                                                                                                                   |                                      | "centos"                                                        |
+| IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                      |
+| VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                        |
+| SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                                 |
+| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha1", "v1alpha2", "v1alpha3"   | "v1alpha1"                                                      |
+| CLUSTER_APIENDPOINT_IP         | APIEndpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                               |
+| CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                                |
+| POD_CIDR                       | POD CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                                |
 
 ### Using a custom image
 
@@ -113,12 +113,14 @@ exist in the folder `/opt/metal3-dev-env/ironic/html`, then it will be
 downloaded from `IMAGE_LOCATION`.
 
 ### Note
+
 If you see this error during the installation:
 
 ```sh
 error: failed to connect to the hypervisor
 error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': Permission denied
 ```
+
 You may need to log out then login again, and run `make` again.
 
 # Working with the Environment
@@ -126,7 +128,7 @@ You may need to log out then login again, and run `make` again.
 ## Bare Metal Hosts
 
 This environment creates a set of VMs to manage as if they were bare metal
-hosts.  You can see the VMs using `virsh`.
+hosts. You can see the VMs using `virsh`.
 
 ```sh
 $ sudo virsh list
@@ -138,14 +140,14 @@ $ sudo virsh list
 ```
 
 Each of the VMs (aside from the `minikube` management cluster VM) are
-represented by `BareMetalHost` objects in our management cluster.  The yaml
+represented by `BareMetalHost` objects in our management cluster. The yaml
 used to create these host objects is in `bmhosts_crs.yaml`.
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
 NAME     STATUS   PROVISIONING STATUS   CONSUMER   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0   OK       ready                            ipmi://192.168.111.1:6230   unknown            true     
-node-1   OK       ready                            ipmi://192.168.111.1:6231   unknown            true     
+node-0   OK       ready                            ipmi://192.168.111.1:6230   unknown            true
+node-1   OK       ready                            ipmi://192.168.111.1:6231   unknown            true
 ```
 
 You can also look at the details of a host, including the hardware information
@@ -253,7 +255,6 @@ status:
 
 ## Provisioning Cluster and Machines
 
-
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2) and
@@ -266,7 +267,7 @@ $ ./scripts/v1alphaX/provision_cluster.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
-`BareMetalHost` for this `Machine`.  You can check the logs of the actuator
+`BareMetalHost` for this `Machine`. You can check the logs of the actuator
 here:
 
 ```sh
@@ -306,9 +307,9 @@ node-0   OK       provisioning          test1-md-0-m87bq       ipmi://192.168.11
 node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            true
 ```
 
-You should be able to ssh into your host once provisioning is complete.  See
+You should be able to ssh into your host once provisioning is complete. See
 the libvirt DHCP leases to find the IP address for the host that was
-provisioned.  In this case, it’s `node-1` in this case.
+provisioned. In this case, it’s `node-1` in this case.
 
 ```sh
 $ sudo virsh net-dhcp-leases baremetal
@@ -325,7 +326,7 @@ The default username for the CentOS image is `centos`.
 $ ssh centos@192.168.111.21
 ```
 
-##  Deprovisioning Cluster and Machines
+## Deprovisioning Cluster and Machines
 
 Deprovisioning of the cluster and machines is done just by deleting `Cluster`
 `Machine` objects.
@@ -347,7 +348,7 @@ through a deprovisioning process.
 ```sh
 $ kubectl get baremetalhosts -n metal3
 NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            false     
+node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            false
 node-1   OK       deprovisioning        test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            false
 
 $ kubectl get cluster -n metal3
@@ -378,7 +379,7 @@ It’s also possible to provision via the `BareMetalHost` interface directly
 without using the Cluster API integration.
 
 There is a helper script available to trigger provisioning of one of these
-hosts.  To provision a host with CentOS 7, run:
+hosts. To provision a host with CentOS 7, run:
 
 ```sh
 $ ./provision_host.sh node-0
@@ -428,7 +429,7 @@ node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   
 ## Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
-image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io/baremetal-operator) repository.  If you’d like to test changes to the
+image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io/baremetal-operator) repository. If you’d like to test changes to the
 `baremetal-operator`, you can follow this process.
 
 First, you must scale down the deployment of the `baremetal-operator` running
@@ -449,9 +450,9 @@ make run
 
 ## Running Custom Cluster API Provider Baremetal
 
-There are two Cluster API related managers running in the cluster.  One
+There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
-controller for baremetal.  If you want to try changes to
+controller for baremetal. If you want to try changes to
 `cluster-api-provider-baremetal`, you want to shut down the custom Machine
 controller manager first.
 
@@ -477,7 +478,6 @@ provisioning host as part of setting up the cluster. The openstack tool
 will look for clouds.yaml in the current directory or you can copy it to
 ~/.config/openstack/clouds.yaml. Version 3.19.0 or higher is needed to
 interact with Ironic using clouds.yaml.
-
 
 Example:
 

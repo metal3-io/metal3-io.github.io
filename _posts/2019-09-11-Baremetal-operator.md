@@ -2,7 +2,7 @@
 title: "Baremetal Operator"
 date: 2019-09-11T13:00:00+02:00
 draft: false
-categories: ["openshift", "kubernetes", "metal3", 'operator']
+categories: ["openshift", "kubernetes", "metal3", "operator"]
 author: Pablo Iranzo Gómez
 ---
 
@@ -13,9 +13,9 @@ The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), docu
 Quoting from the project:
 
 > The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
->    Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
->    Provision hosts with a desired image
->    Clean a host’s disk contents before or after provisioning.
+> Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
+> Provision hosts with a desired image
+> Clean a host’s disk contents before or after provisioning.
 
 ## A bit more in deep approach
 
@@ -65,7 +65,7 @@ NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                   
 metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230                      false
 ```
 
-Once the inspection has finished, the status will change to *ready* and made available for provisioning.
+Once the inspection has finished, the status will change to _ready_ and made available for provisioning.
 
 When we define a machine, we refer the images that will be used for the actual provisioning in the CRD (`image`):
 
@@ -97,7 +97,6 @@ spec:
         name: metal3-node01-user-data
         namespace: metal3
 ```
-
 
 ```console
 [root@metal3-kubernetes ~]# kubectl create -f metal3-node01-machine.yml

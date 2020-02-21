@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
     <section class="mk-main__section mk-component-overview">
         <header class="mk-main__header">
         <h2 class="mk-heading mk-heading--xl mk-m-border">Metal<sup>3</sup> Component Overview</h2>
-        </header>               
+        </header>
             <div class="mk-infograph">
                     <p class="mk-infograph__text"> It is helpful to understand the high level architecture of of the Machine API Integration. Click on each step to learn more about that particular component.</p>
                 <button type="button" class="mk-infograph__item mk--selected">
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <li>Optionally, automatically created via a bare metal host discovery process.
                                 For more information about Operators, see the <a href="https://github.com/operator-framework/operator-sdk">operator-sdk</a>.</li>
                             </ol>
-                        
+
                 </div>
                 <button type="button" class="mk-infograph__item">
                     <h4 class="mk-heading mk-heading--md">Bare metal management pods</h4>
@@ -78,6 +78,6 @@ document.addEventListener("DOMContentLoaded", function() {
     <section class="mk-main__section mk-main__section__content">
             {% capture docs %}{% include docs.md %}{% endcapture %}
             {{ docs | markdownify }}
-          
-    </section>    
+
+    </section>
 </main>
