@@ -159,3 +159,4 @@ document.addEventListener("click", function (e) {
 var mykeywords = [{% for tag in site.categories %}"{{ tag[0] }}", {% endfor %}]
 autocomplete(document.getElementById("search-input"), mykeywords);
 </script>
+<script src="/assets/js/clipboard.min.js"></script>
