@@ -272,48 +272,7 @@ but since a few releases back, the k8s API can be extended easily with <a href="
 Basically this means you can virtually create any type of object <strong>definition</strong> in k8s
 (actually only user with cluster-admin capabilities) with a yaml such as:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-</pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apiextensions.k8s.io/v1beta1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">apiextensions.k8s.io/v1beta1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">CustomResourceDefinition</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="c1"># name must match the spec fields below, and be in the form: &lt;plural&gt;.&lt;group&gt;</span>
@@ -354,7 +313,7 @@ Basically this means you can virtually create any type of object <strong>definit
               <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
             <span class="na">replicas</span><span class="pi">:</span>
               <span class="na">type</span><span class="pi">:</span> <span class="s">integer</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>And after <code class="language-html highlighter-rouge">kubectl apply -f</code> you can <code class="language-html highlighter-rouge">kubectl get crontabs</code>.</p>
 
@@ -407,19 +366,7 @@ regards the <a href="https://kubernetes.io/docs/concepts/architecture/cloud-cont
 
 <p>The Cluster API implementation is a WIP ‘framework’ that allows a k8s cluster to manage itself, including the ability of creating new clusters, adding more nodes, etc. in a ‘k8s way’ (declarative, controllers, CRDs, etc.), so there are objects such as <code class="language-html highlighter-rouge">Cluster</code> that can be expressed as k8s objects:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.k8s.io/v1alpha1"</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.k8s.io/v1alpha1"</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Cluster</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">mycluster</span>
@@ -431,7 +378,7 @@ regards the <a href="https://kubernetes.io/docs/concepts/architecture/cloud-cont
       <span class="na">cidrBlocks</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">192.168.0.0/16"</span><span class="pi">]</span>
     <span class="na">serviceDomain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.local"</span>
   <span class="na">providerSpec</span><span class="pi">:</span> <span class="s">...</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>but also:</p>
 
@@ -521,17 +468,7 @@ wheel, but consider it as an implementation detail that may change.</p>
 
 <p>The Metal3 baremetal operator watches for <code class="language-html highlighter-rouge">BareMetalHost</code> (CRD) objects defined as:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">metal3.io/v1alpha1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">metal3.io/v1alpha1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">BareMetalHost</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">my-worker-0</span>
@@ -541,7 +478,7 @@ wheel, but consider it as an implementation detail that may change.</p>
   <span class="na">bmc</span><span class="pi">:</span>
     <span class="na">address</span><span class="pi">:</span> <span class="s">ipmi://my-worker-0.ipmi.example.com</span>
     <span class="na">credentialsName</span><span class="pi">:</span> <span class="s">my-worker-0-bmc-secret</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>There are a few more fields in the <a href="https://github.com/metal3-io/baremetal-operator/blob/master/pkg/apis/metal3/v1alpha1/baremetalhost_types.go"><code class="language-html highlighter-rouge">BareMetalHost</code> object</a> such as the image, hardware profile, etc.</p>
 
@@ -569,18 +506,7 @@ wheel, but consider it as an implementation detail that may change.</p>
 installation procedure finishes, a new kubernetes node will be added to the
 cluster.</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get nodes
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get nodes
 NAME                                         STATUS   ROLES    AGE   VERSION
 my-node-0.example.com                        Ready    master   25h   v1.14.0
 
@@ -591,45 +517,36 @@ openshift-machine-api   my-node-0                                               
 <span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">--allnamespaces</span>
 NAMESPACE             NAME      STATUS PROVISIONING STATUS MACHINE BMC HARDWARE PROFILE ONLINE ERROR
 openshift-machine-api my-node-0 OK     provisioned  my-node-0.example.com ipmi://1.2.3.4 unknown <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The 1:1 relationship for the <code class="language-html highlighter-rouge">BareMetalHost</code> and the <code class="language-html highlighter-rouge">Machine</code> is stored in the
 <code class="language-html highlighter-rouge">machineRef</code> field in the <code class="language-html highlighter-rouge">BareMetalHost</code> object:</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl  get baremetalhost/my-node-0 <span class="nt">-n</span> openshift-machine-api <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.machineRef}'</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl  get baremetalhost/my-node-0 <span class="nt">-n</span> openshift-machine-api <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.machineRef}'</span>
 
 map[name:my-node-0 namespace:openshift-machine-api]
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>In a <code class="language-html highlighter-rouge">Machine</code> annotation:</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get machines my-node-0 <span class="nt">-n</span> openshift-machine-api <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.metadata.annotations}'</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machines my-node-0 <span class="nt">-n</span> openshift-machine-api <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.metadata.annotations}'</span>
 map[metal3.io/BareMetalHost:openshift-machine-api/my-node-0]
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The 1:1 relationship for the <code class="language-html highlighter-rouge">Machine</code> and the <code class="language-html highlighter-rouge">Node</code> currently requires to
 execute the <a href="https://github.com/openshift-metal3/dev-scripts/blob/master/link-machine-and-node.sh">link-machine-and-node.sh</a> script to modify the <code class="language-html highlighter-rouge">Machine</code>
 object <code class="language-html highlighter-rouge">.status</code> field:</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>./link-machine-and-node.sh MACHINE NODE
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code>./link-machine-and-node.sh MACHINE NODE
+</code></pre></div></div>
 
 <p>Then, the reference is stored in the <code class="language-html highlighter-rouge">.status.nodeRef.name</code> field in the
 <code class="language-html highlighter-rouge">Machine</code> object:</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get machine my-node-0 <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.nodeRef.name}'</span>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machine my-node-0 <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.nodeRef.name}'</span>
 
 my-node-0.example.com
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="recap">Recap</h2>
 

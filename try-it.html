@@ -23,7 +23,7 @@
     <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
     <meta property="og:site_name" content="Metal³ - Metal Kubed" >
     <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
-    <meta property="og:article:published_time" content="2020-02-25 10:49:02 +0000" >
+    <meta property="og:article:published_time" content="2020-02-25 13:52:17 +0000" >
     <meta name="twitter:title" content="Try it | Metal³ - Metal Kubed">
     <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
 
@@ -289,9 +289,8 @@ Linux distribution of the target nodes:</li>
 <p>tl;dr - Clone <a href="https://github.com/metal3-io/metal3-dev-env">metal³-dev-env</a>
 and run</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>make
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>make
+</code></pre></div></div>
 
 <p>The <code class="language-html highlighter-rouge">Makefile</code> runs a series of scripts, described here:</p>
 
@@ -315,26 +314,19 @@ successfully</p>
 
 <p>To tear down the environment, run</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>make clean
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>make clean
+</code></pre></div></div>
 
 <p><strong>Note</strong>: you can also run some tests provisioning and deprovisioning machines
 by running</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="c"># for CAPI v1alpha1 based deployment</span>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># for CAPI v1alpha1 based deployment</span>
 <span class="nv">$ </span>make <span class="nb">test</span>
 <span class="c"># for CAPI v1alpha2 based deployment</span>
 <span class="nv">$ </span>make test_v1a2
 <span class="c"># for CAPI v1alpha3 based deployment</span>
 <span class="nv">$ </span>make test_v1a3
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>All configurations for the environment is stored in <code class="language-html highlighter-rouge">config_${user}.sh</code>. You
 can configure the following</p>
@@ -513,11 +505,9 @@ downloaded from <code class="language-html highlighter-rouge">IMAGE_LOCATION</co
 
 <p>If you see this error during the installation:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>error: failed to connect to the hypervisor
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>error: failed to connect to the hypervisor
 error: Failed to connect socket to <span class="s1">'/var/run/libvirt/libvirt-sock'</span>: Permission denied
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>You may need to log out then login again, and run <code class="language-html highlighter-rouge">make</code> again.</p>
 
@@ -528,135 +518,28 @@ error: Failed to connect socket to <span class="s1">'/var/run/libvirt/libvirt-so
 <p>This environment creates a set of VMs to manage as if they were bare metal
 hosts. You can see the VMs using <code class="language-html highlighter-rouge">virsh</code>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span><span class="nb">sudo </span>virsh list
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">sudo </span>virsh list
  Id    Name                           State
 <span class="nt">----------------------------------------------------</span>
  6     minikube                       running
  9     node_0                         running
  10    node_1                         running
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Each of the VMs (aside from the <code class="language-html highlighter-rouge">minikube</code> management cluster VM) are
 represented by <code class="language-html highlighter-rouge">BareMetalHost</code> objects in our management cluster. The yaml
 used to create these host objects is in <code class="language-html highlighter-rouge">bmhosts_crs.yaml</code>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
 NAME     STATUS   PROVISIONING STATUS   CONSUMER   BMC                         HARDWARE PROFILE   ONLINE   ERROR
 node-0   OK       ready                            ipmi://192.168.111.1:6230   unknown            <span class="nb">true
 </span>node-1   OK       ready                            ipmi://192.168.111.1:6231   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>You can also look at the details of a host, including the hardware information
 gathered by doing pre-deployment introspection.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhost <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml node-0
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhost <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml node-0
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
 metadata:
@@ -753,7 +636,7 @@ spec:
       name: node-0-bmc-secret
       namespace: metal3
     credentialsVersion: <span class="s2">"1242"</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="provisioning-cluster-and-machines">Provisioning Cluster and Machines</h2>
 
@@ -764,29 +647,16 @@ assumes that metal3-dev-env is deployed with the environment variable
 <strong>CAPI_VERSION</strong> set to <strong>v1alpha2</strong>. The v1alpha2 deployment can be done with
 Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet <a href="#prerequisites">resourcerequirements</a> for successfull deployment:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./scripts/v1alphaX/provision_cluster.sh
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>./scripts/v1alphaX/provision_cluster.sh
 <span class="nv">$ </span>./scripts/v1alphaX/provision_controlplane.sh
 <span class="nv">$ </span>./scripts/v1alphaX/provision_worker.sh
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>At this point, the <code class="language-html highlighter-rouge">Machine</code> actuator will respond and try to claim a
 <code class="language-html highlighter-rouge">BareMetalHost</code> for this <code class="language-html highlighter-rouge">Machine</code>. You can check the logs of the actuator
 here:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl logs <span class="nt">-n</span> metal3 pod/capbm-controller-manager-7bbc6897c7-bp2pw <span class="nt">-c</span> manager
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl logs <span class="nt">-n</span> metal3 pod/capbm-controller-manager-7bbc6897c7-bp2pw <span class="nt">-c</span> manager
 
 09:10:38.914458       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting Controller"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"baremetalcluster"</span>
 09:10:38.926489       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting workers"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"baremetalmachine"</span> <span class="s2">"worker count"</span><span class="o">=</span>1
@@ -796,79 +666,53 @@ here:</p>
 10:54:17.516274       Finished creating machine
 10:54:17.518718       Provisioning BaremetalHost
 
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>If you look at the yaml representation of the <code class="language-html highlighter-rouge">Machine</code>, you will see a new
 annotation that identifies which <code class="language-html highlighter-rouge">BareMetalHost</code> was chosen to satisfy this
 <code class="language-html highlighter-rouge">Machine</code> request.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get machine centos <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machine centos <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml
 
 ...
   annotations:
     metal3.io/BareMetalHost: metal3/node-1
 ...
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>You can also see in the list of <code class="language-html highlighter-rouge">BareMetalHosts</code> that one of the hosts is now
 provisioned and associated with a <code class="language-html highlighter-rouge">Machine</code>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
 
 NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
 node-0   OK       provisioning          test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            <span class="nb">true
 </span>node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>You should be able to ssh into your host once provisioning is complete. See
 the libvirt DHCP leases to find the IP address for the host that was
 provisioned. In this case, it’s <code class="language-html highlighter-rouge">node-1</code> in this case.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span><span class="nb">sudo </span>virsh net-dhcp-leases baremetal
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">sudo </span>virsh net-dhcp-leases baremetal
 
 Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
 <span class="nt">-------------------------------------------------------------------------------------------------------------------</span>
 2020-02-05 11:52:39  00:f8:16:dd:3b:9d  ipv4      192.168.111.20/24         node-0          -
 2020-02-05 11:59:18  00:f8:16:dd:3b:a1  ipv4      192.168.111.21/24         node-1          -
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The default username for the CentOS image is <code class="language-html highlighter-rouge">centos</code>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>ssh centos@192.168.111.21
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>ssh centos@192.168.111.21
+</code></pre></div></div>
 
 <h2 id="deprovisioning-cluster-and-machines">Deprovisioning Cluster and Machines</h2>
 
 <p>Deprovisioning of the cluster and machines is done just by deleting <code class="language-html highlighter-rouge">Cluster</code>
 <code class="language-html highlighter-rouge">Machine</code> objects.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl delete machine test1-md-0-m87bq <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl delete machine test1-md-0-m87bq <span class="nt">-n</span> metal3
 machine.cluster.x-k8s.io <span class="s2">"test1-md-0-m87bq"</span> deleted
 
 <span class="nv">$ </span>kubectl delete machine test1-controlplane-0 <span class="nt">-n</span> metal3
@@ -876,20 +720,12 @@ machine.cluster.x-k8s.io <span class="s2">"test1-controlplane-0"</span> deleted
 
 <span class="nv">$ </span>kubectl delete cluster test1 <span class="nt">-n</span> metal3
 cluster.cluster.x-k8s.io <span class="s2">"test1"</span> deleted
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>At this point you can see that the <code class="language-html highlighter-rouge">BareMetalHost</code> and <code class="language-html highlighter-rouge">Cluster</code> are going
 through a deprovisioning process.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
 NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
 node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            <span class="nb">false
 </span>node-1   OK       deprovisioning        test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            <span class="nb">false</span>
@@ -897,7 +733,7 @@ node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.11
 <span class="nv">$ </span>kubectl get cluster <span class="nt">-n</span> metal3
 NAME    PHASE
 test1   deprovisioning
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="centos-target-hosts-only-image-update">Centos target hosts only, image update</h3>
 
@@ -908,17 +744,12 @@ an update of Cloud-init. An updated image can be downloaded
 <a href="http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2">here</a>.
 You can replace the existing centos image with the following commands :</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre>curl <span class="nt">-LO</span> http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>curl <span class="nt">-LO</span> http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2
 <span class="nb">mv </span>centos.qcow2 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2
 <span class="nb">md5sum</span> /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2 | <span class="se">\</span>
 <span class="nb">awk</span> <span class="s1">'{print $1}'</span> <span class="o">&gt;</span> <span class="se">\</span>
 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2.md5sum
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="directly-provisioning-bare-metal-hosts">Directly Provisioning Bare Metal Hosts</h2>
 
@@ -928,59 +759,44 @@ without using the Cluster API integration.</p>
 <p>There is a helper script available to trigger provisioning of one of these
 hosts. To provision a host with CentOS 7, run:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./provision_host.sh node-0
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>./provision_host.sh node-0
+</code></pre></div></div>
 
 <p>The <code class="language-html highlighter-rouge">BareMetalHost</code> will go through the provisioning process, and will
 eventually reboot into the operating system we wrote to disk.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhost node-0 <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhost node-0 <span class="nt">-n</span> metal3
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
 node-0     OK       provisioned                     ipmi://192.168.111.1:6230   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p><code class="language-html highlighter-rouge">provision_host.sh</code> will inject your SSH public key into the VM. To find the IP
 address, you can check the DHCP leases on the <code class="language-html highlighter-rouge">baremetal</code> libvirt network.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span><span class="nb">sudo </span>virsh net-dhcp-leases baremetal
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">sudo </span>virsh net-dhcp-leases baremetal
 
  Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
 <span class="nt">-------------------------------------------------------------------------------------------------------------------</span>
  2019-05-06 19:03:46  00:1c:cc:c6:29:39  ipv4      192.168.111.20/24         node-0          -
  2019-05-06 19:04:18  00:1c:cc:c6:29:3d  ipv4      192.168.111.21/24         node-1          -
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The default user for the CentOS image is <code class="language-html highlighter-rouge">centos</code>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>ssh centos@192.168.111.20
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>ssh centos@192.168.111.20
+</code></pre></div></div>
 
 <p>There is another helper script to deprovision a host.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>./deprovision_host.sh node-0
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>./deprovision_host.sh node-0
+</code></pre></div></div>
 
 <p>You will then see the host go into a <code class="language-html highlighter-rouge">deprovisioning</code> status:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhost node-0 <span class="nt">-n</span> metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhost node-0 <span class="nt">-n</span> metal3
 NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
 node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="running-custom-baremetal-operator">Running Custom Baremetal-Operator</h2>
 
@@ -991,19 +807,16 @@ image built from the <a href="https://github.com/metal3-io/baremetal-operator">m
 <p>First, you must scale down the deployment of the <code class="language-html highlighter-rouge">baremetal-operator</code> running
 in the cluster.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>kubectl scale deployment metal3-baremetal-operator <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubectl scale deployment metal3-baremetal-operator <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div></div>
 
 <p>To be able to run <code class="language-html highlighter-rouge">baremetal-operator</code> locally, you need to install
 <a href="https://github.com/operator-framework">operator-sdk</a>. After that, you can run
 the <code class="language-html highlighter-rouge">baremetal-operator</code> including any custom changes.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> ~/go/src/github.com/metal3-io/baremetal-operator
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/baremetal-operator
 make run
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="running-custom-cluster-api-provider-baremetal">Running Custom Cluster API Provider Baremetal</h2>
 
@@ -1013,17 +826,14 @@ controller for baremetal. If you want to try changes to
 <code class="language-html highlighter-rouge">cluster-api-provider-baremetal</code>, you want to shut down the custom Machine
 controller manager first.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl scale statefulset cluster-api-provider-baremetal-controller-manager <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl scale statefulset cluster-api-provider-baremetal-controller-manager <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div></div>
 
 <p>Then you can run the custom Machine controller manager out of your local git tree.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="nb">cd</span> ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
 make run
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="accessing-ironic-api">Accessing Ironic API</h2>
 
@@ -1039,15 +849,7 @@ interact with Ironic using clouds.yaml.</p>
 
 <p>Example:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span><span class="nb">export </span><span class="nv">OS_CLOUD</span><span class="o">=</span>metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span><span class="nb">export </span><span class="nv">OS_CLOUD</span><span class="o">=</span>metal3
 <span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span>openstack baremetal node list
 +--------------------------------------+--------+---------------+-------------+--------------------+-------------+
 | UUID                                 | Name   | Instance UUID | Power State | Provisioning State | Maintenance |
@@ -1055,70 +857,13 @@ interact with Ironic using clouds.yaml.</p>
 | 882cf206-d688-43fa-bf4c-3282fcb00b12 | node-0 | None          | None        | enroll             | False       |
 | ac257479-d6c6-47c1-a649-64a88e6ff312 | node-1 | None          | None        | enroll             | False       |
 +--------------------------------------+--------+---------------+-------------+--------------------+-------------+
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>To view a particular node’s details, run the below command. The
 <code class="language-html highlighter-rouge">last_error</code>, <code class="language-html highlighter-rouge">maintenance_reason</code>, and <code class="language-html highlighter-rouge">provisioning_state</code> fields are
 useful for troubleshooting to find out why a node did not deploy.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-</pre></td><td class="rouge-code"><pre><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span><span class="nb">export </span><span class="nv">OS_CLOUD</span><span class="o">=</span>metal3
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span><span class="nb">export </span><span class="nv">OS_CLOUD</span><span class="o">=</span>metal3
 <span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span>openstack baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
 +------------------------+------------------------------------------------------------+
 | Field                  | Value                                                      |
@@ -1175,7 +920,7 @@ useful for troubleshooting to find out why a node did not deploy.</p>
 | uuid                   | 882cf206-d688-43fa-bf4c-3282fcb00b12                       |
 | vendor_interface       | ipmitool                                                   |
 +-------------------------------------------------------------------------------------+
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 
 </section>

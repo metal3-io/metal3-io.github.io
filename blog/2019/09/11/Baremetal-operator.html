@@ -279,30 +279,7 @@ Clean a host’s disk contents before or after provisioning.</p>
 
 <p>All of this is defined in a <code class="language-html highlighter-rouge">CRD</code>, for example:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-</pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
 <span class="na">metadata</span><span class="pi">:</span>
   <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01-credentials</span>
@@ -325,7 +302,7 @@ Clean a host’s disk contents before or after provisioning.</p>
   <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
   <span class="na">hardwareProfile</span><span class="pi">:</span> <span class="s2">"</span><span class="s">libvirt"</span>
   <span class="na">online</span><span class="pi">:</span> <span class="no">false</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>With above values (described in <a href="https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md">API</a>), we’re telling the operator:</p>
 
@@ -337,45 +314,16 @@ Clean a host’s disk contents before or after provisioning.</p>
 
 <p>Once the server is ‘defined’ via the CRD, the underlying service (provided by <code class="language-html highlighter-rouge">ironic</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> as of this writing) is inspected:</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
 <span class="go">NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
 metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230                      false
-</span></pre></td></tr></tbody></table></code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>Once the inspection has finished, the status will change to <em>ready</em> and made available for provisioning.</p>
 
 <p>When we define a machine, we refer the images that will be used for the actual provisioning in the CRD (<code class="language-html highlighter-rouge">image</code>):</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-</pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
 <span class="na">data</span><span class="pi">:</span>
   <span class="na">userData</span><span class="pi">:</span> <span class="s">DATA</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
@@ -401,59 +349,16 @@ metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230
       <span class="na">userData</span><span class="pi">:</span>
         <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01-user-data</span>
         <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl create <span class="nt">-f</span> metal3-node01-machine.yml
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl create <span class="nt">-f</span> metal3-node01-machine.yml
 <span class="go">secret/metal3-node01-user-data created
 machine.cluster.k8s.io/metal3-node01 created
-</span></pre></td></tr></tbody></table></code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>Let’s examine the annotation created when provisioning (<code class="language-html highlighter-rouge">metal3.io/BareMetalHost</code>):</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-</pre></td><td class="rouge-code"><pre><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get machine <span class="nt">-n</span> metal3 metal3-node01 <span class="nt">-o</span> yaml
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get machine <span class="nt">-n</span> metal3 metal3-node01 <span class="nt">-o</span> yaml
 <span class="go">apiVersion: cluster.k8s.io/v1alpha1
 kind: Machine
 metadata:
@@ -493,7 +398,7 @@ status:
   - address: localhost.localdomain
     type: Hostname
   lastUpdated: "2019-07-08T15:30:44Z"
-</span></pre></td></tr></tbody></table></code></pre></div></div>
+</span></code></pre></div></div>
 
 <div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p>In the output above, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.</p>
 
@@ -501,29 +406,20 @@ status:
 </div></div>
 <p>Now, if we check baremetal hosts, we can see how it’s getting provisioned:</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
 <span class="go">NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
 metal3-node01   OK       provisioned                       ipmi://172.22.0.1:6230                     true
-</span></pre></td></tr></tbody></table></code></pre></div></div>
+</span></code></pre></div></div>
 
 <p>And also, check it via the <code class="language-html highlighter-rouge">ironic</code> command:</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span><span class="nb">export </span><span class="nv">OS_TOKEN</span><span class="o">=</span>fake-token <span class="p">;</span> <span class="nb">export </span><span class="nv">OS_URL</span><span class="o">=</span>http://localhost:6385 <span class="p">;</span> openstack baremetal node list
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span><span class="nb">export </span><span class="nv">OS_TOKEN</span><span class="o">=</span>fake-token <span class="p">;</span> <span class="nb">export </span><span class="nv">OS_URL</span><span class="o">=</span>http://localhost:6385 <span class="p">;</span> openstack baremetal node list
 <span class="go">+--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
 | UUID                                 | Name          | Instance UUID                        | Power State | Provisioning State | Maintenance |
 +--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
 | 7551cfb4-d758-4ad8-9188-859ee53cf298 | metal3-node01 | 7551cfb4-d758-4ad8-9188-859ee53cf298 | power on    | active             | False       |
 +--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
-</span></pre></td></tr></tbody></table></code></pre></div></div>
+</span></code></pre></div></div>
 
 <h2 id="wrap-up">Wrap-up</h2>
 

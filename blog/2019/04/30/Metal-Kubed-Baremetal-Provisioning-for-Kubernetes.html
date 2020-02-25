@@ -278,72 +278,36 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 
 <p>For this demonstration, I’ve started with a 3 node Kubernetes cluster installed using <a href="https://www.openshift.com/">OpenShift</a>.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get nodes
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get nodes
 NAME       STATUS   ROLES    AGE   VERSION
 master-0   Ready    master   24h   v1.13.4+d4ce02c1d
 master-1   Ready    master   24h   v1.13.4+d4ce02c1d
 master-2   Ready    master   24h   v1.13.4+d4ce02c1d
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Machine objects were created to reflect these 3 masters, as well.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get machines
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machines
 NAME              INSTANCE   STATE   TYPE   REGION   ZONE   AGE
 ostest-master-0                                             24h
 ostest-master-1                                             24h
 ostest-master-2                                             24h
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>For this cluster-api provider, a Machine has a corresponding BareMetalHost object, which corresponds to the piece of hardware we are managing. There is a design document that covers <a href="https://github.com/metal3-io/metal3-docs/blob/master/design/nodes-machines-and-hosts.md">the relationship between Nodes, Machines, and BareMetalHosts</a>.</p>
 
 <p>Since these hosts were provisioned earlier, they are in a special <code class="language-html highlighter-rouge">externally provisioned</code> state, indicating that we enrolled them in management while they were already running in a desired state. If changes are needed going forward, the baremetal-operator will be able to automate them.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      <span class="nb">true
 </span>openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now suppose we’d like to expand this cluster by adding another bare metal host to serve as a worker node. First we need to create a new BareMetalHost object that adds this new host to the inventory of hosts managed by the baremetal-operator. Here’s the YAML for the new BareMetalHost:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-</pre></td><td class="rouge-code"><pre><span class="nn">---</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nn">---</span>
 <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
 <span class="na">metadata</span><span class="pi">:</span>
@@ -364,43 +328,31 @@ openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://
     <span class="na">address</span><span class="pi">:</span> <span class="s">ipmi://192.168.111.1:6233</span>
     <span class="na">credentialsName</span><span class="pi">:</span> <span class="s">openshift-worker-0-bmc-secret</span>
   <span class="na">bootMACAddress</span><span class="pi">:</span> <span class="s">00:ab:4f:d8:9e:fa</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now to add the BareMetalHost and its IPMI credentials Secret to the cluster:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl create <span class="nt">-f</span> worker_crs.yaml
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl create <span class="nt">-f</span> worker_crs.yaml
 secret/openshift-worker-0-bmc-secret created
 baremetalhost.metalkube.org/openshift-worker-0 created
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The list of BareMetalHosts now reflects a new host in the inventory that is ready to be provisioned. It will remain in this <code class="language-html highlighter-rouge">ready</code> state until it is claimed by a new Machine object.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      <span class="nb">true
 </span>openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      <span class="nb">true
 </span>openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>We have a MachineSet already created for workers, but it scaled down to 0.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get machinesets
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machinesets
 NAME              DESIRED   CURRENT   READY   AVAILABLE   AGE
 ostest-worker-0   0         0                             24h
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>We can scale this MachineSet to 1 to indicate that we’d like a worker provisioned. The baremetal cluster-api provider will then look for an available BareMetalHost, claim it, and trigger provisioning of that host.</p>
 
@@ -408,36 +360,17 @@ ostest-worker-0   0         0                             24h
 
 <p>After the new Machine was created, our cluster-api provider claimed the available host and triggered it to be provisioned.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      <span class="nb">true
 </span>openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      <span class="nb">true
 </span>openshift-worker-0   OK       provisioning             ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            <span class="nb">true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>This process takes some time. Under the hood, the baremetal-operator is driving Ironic through a provisioning process. This begins with wiping disks to ensure the host comes up in a clean state. It will eventually write the desired OS image to disk and then reboot into that OS. When complete, a new Kubernetes Node will register with the cluster.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      <span class="nb">true
@@ -450,7 +383,7 @@ master-0   Ready    master   24h   v1.13.4+d4ce02c1d
 master-1   Ready    master   24h   v1.13.4+d4ce02c1d
 master-2   Ready    master   24h   v1.13.4+d4ce02c1d
 worker-0   Ready    worker   68s   v1.13.4+d4ce02c1d
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The following screen cast demonstrates this process, as well:</p>
 
@@ -462,35 +395,23 @@ worker-0   Ready    worker   68s   v1.13.4+d4ce02c1d
 
 <p>Once the Machine has been deleted, the baremetal-operator will deprovision the bare metal host.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      <span class="nb">true
 </span>openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      <span class="nb">true
 </span>openshift-worker-0   OK       deprovisioning                             ipmi://192.168.111.1:6233   unknown            <span class="nb">false</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Once the deprovisioning process is complete, the bare metal host will be back to its <code class="language-html highlighter-rouge">ready</code> state, available in the host inventory to be claimed by a future Machine object.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="nv">$ </span>kubectl get baremetalhosts
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts
 NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
 openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      <span class="nb">true
 </span>openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      <span class="nb">true
 </span>openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      <span class="nb">true
 </span>openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            <span class="nb">false</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="getting-involved">Getting Involved</h2>
 
