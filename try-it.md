@@ -1,8 +1,15 @@
+---
+layout: tryit
+title: "Try it: Getting started with Metal3.io"
+permalink: /try-it.html
+---
+
+<!-- TOC depthFrom:1 insertAnchor:false orderedList:true updateOnSave:true withLinks:true -->
+
 - [Instructions](#instructions)
-    - [Prerequisites](#prerequisites)
-    - [Metal3-dev-env setup](#metal3-dev-env-setup)
-    - [Using a custom image](#using-a-custom-image)
-    - [Note](#note)
+  - [Prerequisites](#prerequisites)
+  - [Metal3-dev-env setup](#metal3-dev-env-setup)
+  - [Using a custom image](#using-a-custom-image)
 - [Working with the Environment](#working-with-the-environment)
   - [Bare Metal Hosts](#bare-metal-hosts)
   - [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
@@ -13,7 +20,9 @@
   - [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
   - [Accessing Ironic API](#accessing-ironic-api)
 
-# Instructions
+<!-- /TOC -->
+<hr>
+## Instructions
 
 ### Prerequisites
 
@@ -32,9 +41,7 @@
 
 This is a high-level architecture of the metal³-dev-env.
 
-<p align="center">
-  <img width="752" height="713" src="../assets/images/metal3-dev-env.svg">
-</p>
+![](assets/images/metal3-dev-env.svg)
 
 tl;dr - Clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
 and run
@@ -62,17 +69,17 @@ To tear down the environment, run
 $ make clean
 ```
 
-**Note**: you can also run some tests provisioning and deprovisioning machines
-by running
-
-```sh
-# for CAPI v1alpha1 based deployment
-$ make test
-# for CAPI v1alpha2 based deployment
-$ make test_v1a2
-# for CAPI v1alpha3 based deployment
-$ make test_v1a3
-```
+> info "Note"
+> you can also run some tests provisioning and deprovisioning machines by running:
+>
+> ```sh
+> # for CAPI v1alpha1 based deployment
+> $ make test
+> # for CAPI v1alpha2 based deployment
+> $ make test_v1a2
+> # for CAPI v1alpha3 based deployment
+> $ make test_v1a3
+> ```
 
 All configurations for the environment is stored in `config_${user}.sh`. You
 can configure the following
@@ -112,20 +119,19 @@ You can override the three following variables: `IMAGE_NAME`,
 exist in the folder `/opt/metal3-dev-env/ironic/html`, then it will be
 downloaded from `IMAGE_LOCATION`.
 
-### Note
+> warning "Warning"
+> If you see this error during the installation:
+>
+> ```sh
+> error: failed to connect to the hypervisor
+> error: Failed to connect socket to '/var/run/libvirt/libvirt-sock':  Permission denied
+> ```
+>
+> You may need to log out then login again, and run `make` again.
 
-If you see this error during the installation:
+## Working with the Environment
 
-```sh
-error: failed to connect to the hypervisor
-error: Failed to connect socket to '/var/run/libvirt/libvirt-sock': Permission denied
-```
-
-You may need to log out then login again, and run `make` again.
-
-# Working with the Environment
-
-## Bare Metal Hosts
+### Bare Metal Hosts
 
 This environment creates a set of VMs to manage as if they were bare metal
 hosts. You can see the VMs using `virsh`.
@@ -253,7 +259,7 @@ status:
     credentialsVersion: "1242"
 ```
 
-## Provisioning Cluster and Machines
+### Provisioning Cluster and Machines
 
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
@@ -328,7 +334,7 @@ The default username for the CentOS image is `centos`.
 $ ssh centos@192.168.111.21
 ```
 
-## Deprovisioning Cluster and Machines
+### Deprovisioning Cluster and Machines
 
 Deprovisioning of the cluster and machines is done just by deleting `Cluster`
 `Machine` objects.
@@ -358,7 +364,7 @@ NAME    PHASE
 test1   deprovisioning
 ```
 
-### Centos target hosts only, image update
+#### Centos target hosts only, image update
 
 If you want to deploy Ubuntu hosts, please skip to the next section.
 
@@ -375,7 +381,7 @@ awk '{print $1}' > \
 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2.md5sum
 ```
 
-## Directly Provisioning Bare Metal Hosts
+### Directly Provisioning Bare Metal Hosts
 
 It’s also possible to provision via the `BareMetalHost` interface directly
 without using the Cluster API integration.
@@ -428,7 +434,7 @@ NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         
 node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            true
 ```
 
-## Running Custom Baremetal-Operator
+### Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
 image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io/baremetal-operator) repository. If you’d like to test changes to the
@@ -450,7 +456,7 @@ cd ~/go/src/github.com/metal3-io/baremetal-operator
 make run
 ```
 
-## Running Custom Cluster API Provider Baremetal
+### Running Custom Cluster API Provider Baremetal
 
 There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
@@ -469,7 +475,7 @@ cd ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
 make run
 ```
 
-## Accessing Ironic API
+### Accessing Ironic API
 
 Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
