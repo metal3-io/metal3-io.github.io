@@ -265,6 +265,7 @@ to a ‘baremetal operator’.</p>
 <p>Let’s have some definitions!</p>
 
 <h2 id="custom-resource-definition">Custom Resource Definition</h2>
+
 <p>The k8s API provides some out-of-the-box objects such as pods, services, etc.
 There are a few methods of <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/">extending the k8s API</a> (such as API extensions)
 but since a few releases back, the k8s API can be extended easily with <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">custom resources definitions</a> (CRDs).
@@ -338,7 +339,7 @@ Basically this means you can virtually create any type of object <strong>definit
     <span class="na">kind</span><span class="pi">:</span> <span class="s">CronTab</span>
     <span class="c1"># shortNames allow shorter string to match your resource on the CLI</span>
     <span class="na">shortNames</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">ct</span>
+      <span class="pi">-</span> <span class="s">ct</span>
   <span class="na">preserveUnknownFields</span><span class="pi">:</span> <span class="no">false</span>
   <span class="na">validation</span><span class="pi">:</span>
     <span class="na">openAPIV3Schema</span><span class="pi">:</span>
@@ -418,7 +419,6 @@ regards the <a href="https://kubernetes.io/docs/concepts/architecture/cloud-cont
 10
 11
 12
-13
 </pre></td><td class="rouge-code"><pre><span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.k8s.io/v1alpha1"</span>
 <span class="na">kind</span><span class="pi">:</span> <span class="s">Cluster</span>
 <span class="na">metadata</span><span class="pi">:</span>
@@ -430,8 +430,7 @@ regards the <a href="https://kubernetes.io/docs/concepts/architecture/cloud-cont
     <span class="na">pods</span><span class="pi">:</span>
       <span class="na">cidrBlocks</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">192.168.0.0/16"</span><span class="pi">]</span>
     <span class="na">serviceDomain</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.local"</span>
-  <span class="na">providerSpec</span><span class="pi">:</span>
-    <span class="s">...</span>
+  <span class="na">providerSpec</span><span class="pi">:</span> <span class="s">...</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>but also:</p>
@@ -670,81 +669,82 @@ my-node-0.example.com
         <aside class="mk-blog__categories mk-main__aside">
     <header class="mk-main__header">
             <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
-    </header> 
-    <ul class="mk-blog__related-entries">  
+    </header>
+    <ul class="mk-blog__related-entries">
+
         
         
         
+        
             
             
             
-               
-                    
             
-              
+          
             
-               
-                    
             
-              
             
-               
-                    
             
-              
+          
             
-               
-                    
             
-              
             
-               
-                    
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
             
               <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat</a></li>
               
               
             
-              
+          
             
-               
-                    
+            
+            
             
               <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat</a></li>
               
               
             
-              
+          
             
-               
-                    
+            
+            
             
               <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/09/11/Baremetal-operator.html">Baremetal Operator</a></li>
               
               
             
-              
+          
             
-               
-                    
             
-              
             
-               
-                    
             
-              
+          
             
-               
-                    
+            
+            
+            
+          
+            
+            
+            
             
               <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html">Metal³: Baremetal Provisioning for Kubernetes</a></li>
               
               
                 
     </ul>
-    
+
 </aside>
+
     </main>
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
