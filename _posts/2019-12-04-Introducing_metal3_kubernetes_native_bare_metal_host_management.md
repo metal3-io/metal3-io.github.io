@@ -20,25 +20,25 @@ In this video, Russell Bryant and Doug Hellmann speak about the whats and hows o
 
 [Doug Hellmann](http://twitter.com/doughellmann) Doug Hellmann is a Senior Principal Software Engineer at Red Hat. He has been a professional developer since the mid 1990s and has worked on a variety of projects in fields such as mapping, medical news publishing, banking, data center automation, and hardware provisioning. He has been contributing to open source projects for most of his career and for the past 7 years he has been focusing on open source cloud computing technologies, including OpenStack and Kubernetes.
 
-
 ## References
 
-* [Presentation: Introducing Metal³ KubeCon NA 2019 PDF](https://static.sched.com/hosted_files/kccncna19/b3/Introducing%20Metal3%20KubeCon%20NA%202019.pdf)
-* [Video: Introducing Metal³: Kubernetes Native Bare Metal Host Management video](https://www.youtube.com/watch?v=KIIkVD7gujY&feature=emb_logo)
+- [Presentation: Introducing Metal³ KubeCon NA 2019 PDF](https://static.sched.com/hosted_files/kccncna19/b3/Introducing%20Metal3%20KubeCon%20NA%202019.pdf)
+- [Video: Introducing Metal³: Kubernetes Native Bare Metal Host Management video](https://www.youtube.com/watch?v=KIIkVD7gujY&feature=emb_logo)
 
 ## Demos
-* [First demo (Inspection)](https://asciinema.org/a/uOCLoCiOlMLMBLuHOcV2ZvZxb)
+
+- [First demo (Inspection)](https://asciinema.org/a/uOCLoCiOlMLMBLuHOcV2ZvZxb)
 
 [![asciicast](https://asciinema.org/a/283704.svg)](https://asciinema.org/a/283704)
 
-* [Second demo (Provisioning)](https://asciinema.org/a/Z4a4MhXd7DStprfyiiworS2Id)
+- [Second demo (Provisioning)](https://asciinema.org/a/Z4a4MhXd7DStprfyiiworS2Id)
 
 [![asciicast](https://asciinema.org/a/283705.svg)](https://asciinema.org/a/283705)
 
-* [Third demo (Scale up)](https://asciinema.org/a/Xs5BPe62kF1PyIkNvMkcC9lyt)
+- [Third demo (Scale up)](https://asciinema.org/a/Xs5BPe62kF1PyIkNvMkcC9lyt)
 
 [![asciicast](https://asciinema.org/a/283706.svg)](https://asciinema.org/a/283706)
 
-* [Fourth demo (v1alpha2)](https://asciinema.org/a/c5BUvn2iK1J076dI3xLNe4H9C)
+- [Fourth demo (v1alpha2)](https://asciinema.org/a/c5BUvn2iK1J076dI3xLNe4H9C)
 
 [![asciicast](https://asciinema.org/a/283707.svg)](https://asciinema.org/a/283707)

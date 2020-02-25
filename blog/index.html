@@ -12,7 +12,7 @@ title: Blog
         </form> -->
 </div>
 </section>
-<main class="mk-main mk-blog">   
+<main class="mk-main mk-blog">
     <section class="mk-blog__posts mk-main__content">
         {% for post in paginator.posts %}
         <article class="mk-blog-meta mk-main__section">
@@ -21,10 +21,10 @@ title: Blog
                 <div class="mk-blog-meta__author mk-blog-meta__item">By {{ post.author }}</div>
                 <p>{{ post.content | strip_html | truncatewords: 50 }}</p>
                 <a class="mk-button mk-button--link" href="{{ post.url }}">Read More</a>
-        </article>         
-        {% endfor %}       
+        </article>
+        {% endfor %}
           {% if paginator.total_pages > 1 %}
-          <nav class="mk-pagination">  
+          <nav class="mk-pagination">
             {% if paginator.previous_page %}
               <a class="mk-pagination__page mk-pagination__page--prev" href="{{ paginator.previous_page_path | relative_url }}" aria-label="previous page">
                   <?xml version="1.0" encoding="UTF-8"?>
@@ -33,7 +33,7 @@ title: Blog
                   </svg>
               </a>
             {% endif %}
-          
+
             {% for page in (1..paginator.total_pages) %}
               {% if page == paginator.page %}
                 <em class="mk-pagination__num mk-pagination__num--current" aria-label="current page">{{ page }}</em>
@@ -43,7 +43,7 @@ title: Blog
                 <a class="mk-pagination__link mk-pagination__num" href="{{ site.paginate_path | relative_url | replace: ':num', page }}" aria-label="page {{ page }}">{{ page }}</a>
               {% endif %}
             {% endfor %}
-          
+
             {% if paginator.next_page %}
               <a class="mk-pagination__page mk-pagination__page--next" href="{{ paginator.next_page_path | relative_url }}" aria-label="next page">
                 <?xml version="1.0" encoding="UTF-8"?>
