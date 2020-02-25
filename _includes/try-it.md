@@ -264,6 +264,8 @@ Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet [resourcer
 
 ```sh
 $ ./scripts/v1alphaX/provision_cluster.sh
+$ ./scripts/v1alphaX/provision_controlplane.sh
+$ ./scripts/v1alphaX/provision_worker.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
