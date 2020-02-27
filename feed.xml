@@ -1,4 +1,57 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-02-26T07:39:55+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">A detailed walkthrough of the Metal³ development environment</title><link href="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html" rel="alternate" type="text/html" title="A detailed walkthrough of the Metal³ development environment" /><published>2020-02-18T10:09:00+00:00</published><updated>2020-02-18T10:09:00+00:00</updated><id>https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive</id><content type="html" xml:base="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">&lt;h2 id=&quot;introduction-to-metal3-dev-env&quot;&gt;&lt;strong&gt;Introduction to metal3-dev-env&lt;/strong&gt;&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-02-27T07:40:12+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</title><link href="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html" rel="alternate" type="text/html" title="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup" /><published>2020-02-27T00:00:00+00:00</published><updated>2020-02-27T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3</id><content type="html" xml:base="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html">&lt;h2 id=&quot;conference-talk-metal-kubernetes-native-bare-metal-cluster-management---maël-kimmerlin&quot;&gt;Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin&lt;/h2&gt;
+
+&lt;p&gt;On the 20th of January at the &lt;a href=&quot;https://www.meetup.com/Kubernetes-Finland/&quot;&gt;Kubernetes and CNCF Finland Meetup&lt;/a&gt;, Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.&lt;/p&gt;
+
+&lt;p&gt;In this presentation, Maël starts giving a short introduction of the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;Cluster API project&lt;/a&gt; which provides a solid foundation to develop the Metal³ Bare Metal Operator (BMO). The talk basically focuses on the &lt;strong&gt;v1alpha2&lt;/strong&gt; infrastructure provider features from the Cluster API.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;The video recording from the “Kubernetes and CNFC Finland Meetup” is composed by three talks. The video embedded starts with Maël’s talk.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;premonition warning&quot;&gt;&lt;div class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Warning&lt;/p&gt;&lt;p&gt;Playback of the video has been disabled by the author. Click on play button and then on “Watch this video on Youtube” link once it appears.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;iframe width=&quot;1110&quot; height=&quot;720&quot; style=&quot;height: 500px&quot; src=&quot;https://www.youtube.com/embed/3k5EfIQpw-E?t=4167&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown and also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-crds-controllers.resized.png&quot; alt=&quot;crd v1alpha2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once finished the introductory part, Maël focuses on the main components of the Metal³ BMO and the provisioning process. This process starts with &lt;strong&gt;introspection&lt;/strong&gt;, where the bare metal server is registered by the operator. Then, the &lt;a href=&quot;https://docs.openstack.org/ironic-python-agent/latest/&quot;&gt;Ironic Python Agent&lt;/a&gt; (IPA) image is executed to collect all hardware information from the server.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-instrospection.resized.png&quot; alt=&quot;metal3 introspection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+The second part of the process is the &lt;strong&gt;provisioning&lt;/strong&gt;. In this step, Maël explains how the Bare Metal Operator (BMO) is in charge along with Ironic to present the Operating System image to the physical server and complete its installation.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-provisioning.resized.png&quot; alt=&quot;metal3 provisioning&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Next, Maël deeply explains each Custom Resource (CR) used during the provisioning of target Kubernetes clusters in bare metal servers. He refers to objects such as &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Cluster&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalCluster&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachine&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; and so on. Each one is clarified with a YAML file definition of a real case and a workflow diagram that shows the reconciliation procedure.&lt;/p&gt;
+
+&lt;p&gt;Last part of the talk is dedicated to execute a demo where Maël creates a &lt;em&gt;target Kubernetes cluster&lt;/em&gt; from a running minikube VM (also called &lt;em&gt;bootstrap cluster&lt;/em&gt;) where Metal³ is deployed. As it is pointed out in the video, the demo is running in &lt;em&gt;emulated hardware&lt;/em&gt;. Actually, something similar to the &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env&quot;&gt;metal3-dev-env&lt;/a&gt; project which can be used to reproduce the demo. More information of the Metal³ development environment (metal3-dev-env) can be found in the &lt;a href=&quot;https://metal3.io/try-it.html&quot;&gt;Metal³ try-it section&lt;/a&gt;. In case you want to go deeper, take a look at the blog post &lt;a href=&quot;/blog/2020/02/18/metal3-dev-env-install-deep-dive.html&quot;&gt;A detailed walkthrough of the Metal³ development environment&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;The slides of the talk can be downloaded from &lt;a href=&quot;https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.linkedin.com/in/maelkimmerlin/&quot;&gt;Maël Kimmerlin&lt;/a&gt; Maël Kimmerlin is a Senior Software Engineer at Ericsson. In his own words:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I am an open-source enthusiast, focusing in Ericsson on Life Cycle Management of Kubernetes clusters on Bare Metal. I am very interested in the Cluster API project from the Kubernetes Lifecycle SIG, and active in its Bare Metal provider, that is Metal³, developing and encouraging the adoption of this project.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://youtu.be/3k5EfIQpw-E?t=4167&quot;&gt;Video: Metal³: Kubernetes Native Bare Metal Cluster Management&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl&quot;&gt;Slides&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Alberto Losada</name></author><summary type="html">Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin</summary></entry><entry><title type="html">A detailed walkthrough of the Metal³ development environment</title><link href="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html" rel="alternate" type="text/html" title="A detailed walkthrough of the Metal³ development environment" /><published>2020-02-18T10:09:00+00:00</published><updated>2020-02-18T10:09:00+00:00</updated><id>https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive</id><content type="html" xml:base="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">&lt;h2 id=&quot;introduction-to-metal3-dev-env&quot;&gt;&lt;strong&gt;Introduction to metal3-dev-env&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env&quot;&gt;metal3-dev-env&lt;/a&gt; is a collection of scripts in a Github repository inside the &lt;a href=&quot;https://github.com/metal3-io?type=source&quot;&gt;Metal³&lt;/a&gt; project that aims to allow contributors and other interested users to run a fully functional Metal³ environment for testing and have a first contact with the project. Actually, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; sets up an &lt;strong&gt;emulated environment&lt;/strong&gt; which creates a set of virtual machines (VMs) to manage as if they were bare metal hosts.&lt;/p&gt;
 
@@ -1754,163 +1807,4 @@ or check the full article included below.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/&quot;&gt;The new stack: Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html&quot;&gt;Video of the keynote: OpenStack Ironic and Baremetal Infrastructure. All Abstracions start somewhere&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes</summary></entry><entry><title type="html">Metal³: Baremetal Provisioning for Kubernetes</title><link href="https://metal3.io/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html" rel="alternate" type="text/html" title="Metal³: Baremetal Provisioning for Kubernetes" /><published>2019-04-30T20:01:58+00:00</published><updated>2019-04-30T20:01:58+00:00</updated><id>https://metal3.io/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes</id><content type="html" xml:base="https://metal3.io/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html">&lt;p&gt;Originally posted at &lt;a href=&quot;https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/&quot;&gt;https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;project-introduction&quot;&gt;Project Introduction&lt;/h2&gt;
-
-&lt;p&gt;There are a number of great open source tools for bare metal host provisioning, including &lt;a href=&quot;https://docs.openstack.org/ironic/latest/install/refarch/common.html&quot;&gt;Ironic&lt;/a&gt;. Metal³ aims to build on these technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next step in the evolution of infrastructure management.&lt;/p&gt;
-
-&lt;p&gt;The Metal³ project is also building integration with the Kubernetes &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;cluster-api&lt;/a&gt; project, allowing Metal³ to be used as an infrastructure backend for Machine objects from the Cluster API.&lt;/p&gt;
-
-&lt;h2 id=&quot;metal3-repository-overview&quot;&gt;Metal3 Repository Overview&lt;/h2&gt;
-
-&lt;p&gt;There is a Metal³ overview and some more detailed design documents in the &lt;a href=&quot;https://github.com/metal3-io/metal3-docs&quot;&gt;metal3-docs&lt;/a&gt; repository.&lt;/p&gt;
-
-&lt;p&gt;The &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator&quot;&gt;baremetal-operator&lt;/a&gt; is the component that manages bare metal hosts. It exposes a new BareMetalHost custom resource in the Kubernetes API that lets you manage hosts in a declarative way.&lt;/p&gt;
-
-&lt;p&gt;Finally, the &lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-baremetal&quot;&gt;cluster-api-provider-baremetal&lt;/a&gt; repository includes integration with the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;cluster-api&lt;/a&gt; project. This provider currently includes a Machine actuator that acts as a client of the BareMetalHost custom resources.&lt;/p&gt;
-
-&lt;h2 id=&quot;demo&quot;&gt;Demo&lt;/h2&gt;
-
-&lt;p&gt;The project has been going for a few months now, and there’s enough now to show some working code.&lt;/p&gt;
-
-&lt;p&gt;For this demonstration, I’ve started with a 3 node Kubernetes cluster installed using &lt;a href=&quot;https://www.openshift.com/&quot;&gt;OpenShift&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get nodes
-NAME       STATUS   ROLES    AGE   VERSION
-master-0   Ready    master   24h   v1.13.4+d4ce02c1d
-master-1   Ready    master   24h   v1.13.4+d4ce02c1d
-master-2   Ready    master   24h   v1.13.4+d4ce02c1d
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Machine objects were created to reflect these 3 masters, as well.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get machines
-NAME              INSTANCE   STATE   TYPE   REGION   ZONE   AGE
-ostest-master-0                                             24h
-ostest-master-1                                             24h
-ostest-master-2                                             24h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;For this cluster-api provider, a Machine has a corresponding BareMetalHost object, which corresponds to the piece of hardware we are managing. There is a design document that covers &lt;a href=&quot;https://github.com/metal3-io/metal3-docs/blob/master/design/nodes-machines-and-hosts.md&quot;&gt;the relationship between Nodes, Machines, and BareMetalHosts&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Since these hosts were provisioned earlier, they are in a special &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;externally provisioned&lt;/code&gt; state, indicating that we enrolled them in management while they were already running in a desired state. If changes are needed going forward, the baremetal-operator will be able to automate them.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now suppose we’d like to expand this cluster by adding another bare metal host to serve as a worker node. First we need to create a new BareMetalHost object that adds this new host to the inventory of hosts managed by the baremetal-operator. Here’s the YAML for the new BareMetalHost:&lt;/p&gt;
-
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Secret&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openshift-worker-0-bmc-secret&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Opaque&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YWRtaW4=&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cGFzc3dvcmQ=&lt;/span&gt;
-
-&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metalkube.org/v1alpha1&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;BareMetalHost&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openshift-worker-0&lt;/span&gt;
-&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;online&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;bmc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ipmi://192.168.111.1:6233&lt;/span&gt;
-    &lt;span class=&quot;na&quot;&gt;credentialsName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;openshift-worker-0-bmc-secret&lt;/span&gt;
-  &lt;span class=&quot;na&quot;&gt;bootMACAddress&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;00:ab:4f:d8:9e:fa&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now to add the BareMetalHost and its IPMI credentials Secret to the cluster:&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; worker_crs.yaml
-secret/openshift-worker-0-bmc-secret created
-baremetalhost.metalkube.org/openshift-worker-0 created
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The list of BareMetalHosts now reflects a new host in the inventory that is ready to be provisioned. It will remain in this &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ready&lt;/code&gt; state until it is claimed by a new Machine object.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We have a MachineSet already created for workers, but it scaled down to 0.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get machinesets
-NAME              DESIRED   CURRENT   READY   AVAILABLE   AGE
-ostest-worker-0   0         0                             24h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can scale this MachineSet to 1 to indicate that we’d like a worker provisioned. The baremetal cluster-api provider will then look for an available BareMetalHost, claim it, and trigger provisioning of that host.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;$ kubectl scale machineset ostest-worker-0 --replicas=1&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;After the new Machine was created, our cluster-api provider claimed the available host and triggered it to be provisioned.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-worker-0   OK       provisioning             ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This process takes some time. Under the hood, the baremetal-operator is driving Ironic through a provisioning process. This begins with wiping disks to ensure the host comes up in a clean state. It will eventually write the desired OS image to disk and then reboot into that OS. When complete, a new Kubernetes Node will register with the cluster.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE                 BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0         ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-worker-0   OK       provisioned              ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
-
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get nodes
-NAME       STATUS   ROLES    AGE   VERSION
-master-0   Ready    master   24h   v1.13.4+d4ce02c1d
-master-1   Ready    master   24h   v1.13.4+d4ce02c1d
-master-2   Ready    master   24h   v1.13.4+d4ce02c1d
-worker-0   Ready    worker   68s   v1.13.4+d4ce02c1d
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The following screen cast demonstrates this process, as well:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/c1qITPktXyIIHvzDUket3buwQ.svg&quot; alt=&quot;Machine API driven bare metal worker deployment (OpenShift)&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Removing a bare metal host from the cluster is very similar. We just have to scale this MachineSet back down to 0.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;$ kubectl scale machineset ostest-worker-0 --replicas=0&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Once the Machine has been deleted, the baremetal-operator will deprovision the bare metal host.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-worker-0   OK       deprovisioning                             ipmi://192.168.111.1:6233   unknown            &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once the deprovisioning process is complete, the bare metal host will be back to its &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ready&lt;/code&gt; state, available in the host inventory to be claimed by a future Machine object.&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts
-NAME                 STATUS   PROVISIONING STATUS      MACHINE           BMC                         HARDWARE PROFILE   ONLINE   ERROR
-openshift-master-0   OK       externally provisioned   ostest-master-0   ipmi://192.168.111.1:6230                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://192.168.111.1:6231                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      &lt;span class=&quot;nb&quot;&gt;true
-&lt;/span&gt;openshift-worker-0   OK       ready                                      ipmi://192.168.111.1:6233   unknown            &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;getting-involved&quot;&gt;Getting Involved&lt;/h2&gt;
-
-&lt;p&gt;All development is happening on &lt;a href=&quot;https://github.com/metal3-io&quot;&gt;github&lt;/a&gt;. We have a &lt;a href=&quot;https://groups.google.com/forum/#!forum/metal3-dev&quot;&gt;metal3-dev mailing list&lt;/a&gt; and use #cluster-api-baremetal on &lt;a href=&quot;https://slack.k8s.io/&quot;&gt;Kubernetes Slack&lt;/a&gt; to chat. Occasional project updates are posted to &lt;a href=&quot;https://twitter.com/metal3_io&quot;&gt;@metal3_io on Twitter&lt;/a&gt;.&lt;/p&gt;</content><author><name>Russell Bryant</name></author><summary type="html">Originally posted at https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes</summary></entry></feed>

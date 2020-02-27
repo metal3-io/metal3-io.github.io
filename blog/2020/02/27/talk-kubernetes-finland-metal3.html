@@ -9,22 +9,22 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <meta name="theme-color" content="#008585">
     
-    <title>Baremetal Operator | Metal³ - Metal Kubed</title>
+    <title>Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup | Metal³ - Metal Kubed</title>
     <!-- # Opengraph protocol properties: https://ogp.me/ -->
-    <meta name="author" content="Pablo Iranzo Gómez" >
+    <meta name="author" content="Alberto Losada" >
     <meta property="og:type" content="article" >
     <meta name="twitter:card" content="summary">
     <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
-    <meta name="keywords" content="openshift, kubernetes, metal3, operator" >
-    <meta property="og:title" content="Baremetal Operator | Metal³ - Metal Kubed">
+    <meta name="keywords" content="metal3, baremetal, talk, conference, kubernetes, meetup" >
+    <meta property="og:title" content="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup | Metal³ - Metal Kubed">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://metal3.io/blog/2019/09/11/Baremetal-operator.html" >
+    <meta property="og:url" content="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html" >
     <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
     <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
     <meta property="og:site_name" content="Metal³ - Metal Kubed" >
-    <meta property="og:article:author" content="Pablo Iranzo Gómez" >
-    <meta property="og:article:published_time" content="2019-09-11 11:00:00 +0000" >
-    <meta name="twitter:title" content="Baremetal Operator | Metal³ - Metal Kubed">
+    <meta property="og:article:author" content="Alberto Losada" >
+    <meta property="og:article:published_time" content="2020-02-27 00:00:00 +0000" >
+    <meta name="twitter:title" content="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup | Metal³ - Metal Kubed">
     <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
 
     <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
@@ -216,32 +216,40 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 </section>
 <main class="mk-main mk-blog">
             <article class="mk-main__section mk-main__content mk-main__section__content">
-                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">Baremetal Operator</h1>
-                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Wednesday, 11/09/2019</time>
-                    <div class="mk-blog-meta__item mk-blog-meta__author">By Pablo Iranzo Gómez</div>
+                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</h1>
+                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Thursday, 27/02/2020</time>
+                    <div class="mk-blog-meta__item mk-blog-meta__author">By Alberto Losada</div>
                     <div class="mk-blog-meta__categories">
                                 
-                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#openshift">
-                                  openshift
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
+                                  metal3
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#baremetal">
+                                  baremetal
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#talk">
+                                  talk
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#conference">
+                                  conference
                                 </a>
                               
                                 <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#kubernetes">
                                   kubernetes
                                 </a>
                               
-                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
-                                  metal3
-                                </a>
-                              
-                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#operator">
-                                  operator
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#meetup">
+                                  meetup
                                 </a>
                               
                 </div>
 
 <div class="mk-share-buttons">
 
-           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2019/09/11/Baremetal-operator.html"
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html"
             onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
             title="Share on Facebook" >
             <?xml version="1.0" encoding="UTF-8"?>
@@ -251,7 +259,7 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 </svg>Share on Facebook</a> -->
 
 
-        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=Baremetal Operator&url=https://metal3.io/blog/2019/09/11/Baremetal-operator.html"
+        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup&url=https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html"
         onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
         title="Share on Twitter" >
         <?xml version="1.0" encoding="UTF-8"?>
@@ -260,195 +268,71 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 </svg> Share on Twitter
     </a>
 </div>
-        <h2 id="introduction">Introduction</h2>
+        <h2 id="conference-talk-metal-kubernetes-native-bare-metal-cluster-management---maël-kimmerlin">Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin</h2>
 
-<p>The <a href="https://github.com/metal3-io/baremetal-operator/">baremetal operator</a>, documented at <a href="https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md">https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md</a>, it’s the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.</p>
+<p>On the 20th of January at the <a href="https://www.meetup.com/Kubernetes-Finland/">Kubernetes and CNCF Finland Meetup</a>, Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.</p>
 
-<p>Quoting from the project:</p>
+<p>In this presentation, Maël starts giving a short introduction of the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API project</a> which provides a solid foundation to develop the Metal³ Bare Metal Operator (BMO). The talk basically focuses on the <strong>v1alpha2</strong> infrastructure provider features from the Cluster API.</p>
 
-<blockquote>
-  <p>The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
-Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
-Provision hosts with a desired image
-Clean a host’s disk contents before or after provisioning.</p>
-</blockquote>
-
-<h2 id="a-bit-more-in-deep-approach">A bit more in deep approach</h2>
-
-<p>The Baremetal Operator (BMO) keeps a mapping of each host and its management interfaces (vendor based like <code class="language-html highlighter-rouge">iLO</code>, <code class="language-html highlighter-rouge">iDrac</code>, <code class="language-html highlighter-rouge">iRMC</code>, etc) and controlled via <code class="language-html highlighter-rouge">IPMI</code>.</p>
-
-<p>All of this is defined in a <code class="language-html highlighter-rouge">CRD</code>, for example:</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01-credentials</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
-<span class="na">data</span><span class="pi">:</span>
-  <span class="na">username</span><span class="pi">:</span> <span class="s">YWRtaW4=</span>
-  <span class="na">password</span><span class="pi">:</span> <span class="s">YWRtaW4=</span>
-<span class="nn">---</span>
-<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">metal3.io/v1alpha1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">BareMetalHost</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">bmc</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">ipmi://172.22.0.2:6230</span>
-    <span class="na">credentialsName</span><span class="pi">:</span> <span class="s">metal3-node01-credentials</span>
-  <span class="na">bootMACAddress</span><span class="pi">:</span> <span class="s">00:c2:fc:3b:e1:01</span>
-  <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
-  <span class="na">hardwareProfile</span><span class="pi">:</span> <span class="s2">"</span><span class="s">libvirt"</span>
-  <span class="na">online</span><span class="pi">:</span> <span class="no">false</span>
-</code></pre></div></div>
-
-<p>With above values (described in <a href="https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md">API</a>), we’re telling the operator:</p>
-
-<ul>
-  <li>MAC: Defines the mac address of the NIC connected to the network that will be used for provision the host</li>
-  <li>bmc: defines the management controller address and the secret used</li>
-  <li>credentialsName: Defines the name of the secret containing username/password for accessing the IPMI service</li>
-</ul>
-
-<p>Once the server is ‘defined’ via the CRD, the underlying service (provided by <code class="language-html highlighter-rouge">ironic</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> as of this writing) is inspected:</p>
-
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
-<span class="go">NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
-metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230                      false
-</span></code></pre></div></div>
-
-<p>Once the inspection has finished, the status will change to <em>ready</em> and made available for provisioning.</p>
-
-<p>When we define a machine, we refer the images that will be used for the actual provisioning in the CRD (<code class="language-html highlighter-rouge">image</code>):</p>
-
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-<span class="na">data</span><span class="pi">:</span>
-  <span class="na">userData</span><span class="pi">:</span> <span class="s">DATA</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01-user-data</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
-<span class="nn">---</span>
-<span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cluster.k8s.io/v1alpha1"</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Machine</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01</span>
-  <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-  <span class="na">generateName</span><span class="pi">:</span> <span class="s">baremetal-machine-</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">providerSpec</span><span class="pi">:</span>
-    <span class="na">value</span><span class="pi">:</span>
-      <span class="na">apiVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">baremetal.cluster.k8s.io/v1alpha1"</span>
-      <span class="na">kind</span><span class="pi">:</span> <span class="s2">"</span><span class="s">BareMetalMachineProviderSpec"</span>
-      <span class="na">image</span><span class="pi">:</span>
-        <span class="na">url</span><span class="pi">:</span> <span class="s">http://172.22.0.2/images/CentOS-7-x86_64-GenericCloud-1901.qcow2</span>
-        <span class="na">checksum</span><span class="pi">:</span> <span class="s">http://172.22.0.2/images/CentOS-7-x86_64-GenericCloud-1901.qcow2.md5sum</span>
-      <span class="na">userData</span><span class="pi">:</span>
-        <span class="na">name</span><span class="pi">:</span> <span class="s">metal3-node01-user-data</span>
-        <span class="na">namespace</span><span class="pi">:</span> <span class="s">metal3</span>
-</code></pre></div></div>
-
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl create <span class="nt">-f</span> metal3-node01-machine.yml
-<span class="go">secret/metal3-node01-user-data created
-machine.cluster.k8s.io/metal3-node01 created
-</span></code></pre></div></div>
-
-<p>Let’s examine the annotation created when provisioning (<code class="language-html highlighter-rouge">metal3.io/BareMetalHost</code>):</p>
-
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get machine <span class="nt">-n</span> metal3 metal3-node01 <span class="nt">-o</span> yaml
-<span class="go">apiVersion: cluster.k8s.io/v1alpha1
-kind: Machine
-metadata:
-  annotations:
-    metal3.io/BareMetalHost: metal3/metal3-node01
-  creationTimestamp: "2019-07-08T15:30:44Z"
-  finalizers:
-  - machine.cluster.k8s.io
-  generateName: baremetal-machine-
-  generation: 2
-  name: metal3-node01
-  namespace: metal3
-  resourceVersion: "6222"
-  selfLink: /apis/cluster.k8s.io/v1alpha1/namespaces/metal3/machines/metal3-node01
-  uid: 1bfd384a-5467-43b7-98aa-e80e1ace5ce7
-spec:
-  metadata:
-    creationTimestamp: null
-  providerSpec:
-    value:
-      apiVersion: baremetal.cluster.k8s.io/v1alpha1
-      image:
-        checksum: http://172.22.0.1/images/CentOS-7-x86_64-GenericCloud-1901.qcow2.md5sum
-        url: http://172.22.0.1/images/CentOS-7-x86_64-GenericCloud-1901.qcow2
-      kind: BareMetalMachineProviderSpec
-      userData:
-        name: metal3-node01-user-data
-        namespace: metal3
-  versions:
-    kubelet: ""
-status:
-  addresses:
-  - address: 192.168.122.79
-    type: InternalIP
-  - address: 172.22.0.39
-    type: InternalIP
-  - address: localhost.localdomain
-    type: Hostname
-  lastUpdated: "2019-07-08T15:30:44Z"
-</span></code></pre></div></div>
-
-<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p>In the output above, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.</p>
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>The video recording from the “Kubernetes and CNFC Finland Meetup” is composed by three talks. The video embedded starts with Maël’s talk.</p>
 
 
 </div></div>
-<p>Now, if we check baremetal hosts, we can see how it’s getting provisioned:</p>
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>Playback of the video has been disabled by the author. Click on play button and then on “Watch this video on Youtube” link once it appears.</p>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span>kubectl get baremetalhost <span class="nt">-n</span> metal3
-<span class="go">NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
-metal3-node01   OK       provisioned                       ipmi://172.22.0.1:6230                     true
-</span></code></pre></div></div>
 
-<p>And also, check it via the <code class="language-html highlighter-rouge">ironic</code> command:</p>
+</div></div>
+<iframe width="1110" height="720" style="height: 500px" src="https://www.youtube.com/embed/3k5EfIQpw-E?t=4167" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
 
-<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">[root@metal3-kubernetes ~]#</span><span class="w"> </span><span class="nb">export </span><span class="nv">OS_TOKEN</span><span class="o">=</span>fake-token <span class="p">;</span> <span class="nb">export </span><span class="nv">OS_URL</span><span class="o">=</span>http://localhost:6385 <span class="p">;</span> openstack baremetal node list
-<span class="go">+--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
-| UUID                                 | Name          | Instance UUID                        | Power State | Provisioning State | Maintenance |
-+--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
-| 7551cfb4-d758-4ad8-9188-859ee53cf298 | metal3-node01 | 7551cfb4-d758-4ad8-9188-859ee53cf298 | power on    | active             | False       |
-+--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
-</span></code></pre></div></div>
+<p><br /></p>
 
-<h2 id="wrap-up">Wrap-up</h2>
+<p>During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown and also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:</p>
 
-<p>We’ve seen how via a CRD we’ve defined credentials for a baremetal host to make it available to get provisioned and how we’ve also defined a machine that was provisioned on top of that baremetal host.</p>
-<div class="footnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Ironic was chosen as the initial provider for baremetal provisioning, check <a href="https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md">Ironic documentation</a> for more details about Ironic usage in Metal³ <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
+<p><img src="/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-crds-controllers.resized.png" alt="crd v1alpha2" /></p>
+
+<p>Once finished the introductory part, Maël focuses on the main components of the Metal³ BMO and the provisioning process. This process starts with <strong>introspection</strong>, where the bare metal server is registered by the operator. Then, the <a href="https://docs.openstack.org/ironic-python-agent/latest/">Ironic Python Agent</a> (IPA) image is executed to collect all hardware information from the server.</p>
+
+<p><img src="/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-instrospection.resized.png" alt="metal3 introspection" /></p>
+
+<p><br />
+The second part of the process is the <strong>provisioning</strong>. In this step, Maël explains how the Bare Metal Operator (BMO) is in charge along with Ironic to present the Operating System image to the physical server and complete its installation.</p>
+
+<p><img src="/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-provisioning.resized.png" alt="metal3 provisioning" /></p>
+
+<p><br />
+Next, Maël deeply explains each Custom Resource (CR) used during the provisioning of target Kubernetes clusters in bare metal servers. He refers to objects such as <code class="language-html highlighter-rouge">Cluster</code>, <code class="language-html highlighter-rouge">BareMetalCluster</code>, <code class="language-html highlighter-rouge">Machine</code>, <code class="language-html highlighter-rouge">BareMetalMachine</code>, <code class="language-html highlighter-rouge">BareMetalHost</code> and so on. Each one is clarified with a YAML file definition of a real case and a workflow diagram that shows the reconciliation procedure.</p>
+
+<p>Last part of the talk is dedicated to execute a demo where Maël creates a <em>target Kubernetes cluster</em> from a running minikube VM (also called <em>bootstrap cluster</em>) where Metal³ is deployed. As it is pointed out in the video, the demo is running in <em>emulated hardware</em>. Actually, something similar to the <a href="https://github.com/metal3-io/metal3-dev-env">metal3-dev-env</a> project which can be used to reproduce the demo. More information of the Metal³ development environment (metal3-dev-env) can be found in the <a href="https://metal3.io/try-it.html">Metal³ try-it section</a>. In case you want to go deeper, take a look at the blog post <a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment</a>.</p>
+
+<p>At the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.</p>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>The slides of the talk can be downloaded from <a href="https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl">here</a></p>
+
+
+</div></div>
+<h2 id="speakers">Speakers</h2>
+
+<p><a href="https://www.linkedin.com/in/maelkimmerlin/">Maël Kimmerlin</a> Maël Kimmerlin is a Senior Software Engineer at Ericsson. In his own words:</p>
+
+<p><em>I am an open-source enthusiast, focusing in Ericsson on Life Cycle Management of Kubernetes clusters on Bare Metal. I am very interested in the Cluster API project from the Kubernetes Lifecycle SIG, and active in its Bare Metal provider, that is Metal³, developing and encouraging the adoption of this project.</em></p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://youtu.be/3k5EfIQpw-E?t=4167">Video: Metal³: Kubernetes Native Bare Metal Cluster Management</a></li>
+  <li><a href="https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl">Slides</a></li>
+</ul>
 
 </article>
 <nav class="mk-pagination">
         
-          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2019/06/25/Metal3.html" aria-label="previous page">
+          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html" aria-label="previous page">
                 <?xml version="1.0" encoding="UTF-8"?>
                 <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
                 <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
                 </svg>
           </a>
         
-        
-          <a class="mk-pagination__page mk-pagination__page--next" href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html" aria-label="next page">
-                <?xml version="1.0" encoding="UTF-8"?>
-                <svg enable-background="new 0 0 398.6 320.1" version="1.1" viewBox="0 0 398.6 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
-                <path d="m199.6 177.1l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.7c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.5-96.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.8c9.4-9.4 24.6-9.4 33.9 0l136 136c9.4 9.3 9.4 24.6 0.1 34zm191.9-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.5c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.7z"/>
-                </svg>
-          </a>
         
 </nav>
 
@@ -466,7 +350,12 @@ metal3-node01   OK       provisioned                       ipmi://172.22.0.1:623
             
             
             
-              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</a></li>
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment</a></li>
               
               
             
@@ -475,27 +364,7 @@ metal3-node01   OK       provisioned                       ipmi://172.22.0.1:623
             
             
             
-          
-            
-            
-            
-            
-          
-            
-            
-            
-            
-          
-            
-            
-            
-            
-          
-            
-            
-            
-            
-              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat</a></li>
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019</a></li>
               
               
             
@@ -504,7 +373,7 @@ metal3-node01   OK       provisioned                       ipmi://172.22.0.1:623
             
             
             
-              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat</a></li>
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019</a></li>
               
               
             
@@ -513,12 +382,7 @@ metal3-node01   OK       provisioned                       ipmi://172.22.0.1:623
             
             
             
-          
-            
-            
-            
-            
-              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/06/25/Metal3.html">Metal3</a></li>
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019</a></li>
               
               
                 
