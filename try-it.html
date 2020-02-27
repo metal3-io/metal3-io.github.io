@@ -9,22 +9,22 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <meta name="theme-color" content="#008585">
     
-    <title>Try it | Metal³ - Metal Kubed</title>
+    <title>Try it: Getting started with Metal3.io | Metal³ - Metal Kubed</title>
     <!-- # Opengraph protocol properties: https://ogp.me/ -->
     <meta name="author" content="The Metal³ - Metal Kubed website team, " >
     
     <meta name="twitter:card" content="summary">
     <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
     <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, " >
-    <meta property="og:title" content="Try it | Metal³ - Metal Kubed">
+    <meta property="og:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metal3.io/try-it.html" >
     <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
     <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
     <meta property="og:site_name" content="Metal³ - Metal Kubed" >
     <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
-    <meta property="og:article:published_time" content="2020-02-27 07:40:12 +0000" >
-    <meta name="twitter:title" content="Try it | Metal³ - Metal Kubed">
+    <meta property="og:article:published_time" content="2020-02-27 10:19:51 +0000" >
+    <meta name="twitter:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
     <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
 
     <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
@@ -216,15 +216,15 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 </section>
 <main>
 
-    <section class="mk-main__section mk-main__section__content">
-        
-        <ul>
+  <section class="mk-main__section mk-main__section__content">
+        <!-- TOC depthFrom:1 insertAnchor:false orderedList:true updateOnSave:true withLinks:true -->
+
+<ul>
   <li><a href="#instructions">Instructions</a>
     <ul>
       <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#metal3-dev-env-setup">Metal3-dev-env setup</a></li>
       <li><a href="#using-a-custom-image">Using a custom image</a></li>
-      <li><a href="#note">Note</a></li>
     </ul>
   </li>
   <li><a href="#working-with-the-environment">Working with the Environment</a>
@@ -244,7 +244,10 @@ autocomplete(document.getElementById("search-input"), mykeywords);
   </li>
 </ul>
 
-<h1 id="instructions">Instructions</h1>
+<!-- /TOC -->
+<hr />
+
+<h2 id="instructions">Instructions</h2>
 
 <h3 id="prerequisites">Prerequisites</h3>
 
@@ -282,9 +285,7 @@ Linux distribution of the target nodes:</li>
 
 <p>This is a high-level architecture of the metal³-dev-env.</p>
 
-<p align="center">
-  <img width="752" height="713" src="../assets/images/metal3-dev-env.svg" />
-</p>
+<p><img src="/assets/images/metal3-dev-env.svg" alt="" /></p>
 
 <p>tl;dr - Clone <a href="https://github.com/metal3-io/metal3-dev-env">metal³-dev-env</a>
 and run</p>
@@ -317,8 +318,7 @@ successfully</p>
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>make clean
 </code></pre></div></div>
 
-<p><strong>Note</strong>: you can also run some tests provisioning and deprovisioning machines
-by running</p>
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Note</p><p>you can also run some tests provisioning and deprovisioning machines by running:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># for CAPI v1alpha1 based deployment</span>
 <span class="nv">$ </span>make <span class="nb">test</span>
@@ -328,6 +328,8 @@ by running</p>
 <span class="nv">$ </span>make test_v1a3
 </code></pre></div></div>
 
+
+</div></div>
 <p>All configurations for the environment is stored in <code class="language-html highlighter-rouge">config_${user}.sh</code>. You
 can configure the following</p>
 
@@ -501,19 +503,19 @@ can configure the following</p>
 exist in the folder <code class="language-html highlighter-rouge">/opt/metal3-dev-env/ironic/html</code>, then it will be
 downloaded from <code class="language-html highlighter-rouge">IMAGE_LOCATION</code>.</p>
 
-<h3 id="note">Note</h3>
-
-<p>If you see this error during the installation:</p>
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>If you see this error during the installation:</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>error: failed to connect to the hypervisor
-error: Failed to connect socket to <span class="s1">'/var/run/libvirt/libvirt-sock'</span>: Permission denied
+error: Failed to connect socket to <span class="s1">'/var/run/libvirt/libvirt-sock'</span>:  Permission denied
 </code></pre></div></div>
 
 <p>You may need to log out then login again, and run <code class="language-html highlighter-rouge">make</code> again.</p>
 
-<h1 id="working-with-the-environment">Working with the Environment</h1>
 
-<h2 id="bare-metal-hosts">Bare Metal Hosts</h2>
+</div></div>
+<h2 id="working-with-the-environment">Working with the Environment</h2>
+
+<h3 id="bare-metal-hosts">Bare Metal Hosts</h3>
 
 <p>This environment creates a set of VMs to manage as if they were bare metal
 hosts. You can see the VMs using <code class="language-html highlighter-rouge">virsh</code>.</p>
@@ -638,7 +640,7 @@ spec:
     credentialsVersion: <span class="s2">"1242"</span>
 </code></pre></div></div>
 
-<h2 id="provisioning-cluster-and-machines">Provisioning Cluster and Machines</h2>
+<h3 id="provisioning-cluster-and-machines">Provisioning Cluster and Machines</h3>
 
 <p>This section describes how to trigger provisioning of a cluster and hosts via
 <code class="language-html highlighter-rouge">Machine</code> objects as part of the Cluster API integration. This uses Cluster API
@@ -707,7 +709,7 @@ Expiry Time          MAC address        Protocol  IP address                Host
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>ssh centos@192.168.111.21
 </code></pre></div></div>
 
-<h2 id="deprovisioning-cluster-and-machines">Deprovisioning Cluster and Machines</h2>
+<h3 id="deprovisioning-cluster-and-machines">Deprovisioning Cluster and Machines</h3>
 
 <p>Deprovisioning of the cluster and machines is done just by deleting <code class="language-html highlighter-rouge">Cluster</code>
 <code class="language-html highlighter-rouge">Machine</code> objects.</p>
@@ -735,7 +737,7 @@ NAME    PHASE
 test1   deprovisioning
 </code></pre></div></div>
 
-<h3 id="centos-target-hosts-only-image-update">Centos target hosts only, image update</h3>
+<h4 id="centos-target-hosts-only-image-update">Centos target hosts only, image update</h4>
 
 <p>If you want to deploy Ubuntu hosts, please skip to the next section.</p>
 
@@ -751,7 +753,7 @@ You can replace the existing centos image with the following commands :</p>
 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2.md5sum
 </code></pre></div></div>
 
-<h2 id="directly-provisioning-bare-metal-hosts">Directly Provisioning Bare Metal Hosts</h2>
+<h3 id="directly-provisioning-bare-metal-hosts">Directly Provisioning Bare Metal Hosts</h3>
 
 <p>It’s also possible to provision via the <code class="language-html highlighter-rouge">BareMetalHost</code> interface directly
 without using the Cluster API integration.</p>
@@ -798,7 +800,7 @@ NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         
 node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            <span class="nb">true</span>
 </code></pre></div></div>
 
-<h2 id="running-custom-baremetal-operator">Running Custom Baremetal-Operator</h2>
+<h3 id="running-custom-baremetal-operator">Running Custom Baremetal-Operator</h3>
 
 <p>The <code class="language-html highlighter-rouge">baremetal-operator</code> comes up running in the cluster by default, using an
 image built from the <a href="https://github.com/metal3-io/baremetal-operator">metal3-io/baremetal-operator</a> repository. If you’d like to test changes to the
@@ -818,7 +820,7 @@ the <code class="language-html highlighter-rouge">baremetal-operator</code> incl
 make run
 </code></pre></div></div>
 
-<h2 id="running-custom-cluster-api-provider-baremetal">Running Custom Cluster API Provider Baremetal</h2>
+<h3 id="running-custom-cluster-api-provider-baremetal">Running Custom Cluster API Provider Baremetal</h3>
 
 <p>There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
@@ -835,7 +837,7 @@ controller manager first.</p>
 make run
 </code></pre></div></div>
 
-<h2 id="accessing-ironic-api">Accessing Ironic API</h2>
+<h3 id="accessing-ironic-api">Accessing Ironic API</h3>
 
 <p>Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
@@ -922,9 +924,58 @@ useful for troubleshooting to find out why a node did not deploy.</p>
 +-------------------------------------------------------------------------------------+
 </code></pre></div></div>
 
-
-</section>
+  </section>
 </main>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
 
 </main>
 <footer class="mk-main-footer">
