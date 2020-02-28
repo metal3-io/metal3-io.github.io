@@ -17,12 +17,19 @@ permalink: /try-it.html
     - [Centos target hosts only, image update](#centos-target-hosts-only-image-update)
   - [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
   - [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
-  - [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
+  - [Running Custom Cluster API Provider Metal3](#running-custom-cluster-api-provider-metal3)
   - [Accessing Ironic API](#accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
 ## Instructions
+
+> info "Naming"
+> For the v1alpha3 release, the Cluster API provider for metal3 was renamed from
+> Cluster API provider BareMetal to Cluster API provider Metal3. Hence, if
+> working with v1alpha1 or v1alpha2, it will be Cluster API provider Baremetal
+> (CAPBM) in this documentation and deployments, but from v1alpha3 onwards it
+> will be Cluster API provider Metal3 (CAPM3).
 
 ### Prerequisites
 
@@ -91,11 +98,11 @@ can configure the following
 | CONTAINER_RUNTIME              | Select the Container Runtime                                                                                                                                                                                                                             | "docker", "podman"                   | "podman"                                                        |
 | BMOREPO                        | Set the Baremetal Operator repository to clone                                                                                                                                                                                                           | <URL>                                | https://github.com/metal3-io/baremetal-operator.git             |
 | BMOBRANCH                      | Set the Baremetal Operator branch to checkout                                                                                                                                                                                                            |                                      | master                                                          |
-| CAPBMREPO                      | Set the Cluster Api baremetal provider repository to clone                                                                                                                                                                                               | <URL>                                | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
-| CAPBMBRANCH                    | Set the Cluster Api baremetal provider branch to checkout                                                                                                                                                                                                |                                      | master                                                          |
-| FORCE_REPO_UPDATE              | Force deletion of the BMO and CAPBM repositories before cloning them again                                                                                                                                                                               | "true", "false"                      | "false"                                                         |
+| CAPM3REPO                      | Set the Cluster Api Metal3 provider repository to clone                                                                                                                                                                                               | <URL>                                | https://github.com/metal3-io/cluster-api-provider-metal3.git |
+| CAPM3BRANCH                    | Set the Cluster Api Metal3 provider branch to checkout                                                                                                                                                                                                |                                      | master                                                          |
+| FORCE_REPO_UPDATE              | Force deletion of the BMO and CAPM3 repositories before cloning them again                                                                                                                                                                               | "true", "false"                      | "false"                                                         |
 | BMO_RUN_LOCAL                  | Run a local baremetal operator instead of deploying in Kubernetes                                                                                                                                                                                        | "true", "false"                      | "false"                                                         |
-| CAPBM_RUN_LOCAL                | Run a local CAPI operator instead of deploying in Kubernetes                                                                                                                                                                                             | "true", "false"                      | "false"                                                         |
+| CAPM3_RUN_LOCAL                | Run a local CAPI operator instead of deploying in Kubernetes                                                                                                                                                                                             | "true", "false"                      | "false"                                                         |
 | SKIP_RETRIES                   | Do not retry on failure during verifications or tests of the environment. This should be false. It could only be set to false for verifications of a dev env deployment that fully completed. Otherwise failures will appear as resources are not ready. | "true", "false"                      | "false"                                                         |
 | TEST_TIME_INTERVAL             | Interval between retries after verification or test failure (seconds)                                                                                                                                                                                    | <int>                                | 10                                                              |
 | TEST_MAX_TIME                  | Number of maximum verification or test retries                                                                                                                                                                                                           | <int>                                | 120                                                             |
@@ -279,11 +286,11 @@ At this point, the `Machine` actuator will respond and try to claim a
 here:
 
 ```sh
-$ kubectl logs -n metal3 pod/capbm-controller-manager-7bbc6897c7-bp2pw -c manager
+$ kubectl logs -n capm3 pod/capm3-manager-7bbc6897c7-bp2pw -c manager
 
-09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="baremetalcluster"
-09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="baremetalmachine" "worker count"=1
-10:54:16.943712       Host matched hostSelector for BareMetalMachine
+09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
+09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
+10:54:16.943712       Host matched hostSelector for Metal3Machine
 10:54:16.943772       2 hosts available while choosing host for bare metal machine
 10:54:16.944087       Associating machine with host
 10:54:17.516274       Finished creating machine
@@ -460,18 +467,18 @@ make run
 
 There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
-controller for baremetal. If you want to try changes to
-`cluster-api-provider-baremetal`, you want to shut down the custom Machine
+controller for Metal3. If you want to try changes to
+`cluster-api-provider-metal3`, you want to shut down the custom Machine
 controller manager first.
 
 ```sh
-$ kubectl scale statefulset cluster-api-provider-baremetal-controller-manager -n metal3 --replicas=0
+$ kubectl scale statefulset capm3-controller-manager -n capm3-system --replicas=0
 ```
 
 Then you can run the custom Machine controller manager out of your local git tree.
 
 ```sh
-cd ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
+cd ~/go/src/github.com/metal3-io/cluster-api-provider-metal3
 make run
 ```
 

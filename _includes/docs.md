@@ -9,7 +9,7 @@
 2. Use the machine API to allocate a machine.
 
    See the documentation in the
-   [cluster-api-provider-baremetal](https://github.com/metal3-io/cluster-api-provider-baremetal/blob/master/docs/api.md)
+   [cluster-api-provider-metal3](https://github.com/metal3-io/cluster-api-provider-metal3/blob/master/docs/api.md)
    repository for details.
 
 3. The new Machine is associated with an available `BareMetalHost`, which triggers
