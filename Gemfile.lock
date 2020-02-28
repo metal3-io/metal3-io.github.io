@@ -224,7 +224,7 @@ GEM
     parallel (1.19.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
-    premonition (2.0.0)
+    premonition (2.0.1)
     public_suffix (3.1.1)
     rainbow (3.0.0)
     rb-fsevent (0.10.3)
