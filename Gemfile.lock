@@ -263,7 +263,7 @@ DEPENDENCIES
   jekyll-browsersync
   jekyll-feed (~> 0.6)
   minima (~> 2.0)
-  premonition (~> 2.0.0)
+  premonition (~> 2.0.1)
   rouge
   tzinfo-data
 
