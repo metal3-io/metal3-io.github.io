@@ -13,7 +13,7 @@ layout: default
                     <div class="mk-blog-meta__item mk-blog-meta__author">By {{ page.author }}</div>
                     <div class="mk-blog-meta__categories">
                                 {% for category in page.categories %}
-                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#{{ category | slugify }}">
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#{{ category | slugify | replace: " ", "-"}}">
                                   {{ category | remove-first | slugify }}
                                 </a>
                               {% endfor %}
