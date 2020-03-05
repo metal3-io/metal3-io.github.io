@@ -9,22 +9,22 @@
     <link rel="shortcut icon" type="image/png" href="/favicon.png">
     <meta name="theme-color" content="#008585">
     
-    <title>Metal³ - Metal Kubed</title>
+    <title>Cluster API provider renaming | Metal³ - Metal Kubed</title>
     <!-- # Opengraph protocol properties: https://ogp.me/ -->
-    <meta name="author" content="The Metal³ - Metal Kubed website team, " >
-    
+    <meta name="author" content="Maël Kimmerlin" >
+    <meta property="og:type" content="article" >
     <meta name="twitter:card" content="summary">
     <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
-    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, cluster-api, provider, " >
-    <meta property="og:title" content="Metal³ - Metal Kubed">
+    <meta name="keywords" content="metal3, baremetal, cluster API, provider" >
+    <meta property="og:title" content="Cluster API provider renaming | Metal³ - Metal Kubed">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://metal3.io/404.html" >
+    <meta property="og:url" content="https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html" >
     <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
     <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
     <meta property="og:site_name" content="Metal³ - Metal Kubed" >
-    <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
-    <meta property="og:article:published_time" content="2020-03-05 11:46:14 +0000" >
-    <meta name="twitter:title" content="Metal³ - Metal Kubed">
+    <meta property="og:article:author" content="Maël Kimmerlin" >
+    <meta property="og:article:published_time" content="2020-03-05 00:00:00 +0000" >
+    <meta name="twitter:title" content="Cluster API provider renaming | Metal³ - Metal Kubed">
     <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
 
     <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
@@ -209,26 +209,215 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 <!-- UI JS file -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
 
-<style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
+<div class="mk-masthead__content--sub">
+        <h1 class="mk-masthead__content--sub__title">Blog</h1>
+        <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
 </div>
+</section>
+<main class="mk-main mk-blog">
+            <article class="mk-main__section mk-main__content mk-main__section__content">
+                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">Cluster API provider renaming</h1>
+                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Thursday, 5/03/2020</time>
+                    <div class="mk-blog-meta__item mk-blog-meta__author">By Maël Kimmerlin</div>
+                    <div class="mk-blog-meta__categories">
+                                
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
+                                  metal3
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#baremetal">
+                                  baremetal
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#cluster-api">
+                                  cluster-api
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#provider">
+                                  provider
+                                </a>
+                              
+                </div>
+
+<div class="mk-share-buttons">
+
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Share on Facebook" >
+            <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 1024 1024" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	<path d="M1024,512C1024,229.2,794.8,0,512,0S0,229.2,0,512c0,255.6,187.2,467.4,432,505.8V660H302V512h130V399.2   C432,270.9,508.4,200,625.4,200c56,0,114.6,10,114.6,10v126h-64.6c-63.6,0-83.4,39.5-83.4,80v96h142l-22.7,148H592v357.8   C836.8,979.4,1024,767.6,1024,512z"/>
+	<path class="st0" d="M711.3,660L734,512H592v-96c0-40.5,19.8-80,83.4-80H740V210c0,0-58.6-10-114.6-10   c-117,0-193.4,70.9-193.4,199.2V512H302v148h130v357.8c26.1,4.1,52.8,6.2,80,6.2s53.9-2.1,80-6.2V660H711.3z"/>
+</svg>Share on Facebook</a> -->
+
+
+        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=Cluster API provider renaming&url=https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html"
+        onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+        title="Share on Twitter" >
+        <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 250 203.1" version="1.1" viewBox="0 0 250 203.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<path class="st1" d="m78.6 203.1c94.3 0 145.9-78.2 145.9-145.9 0-2.2 0-4.4-0.1-6.6 10-7.3 18.7-16.3 25.6-26.5-9.4 4.1-19.3 6.9-29.5 8.1 10.7-6.4 18.7-16.5 22.5-28.4-10.1 6-21.1 10.2-32.6 12.4-19.4-20.7-51.9-21.7-72.6-2.2-13.3 12.5-19 31.2-14.8 49-41.1-2.1-79.6-21.6-105.6-53.6-13.6 23.4-6.7 53.4 15.9 68.4-8.2-0.2-16.1-2.4-23.3-6.4v0.6c0 24.4 17.2 45.4 41.2 50.3-7.6 2.1-15.5 2.4-23.2 0.9 6.7 20.9 26 35.2 47.9 35.6-18.2 14.3-40.6 22-63.7 22-4.1 0-8.2-0.3-12.2-0.7 23.5 15.1 50.7 23 78.6 23"/>
+</svg> Share on Twitter
+    </a>
+</div>
+        <h2 id="renaming-of-cluster-api-provider">Renaming of Cluster API provider</h2>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Backwards compatibility for v1alpha3</p><p>There is no backwards compatibility between v1alpha3 and v1alpha2 releases of
+the Cluster API provider for Metal3.</p>
+
+
+</div></div>
+<p>For the v1alpha3 release of Cluster API, the Metal3 provider was renamed from
+<code class="language-html highlighter-rouge">cluster-api-provider-baremetal</code> to <code class="language-html highlighter-rouge">cluster-api-provider-metal3</code>. The Custom
+Resource Definitions were also modified. This post dives into the changes.</p>
+
+<h3 id="repository-renaming">Repository renaming</h3>
+
+<p>From v1alpha3 onwards, the Cluster API provider will be developed in
+<a href="https://github.com/metal3-io/cluster-api-provider-metal3">cluster-api-provider-metal3</a>.
+The v1alpha1 and v1alpha2 content will remain in
+<a href="https://github.com/metal3-io/cluster-api-provider-baremetal">cluster-api-provider-baremetal</a>.
+This repository will be archived, but kept for the integration in metal3-dev-env.</p>
+
+<h3 id="custom-resource-definition-modifications">Custom Resource Definition modifications</h3>
+
+<p>The kind of the Custom Resource Definition (CRD) has been modified for the
+following objects:</p>
+
+<ul>
+  <li><code class="language-html highlighter-rouge">BareMetalCluster</code> to <code class="language-html highlighter-rouge">Metal3Cluster</code></li>
+  <li><code class="language-html highlighter-rouge">baremetalcluster</code> to <code class="language-html highlighter-rouge">metal3cluster</code></li>
+  <li><code class="language-html highlighter-rouge">BareMetalMachine</code> to <code class="language-html highlighter-rouge">Metal3Machine</code></li>
+  <li><code class="language-html highlighter-rouge">baremetalmachine</code> to <code class="language-html highlighter-rouge">metal3machine</code></li>
+  <li><code class="language-html highlighter-rouge">BareMetalMachineTemplate</code> to <code class="language-html highlighter-rouge">Metal3MachineTemplate</code></li>
+  <li><code class="language-html highlighter-rouge">baremetalmachinetemplate</code> to <code class="language-html highlighter-rouge">metal3machinetemplate</code></li>
+</ul>
+
+<p>The custom resources deployed need to be modified accordingly.</p>
+
+<h3 id="deployment-modifications">Deployment modifications</h3>
+
+<p>The prefix of all deployed components for the Metal3 provider was modified
+from <code class="language-html highlighter-rouge">capbm-</code> to <code class="language-html highlighter-rouge">capm3-</code>. The namespace in which the components are deployed by
+default was modified from <code class="language-html highlighter-rouge">capbm-system</code> to <code class="language-html highlighter-rouge">capm3-system</code>.</p>
+
+</article>
+<nav class="mk-pagination">
+        
+          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html" aria-label="previous page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
+                </svg>
+          </a>
+        
+        
+</nav>
+
+        <aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
+    </header>
+    <ul class="mk-blog__related-entries">
+
+        
+        
+        
+        
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019</a></li>
+              
+              
+                
+    </ul>
+
+</aside>
+
+    </main>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
 
 </main>
 <footer class="mk-main-footer">

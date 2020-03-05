@@ -15,7 +15,7 @@
     
     <meta name="twitter:card" content="summary">
     <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
-    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, " >
+    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, cluster-api, provider, " >
     <meta property="og:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metal3.io/try-it.html" >
@@ -23,7 +23,7 @@
     <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
     <meta property="og:site_name" content="Metal³ - Metal Kubed" >
     <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
-    <meta property="og:article:published_time" content="2020-03-05 11:28:47 +0000" >
+    <meta property="og:article:published_time" content="2020-03-05 11:46:14 +0000" >
     <meta name="twitter:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
     <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
 
@@ -199,7 +199,7 @@ document.addEventListener("click", function (e) {
 }
 </script>
 <script>
-var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", ]
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", ]
 autocomplete(document.getElementById("search-input"), mykeywords);
 </script>
 <script src="/assets/js/clipboard.min.js"></script>
@@ -249,6 +249,14 @@ autocomplete(document.getElementById("search-input"), mykeywords);
 
 <h2 id="instructions">Instructions</h2>
 
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Naming</p><p>For the v1alpha3 release, the Cluster API provider for metal3 was renamed from
+Cluster API provider BareMetal to Cluster API provider Metal3. Hence, if
+working with v1alpha1 or v1alpha2, it will be Cluster API provider Baremetal
+(CAPBM) in this documentation and deployments, but from v1alpha3 onwards it
+will be Cluster API provider Metal3 (CAPM3).</p>
+
+
+</div></div>
 <h3 id="prerequisites">Prerequisites</h3>
 
 <ul>
@@ -374,20 +382,20 @@ can configure the following</p>
       <td>master</td>
     </tr>
     <tr>
-      <td>CAPBMREPO</td>
-      <td>Set the Cluster Api baremetal provider repository to clone</td>
+      <td>CAPM3REPO</td>
+      <td>Set the Cluster Api Metal3 provider repository to clone</td>
       <td><URL></URL></td>
-      <td>https://github.com/metal3-io/cluster-api-provider-baremetal.git</td>
+      <td>https://github.com/metal3-io/cluster-api-provider-metal3.git</td>
     </tr>
     <tr>
-      <td>CAPBMBRANCH</td>
-      <td>Set the Cluster Api baremetal provider branch to checkout</td>
+      <td>CAPM3BRANCH</td>
+      <td>Set the Cluster Api Metal3 provider branch to checkout</td>
       <td> </td>
       <td>master</td>
     </tr>
     <tr>
       <td>FORCE_REPO_UPDATE</td>
-      <td>Force deletion of the BMO and CAPBM repositories before cloning them again</td>
+      <td>Force deletion of the BMO and CAPM3 repositories before cloning them again</td>
       <td>“true”, “false”</td>
       <td>“false”</td>
     </tr>
@@ -398,7 +406,7 @@ can configure the following</p>
       <td>“false”</td>
     </tr>
     <tr>
-      <td>CAPBM_RUN_LOCAL</td>
+      <td>CAPM3_RUN_LOCAL</td>
       <td>Run a local CAPI operator instead of deploying in Kubernetes</td>
       <td>“true”, “false”</td>
       <td>“false”</td>
@@ -658,11 +666,11 @@ Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet <a href="#
 <code class="language-html highlighter-rouge">BareMetalHost</code> for this <code class="language-html highlighter-rouge">Machine</code>. You can check the logs of the actuator
 here:</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl logs <span class="nt">-n</span> metal3 pod/capbm-controller-manager-7bbc6897c7-bp2pw <span class="nt">-c</span> manager
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl logs <span class="nt">-n</span> capm3 pod/capm3-manager-7bbc6897c7-bp2pw <span class="nt">-c</span> manager
 
-09:10:38.914458       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting Controller"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"baremetalcluster"</span>
-09:10:38.926489       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting workers"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"baremetalmachine"</span> <span class="s2">"worker count"</span><span class="o">=</span>1
-10:54:16.943712       Host matched hostSelector <span class="k">for </span>BareMetalMachine
+09:10:38.914458       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting Controller"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"metal3cluster"</span>
+09:10:38.926489       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting workers"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"metal3machine"</span> <span class="s2">"worker count"</span><span class="o">=</span>1
+10:54:16.943712       Host matched hostSelector <span class="k">for </span>Metal3Machine
 10:54:16.943772       2 hosts available <span class="k">while </span>choosing host <span class="k">for </span>bare metal machine
 10:54:16.944087       Associating machine with host
 10:54:17.516274       Finished creating machine
@@ -824,16 +832,16 @@ make run
 
 <p>There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
-controller for baremetal. If you want to try changes to
-<code class="language-html highlighter-rouge">cluster-api-provider-baremetal</code>, you want to shut down the custom Machine
+controller for Metal3. If you want to try changes to
+<code class="language-html highlighter-rouge">cluster-api-provider-metal3</code>, you want to shut down the custom Machine
 controller manager first.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl scale statefulset cluster-api-provider-baremetal-controller-manager <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl scale statefulset capm3-controller-manager <span class="nt">-n</span> capm3-system <span class="nt">--replicas</span><span class="o">=</span>0
 </code></pre></div></div>
 
 <p>Then you can run the custom Machine controller manager out of your local git tree.</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/cluster-api-provider-baremetal
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/cluster-api-provider-metal3
 make run
 </code></pre></div></div>
 

@@ -1,4 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-03-05T11:28:47+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</title><link href="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html" rel="alternate" type="text/html" title="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup" /><published>2020-02-27T00:00:00+00:00</published><updated>2020-02-27T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3</id><content type="html" xml:base="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html">&lt;h2 id=&quot;conference-talk-metal-kubernetes-native-bare-metal-cluster-management---maël-kimmerlin&quot;&gt;Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-03-05T11:46:14+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Cluster API provider renaming</title><link href="https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html" rel="alternate" type="text/html" title="Cluster API provider renaming" /><published>2020-03-05T00:00:00+00:00</published><updated>2020-03-05T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/03/05/CAPI_provider_renaming</id><content type="html" xml:base="https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html">&lt;h2 id=&quot;renaming-of-cluster-api-provider&quot;&gt;Renaming of Cluster API provider&lt;/h2&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Backwards compatibility for v1alpha3&lt;/p&gt;&lt;p&gt;There is no backwards compatibility between v1alpha3 and v1alpha2 releases of
+the Cluster API provider for Metal3.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;For the v1alpha3 release of Cluster API, the Metal3 provider was renamed from
+&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cluster-api-provider-baremetal&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cluster-api-provider-metal3&lt;/code&gt;. The Custom
+Resource Definitions were also modified. This post dives into the changes.&lt;/p&gt;
+
+&lt;h3 id=&quot;repository-renaming&quot;&gt;Repository renaming&lt;/h3&gt;
+
+&lt;p&gt;From v1alpha3 onwards, the Cluster API provider will be developed in
+&lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-metal3&quot;&gt;cluster-api-provider-metal3&lt;/a&gt;.
+The v1alpha1 and v1alpha2 content will remain in
+&lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-baremetal&quot;&gt;cluster-api-provider-baremetal&lt;/a&gt;.
+This repository will be archived, but kept for the integration in metal3-dev-env.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-resource-definition-modifications&quot;&gt;Custom Resource Definition modifications&lt;/h3&gt;
+
+&lt;p&gt;The kind of the Custom Resource Definition (CRD) has been modified for the
+following objects:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalCluster&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3Cluster&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalcluster&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3cluster&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachine&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3Machine&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalmachine&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3machine&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachineTemplate&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3MachineTemplate&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalmachinetemplate&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3machinetemplate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The custom resources deployed need to be modified accordingly.&lt;/p&gt;
+
+&lt;h3 id=&quot;deployment-modifications&quot;&gt;Deployment modifications&lt;/h3&gt;
+
+&lt;p&gt;The prefix of all deployed components for the Metal3 provider was modified
+from &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capbm-&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capm3-&lt;/code&gt;. The namespace in which the components are deployed by
+default was modified from &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capbm-system&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capm3-system&lt;/code&gt;.&lt;/p&gt;</content><author><name>Maël Kimmerlin</name></author><summary type="html">Renaming of Cluster API provider</summary></entry><entry><title type="html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</title><link href="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html" rel="alternate" type="text/html" title="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup" /><published>2020-02-27T00:00:00+00:00</published><updated>2020-02-27T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3</id><content type="html" xml:base="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html">&lt;h2 id=&quot;conference-talk-metal-kubernetes-native-bare-metal-cluster-management---maël-kimmerlin&quot;&gt;Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin&lt;/h2&gt;
 
 &lt;p&gt;On the 20th of January at the &lt;a href=&quot;https://www.meetup.com/Kubernetes-Finland/&quot;&gt;Kubernetes and CNCF Finland Meetup&lt;/a&gt;, Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.&lt;/p&gt;
 
@@ -1780,31 +1819,4 @@ my-node-0.example.com
   &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api-provider-aws&quot;&gt;https://github.com/kubernetes-sigs/cluster-api-provider-aws&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://itnext.io/deep-dive-to-cluster-api-a0b4e792d57d&quot;&gt;https://itnext.io/deep-dive-to-cluster-api-a0b4e792d57d&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.linux.com/blog/event/kubecon/2018/4/extending-kubernetes-cluster-api&quot;&gt;https://www.linux.com/blog/event/kubecon/2018/4/extending-kubernetes-cluster-api&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Eduardo Minguez</name></author><summary type="html">Originally posted at https://www.underkube.com/posts/metal3/</summary></entry><entry><title type="html">The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes</title><link href="https://metal3.io/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html" rel="alternate" type="text/html" title="The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes" /><published>2019-05-13T08:23:00+00:00</published><updated>2019-05-13T08:23:00+00:00</updated><id>https://metal3.io/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes</id><content type="html" xml:base="https://metal3.io/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">&lt;h2 id=&quot;the-new-stack-metal-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes&quot;&gt;The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://thenewstack.io/author/mike-melanson/&quot;&gt;Mike Melanson&lt;/a&gt; talks in this article about the Open Infrastructure Summit in Denver, Colorado. Where bare metal was one of the main leads of the event.&lt;/p&gt;
-
-&lt;p&gt;During this event, the OpenStack Foundation unveil a new project called Metal³ (pronounced “metal cubed”) that uses Ironic “as a foundation for declarative management of bare metal infrastructure for Kubernetes”.
-He also comments on how &lt;a href=&quot;https://www.linkedin.com/in/penick/&quot;&gt;James Penick&lt;/a&gt;, &lt;a href=&quot;https://www.linkedin.com/in/hogepodge&quot;&gt;Chris Hoge&lt;/a&gt;, senior strategic program manager at OpenStack Foundation,
-and &lt;a href=&quot;https://www.linkedin.com/in/juliaashleykreger&quot;&gt;Julia Kreger&lt;/a&gt;, OpenStack Ironic Project Team Leader, took to the stage to offer a demonstration of &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator&quot;&gt;Metal3&lt;/a&gt;,
-the new project that provides “bare metal host provisioning integration for Kubernetes.”&lt;/p&gt;
-
-&lt;p&gt;Some words from Kreger in an interview with The New Stack:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“I think the bigger trend that we’re starting to see is a recognition that common tooling and substrate helps everyone succeed faster with more efficiency.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“This is combined with a shift in the way operators are choosing to solve their problems at scale, specifically in regards to isolation, cost, or performance.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;For further detail, check out the &lt;a href=&quot;/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html&quot;&gt;video of the keynote&lt;/a&gt;, which includes a demonstration of Metal3 being used to quickly provision three bare metal servers with Kubernetes
-or check the full article included below.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/&quot;&gt;The new stack: Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html&quot;&gt;Video of the keynote: OpenStack Ironic and Baremetal Infrastructure. All Abstracions start somewhere&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>Eduardo Minguez</name></author><summary type="html">Originally posted at https://www.underkube.com/posts/metal3/</summary></entry></feed>
