@@ -17,7 +17,7 @@ permalink: /try-it.html
     - [Centos target hosts only, image update](#centos-target-hosts-only-image-update)
   - [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
   - [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
-  - [Running Custom Cluster API Provider Baremetal](#running-custom-cluster-api-provider-baremetal)
+  - [Running Custom Cluster API Provider Metal3](#running-custom-cluster-api-provider-metal3)
   - [Accessing Ironic API](#accessing-ironic-api)
 
 <!-- /TOC -->
@@ -463,7 +463,7 @@ cd ~/go/src/github.com/metal3-io/baremetal-operator
 make run
 ```
 
-### Running Custom Cluster API Provider Baremetal
+### Running Custom Cluster API Provider Metal3
 
 There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
