@@ -1,0 +1,1822 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://metal3.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://metal3.io/" rel="alternate" type="text/html" /><updated>2020-03-06T07:43:55+00:00</updated><id>https://metal3.io/feed.xml</id><title type="html">Metal³ - Metal Kubed</title><subtitle>Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.</subtitle><entry><title type="html">Cluster API provider renaming</title><link href="https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html" rel="alternate" type="text/html" title="Cluster API provider renaming" /><published>2020-03-05T00:00:00+00:00</published><updated>2020-03-05T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/03/05/CAPI_provider_renaming</id><content type="html" xml:base="https://metal3.io/blog/2020/03/05/CAPI_provider_renaming.html">&lt;h2 id=&quot;renaming-of-cluster-api-provider&quot;&gt;Renaming of Cluster API provider&lt;/h2&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Backwards compatibility for v1alpha3&lt;/p&gt;&lt;p&gt;There is no backwards compatibility between v1alpha3 and v1alpha2 releases of
+the Cluster API provider for Metal3.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;For the v1alpha3 release of Cluster API, the Metal3 provider was renamed from
+&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cluster-api-provider-baremetal&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cluster-api-provider-metal3&lt;/code&gt;. The Custom
+Resource Definitions were also modified. This post dives into the changes.&lt;/p&gt;
+
+&lt;h3 id=&quot;repository-renaming&quot;&gt;Repository renaming&lt;/h3&gt;
+
+&lt;p&gt;From v1alpha3 onwards, the Cluster API provider will be developed in
+&lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-metal3&quot;&gt;cluster-api-provider-metal3&lt;/a&gt;.
+The v1alpha1 and v1alpha2 content will remain in
+&lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-baremetal&quot;&gt;cluster-api-provider-baremetal&lt;/a&gt;.
+This repository will be archived, but kept for the integration in metal3-dev-env.&lt;/p&gt;
+
+&lt;h3 id=&quot;custom-resource-definition-modifications&quot;&gt;Custom Resource Definition modifications&lt;/h3&gt;
+
+&lt;p&gt;The kind of the Custom Resource Definition (CRD) has been modified for the
+following objects:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalCluster&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3Cluster&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalcluster&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3cluster&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachine&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3Machine&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalmachine&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3machine&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachineTemplate&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Metal3MachineTemplate&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetalmachinetemplate&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3machinetemplate&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The custom resources deployed need to be modified accordingly.&lt;/p&gt;
+
+&lt;h3 id=&quot;deployment-modifications&quot;&gt;Deployment modifications&lt;/h3&gt;
+
+&lt;p&gt;The prefix of all deployed components for the Metal3 provider was modified
+from &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capbm-&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capm3-&lt;/code&gt;. The namespace in which the components are deployed by
+default was modified from &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capbm-system&lt;/code&gt; to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capm3-system&lt;/code&gt;.&lt;/p&gt;</content><author><name>Maël Kimmerlin</name></author><summary type="html">Renaming of Cluster API provider</summary></entry><entry><title type="html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup</title><link href="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html" rel="alternate" type="text/html" title="Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup" /><published>2020-02-27T00:00:00+00:00</published><updated>2020-02-27T00:00:00+00:00</updated><id>https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3</id><content type="html" xml:base="https://metal3.io/blog/2020/02/27/talk-kubernetes-finland-metal3.html">&lt;h2 id=&quot;conference-talk-metal-kubernetes-native-bare-metal-cluster-management---maël-kimmerlin&quot;&gt;Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin&lt;/h2&gt;
+
+&lt;p&gt;On the 20th of January at the &lt;a href=&quot;https://www.meetup.com/Kubernetes-Finland/&quot;&gt;Kubernetes and CNCF Finland Meetup&lt;/a&gt;, Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.&lt;/p&gt;
+
+&lt;p&gt;In this presentation, Maël starts giving a short introduction of the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;Cluster API project&lt;/a&gt; which provides a solid foundation to develop the Metal³ Bare Metal Operator (BMO). The talk basically focuses on the &lt;strong&gt;v1alpha2&lt;/strong&gt; infrastructure provider features from the Cluster API.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;The video recording from the “Kubernetes and CNFC Finland Meetup” is composed by three talks. The video embedded starts with Maël’s talk.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;premonition warning&quot;&gt;&lt;div class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Warning&lt;/p&gt;&lt;p&gt;Playback of the video has been disabled by the author. Click on play button and then on “Watch this video on Youtube” link once it appears.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;iframe width=&quot;1110&quot; height=&quot;720&quot; style=&quot;height: 500px&quot; src=&quot;https://www.youtube.com/embed/3k5EfIQpw-E?t=4167&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown and also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-crds-controllers.resized.png&quot; alt=&quot;crd v1alpha2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once finished the introductory part, Maël focuses on the main components of the Metal³ BMO and the provisioning process. This process starts with &lt;strong&gt;introspection&lt;/strong&gt;, where the bare metal server is registered by the operator. Then, the &lt;a href=&quot;https://docs.openstack.org/ironic-python-agent/latest/&quot;&gt;Ironic Python Agent&lt;/a&gt; (IPA) image is executed to collect all hardware information from the server.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-instrospection.resized.png&quot; alt=&quot;metal3 introspection&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+The second part of the process is the &lt;strong&gt;provisioning&lt;/strong&gt;. In this step, Maël explains how the Bare Metal Operator (BMO) is in charge along with Ironic to present the Operating System image to the physical server and complete its installation.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-provisioning.resized.png&quot; alt=&quot;metal3 provisioning&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+Next, Maël deeply explains each Custom Resource (CR) used during the provisioning of target Kubernetes clusters in bare metal servers. He refers to objects such as &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Cluster&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalCluster&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalMachine&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; and so on. Each one is clarified with a YAML file definition of a real case and a workflow diagram that shows the reconciliation procedure.&lt;/p&gt;
+
+&lt;p&gt;Last part of the talk is dedicated to execute a demo where Maël creates a &lt;em&gt;target Kubernetes cluster&lt;/em&gt; from a running minikube VM (also called &lt;em&gt;bootstrap cluster&lt;/em&gt;) where Metal³ is deployed. As it is pointed out in the video, the demo is running in &lt;em&gt;emulated hardware&lt;/em&gt;. Actually, something similar to the &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env&quot;&gt;metal3-dev-env&lt;/a&gt; project which can be used to reproduce the demo. More information of the Metal³ development environment (metal3-dev-env) can be found in the &lt;a href=&quot;https://metal3.io/try-it.html&quot;&gt;Metal³ try-it section&lt;/a&gt;. In case you want to go deeper, take a look at the blog post &lt;a href=&quot;/blog/2020/02/18/metal3-dev-env-install-deep-dive.html&quot;&gt;A detailed walkthrough of the Metal³ development environment&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;At the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;The slides of the talk can be downloaded from &lt;a href=&quot;https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.linkedin.com/in/maelkimmerlin/&quot;&gt;Maël Kimmerlin&lt;/a&gt; Maël Kimmerlin is a Senior Software Engineer at Ericsson. In his own words:&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;I am an open-source enthusiast, focusing in Ericsson on Life Cycle Management of Kubernetes clusters on Bare Metal. I am very interested in the Cluster API project from the Kubernetes Lifecycle SIG, and active in its Bare Metal provider, that is Metal³, developing and encouraging the adoption of this project.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://youtu.be/3k5EfIQpw-E?t=4167&quot;&gt;Video: Metal³: Kubernetes Native Bare Metal Cluster Management&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl&quot;&gt;Slides&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Alberto Losada</name></author><summary type="html">Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin</summary></entry><entry><title type="html">A detailed walkthrough of the Metal³ development environment</title><link href="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html" rel="alternate" type="text/html" title="A detailed walkthrough of the Metal³ development environment" /><published>2020-02-18T10:09:00+00:00</published><updated>2020-02-18T10:09:00+00:00</updated><id>https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive</id><content type="html" xml:base="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">&lt;h2 id=&quot;introduction-to-metal3-dev-env&quot;&gt;&lt;strong&gt;Introduction to metal3-dev-env&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env&quot;&gt;metal3-dev-env&lt;/a&gt; is a collection of scripts in a Github repository inside the &lt;a href=&quot;https://github.com/metal3-io?type=source&quot;&gt;Metal³&lt;/a&gt; project that aims to allow contributors and other interested users to run a fully functional Metal³ environment for testing and have a first contact with the project. Actually, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; sets up an &lt;strong&gt;emulated environment&lt;/strong&gt; which creates a set of virtual machines (VMs) to manage as if they were bare metal hosts.&lt;/p&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt;&lt;div class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Warning&lt;/p&gt;&lt;p&gt;This is not an installation that is supposed to be run in production. Instead, it is focused on providing a development environment to test and validate new features.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; repository includes a set of scripts, libraries and resources used to set up a Metal³ development environment. On the &lt;a href=&quot;https://metal3.io/try-it.html&quot;&gt;Metal³ website&lt;/a&gt; there is already a documented process on how to use the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; scripts to set up a fully functional cluster to test the functionality of the Metal³ components.&lt;/p&gt;
+
+&lt;p&gt;This procedure at 10,000 foot view is composed by 3 bash scripts plus a verification one:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;01_prepare_host.sh&lt;/strong&gt; - Mainly installs all needed packages.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;02_configure_host.sh&lt;/strong&gt; - Basically create a set of VMs that will be managed as if they were bare metal hosts. It also downloads some images needed for Ironic.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;03_launch_mgmt_cluster.sh&lt;/strong&gt; - Launches a management cluster using minikube and runs the baremetal-operator on that cluster.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;04_verify.sh&lt;/strong&gt; - Finally runs a set of tests that verify that the deployment completed successfully&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this blog post we are going to expand the information and provide some hints and recommendations.&lt;/p&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt;&lt;div class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Warning&lt;/p&gt;&lt;p&gt;Metal³ project is changing rapidly, so probably this information is valuable in the short term. In any case, it is encouraged to double check that the information provided is still valid.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Before get down to it, it is worth defining the nomenclature used along the blog post:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Host.&lt;/strong&gt; It is the server where the virtual environment is running. In this case it is a physical PowerEdge M520 with 2 x Intel(R) Xeon(R) CPU E5-2450 v2 @ 2.50GHz, 96GB RAM and a 140GB drive running CentOS 7 latest. Do not panic, lab environment should work with lower resources as well.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Virtual bare metal hosts.&lt;/strong&gt; These are the virtual machines (KVM based) that are running on the host which are emulating physical hosts in our lab. They are also called bare metal hosts even if they are not physical servers.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Management or bootstrap cluster.&lt;/strong&gt; It is a fully functional Kubernetes cluster in charge of running all the necessary Metal³ operators and controllers to manage the infrastructure. In this case it is the minikube virtual machine.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Target cluster.&lt;/strong&gt; It is the Kubernetes cluster created from the management one. It is provisioned and configured using a native Kubernetes API for that purpose.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;create-the-metal-laboratory&quot;&gt;&lt;strong&gt;Create the Metal³ laboratory&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;A non-root user must exist in the host with passwordless sudo access. This user is in charge of running the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; scripts.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;First thing that needs to be done is, obviously, cloning the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; repository:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1: ~]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone https://github.com/metal3-io/metal3-dev-env.git
+Cloning into &lt;span class=&quot;s1&quot;&gt;'metal3-dev-env'&lt;/span&gt;...
+remote: Enumerating objects: 22, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+remote: Counting objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;22/22&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+remote: Compressing objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;22/22&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+remote: Total 1660 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, reused 8 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;delta 0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, pack-reused 1638
+Receiving objects: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;1660/1660&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, 446.08 KiB | 678.00 KiB/s, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+Resolving deltas: 100% &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;870/870&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;, &lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Before starting to deploy the Metal³ environment, it makes sense to detail a series of scripts inside the library folder that will be sourced in every step of the installation process. They are called &lt;em&gt;shared libraries&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1:~]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt; metal3-dev-env/lib/
+common.sh
+images.sh
+logging.sh
+network.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;shared-libraries&quot;&gt;Shared libraries&lt;/h3&gt;
+
+&lt;p&gt;Although there are several scripts placed inside the lib folder that are sourced in some of the deployment steps, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;common.sh&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;logging.sh&lt;/code&gt; are the only ones used in all of the executions during the installation process.&lt;/p&gt;
+
+&lt;h4 id=&quot;commonsh&quot;&gt;&lt;strong&gt;common.sh&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;The first time this library is run, a new configuration file is created with several variables along with their default values. They will be used during the installation process. On the other hand, if the file already exists, then it just sources the values configured. The configuration file is created inside the cloned folder with &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;config_$USER&lt;/code&gt; as file name.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt; ls config_&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
+config_alosadag.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The configuration file contains multiple variables that will be used during the set up. Some of them are detailed &lt;a href=&quot;https://metal3.io/try-it.html#setup&quot;&gt;in the setup section of the Metal³ try-it web page&lt;/a&gt;. In case you need to add or change global variables it should be done in this config file.&lt;/p&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;I personally recommend modify or add variables in this config file instead of exporting them in the shell. By doing that, it is assured that they are persisted&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat&lt;/span&gt; ~/metal3-dev-env/config_alosadag.sh
+&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# This is the subnet used on the &quot;baremetal&quot; libvirt network, created as the&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# primary network interface for the virtual bare metalhosts.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Default of 192.168.111.0/24 set in lib/common.sh&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#export EXTERNAL_SUBNET=&quot;192.168.111.0/24&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# This SSH key will be automatically injected into the provisioned host&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# by the provision_host.sh script.&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Default of ~/.ssh/id_rsa.pub is set in lib/common.sh&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#export SSH_PUB_KEY=~/.ssh/id_rsa.pub&lt;/span&gt;
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;common.sh&lt;/code&gt; library also makes sure there is an ssh public key available in the user’s ssh folder. This key will be injected by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cloud-init&lt;/code&gt; in all the virtual bare metal machines that will be configured later. Then, the user that executed the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; scripts is able to access the target cluster through ssh.&lt;/p&gt;
+
+&lt;p&gt;This &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;common.sh&lt;/code&gt; library also sets more global variables apart from the those in the config file. Note that these variables can be added to the config file along with the proper values for your environment.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSH_KEY&lt;/td&gt;
+      &lt;td&gt;${HOME}/.ssh/id_rsa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSH_PUB_KEY&lt;/td&gt;
+      &lt;td&gt;${SSH_KEY}.pub&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NUM_NODES&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VM_EXTRADISKS&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DOCKER_REGISTRY_IMAGE&lt;/td&gt;
+      &lt;td&gt;docker.io/registry:latest&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VBMC_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/vbmc&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SUSHY_TOOLS_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/sushy-tools&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IPA_DOWNLOADER_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/ironic-ipa-downloader&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IRONIC_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/ironic&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IRONIC_INSPECTOR_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/ironic-inspector&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BAREMETAL_OPERATOR_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/baremetal-operator&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPI_VERSION&lt;/td&gt;
+      &lt;td&gt;v1alpha1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPBM_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/cluster-api-provider-baremetal:v1alpha1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPBM_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/cluster-api-provider-baremetal&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DEFAULT_HOSTS_MEMORY&lt;/td&gt;
+      &lt;td&gt;8192&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CLUSTER_NAME&lt;/td&gt;
+      &lt;td&gt;test1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;KUBERNETES_VERSION&lt;/td&gt;
+      &lt;td&gt;v1.17.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;KUSTOMIZE_VERSION&lt;/td&gt;
+      &lt;td&gt;v3.2.3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;It is important to mention that there are several basic functions defined in this file that will be used by the rest of scripts.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;h4 id=&quot;loggingsh&quot;&gt;&lt;strong&gt;logging.sh&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;This script ensures that there is a log folder where all the information gathered during the execution of the scripts is stored. If there is any issue during the deployment, this is one of the first places to look at.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-1&lt;/span&gt; logs/
+01_prepare_host-2020-02-03-122452.log
+01_prepare_host-2020-02-03-122956.log
+host_cleanup-2020-02-03-122656.log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;first-step-prepare-the-host&quot;&gt;&lt;strong&gt;First step: Prepare the host&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;In this first step (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;01_prepare_host.sh&lt;/code&gt;), the requirements needed to start the preparation of the host where the virtual bare metal hosts will run are fulfilled. Depending on the host’s operating system (OS), it will trigger a specific script for &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS/Red Hat&lt;/code&gt; or &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Ubuntu&lt;/code&gt;.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;note: “Note”
+Currently &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS Linux 7&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Red Hat Enterprise Linux 8&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Ubuntu&lt;/code&gt; have been tested. &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/pull/157&quot;&gt;There is work in progress to adapt the deployment for CentOS Linux 8.&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As stated previously, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS 7&lt;/code&gt; is the operating system chosen to run in both, the host and virtual servers. Therefore, specific packages of the operating system are applied in the following script:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;centos_install_requirements.sh&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This script enables the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;epel&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;tripleo&lt;/code&gt; (current-tripleo) repositories where several packages are installed: &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;dnf&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ansible&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;wget&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;python3&lt;/code&gt; and python related packages such as &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;python-virtualbmc&lt;/code&gt; from tripleo repository.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;Notice that &lt;em&gt;SELinux&lt;/em&gt; is set to &lt;em&gt;permissive&lt;/em&gt; and an OS update is triggered, which will cause several packages to be upgraded since there are newer packages in the tripleo repositories (mostly python related) than in the rest of enabled repositories.
+At this point, the container runtime is also installed. Note that by setting the variable &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CONTAINER_RUNTIME&lt;/code&gt; defined in &lt;a href=&quot;#commonsh&quot;&gt;common.sh&lt;/a&gt; is possible to choose between docker and podman, which is the default for CentOS. Remember that this behaviour can be overwriten in your config file.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually &lt;em&gt;minikube&lt;/em&gt;, &lt;em&gt;kubectl&lt;/em&gt; and &lt;em&gt;kustomize&lt;/em&gt; are downloaded from the internet. Notice that the version of Kustomize and Kubernetes are defined by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;KUSTOMIZE_VERSION&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;KUBERNETES_VERSION&lt;/code&gt; variables inside &lt;a href=&quot;#commonsh&quot;&gt;common.sh&lt;/a&gt;, but minikube is always downloading the latest version available.&lt;/p&gt;
+
+&lt;p&gt;Next step deals with cleaning ironic containers and &lt;strong&gt;pods&lt;/strong&gt; that could be running in the host from failed deployments. This will ensure that there will be no issues when creating &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic-pod&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;infra-pod&lt;/code&gt; a little bit later in this first step.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;network.sh.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;At this point, the network library script is sourced. As expected, this library deals with the network configuration which includes: IP addresses, network definitions and IPv6 support which is disabled by default by setting &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;PROVISIONING_IPV6&lt;/code&gt; variable:&lt;/p&gt;
+
+  &lt;blockquote&gt;
+
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Name of the variable&lt;/td&gt;
+        &lt;td&gt;Default value&lt;/td&gt;
+        &lt;td&gt;Option&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;PROVISIONING_NETWORK&lt;/td&gt;
+        &lt;td&gt;172.22.0.0/24&lt;/td&gt;
+        &lt;td&gt;This is the subnet used to run the OS provisioning process&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;EXTERNAL_SUBNET&lt;/td&gt;
+        &lt;td&gt;192.168.111.0/24&lt;/td&gt;
+        &lt;td&gt;This is the subnet used on the “baremetal” libvirt network, created as the primary network interface for the virtual bare metal hosts&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;LIBVIRT_FIRMWARE&lt;/td&gt;
+        &lt;td&gt;bios&lt;/td&gt;
+        &lt;td&gt; &lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;PROVISIONING_IPV6&lt;/td&gt;
+        &lt;td&gt;false&lt;/td&gt;
+        &lt;td&gt; &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Below it is depicted a network diagram of the different virtual networks and virtual servers involved in the Metal³ environment:&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/2020-02-18-metal3-dev-env-install-deep-dive/metal3-dev-env.resized.png&quot; alt=&quot;metal³ dev env virtual networking&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;images.sh.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The images.sh library file is sourced as well in the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;01_prepare_host.sh&lt;/code&gt; script . The &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;images.sh&lt;/code&gt; script contains multiple variables that set the URL (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IMAGE_LOCATION&lt;/code&gt;), name (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IMAGE_NAME&lt;/code&gt;) and default username (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IMAGE_USERNAME&lt;/code&gt;) of the cloud image that needs to be downloaded. The values of each variable will differ depending on the operating system of the virtual bare metal hosts. Note that these images will be served from the host to the virtual servers through the provisioning network.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In our case, since &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS 7&lt;/code&gt; is the base operating system, values will be defined as:&lt;/p&gt;
+
+  &lt;blockquote&gt;
+
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;IMAGE_NAME&lt;/td&gt;
+        &lt;td&gt;CentOS-7-x86_64-GenericCloud-1907.qcow2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;IMAGE_LOCATION&lt;/td&gt;
+        &lt;td&gt;http://cloud.centos.org/centos/7/images&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;IMAGE USERNAME&lt;/td&gt;
+        &lt;td&gt;centos&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;In case it is expected to use a custom cloud image, just modify the previous variables to match the right location.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now that the cloud image is defined, the download process can be started. First, a folder defined by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IRONIC_IMAGE_DIR&lt;/code&gt; should exist so that the image (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS-7-x86_64-GenericCloud-1907.qcow2&lt;/code&gt;) and its checksum can be stored. This folder and its content will be exposed through a local &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic&lt;/code&gt; container running in the host.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IRONIC_IMAGE_DIR&lt;/td&gt;
+      &lt;td&gt;/opt/metal3-dev-env/ironic/html/images&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Below it is verified that the cloud image files were downloaded successfully in the defined folder:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ll /opt/metal3-dev-env/ironic/html/images
+total 920324
+&lt;span class=&quot;nt&quot;&gt;-rw-rw-r--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; 1 alosadag alosadag 942407680 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2
+&lt;span class=&quot;nt&quot;&gt;-rw-rw-r--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; 1 alosadag alosadag        33 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2.md5sum
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;images.sh&lt;/code&gt; shared script is sourced, the following container images are pre-cached locally to the host in order to speed up things later. Below it is shown the code snippet in charge of that task:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;IMAGE_VAR &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;IRONIC_IMAGE IPA_DOWNLOADER_IMAGE VBMC_IMAGE SUSHY_TOOLS_IMAGE DOCKER_REGISTRY_IMAGE
++ &lt;span class=&quot;nv&quot;&gt;IMAGE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;quay.io/metal3-io/ironic
++ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman pull quay.io/metal3-io/ironic
+...
+....
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The container image location of each one is defined by their respective variables:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VBMC_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/vbmc&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SUSHY_TOOLS_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/sushy-tools&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IPA_DOWNLOADER_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/ironic-ipa-downloader&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;IRONIC_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/ironic&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DOCKER_REGISTRY_IMAGE&lt;/td&gt;
+      &lt;td&gt;docker.io/registry:latest&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;In case it is expected to modify the public container images to test new features, it is worth mentioning that there is a container registry running as a privileged container in the host. Therefore it is recommended to upload your modified images there and just overwrite the previous variables to match the right location.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;At this point, an Ansible role is run locally in order to complete the local configuration.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;ansible-playbook &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;working_dir=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$WORKING_DIR&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;virthost=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOSTNAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; vm-setup/inventory.ini &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-vvv&lt;/span&gt; vm-setup/install-package-playbook.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This playbook imports two roles. One called &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;packages_installation&lt;/code&gt;, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml&quot;&gt;in the vm-setup role inside the metal3-dev-env repository&lt;/a&gt;. The other role is based on the &lt;a href=&quot;https://galaxy.ansible.com/fubarhouse/golang&quot;&gt;fubarhouse.golang&lt;/a&gt; Ansible Galaxy role. It is in charge of installing and configuring the exact &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;golang&lt;/code&gt; version &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;1.12.12&lt;/code&gt; defined in an Ansible variable in the &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12&quot;&gt;install-package-playbook.yml playbook&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Once the playbook is finished, a pod called &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic-pod&lt;/code&gt; is created. Inside that pod, a &lt;em&gt;privileged&lt;/em&gt; &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic-ipa-downloader&lt;/code&gt; container is started and attached to the host network. This container is in charge of downloading the &lt;a href=&quot;https://docs.openstack.org/ironic-python-agent/latest/&quot;&gt;Ironic Python Agent&lt;/a&gt; (IPA) files to a shared volume defined by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IRONIC_IMAGE_DIR&lt;/code&gt;. This folder is exposed by the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic&lt;/code&gt; container through HTTP.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;The &lt;a href=&quot;https://docs.openstack.org/ironic-python-agent/latest/&quot;&gt;Ironic Python Agent&lt;/a&gt; is an agent for controlling and deploying Ironic controlled baremetal nodes. Typically run in a ramdisk, the agent exposes a REST API for provisioning servers.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;See below the code snippet that fullfil the task:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--net&lt;/span&gt; host &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; ipa-downloader &lt;span class=&quot;nt&quot;&gt;--pod&lt;/span&gt; ironic-pod &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;IPA_BASEURI&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /opt/metal3-dev-env/ironic:/shared quay.io/metal3-io/ironic-ipa-downloader /usr/local/bin/get-resource.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Below, it is shown the status of the pods and containers at this point:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@eko1 metal3-dev-env]# podman pod list &lt;span class=&quot;nt&quot;&gt;--ctr-names&lt;/span&gt;
+POD ID         NAME         STATUS    CREATED      CONTAINER INFO                                             INFRA ID
+5a0d475351aa   ironic-pod   Running   6 days ago   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5a0d475351aa-infra] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ipa-downloader]                      18f3a8f61407
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The process will wait until the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic-python-agent&lt;/code&gt; (IPA) initramfs, kernel and headers files are downloaded successfully. See below the files downloaded along with the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS 7&lt;/code&gt; cloud image:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ll /opt/metal3-dev-env/ironic/html/images
+total 920324
+&lt;span class=&quot;nt&quot;&gt;-rw-rw-r--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; 1 alosadag alosadag 942407680 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2
+&lt;span class=&quot;nt&quot;&gt;-rw-rw-r--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt; 1 alosadag alosadag        33 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2.md5sum
+drwxr-xr-x. 2 root     root           147 Feb  3 12:41 ironic-python-agent-1862d000-59d9fdc6304b1
+lrwxrwxrwx. 1 root     root            72 Feb  3 12:41 ironic-python-agent.initramfs -&amp;gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.initramfs
+lrwxrwxrwx. 1 root     root            69 Feb  3 12:41 ironic-python-agent.kernel -&amp;gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.kernel
+lrwxrwxrwx. 1 root     root            74 Feb  3 12:41 ironic-python-agent.tar.headers -&amp;gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.tar.headers
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Afterwards, the script makes sure that libvirt is running successfully on the host and the non-privilege user has permissions to interact with it. Libvirt daemon should be running so that minikube can be installed successfully. See the following script snippet starting the minikube VM:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;su &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'minikube start --insecure-registry 192.168.111.1:5000'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; minikube v1.6.2 on Centos 7.7.1908
+&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; Selecting &lt;span class=&quot;s1&quot;&gt;'kvm2'&lt;/span&gt; driver from user configuration &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;alternates: &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;none]&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the same way as with the host, container images are pre-cached but in this case inside minikube local image repository. Notice that in this case the &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator/&quot;&gt;Bare Metal operator&lt;/a&gt; (BMO) is also downloaded since it will run on minikube. The container location is defined by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BAREMETAL_OPERATOR_IMAGE&lt;/code&gt;. In case you want to test new features or new fixes to the BMO, just change the value of the variable to match the location of the modified image:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BAREMETAL_OPERATOR_IMAGE&lt;/td&gt;
+      &lt;td&gt;quay.io/metal3-io/baremetal-operator&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;Remember that minikube is the management cluster in our environment. So it must run all the operators and controllers needed for Metal³.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Below it is shown the output of the script once all the container images have been pulled to minikube:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;su &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'minikube ssh sudo docker image ls'&lt;/span&gt; alosadag
+REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
+quay.io/metal3-io/ironic                  latest              e5d81adf05ee        26 hours ago        693MB
+quay.io/metal3-io/ironic-ipa-downloader   latest              d55b0dac2144        6 days ago          239MB
+quay.io/metal3-io/ironic-inspector        latest              8bb5b844ada6        6 days ago          408MB
+quay.io/metal3-io/baremetal-operator      latest              3c692a32ddd6        9 days ago          1.77GB
+k8s.gcr.io/kube-proxy                     v1.17.0             7d54289267dc        7 weeks ago         116MB
+k8s.gcr.io/kube-controller-manager        v1.17.0             5eb3b7486872        7 weeks ago         161MB
+k8s.gcr.io/kube-scheduler                 v1.17.0             78c190f736b1        7 weeks ago         94.4MB
+k8s.gcr.io/kube-apiserver                 v1.17.0             0cae8d5cc64c        7 weeks ago         171MB
+kubernetesui/dashboard                    v2.0.0-beta8        eb51a3597525        7 weeks ago         90.8MB
+k8s.gcr.io/coredns                        1.6.5               70f311871ae1        2 months ago        41.6MB
+k8s.gcr.io/etcd                           3.4.3-0             303ce5db0e90        3 months ago        288MB
+kubernetesui/metrics-scraper              v1.0.2              3b08661dc379        3 months ago        40.1MB
+k8s.gcr.io/kube-addon-manager             v9.0.2              bd12a212f9dc        6 months ago        83.1MB
+k8s.gcr.io/pause                          3.1                 da86e6ba6ca1        2 years ago         742kB
+gcr.io/k8s-minikube/storage-provisioner   v1.8.1              4689081edb10        2 years ago         80.8MB
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the container images are stored, minikube can be stopped. In that moment, the virtual networks shown in the previous picture are attached to the minikube VM as it can be verified by the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@smc-master metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;virsh domiflist minikube
+Interface  Type       Source     Model       MAC
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------&lt;/span&gt;
+-          network    default    virtio      d4:38:25:25:c6:ca
+-          network    minikube-net virtio      a4:c2:8a:9d:2a:d8
+-          network    provisioning virtio      52:54:00:c8:50:97
+-          network    baremetal  virtio      52:54:00:17:b4:ec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;At this point the host is ready to create the virtual infrastucture.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In the video below it is exhibited all the configuration explained and executed during this &lt;em&gt;first&lt;/em&gt; step.&lt;/p&gt;
+
+&lt;iframe width=&quot;1110&quot; height=&quot;625&quot; style=&quot;height: 625px&quot; src=&quot;https://www.youtube.com/embed/lShd0RxDhFQ&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;step-2-configure-the-host&quot;&gt;&lt;strong&gt;Step 2: Configure the host&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;In this step, the script &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;02_configure_host.sh&lt;/code&gt; basically configures the libvirt/KVM virtual infrastructure and starts services in the host that will be consumed by the virtual bare metal machines:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Web server&lt;/code&gt; to expose the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic-python-agent&lt;/code&gt; (IPA) initramfs, kernel, headers and operating system cloud images.&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Virtual BMC&lt;/code&gt; to emulate a real baseboard management controller (BMC).&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Container registry&lt;/code&gt; where the virtual servers will pull the images needed to run a K8s installation.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;A baseboard management controller (BMC) is a specialized service processor that monitors the physical state of a computer, network server or other hardware device using sensors and communicating with the system administrator through an independent connection. The BMC is part of the Intelligent Platform Management Interface (IPMI) and is usually contained in the motherboard or main circuit board of the device to be monitored.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;First, an ssh-key in charge of communicating to libvirt is created if it does not exist previously. This key is called &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;id_rsa_virt_power&lt;/code&gt;. It is added to the root authorized_keys and is used by the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;sushy tools&lt;/code&gt; to contact libvirt.&lt;/p&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;sushy-tools&lt;/code&gt; is a set of simple simulation tools aiming at supporting the development and testing of the Redfish protocol implementations.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Next, another Ansible playbook called &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml&quot;&gt;setup-playbook.yml&lt;/a&gt; is run against the host. It is focused on set up the virtual infrastructure around &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt;. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the &lt;a href=&quot;#commonsh&quot;&gt;common.sh&lt;/a&gt; or the configuration file.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;ANSIBLE_FORCE_COLOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true &lt;/span&gt;ansible-playbook &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;working_dir=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$WORKING_DIR&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;num_nodes=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NUM_NODES&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;extradisks=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VM_EXTRADISKS&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;virthost=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$HOSTNAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;platform=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NODES_PLATFORM&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;libvirt_firmware=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$LIBVIRT_FIRMWARE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;default_memory=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DEFAULT_HOSTS_MEMORY&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;manage_baremetal=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$MANAGE_BR_BRIDGE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;provisioning_url_host=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PROVISIONING_URL_HOST&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; vm-setup/inventory.ini &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-vvv&lt;/span&gt; vm-setup/setup-playbook.yml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;WORKING_DIR&lt;/td&gt;
+      &lt;td&gt;/opt/metal3-dev-env&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NUM_NODES&lt;/td&gt;
+      &lt;td&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;VM_EXTRADISKS&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;HOSTNAME&lt;/td&gt;
+      &lt;td&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;hostname&lt;/code&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NODES_PLATFORM&lt;/td&gt;
+      &lt;td&gt;libvirt&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;LIBVIRT_FIRMWARE&lt;/td&gt;
+      &lt;td&gt;bios&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;DEFAULT_HOSTS_MEMORY&lt;/td&gt;
+      &lt;td&gt;8192&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;MANAGE_BR_BRIDGE&lt;/td&gt;
+      &lt;td&gt;y&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;PROVISIONING_URL_HOST&lt;/td&gt;
+      &lt;td&gt;172.22.0.1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;There are variables that are only defined as Ansible variables, e.g. number of CPUs of the virtual bare metal server, size of disks, etc. In case you would like to change properties not defined globally in the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; take a look a the default variables specified in role: &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/common/defaults/main.yml&quot;&gt;common&lt;/a&gt; and &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/defaults/main.yml&quot;&gt;libvirt&lt;/a&gt;&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;setup-playbook.yml&lt;/code&gt; is composed by 3 roles, which are detailed below:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Common.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This role sets up the virtual hardware and network configuration of the VMs. Actually it is a &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/meta/main.yml&quot;&gt;dependency&lt;/a&gt; of the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;libvirt&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;virtbmc&lt;/code&gt; Ansible roles. This means that the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;common&lt;/code&gt; role must always be executed before the roles that depend on them. Also, they are only executed once. If two roles state the same one as their dependency, it is only executed the first time.&lt;/p&gt;
+
+  &lt;blockquote&gt;
+
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Libvirt.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It actually is the role that configures the virtual bare metal servers. They are all identically defined with the same hardware and network configuration. Note that they are not started since they will be booted later by ironic during the provisioning process.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;It is possible to change the number of VMs to provision by replacing the value of &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;NUMBER_NODES&lt;/code&gt;&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Finally, once the VMs are defined and we have their MAC address, the ironic inventory file &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic_nodes_json&lt;/code&gt; is created. The action of creating a node is part of the enrollment process and the first step to prepare a node to reach the “available” status.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;nodes&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node-0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;driver&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipmi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;resource_class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;baremetal&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;driver_info&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;6230&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipmi://192.168.111.1:6230&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deploy_kernel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://172.22.0.1/images/ironic-python-agent.kernel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deploy_ramdisk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://172.22.0.1/images/ironic-python-agent.initramfs&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ports&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;00:00:e0:4b:24:8b&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pxe_enabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;local_gb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;50&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;cpu_arch&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x86_64&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;node-1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;driver&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipmi&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;resource_class&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;baremetal&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;driver_info&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;username&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;admin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;password&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;6231&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ipmi://192.168.111.1:6231&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deploy_kernel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://172.22.0.1/images/ironic-python-agent.kernel&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;deploy_ramdisk&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;http://172.22.0.1/images/ironic-python-agent.initramfs&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;ports&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;address&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;00:00:e0:4b:24:8f&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+          &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;pxe_enabled&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;properties&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;local_gb&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;50&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;cpu_arch&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;x86_64&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;This role is also used to tear down the virtual infrastructure depending on the variable &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/2b5d8e76f33d143757d1f0b9b1e82dc662245b9c/vm-setup/roles/libvirt/defaults/main.yml#L2&quot;&gt;libvirt_action&lt;/a&gt; inside the Ansible role: &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;setup or teardown&lt;/code&gt;.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;Virtbmc&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This role is only executed if the bare metal virtual machines are created in libvirt, because &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; needs libvirt to emulate a real BMC.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;VirtualBMC (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vmbc&lt;/code&gt;) tool simulates a Baseboard Management Controller (BMC) by exposing IPMI responder to the network and talking to libvirt at the host vBMC is running at. Basically, manipulate virtual machines which pretend to be bare metal servers.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;virtbmc&lt;/code&gt; Ansible role creates the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;sushy-tools&lt;/code&gt; configuration in the host for each virtual bare metal nodes. Note that each virtual bare metal host will have a different &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; socket exposed in the host. The communication to each &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; is needed by the BMO to start, stop, configure the boot order, etc during the provisioning stage. Finally, this folders containing the configuration will be mounted by the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;sushy-tools&lt;/code&gt; containers.&lt;/p&gt;
+
+  &lt;blockquote&gt;
+
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo ls&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--color&lt;/span&gt; /opt/metal3-dev-env/virtualbmc
+total 0
+drwxr-x---. 2 root root 21 Feb  5 11:07 sushy-tools
+drwxr-x---. 4 root root 70 Feb  5 11:08 vbmc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;
+Next, both host provisioning and baremetal interfaces are configured. The provisioning interface, as the name suggests, will be used to provision the virtual bare metal hosts by means of the `Bare Metal Operator`. This interface is configured with an static IP (172.22.0.1):
+
+```sh
+[alosadag@smc-master metal3-dev-env]$ ifconfig provisioning
+provisioning: flags=4163&lt;span class=&quot;nt&quot;&gt;&amp;lt;UP&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;BROADCAST&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;RUNNING&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MULTICAST&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;  mtu 1500
+        inet 172.22.0.1  netmask 255.255.255.0  broadcast 172.22.0.255
+        inet6 fe80::1091:c1ff:fea1:6a0f  prefixlen 64  scopeid 0x20&lt;span class=&quot;nt&quot;&gt;&amp;lt;link&amp;gt;&lt;/span&gt;
+        ether 12:91:c1:a1:6a:0f  txqueuelen 1000  (Ethernet)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;On the other hand, the baremetal virtual interface behaves as an external network. This interface is able to reach the internet and it is the network where the different Kubernetes nodes will exchange information. This interface is configured as auto, so the IP is retrieved by DHCP.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@smc-master metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ifconfig baremetal
+baremetal: &lt;span class=&quot;nv&quot;&gt;flags&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4099&amp;lt;UP,BROADCAST,MULTICAST&amp;gt;  mtu 1500
+        inet 192.168.111.1  netmask 255.255.255.0  broadcast 192.168.111.255
+        ether 52:54:00:db:85:29  txqueuelen 1000  &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Ethernet&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, an Ansible role called &lt;a href=&quot;https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml&quot;&gt;firewall&lt;/a&gt; will be executed targetting the host to be sure that the proper ports are opened. In case your host is running &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Red Hat Enterprise Linux&lt;/code&gt; or &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CentOS 8&lt;/code&gt;, firewalld module will be used. In any other case, iptables module is the choice.&lt;/p&gt;
+
+&lt;p&gt;Below, the code snippet where &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;firewalld&lt;/code&gt; or &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;iptables&lt;/code&gt; is assigned:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Use firewalld on CentOS/RHEL, iptables everywhere else&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;USE_FIREWALLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;False
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[[&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$OS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rhel&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;centos&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OS_VERSION&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; 8 &lt;span class=&quot;o&quot;&gt;]]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;then&lt;/span&gt;
+  export &lt;span class=&quot;nv&quot;&gt;USE_FIREWALLD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;True
+&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;This behaviour can be changed by replacing the value of the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;USE_FIREWALLD&lt;/code&gt; variable&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The ports managed by this role are all associated to the services that take part of the provisioning process: &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;httpd&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;pxe&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;container registry&lt;/code&gt;..&lt;/p&gt;
+
+&lt;div class=&quot;premonition note&quot;&gt;&lt;div class=&quot;fa fa-check-square&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Note&lt;/p&gt;&lt;p&gt;Services like ironic, pxe, keepalived, httpd and the container registry are running in the host as containers attached to the host network on the host’s provisioning interface. On the other hand, the vbmc service is also running as a privileged container and it is listening in the host’s baremetal interface.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once the network is configured, a local &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;container registry&lt;/code&gt; is started. It will be needed in the case of using local built images. In that case, the container images can be modified locally and pushed to the local registry. At that point, the specific image location variable must be changed so it must point out the local registry. This process makes easy to verify and test changes to the code locally.&lt;/p&gt;
+
+&lt;p&gt;At this point the following containers are running inside two pods on the host: &lt;em&gt;infra-pod&lt;/em&gt; and &lt;em&gt;ironic-pod&lt;/em&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@eko1 metal3-dev-env]# podman pod list &lt;span class=&quot;nt&quot;&gt;--ctr-names&lt;/span&gt;
+POD ID         NAME         STATUS    CREATED      CONTAINER INFO                                             INFRA ID
+67cc53713145   infra-pod    Running   6 days ago   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;vbmc] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;sushy-tools] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;httpd-infra] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;67cc53713145-infra]    f1da23fcd77f
+5a0d475351aa   ironic-pod   Running   6 days ago   &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5a0d475351aa-infra] &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;ipa-downloader]                      18f3a8f61407
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Below are detailed the containers inside the &lt;em&gt;infra-pod&lt;/em&gt; pod which are running as privileged using the host network:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;The httpd container.&lt;/strong&gt; &amp;gt; &amp;gt;
+A folder called &lt;em&gt;shared&lt;/em&gt; where the cloud OS image and IPA files are available is mounted and exposed to the virtual bare metal hosts.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;sudo podman run -d –net host –privileged –name httpd-infra –pod infra-pod -v /opt/metal3-dev-env/ironic:/shared –entrypoint /bin/runhttpd quay.io/metal3-io/ironic&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;
+&amp;gt; This folder also contains the `inspector.ipxe` file which contains the information needed to be able to run the `ironic-python-agent` kernel and initramfs. Below, httpd-infra container is accessed and it has been verified that host's `/opt/metal3-dev-env/ironic/` (`IRONIC_DATA_DIR`) is mounted inside the *shared* folder of the container:
+
+```sh
+[alosadag@eko1 metal3-dev-env]$ sudo podman exec -it httpd-infra bash
+[root@infra-pod shared]# cat html/inspector.ipxe 
+#!ipxe
+
+:retry_boot
+echo In inspector.ipxe
+imgfree
+# NOTE(dtantsur): keep inspection kernel params in [mdns]params in ironic-inspector-image
+kernel --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.kernel ipa-inspection-callback-url=http://172.22.0.1:5050/v1/continue ipa-inspection-collectors=default,extra-hardware,logs systemd.journald.forward_to_console=yes BOOTIF=${mac} ipa-debug=1 ipa-inspection-dhcp-all-interfaces=1 ipa-collect-lldp=1 initrd=ironic-python-agent.initramfs || goto retry_boot
+initrd --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.initramfs || goto retry_boot
+boot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;The vbmc container.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;This container mounts two host folders. One is the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;/opt/metal3-dev-env/virtualbmc/vbmc&lt;/code&gt; where the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; configuration for each node is stored. The other folder is the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;/root/.ssh&lt;/code&gt; where root keys are located, specifically &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;id_rsa_virt_power&lt;/code&gt; which is used to manage the communication with libvirt.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--net&lt;/span&gt; host &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; vbmc &lt;span class=&quot;nt&quot;&gt;--pod&lt;/span&gt; infra-pod &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /opt/metal3-dev-env/virtualbmc/vbmc:/root/&amp;gt; .vbmc &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /root/.ssh:/root/ssh quay.io/metal3-io/vbmc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;The sushy-tools container.&lt;/strong&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;p&gt;This container mounts the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;/opt/metal3-dev-env/virtualbmc/sushy-tools config folder and the&lt;/code&gt;/root/.ssh&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;local folder as well. The functionality is similar as the&lt;/code&gt;vbmc`, however this use redfish instead of ipmi to connect to the BMC.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;podman run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--net&lt;/span&gt; host &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; sushy-tools &lt;span class=&quot;nt&quot;&gt;--pod&lt;/span&gt; infra-pod &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /opt/metal3-dev-env/virtualbmc/&amp;gt; sushy-tools:/root/sushy &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /root/.ssh:/root/ssh quay.io/metal3-io/sushy-tools
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;  &lt;/div&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;At this point the virtual infrastructure must be ready to apply the Kubernetes specific configuration. Note that all the VMs specified by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;NUMBER_NODES&lt;/code&gt; and minikube must be shut down and the defined virtual network must be active:&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@smc-master metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;virsh list &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
+ Id    Name                           State
+&lt;span class=&quot;nt&quot;&gt;----------------------------------------------------&lt;/span&gt;
+ -     minikube                       shut off
+ -     node_0                         shut off
+ -     node_1                         shut off
+ -     node_2                         shut off
+
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@smc-master metal3-dev-env]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;virsh net-list &lt;span class=&quot;nt&quot;&gt;--all&lt;/span&gt;
+ Name                 State      Autostart     Persistent
+&lt;span class=&quot;nt&quot;&gt;----------------------------------------------------------&lt;/span&gt;
+ baremetal            active     &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
+ default              active     &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
+ minikube-net         active     &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
+ provisioning         active     &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;           &lt;span class=&quot;nb&quot;&gt;yes&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the video below it is exhibited all the configuration explained and executed during this &lt;em&gt;second&lt;/em&gt; step.&lt;/p&gt;
+
+&lt;iframe width=&quot;1110&quot; height=&quot;625&quot; style=&quot;height: 625px&quot; src=&quot;https://www.youtube.com/embed/HfPxDqC2sH8&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;step-3-launch-the-management-cluster-minikube&quot;&gt;&lt;strong&gt;Step 3: Launch the management cluster (minikube)&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;The third script called &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;03_launch_mgmt_cluster.sh&lt;/code&gt; basically configures minikube to become a Metal³ management cluster. On top of minikube the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetal-operator&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capi-controller-manager&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;capbm-controller-manager&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;cabpk-controller-manager&lt;/code&gt; are installed in the metal3 namespace.&lt;/p&gt;
+
+&lt;p&gt;In a more detailed way, the script clones the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Bare Metal Operator&lt;/code&gt; (&lt;a href=&quot;https://github.com/metal3-io/baremetal-operator&quot;&gt;BMO&lt;/a&gt;) and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Cluster API Provider for Managed Bare Metal Hardware operator&lt;/code&gt; (&lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-baremetal&quot;&gt;CAPBM&lt;/a&gt;) git repositories, creates the cloud.yaml file and starts the minikube virtual machine. Once minikube is up and running, the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BMO&lt;/code&gt; is built and executed in minikube’s Kubernetes cluster.&lt;/p&gt;
+
+&lt;p&gt;In case of the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Bare Metal Operator&lt;/code&gt; the branch by default to clone is master, however this and other variables shown in the following table can be replaced in the config file:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ &lt;span class=&quot;nv&quot;&gt;BMOREPO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://github.com/metal3-io/baremetal-operator.git
++ &lt;span class=&quot;nv&quot;&gt;BMOBRANCH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;&lt;strong&gt;Name of the variable&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Default value&lt;/strong&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;strong&gt;Options&lt;/strong&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BMOREPO&lt;/td&gt;
+      &lt;td&gt;https://github.com/metal3-io/baremetal-operator.git&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BMOBRANCH&lt;/td&gt;
+      &lt;td&gt;master&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPBMREPO&lt;/td&gt;
+      &lt;td&gt;https://github.com/metal3-io/cluster-api-provider-baremetal.git&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPI_VERSION&lt;/td&gt;
+      &lt;td&gt;v1alpha2&lt;/td&gt;
+      &lt;td&gt;v1alpha1 or v1alpha3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;FORCE_REPO_UPDATE&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;BMO_RUN_LOCAL&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CAPBM_RUN_LOCAL&lt;/td&gt;
+      &lt;td&gt;false&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Once the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BMO&lt;/code&gt; variables are configured, it is time for the operator to be deployed using &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kustomize&lt;/code&gt; and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; as it can seen from the logs:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;strong&gt;Information:&lt;/strong&gt; &lt;a href=&quot;https://github.com/kubernetes-sigs/kustomize&quot;&gt;Kustomize&lt;/a&gt; is a Kubernetes tool that lets you customize raw, template-free YAML files for multiple purposes, leaving the original YAML untouched and usable as is.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ kustomize build bmo-dirPrHIrcl
++ kubectl apply &lt;span class=&quot;nt&quot;&gt;-f-&lt;/span&gt;
+namespace/metal3 created
+customresourcedefinition.apiextensions.k8s.io/baremetalhosts.metal3.io created
+serviceaccount/metal3-baremetal-operator created
+clusterrole.rbac.authorization.k8s.io/metal3-baremetal-operator created
+clusterrolebinding.rbac.authorization.k8s.io/metal3-baremetal-operator created
+configmap/ironic-bmo-configmap-75tkt49k5c created
+secret/mariadb-password-d88m524c46 created
+deployment.apps/metal3-baremetal-operator created
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BMO&lt;/code&gt; objects are applied, it’s time to transform the virtual bare metal hosts information into a yaml file of kind &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; Custom Resource (CR). This is done by a golang script passing them the IPMI address, BMC username and password, which are stored as a Kubernetes secret, MAC address and name:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go &lt;span class=&quot;nt&quot;&gt;-address&lt;/span&gt; ipmi://192.168.111.1:6230 &lt;span class=&quot;nt&quot;&gt;-password&lt;/span&gt; password &lt;span class=&quot;nt&quot;&gt;-user&lt;/span&gt; admin &lt;span class=&quot;nt&quot;&gt;-boot-mac&lt;/span&gt; 00:be:bc:fd:17:f3 node-0
++ &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; name address user password mac
++ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go &lt;span class=&quot;nt&quot;&gt;-address&lt;/span&gt; ipmi://192.168.111.1:6231 &lt;span class=&quot;nt&quot;&gt;-password&lt;/span&gt; password &lt;span class=&quot;nt&quot;&gt;-user&lt;/span&gt; admin &lt;span class=&quot;nt&quot;&gt;-boot-mac&lt;/span&gt; 00:be:bc:fd:17:f7 node-1
++ &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; name address user password mac
++ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go &lt;span class=&quot;nt&quot;&gt;-address&lt;/span&gt; ipmi://192.168.111.1:6232 &lt;span class=&quot;nt&quot;&gt;-password&lt;/span&gt; password &lt;span class=&quot;nt&quot;&gt;-user&lt;/span&gt; admin &lt;span class=&quot;nt&quot;&gt;-boot-mac&lt;/span&gt; 00:be:bc:fd:17:fb node-2
++ &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; name address user password mac
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Below is shown the bare metal host definition of node-1. Note that the IPMI address is the IP of the host’s provisioning interface. Behind the scenes, IPMI is handled by the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;vbmc&lt;/code&gt; container running in the host.&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Secret&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node-1-bmc-secret&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Opaque&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YWRtaW4=&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cGFzc3dvcmQ=&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3.io/v1alpha1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;BareMetalHost&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node-1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  online&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  bootMACAddress&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;00:00:e0:4b:24:8f&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;  bmc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ipmi://192.168.111.1:6231&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;    credentialsName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;node-1-bmc-secret&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See that the MAC address configured in the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; spec definition matches &lt;em&gt;node-1&lt;/em&gt; provisioning interface:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;root@eko1 metal3-dev-env]# virsh domiflist node_1
+Interface  Type       Source     Model       MAC
+&lt;span class=&quot;nt&quot;&gt;-------------------------------------------------------&lt;/span&gt;
+vnet4      bridge     provisioning virtio      00:00:e0:4b:24:8f
+vnet5      bridge     baremetal  virtio      00:00:e0:4b:24:91
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally, the script apply in namespace metal3 each of the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; yaml files that match each virtual bare metal host:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ kubectl apply &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; bmhosts_crs.yaml &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3
+secret/node-0-bmc-secret created
+baremetalhost.metal3.io/node-0 created
+secret/node-1-bmc-secret created
+baremetalhost.metal3.io/node-1 created
+secret/node-2-bmc-secret created
+baremetalhost.metal3.io/node-2 created
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lastly, it is the turn of the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CAPBM&lt;/code&gt;. Similar to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BMO&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kustomize&lt;/code&gt; is used to create the different Kubernetes components and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; applied the files into the management cluster.&lt;/p&gt;
+
+&lt;div class=&quot;premonition warning&quot;&gt;&lt;div class=&quot;fa fa-exclamation-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Warning&lt;/p&gt;&lt;p&gt;Note that installing &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CAPBM&lt;/code&gt; includes installing the components of the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;Cluster API&lt;/a&gt; and the components of the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api/tree/master/bootstrap/kubeadm&quot;&gt;Cluster API bootstrap provider kubeadm&lt;/a&gt; (CABPK)&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Below the objects are created through the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;generate.sh&lt;/code&gt; script:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;++ &lt;span class=&quot;nb&quot;&gt;mktemp&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; capbm-XXXXXXXXXX
++ &lt;span class=&quot;nv&quot;&gt;kustomize_overlay_path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;capbm-eJPOjCPASD
+
++ ./examples/generate.sh &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt;
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/cluster.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/controlplane.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/metal3crds.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/metal3plane.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/machinedeployment.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-cluster-api.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-kubeadm.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-baremetal.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/provider-components.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kustomize&lt;/code&gt; configures the files accordingly to the values defined and &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; applies them:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;+ kustomize build capbm-eJPOjCPASD
++ kubectl apply &lt;span class=&quot;nt&quot;&gt;-f-&lt;/span&gt;
+namespace/cabpk-system created
+namespace/capbm-system created
+namespace/capi-system created
+customresourcedefinition.apiextensions.k8s.io/baremetalclusters.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/baremetalmachines.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/baremetalmachinetemplates.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/clusters.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/kubeadmconfigs.bootstrap.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machinedeployments.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machines.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machinesets.cluster.x-k8s.io created
+role.rbac.authorization.k8s.io/cabpk-leader-election-role created
+role.rbac.authorization.k8s.io/capbm-leader-election-role created
+role.rbac.authorization.k8s.io/capi-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/cabpk-manager-role created
+clusterrole.rbac.authorization.k8s.io/cabpk-proxy-role created
+clusterrole.rbac.authorization.k8s.io/capbm-manager-role created
+clusterrole.rbac.authorization.k8s.io/capbm-proxy-role created
+clusterrole.rbac.authorization.k8s.io/capi-manager-role created
+rolebinding.rbac.authorization.k8s.io/cabpk-leader-election-rolebinding created
+rolebinding.rbac.authorization.k8s.io/capbm-leader-election-rolebinding created
+rolebinding.rbac.authorization.k8s.io/capi-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/cabpk-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/cabpk-proxy-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capbm-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capbm-proxy-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capi-manager-rolebinding created
+secret/capbm-webhook-server-secret created
+service/cabpk-controller-manager-metrics-service created
+service/capbm-controller-manager-service created
+service/capbm-controller-metrics-service created
+deployment.apps/cabpk-controller-manager created
+deployment.apps/capbm-controller-manager created
+deployment.apps/capi-controller-manager created
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;At this point all controllers and operators must be running in the namespace metal3 of the management cluster (minikube). All virtual bare metal hosts configured must be shown as &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHosts&lt;/code&gt; resources in the metal3 namespace as well. They should be in ready status and stopped (online is false)&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;In the video below it is exhibited all the configuration explained and executed during this &lt;em&gt;third&lt;/em&gt; step.&lt;/p&gt;
+
+&lt;iframe width=&quot;1110&quot; height=&quot;625&quot; style=&quot;height: 625px&quot; src=&quot;https://www.youtube.com/embed/hDdzVyVHuQE&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;step-4-verification&quot;&gt;&lt;strong&gt;Step 4: Verification&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;The last script &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;04_verify.sh&lt;/code&gt; is in charge of verifying that the deployment has been successful by checking several things:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Custom resources (CR) and custom resource definition (CRD) were applied and exist in the cluster.&lt;/li&gt;
+  &lt;li&gt;Verify that the virtual bare metal hosts matches the information detailed in the&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; object.&lt;/li&gt;
+  &lt;li&gt;All containers are in running status.&lt;/li&gt;
+  &lt;li&gt;Verify virtual network configuration and status.&lt;/li&gt;
+  &lt;li&gt;Verify operators and controllers are running.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;However, this verification can be easily achieved manually. For instance, checking that controllers and operators running in the management cluster (minikube) and all the virtual bare metal hosts are in ready status:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 ~]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get pods &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; wide
+NAME                                         READY   STATUS    RESTARTS   AGE     IP               NODE       NOMINATED NODE   READINESS GATES
+cabpk-controller-manager-5c67dd56c4-wfwbh    2/2     Running   9          6d23h   172.17.0.5       minikube   &amp;lt;none&amp;gt;           &amp;lt;none&amp;gt;
+capbm-controller-manager-7f9b8f96b7-grl4r    2/2     Running   12         6d23h   172.17.0.4       minikube   &amp;lt;none&amp;gt;           &amp;lt;none&amp;gt;
+capi-controller-manager-798c76675f-dxh2n     1/1     Running   10         6d23h   172.17.0.6       minikube   &amp;lt;none&amp;gt;           &amp;lt;none&amp;gt;
+metal3-baremetal-operator-5b4c59755d-h4zkp   6/6     Running   8          6d23h   192.168.39.101   minikube   &amp;lt;none&amp;gt;           &amp;lt;none&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Verify that the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHosts&lt;/code&gt; provisioning status is &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ready&lt;/code&gt; and the BMC configuration is correct. Check that all virtual bare metal hosts are shut down (online is false):&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 ~]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3
+NAME     STATUS   PROVISIONING STATUS   CONSUMER             BMC                         HARDWARE PROFILE   ONLINE   ERROR
+node-0   OK       ready                                      ipmi://192.168.111.1:6230   unknown            &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;    
+node-1   OK       ready                                      ipmi://192.168.111.1:6231   unknown            &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;     
+node-2   OK       ready                                      ipmi://192.168.111.1:6232   unknown            &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Get the list of CRDs created in the cluster. Check that, at least, the following ones exist:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@eko1 ~]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get crds
+NAME                                                        CREATED AT
+baremetalclusters.infrastructure.cluster.x-k8s.io           2020-01-22T13:19:42Z
+baremetalhosts.metal3.io                                    2020-01-22T13:19:35Z
+baremetalmachines.infrastructure.cluster.x-k8s.io           2020-01-22T13:19:42Z
+baremetalmachinetemplates.infrastructure.cluster.x-k8s.io   2020-01-22T13:19:42Z
+clusters.cluster.x-k8s.io                                   2020-01-22T13:19:42Z
+kubeadmconfigs.bootstrap.cluster.x-k8s.io                   2020-01-22T13:19:42Z
+kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io           2020-01-22T13:19:42Z
+machinedeployments.cluster.x-k8s.io                         2020-01-22T13:19:43Z
+machines.cluster.x-k8s.io                                   2020-01-22T13:19:43Z
+machinesets.cluster.x-k8s.io                                2020-01-22T13:19:43Z
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p class=&quot;header&quot;&gt;Information&lt;/p&gt;&lt;p&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;KUBECONFIG&lt;/code&gt; file is stored in the user’s home directory (~/.kube/config) that executed the scripts.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Check the status of all the applications running in minikube or better said, in the management cluster.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;alosadag@smc-master logs]&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get pods &lt;span class=&quot;nt&quot;&gt;-A&lt;/span&gt;
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
+kube-system   coredns-6955765f44-fkdzp                    1/1     Running   1          164m
+kube-system   coredns-6955765f44-fxzvz                    1/1     Running   1          164m
+kube-system   etcd-minikube                               1/1     Running   1          164m
+kube-system   kube-addon-manager-minikube                 1/1     Running   1          164m
+kube-system   kube-apiserver-minikube                     1/1     Running   1          164m
+kube-system   kube-controller-manager-minikube            1/1     Running   1          164m
+kube-system   kube-proxy-87g98                            1/1     Running   1          164m
+kube-system   kube-scheduler-minikube                     1/1     Running   1          164m
+kube-system   storage-provisioner                         1/1     Running   2          164m
+metal3        cabpk-controller-manager-5c67dd56c4-rldk4   2/2     Running   0          156m
+metal3        capbm-controller-manager-7f9b8f96b7-mdfcw   2/2     Running   0          156m
+metal3        capi-controller-manager-84947c7497-k6twl    1/1     Running   0          156m
+metal3        metal3-baremetal-operator-78bffc8d-z5hqs    6/6     Running   0          156m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the video below it is exhibited all the configuration explained and executed during the &lt;em&gt;verification&lt;/em&gt; steps.&lt;/p&gt;
+
+&lt;iframe width=&quot;1110&quot; height=&quot;625&quot; style=&quot;height: 625px&quot; src=&quot;https://www.youtube.com/embed/wwakVkcXtwE&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;&lt;strong&gt;Summary&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;In this post a deep dive into the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3-dev-env&lt;/code&gt; scripts was shown. It has been deeply detailed the process of creating a Metal³ &lt;strong&gt;emulated environment&lt;/strong&gt; from a set of virtual machines (VMs) to manage as if they were bare metal hosts.&lt;/p&gt;
+
+&lt;p&gt;After this post, the reader should have acquired a basic understanding of all the pieces involved in the Metal³ project. Also, and more important, how these scripts can be adapted to your specific needs. Remember that this can be achieved in multiple ways: replacing values in the global variables, replacing Ansible default variables or even modifying playbooks or the scripts themselves.&lt;/p&gt;
+
+&lt;p&gt;Notice that the Metal³ development environment also focuses on developing new features of the BMO or CAPBM and being able to test them locally.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;&lt;strong&gt;References&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/playlist?list=PL2y-qnqBbesZZQKyKbuI6vIVkPrCPuK9T&quot;&gt;Video playlist: A detailed walkthrough the installation of the metal3-dev-env on Youtube&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://metal3.io/try-it.html&quot;&gt;Getting started with Metal3.io&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/metal3-io?type=source&quot;&gt;Metal³ code repositories&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Alberto Losada</name></author><summary type="html">Introduction to metal3-dev-env</summary></entry><entry><title type="html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019</title><link href="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html" rel="alternate" type="text/html" title="Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019" /><published>2020-01-20T07:10:00+00:00</published><updated>2020-01-20T07:10:00+00:00</updated><id>https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal</id><content type="html" xml:base="https://metal3.io/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">&lt;h2 id=&quot;conference-talk-metal-deploy-kubernetes-on-bare-metal---yolanda-robla-red-hat&quot;&gt;Conference talk: Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla, Red Hat&lt;/h2&gt;
+
+&lt;p&gt;Some of the most influential minds in the developer industry were landing in the gorgeous ancient city of Split, Croatia, to talk in the &lt;a href=&quot;https://dev.shiftconf.co&quot;&gt;Shift Dev 2019 - Developer Conference&lt;/a&gt; about the most cutting edge technologies, techniques and biggest trends in the developer space.&lt;/p&gt;
+
+&lt;p&gt;In this video, Yolanda Robla speaks about the deployment of Kubernetes on Bare Metal with the help of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; style=&quot;height: 315px&quot; src=&quot;https://www.youtube.com/embed/iHlaimz48vg&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.linkedin.com/in/yolanda-robla-2008158/&quot;&gt;Yolanda Robla&lt;/a&gt; Yolanda Robla is a Principal Software Engineer at Red Hat. In her own words:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In my current position in Red Hat as an NFV Partner Engineer, I investigate new technologies and create proofs of concept for partners to embrace new technologies. Being the current PTL of Akraino, I am involved in designing and implementing systems based on Kubernetes for the Edge use cases, ensuring high scalability and reproducibility using a GitOps approach.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=iHlaimz48vg&amp;amp;t=8s&quot;&gt;Video: Metal³: Deploy Kubernetes on Bare Metal video&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">Conference talk: Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla, Red Hat</summary></entry><entry><title type="html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant &amp;amp; Doug Hellmann, Red Hat - KubeCon NA, November 2019</title><link href="https://metal3.io/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html" rel="alternate" type="text/html" title="Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant &amp; Doug Hellmann, Red Hat - KubeCon NA, November 2019" /><published>2019-12-04T10:09:00+00:00</published><updated>2019-12-04T10:09:00+00:00</updated><id>https://metal3.io/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management</id><content type="html" xml:base="https://metal3.io/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">&lt;h2 id=&quot;conference-talk-introducing-metal-kubernetes-native-bare-metal-host-management---russell-bryant--doug-hellmann-red-hat&quot;&gt;Conference talk: Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant &amp;amp; Doug Hellmann, Red Hat&lt;/h2&gt;
+
+&lt;p&gt;Metal³ (“metal kubed”) is a new open source bare metal host provisioning tool created to enable Kubernetes-native infrastructure management. Metal³ enables the management of bare metal hosts via custom resources managed through the Kubernetes API as well as the monitoring of bare metal host metrics to Prometheus. This presentation will explain the motivations behind creating the project and what has been accomplished so far. This will be followed by an architectural overview and description of the Custom Resource Definitions (CRDs) for describing bare metal hosts, leading to a demonstration of using Metal³ in a Kubernetes cluster.&lt;/p&gt;
+
+&lt;p&gt;In this video, Russell Bryant and Doug Hellmann speak about the whats and hows of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; style=&quot;height: 315px&quot; src=&quot;https://www.youtube.com/embed/KIIkVD7gujY&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.russellbryant.net/&quot;&gt;Russell Bryant&lt;/a&gt; Russell Bryant is a Distinguished Engineer at Red Hat, where he works on infrastructure management to support Kubernetes clusters. Prior to working on the Metal³ project, Russell has worked on other open infrastructure projects. Russell worked in Software Defined Networking with Open vSwitch (OVS) and Open Virtual Network (OVN) and worked on various parts of OpenStack. Russell also worked in open source telephony via the Asterisk project.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://twitter.com/doughellmann&quot;&gt;Doug Hellmann&lt;/a&gt; Doug Hellmann is a Senior Principal Software Engineer at Red Hat. He has been a professional developer since the mid 1990s and has worked on a variety of projects in fields such as mapping, medical news publishing, banking, data center automation, and hardware provisioning. He has been contributing to open source projects for most of his career and for the past 7 years he has been focusing on open source cloud computing technologies, including OpenStack and Kubernetes.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://static.sched.com/hosted_files/kccncna19/b3/Introducing%20Metal3%20KubeCon%20NA%202019.pdf&quot;&gt;Presentation: Introducing Metal³ KubeCon NA 2019 PDF&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=KIIkVD7gujY&amp;amp;feature=emb_logo&quot;&gt;Video: Introducing Metal³: Kubernetes Native Bare Metal Host Management video&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;demos&quot;&gt;Demos&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://asciinema.org/a/uOCLoCiOlMLMBLuHOcV2ZvZxb&quot;&gt;First demo (Inspection)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/283704&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/283704.svg&quot; alt=&quot;asciicast&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://asciinema.org/a/Z4a4MhXd7DStprfyiiworS2Id&quot;&gt;Second demo (Provisioning)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/283705&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/283705.svg&quot; alt=&quot;asciicast&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://asciinema.org/a/Xs5BPe62kF1PyIkNvMkcC9lyt&quot;&gt;Third demo (Scale up)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/283706&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/283706.svg&quot; alt=&quot;asciicast&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://asciinema.org/a/c5BUvn2iK1J076dI3xLNe4H9C&quot;&gt;Fourth demo (v1alpha2)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://asciinema.org/a/283707&quot;&gt;&lt;img src=&quot;https://asciinema.org/a/283707.svg&quot; alt=&quot;asciicast&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">Conference talk: Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant &amp;amp; Doug Hellmann, Red Hat</summary></entry><entry><title type="html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019</title><link href="https://metal3.io/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html" rel="alternate" type="text/html" title="Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019" /><published>2019-11-13T08:37:00+00:00</published><updated>2019-11-13T08:37:00+00:00</updated><id>https://metal3.io/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit</id><content type="html" xml:base="https://metal3.io/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">&lt;h2 id=&quot;conference-talk-extend-your-data-center-to-the-hybrid-edge---red-hat-summit-may-2019-paul-cormier-burr-stutter-and-garima-sharma&quot;&gt;Conference talk: Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019, Paul Cormier, Burr Stutter and Garima Sharma&lt;/h2&gt;
+
+&lt;p&gt;A critical part of being successful in the hybrid cloud is being successful in your data center with your own infrastructure.&lt;/p&gt;
+
+&lt;p&gt;In this video, Paul Cormier, Burr Sutter and Garima Sharma show how you can bring the Open Hybrid cloud to the edge. Cluster management from multiple cloud providers to on premise. In the demo you’ll see a multi-cluster inventory for the open hybrid cloud at cloud.redhat.com, OpenShift Container Storage providing storage for Virtual Machines and containers (Cloud, Virtualization and bare metal), and everything Kubernetes native.&lt;/p&gt;
+
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.redhat.com/en/about/company/management/paul-cormier&quot;&gt;Paul Cormier&lt;/a&gt; Executive vice president and president, Products and Technologies. Leads Red Hat’s technology and products organizations, including engineering, product management, and product marketing for Red Hat’s technologies. He joined Red Hat in May 2001 as executive vice president, Engineering.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://burrsutter.com/&quot;&gt;Burr Sutter&lt;/a&gt; A lifelong developer advocate, community organizer, and technology evangelist, Burr Sutter is a featured speaker at technology events around the globe —from Bangalore to Brussels and Berlin to Beijing (and most parts in between)— he is currently Director of Developer Experience at Red Hat. A Java Champion since 2005 and former president of the Atlanta Java User Group, Burr founded the DevNexus conference —now the second largest Java event in the U.S.— with the aim of making access to the world’s leading developers affordable to the developer community.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.linkedin.com/in/garimasharma/&quot;&gt;Garima Sharma&lt;/a&gt; Senior Engineering leader at world’s largest Open Source company. As a seasoned Tech professional, she runs a global team of Solutions Engineers focused on a large portfolio of Cloud Computing products and technology. She has helped shape science and technology for mission critical software, reliability in operations and re-design of architecture all geared towards advancements in medicine, security, cloud technologies and bottom line savings for the client businesses. Whether leading the architecture, development and delivery of customer centric cutting edge systems, or spearheading diversity and inclusion initiatives via keynotes, blogs and conference presentations, Garima champions the idea of STEM. Garima ardently believes in Maya Angelou’s message that diversity makes for a rich tapestry, and we must understand that all the threads of the tapestry are equal in value no matter what their color.&lt;/p&gt;
+
+&lt;h2 id=&quot;video&quot;&gt;Video&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.pscp.tv/RedHatOfficial/1vAGRWYPjngJl?t=1h27m51s&quot;&gt;Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">Conference talk: Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019, Paul Cormier, Burr Stutter and Garima Sharma</summary></entry><entry><title type="html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat</title><link href="https://metal3.io/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html" rel="alternate" type="text/html" title="Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat" /><published>2019-11-07T11:02:00+00:00</published><updated>2019-11-07T11:02:00+00:00</updated><id>https://metal3.io/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic</id><content type="html" xml:base="https://metal3.io/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">&lt;h2 id=&quot;conference-talk-open-infrastructure-days-uk-2019-kubernetes-native-infrastructure-managed-baremetal-with-kubernetes-operators-and-openstack-ironic---steve-hardy-red-hat&quot;&gt;Conference talk: Open Infrastructure Days UK 2019; Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat&lt;/h2&gt;
+
+&lt;p&gt;In this session you can hear about a new effort to enable baremetal Kubernetes deployments using native interfaces, and in particular the Kubernetes Operator framework, combined with OpenStack Ironic.&lt;/p&gt;
+
+&lt;p&gt;This approach aims to seamlessly integrate your infrastructure with your workloads, including baremetal servers, storage and container/VM workloads. All this can be achieved using kubernetes native applications, combined with existing, proven deployment and storage tooling.&lt;/p&gt;
+
+&lt;p&gt;In this talk we cover the options around Kubernetes deployments today, the specific approach taken by the new Kubernetes-native “Metalkube” project, and the status/roadmap of this new community effort.&lt;/p&gt;
+
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://hardysteven.blogspot.com&quot;&gt;Steve Hardy&lt;/a&gt; is Senior Principal Software Engineer at Red Hat, currently involved in kubernetes/OpenShift deployment and architecture. He is also an active member of the OpenStack community, and has been a project team lead of both the Heat (orchestration) and TripleO (deployment) projects.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://openinfradays.sched.com/event/KMyE&quot;&gt;Open Infrastructure Days UK 2019, Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">Conference talk: Open Infrastructure Days UK 2019; Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat</summary></entry><entry><title type="html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat</title><link href="https://metal3.io/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html" rel="alternate" type="text/html" title="OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat" /><published>2019-10-31T06:25:00+00:00</published><updated>2019-10-31T06:25:00+00:00</updated><id>https://metal3.io/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere</id><content type="html" xml:base="https://metal3.io/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">&lt;h2 id=&quot;conference-talk-openstack-ironic-and-bare-metal-infrastructure-all-abstractions-start-somewhere&quot;&gt;Conference talk: OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere&lt;/h2&gt;
+
+&lt;p&gt;The history of cloud computing has rapidly layered abstractions on abstractions to deliver applications faster, more reliably, and easier. Serverless functions on top of containers on top of virtualization. However, at the bottom of every stack is physical hardware that has an entire lifecycle that needs to be managed.&lt;/p&gt;
+
+&lt;p&gt;In this video, Chris and Julia show how OpenStack Ironic is a solution to the problem of managing bare-metal infrastructure.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; style=&quot;height: 315px&quot; src=&quot;https://www.youtube.com/embed/Nzq2S53nk9U&quot; frameborder=&quot;0&quot; allow=&quot;accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h2 id=&quot;speakers&quot;&gt;Speakers&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/hogepodge&quot;&gt;Chris Hoge&lt;/a&gt; is a Senior Strategic Program Manager for the OpenSatck foundation. He’s been an active contributor to the Interop Working Group (formerly DefCore), and helps run the trademark program for the OpenStack Foundation. He also works on collaborations between the OpenStack and Kubernetes communities. Previously he worked as an OpenStack community manager and developer at Puppet Labs, and operated a research cloud for the College of Arts and Sciences at The University of Oregon. When not cloud computing, he enjoys long-distance running, dancing, and throwing a ball for his Border Collie.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/ashinclouds&quot;&gt;Julia Kreger&lt;/a&gt; is Principal Software Engineer at Red Hat. She started her career in networking and eventually shifted to systems engineering. The DevOps movement lead her into software development and the operationalization of software due to the need to automate large scale systems deployments. She is experienced in conveying an operational perspective while bridging that with requirements and doesn’t mind getting deep down into code to solve a problem.
+She is an active core contributor and leader in OpenStack Ironic project, which is a project she feels passionate about due to many misspent hours in data centers deploying hardware. Prior to OpenStack, Julia contributed to the Shared Learning Infrastructure and worked with large scale litigation database systems.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.openstack.org/summit/denver-2019/summit-schedule/events/23779/openstack-ironic-and-bare-metal-infrastructure-all-abstractions-start-somewhere&quot;&gt;Open Infraestructure Summit, Denver, CO, April 29 - May 1, 2019&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.openstack.org/videos/summits/denver-2019/openstack-ironic-and-bare-metal-infrastructure-all-abstractions-start-somewhere&quot;&gt;OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Pedro Ibáñez Requena</name></author><summary type="html">Conference talk: OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere</summary></entry><entry><title type="html">Baremetal Operator</title><link href="https://metal3.io/blog/2019/09/11/Baremetal-operator.html" rel="alternate" type="text/html" title="Baremetal Operator" /><published>2019-09-11T11:00:00+00:00</published><updated>2019-09-11T11:00:00+00:00</updated><id>https://metal3.io/blog/2019/09/11/Baremetal-operator</id><content type="html" xml:base="https://metal3.io/blog/2019/09/11/Baremetal-operator.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator/&quot;&gt;baremetal operator&lt;/a&gt;, documented at &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md&quot;&gt;https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md&lt;/a&gt;, it’s the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.&lt;/p&gt;
+
+&lt;p&gt;Quoting from the project:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Bare Metal Operator implements a Kubernetes API for managing bare metal hosts. It maintains an inventory of available hosts as instances of the BareMetalHost Custom Resource Definition. The Bare Metal Operator knows how to:
+Inspect the host’s hardware details and report them on the corresponding BareMetalHost. This includes information about CPUs, RAM, disks, NICs, and more.
+Provision hosts with a desired image
+Clean a host’s disk contents before or after provisioning.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;a-bit-more-in-deep-approach&quot;&gt;A bit more in deep approach&lt;/h2&gt;
+
+&lt;p&gt;The Baremetal Operator (BMO) keeps a mapping of each host and its management interfaces (vendor based like &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;iLO&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;iDrac&lt;/code&gt;, &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;iRMC&lt;/code&gt;, etc) and controlled via &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;IPMI&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All of this is defined in a &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;CRD&lt;/code&gt;, for example:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Secret&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01-credentials&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Opaque&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YWRtaW4=&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;YWRtaW4=&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3.io/v1alpha1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;BareMetalHost&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bmc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ipmi://172.22.0.2:6230&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;credentialsName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01-credentials&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bootMACAddress&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;00:c2:fc:3b:e1:01&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;description&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;hardwareProfile&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;libvirt&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;online&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;With above values (described in &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md&quot;&gt;API&lt;/a&gt;), we’re telling the operator:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;MAC: Defines the mac address of the NIC connected to the network that will be used for provision the host&lt;/li&gt;
+  &lt;li&gt;bmc: defines the management controller address and the secret used&lt;/li&gt;
+  &lt;li&gt;credentialsName: Defines the name of the secret containing username/password for accessing the IPMI service&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Once the server is ‘defined’ via the CRD, the underlying service (provided by &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic&lt;/code&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; as of this writing) is inspected:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;[root@metal3-kubernetes ~]#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;kubectl get baremetalhost &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3
+&lt;span class=&quot;go&quot;&gt;NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
+metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230                      false
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the inspection has finished, the status will change to &lt;em&gt;ready&lt;/em&gt; and made available for provisioning.&lt;/p&gt;
+
+&lt;p&gt;When we define a machine, we refer the images that will be used for the actual provisioning in the CRD (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;image&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;userData&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;DATA&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Secret&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01-user-data&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Opaque&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cluster.k8s.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Machine&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;generateName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;baremetal-machine-&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;providerSpec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;baremetal.cluster.k8s.io/v1alpha1&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;BareMetalMachineProviderSpec&quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://172.22.0.2/images/CentOS-7-x86_64-GenericCloud-1901.qcow2&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;checksum&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;http://172.22.0.2/images/CentOS-7-x86_64-GenericCloud-1901.qcow2.md5sum&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;userData&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3-node01-user-data&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;namespace&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;[root@metal3-kubernetes ~]#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;kubectl create &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; metal3-node01-machine.yml
+&lt;span class=&quot;go&quot;&gt;secret/metal3-node01-user-data created
+machine.cluster.k8s.io/metal3-node01 created
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s examine the annotation created when provisioning (&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;metal3.io/BareMetalHost&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;[root@metal3-kubernetes ~]#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;kubectl get machine &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3 metal3-node01 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; yaml
+&lt;span class=&quot;go&quot;&gt;apiVersion: cluster.k8s.io/v1alpha1
+kind: Machine
+metadata:
+  annotations:
+    metal3.io/BareMetalHost: metal3/metal3-node01
+  creationTimestamp: &quot;2019-07-08T15:30:44Z&quot;
+  finalizers:
+  - machine.cluster.k8s.io
+  generateName: baremetal-machine-
+  generation: 2
+  name: metal3-node01
+  namespace: metal3
+  resourceVersion: &quot;6222&quot;
+  selfLink: /apis/cluster.k8s.io/v1alpha1/namespaces/metal3/machines/metal3-node01
+  uid: 1bfd384a-5467-43b7-98aa-e80e1ace5ce7
+spec:
+  metadata:
+    creationTimestamp: null
+  providerSpec:
+    value:
+      apiVersion: baremetal.cluster.k8s.io/v1alpha1
+      image:
+        checksum: http://172.22.0.1/images/CentOS-7-x86_64-GenericCloud-1901.qcow2.md5sum
+        url: http://172.22.0.1/images/CentOS-7-x86_64-GenericCloud-1901.qcow2
+      kind: BareMetalMachineProviderSpec
+      userData:
+        name: metal3-node01-user-data
+        namespace: metal3
+  versions:
+    kubelet: &quot;&quot;
+status:
+  addresses:
+  - address: 192.168.122.79
+    type: InternalIP
+  - address: 172.22.0.39
+    type: InternalIP
+  - address: localhost.localdomain
+    type: Hostname
+  lastUpdated: &quot;2019-07-08T15:30:44Z&quot;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;premonition info&quot;&gt;&lt;div class=&quot;fa fa-info-circle&quot;&gt;&lt;/div&gt;&lt;div class=&quot;content&quot;&gt;&lt;p&gt;In the output above, the host assigned was the one we’ve defined earlier as well as the other parameters like IP’s, etc generated.&lt;/p&gt;
+
+
+&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now, if we check baremetal hosts, we can see how it’s getting provisioned:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;[root@metal3-kubernetes ~]#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;kubectl get baremetalhost &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; metal3
+&lt;span class=&quot;go&quot;&gt;NAME            STATUS   PROVISIONING STATUS   CONSUMER   BMC                      HARDWARE PROFILE   ONLINE   ERROR
+metal3-node01   OK       provisioned                       ipmi://172.22.0.1:6230                     true
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And also, check it via the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ironic&lt;/code&gt; command:&lt;/p&gt;
+
+&lt;div class=&quot;language-console highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;[root@metal3-kubernetes ~]#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OS_TOKEN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;fake-token &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;OS_URL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://localhost:6385 &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; openstack baremetal node list
+&lt;span class=&quot;go&quot;&gt;+--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
+| UUID                                 | Name          | Instance UUID                        | Power State | Provisioning State | Maintenance |
++--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
+| 7551cfb4-d758-4ad8-9188-859ee53cf298 | metal3-node01 | 7551cfb4-d758-4ad8-9188-859ee53cf298 | power on    | active             | False       |
++--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;wrap-up&quot;&gt;Wrap-up&lt;/h2&gt;
+
+&lt;p&gt;We’ve seen how via a CRD we’ve defined credentials for a baremetal host to make it available to get provisioned and how we’ve also defined a machine that was provisioned on top of that baremetal host.&lt;/p&gt;
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Ironic was chosen as the initial provider for baremetal provisioning, check &lt;a href=&quot;https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md&quot;&gt;Ironic documentation&lt;/a&gt; for more details about Ironic usage in Metal³ &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Pablo Iranzo Gómez</name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Metal3</title><link href="https://metal3.io/blog/2019/06/25/Metal3.html" rel="alternate" type="text/html" title="Metal3" /><published>2019-06-25T15:19:14+00:00</published><updated>2019-06-25T15:19:14+00:00</updated><id>https://metal3.io/blog/2019/06/25/Metal3</id><content type="html" xml:base="https://metal3.io/blog/2019/06/25/Metal3.html">&lt;p&gt;Originally posted at &lt;a href=&quot;https://www.underkube.com/posts/metal3/&quot;&gt;https://www.underkube.com/posts/metal3/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;In this blog post, I’m going to try to explain in my own words a high level
+overview of what &lt;a href=&quot;https://metal3.io&quot;&gt;Metal3&lt;/a&gt; is, the motivation behind it and some concepts related
+to a ‘baremetal operator’.&lt;/p&gt;
+
+&lt;p&gt;Let’s have some definitions!&lt;/p&gt;
+
+&lt;h2 id=&quot;custom-resource-definition&quot;&gt;Custom Resource Definition&lt;/h2&gt;
+
+&lt;p&gt;The k8s API provides some out-of-the-box objects such as pods, services, etc.
+There are a few methods of &lt;a href=&quot;https://kubernetes.io/docs/concepts/extend-kubernetes/&quot;&gt;extending the k8s API&lt;/a&gt; (such as API extensions)
+but since a few releases back, the k8s API can be extended easily with &lt;a href=&quot;https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/&quot;&gt;custom resources definitions&lt;/a&gt; (CRDs).
+Basically this means you can virtually create any type of object &lt;strong&gt;definition&lt;/strong&gt; in k8s
+(actually only user with cluster-admin capabilities) with a yaml such as:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;apiextensions.k8s.io/v1beta1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;CustomResourceDefinition&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# name must match the spec fields below, and be in the form: &amp;lt;plural&amp;gt;.&amp;lt;group&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;crontabs.stable.example.com&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# group name to use for REST API: /apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;stable.example.com&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# list of versions supported by this CustomResourceDefinition&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;versions&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;v1&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# Each version can be enabled/disabled by Served flag.&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;served&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;# One and only one version must be marked as the storage version.&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;storage&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# either Namespaced or Cluster&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Namespaced&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# plural name to be used in the URL: /apis/&amp;lt;group&amp;gt;/&amp;lt;version&amp;gt;/&amp;lt;plural&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;plural&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;crontabs&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# singular name to be used as an alias on the CLI and for display&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;singular&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;crontab&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# kind is normally the CamelCased singular type. Your resource manifests use this.&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;CronTab&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# shortNames allow shorter string to match your resource on the CLI&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;shortNames&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ct&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;preserveUnknownFields&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;validation&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;openAPIV3Schema&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;object&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;object&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;cronSpec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;string&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;string&lt;/span&gt;
+            &lt;span class=&quot;na&quot;&gt;replicas&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+              &lt;span class=&quot;na&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;integer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And after &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kubectl apply -f&lt;/code&gt; you can &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;kubectl get crontabs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are tons of information with regards to CRDs, like the &lt;a href=&quot;https://kubernetes.io/docs/tasks/access-kubernetes-api/custom-resources/custom-resource-definitions/&quot;&gt;k8s official documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The CRD by himself is not useful ‘per se’ as nobody will take care of it (that’s why I said &lt;strong&gt;definition&lt;/strong&gt;). It
+requires a &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;controller&lt;/code&gt; to watch for those new objects and react to different
+events affecting the object.&lt;/p&gt;
+
+&lt;h2 id=&quot;controller&quot;&gt;Controller&lt;/h2&gt;
+
+&lt;p&gt;A controller is basically a loop that watches the current status of an object
+and if it is different from the desired status, it fix it (reconciliation).
+This is why k8s is ‘declarative’, you specify the object desired status instead
+‘how to do it’ (imperative).&lt;/p&gt;
+
+&lt;p&gt;Again, there are tons of documentation (and &lt;a href=&quot;https://github.com/kubernetes/sample-controller&quot;&gt;examples&lt;/a&gt;) around the &lt;a href=&quot;https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html&quot;&gt;controller&lt;/a&gt; pattern which is
+basically the k8s roots, so I’ll let your google-foo take care of it :)&lt;/p&gt;
+
+&lt;h2 id=&quot;operator&quot;&gt;Operator&lt;/h2&gt;
+
+&lt;p&gt;An Operator (in k8s slang) is an application running in your k8s
+cluster that deploys, manages and maintain (so, operates) a k8s application.&lt;/p&gt;
+
+&lt;p&gt;This k8s application (the one that the operator manages), can be as simple as a ‘hello world’ application
+containerized and deployed in your k8s cluster or it can be a much more complex
+thing, such a database cluster.&lt;/p&gt;
+
+&lt;p&gt;The ‘operator’ is like an ‘expert sysadmin’ containerized that takes care of
+your application.&lt;/p&gt;
+
+&lt;p&gt;Bear in mind that the ‘expert’ tag (meaning the automation behind the operator)
+depends on the operator implementation… so there can be basic operators that
+only deploy your application or complex operators that handle day 2 operations
+such as upgrades, fail overs, backup/restore, etc.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://coreos.com/operators/&quot;&gt;CoreOS operator definition&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;h2 id=&quot;cloud-controller-manager&quot;&gt;Cloud Controller Manager&lt;/h2&gt;
+
+&lt;p&gt;k8s code is smart enough to be able to leverage
+the underlying infrastructure where the cluster is running, such as being able
+of creating ‘LoadBalancer’ services, understanding the cluster topology based on the cloud provider AZs where the nodes are running (for scheduling reasons), etc.&lt;/p&gt;
+
+&lt;p&gt;This task of ‘talking to the cloud provider’ is performed by the Cloud Controller Manager (CCM) and for more
+information you can take a look at the official k8s documentation with
+regards the &lt;a href=&quot;https://kubernetes.io/docs/concepts/architecture/cloud-controller/&quot;&gt;architecture&lt;/a&gt; and the &lt;a href=&quot;https://kubernetes.io/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager&quot;&gt;administration&lt;/a&gt; (also, if you are brave enough, you can create your own &lt;a href=&quot;https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/&quot;&gt;cloud controller manager&lt;/a&gt; )&lt;/p&gt;
+
+&lt;h2 id=&quot;cluster-api&quot;&gt;Cluster API&lt;/h2&gt;
+
+&lt;p&gt;The Cluster API implementation is a WIP ‘framework’ that allows a k8s cluster to manage itself, including the ability of creating new clusters, adding more nodes, etc. in a ‘k8s way’ (declarative, controllers, CRDs, etc.), so there are objects such as &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Cluster&lt;/code&gt; that can be expressed as k8s objects:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cluster.k8s.io/v1alpha1&quot;&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;Cluster&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;mycluster&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;clusterNetwork&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;services&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;cidrBlocks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;10.96.0.0/12&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;pods&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;cidrBlocks&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;192.168.0.0/16&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;serviceDomain&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;cluster.local&quot;&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;providerSpec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;but also:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api/blob/60933cb23498d0621f57454c208fc3a8d6e18bf2/api/v1alpha2/machine_types.go&quot;&gt;Machine type objects&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;[MachineSet type objects]&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api/blob/60933cb23498d0621f57454c208fc3a8d6e18bf2/api/v1alpha2/machineset_types.go&quot;&gt;(https://github.com/kubernetes-sigs/cluster-api/blob/master/pkg/apis/cluster/v1alpha1/machineset_types.go&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api/blob/60933cb23498d0621f57454c208fc3a8d6e18bf2/api/v1alpha2/machinedeployment_types.go&quot;&gt;MachineDeployment type objects&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api/tree/60933cb23498d0621f57454c208fc3a8d6e18bf2/api/v1alpha2&quot;&gt;etc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There are some
+provider implementations in the wild such as the AWS, Azure, GCP, OpenStack,
+vSphere, etc. ones and the Cluster API project is driven by the &lt;a href=&quot;https://github.com/kubernetes/community/tree/master/sig-cluster-lifecycle&quot;&gt;SIG Cluster Lifecycle&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Please review the official &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;Cluster API&lt;/a&gt; repository for more information.&lt;/p&gt;
+
+&lt;h3 id=&quot;actuator&quot;&gt;Actuator&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;actuator&lt;/code&gt; is a Cluster API interface that reacts to changes to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt;
+objects reconciliating the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; status.&lt;/p&gt;
+
+&lt;p&gt;The actuator code is tightly coupled with the provider (that’s why it is an
+interface) such as the &lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api-provider-aws/blob/25376aa086f183a13f1d50cbb23dd250c03d3137/pkg/cloud/actuators/cluster/actuator.go&quot;&gt;AWS one&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;machineset-vs-machine&quot;&gt;MachineSet vs Machine&lt;/h2&gt;
+
+&lt;p&gt;To simplify, let’s say that &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MachineSets&lt;/code&gt; are to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machines&lt;/code&gt; what &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;ReplicaSets&lt;/code&gt; are
+to &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Pods&lt;/code&gt;. So you can scale the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machines&lt;/code&gt; in your cluster just by changing
+the number of replicas of a &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;MachineSet&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;cluster-api-vs-cloud-providers&quot;&gt;Cluster API vs Cloud Providers&lt;/h2&gt;
+
+&lt;p&gt;As we have seen, the Cluster API leverages the provider related to the k8s
+infrastructure itself (clusters and nodes) and the CCM and the cloud provider
+integration for k8s is to leverage the cloud provider to provide support infrastructure.&lt;/p&gt;
+
+&lt;p&gt;Let’s say Cluster API is for the k8s administrators and the
+CCM is for the k8s users :)&lt;/p&gt;
+
+&lt;h2 id=&quot;machine-api&quot;&gt;Machine API&lt;/h2&gt;
+
+&lt;p&gt;The OpenShift 4 Machine API is a combination of some of the upstream Cluster API
+with custom OpenShift resources and it is designed to work in conjunction with
+the &lt;a href=&quot;https://github.com/openshift/cluster-version-operator&quot;&gt;Cluster Version Operator&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;openshifts-machine-api-operator&quot;&gt;OpenShift’s Machine API Operator&lt;/h2&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/openshift/machine-api-operator&quot;&gt;machine-api-operator&lt;/a&gt; is
+an operator that manages the Machine API objects in an OpenShift 4 cluster.&lt;/p&gt;
+
+&lt;p&gt;The operator is capable of creating machines in AWS and libvirt (more providers
+coming soon) via the &lt;a href=&quot;https://github.com/openshift/cluster-api/tree/master/pkg/controller/machine&quot;&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine Controller&lt;/code&gt;&lt;/a&gt; and it is included out of the
+box with OCP 4 (and &lt;a href=&quot;https://github.com/openshift/machine-api-operator#dev&quot;&gt;can be deployed in a k8s vanilla as well&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h2 id=&quot;baremetal&quot;&gt;Baremetal&lt;/h2&gt;
+
+&lt;p&gt;A baremetal server (or bare-metal) is just a computer server.&lt;/p&gt;
+
+&lt;p&gt;The last years terms such as virtualization, containers, serverless, etc. have been
+popular but at the end of the day, all the code running on top of a SaaS, PaaS
+or IaaS is actually running in a real physical server stored in a datacenter
+wired to routers, switches and power. That server is a ‘baremetal’ server.&lt;/p&gt;
+
+&lt;p&gt;If you are used to cloud providers and instances, you probably don’t know the
+pains of baremetal management… including things such as connecting to the
+virtual console (usually it requires an old java version) to debug issues,
+configuring pxe for provisioning baremetal hosts (or attach ISOs via the virtual console… or insert a CD/DVD physically into the CD carry if you are
+‘lucky’ enough…), configuring VLANs for traffic isolation, etc.&lt;/p&gt;
+
+&lt;p&gt;That kind of operations is not ‘cloud’ ready and there are tools that provide
+baremetal management, such as &lt;a href=&quot;https://maas.io/&quot;&gt;maas&lt;/a&gt; or &lt;a href=&quot;https://wiki.openstack.org/wiki/Ironic&quot;&gt;ironic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;ironic&quot;&gt;Ironic&lt;/h2&gt;
+
+&lt;p&gt;OpenStack bare metal provisioning (or ironic) is an open source project (or even better, a number of open source projects) to manage baremetal hosts. Ironic avoids the administrator to deal with pxe configuration, manual deployments, etc. and provides a defined API and a series of plugins to interact with different baremetal models and vendors.&lt;/p&gt;
+
+&lt;p&gt;Ironic is used in OpenStack to provide &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;baremetal&lt;/code&gt; objects but there are some
+projects (such as &lt;a href=&quot;https://docs.openstack.org/bifrost/latest/&quot;&gt;bifrost&lt;/a&gt;) to use
+Ironic ‘standalone’ (so, no OpenStack required)&lt;/p&gt;
+
+&lt;h2 id=&quot;metal3&quot;&gt;Metal3&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://metal3.io&quot;&gt;Metal3&lt;/a&gt; is a project aimed at providing a baremetal operator that
+implements the Cluster API framework required to be able to manage baremetal
+in a k8s way (easy peasy!). It uses &lt;a href=&quot;https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md&quot;&gt;ironic under the hood&lt;/a&gt; to avoid reinventing the
+wheel, but consider it as an implementation detail that may change.&lt;/p&gt;
+
+&lt;p&gt;The Metal3 baremetal operator watches for &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; (CRD) objects defined as:&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;na&quot;&gt;apiVersion&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;metal3.io/v1alpha1&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;BareMetalHost&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;metadata&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-worker-0&lt;/span&gt;
+&lt;span class=&quot;na&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;online&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bootMACAddress&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;00:11:22:33:44:55&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;bmc&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ipmi://my-worker-0.ipmi.example.com&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;credentialsName&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-worker-0-bmc-secret&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;There are a few more fields in the &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator/blob/master/pkg/apis/metal3/v1alpha1/baremetalhost_types.go&quot;&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; object&lt;/a&gt; such as the image, hardware profile, etc.&lt;/p&gt;
+
+&lt;p&gt;The Metal3 project is actually divided into two different components:&lt;/p&gt;
+
+&lt;h3 id=&quot;baremetal-operator&quot;&gt;baremetal-operator&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/metal3-io/baremetal-operator&quot;&gt;Metal3 baremetal-operator&lt;/a&gt; is the component that manages baremetal hosts. It exposes a new &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; custom resource in the k8s API that lets you manage hosts in a declarative way.&lt;/p&gt;
+
+&lt;h3 id=&quot;cluster-api-provider-baremetal&quot;&gt;cluster-api-provider-baremetal&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&quot;https://github.com/metal3-io/cluster-api-provider-baremetal&quot;&gt;Metal3 cluster-api-provider-baremetal&lt;/a&gt; includes the integration with the Cluster API project. This provider currently includes a Machine actuator that acts as a client of the BareMetalHost custom resources.&lt;/p&gt;
+
+&lt;h2 id=&quot;baremetalhost-vs-machine-vs-node&quot;&gt;BareMetalHost vs Machine vs Node&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; is a Metal3 object&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; is a Cluster API object&lt;/li&gt;
+  &lt;li&gt;Node is where the pods run :)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Those three concepts are linked in a 1:1:1 relationship meaning:&lt;/p&gt;
+
+&lt;p&gt;A &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; created with Metal3 maps to a &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; object and once the
+installation procedure finishes, a new kubernetes node will be added to the
+cluster.&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get nodes
+NAME                                         STATUS   ROLES    AGE   VERSION
+my-node-0.example.com                        Ready    master   25h   v1.14.0
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get machines &lt;span class=&quot;nt&quot;&gt;--all-namespaces&lt;/span&gt;
+NAMESPACE               NAME                  INSTANCE   STATE   TYPE   REGION   ZONE   AGE
+openshift-machine-api   my-node-0                                                   25h
+
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get baremetalhosts &lt;span class=&quot;nt&quot;&gt;--allnamespaces&lt;/span&gt;
+NAMESPACE             NAME      STATUS PROVISIONING STATUS MACHINE BMC HARDWARE PROFILE ONLINE ERROR
+openshift-machine-api my-node-0 OK     provisioned  my-node-0.example.com ipmi://1.2.3.4 unknown &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The 1:1 relationship for the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; and the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; is stored in the
+&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;machineRef&lt;/code&gt; field in the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;BareMetalHost&lt;/code&gt; object:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl  get baremetalhost/my-node-0 &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; openshift-machine-api &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;jsonpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{.spec.machineRef}'&lt;/span&gt;
+
+map[name:my-node-0 namespace:openshift-machine-api]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In a &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; annotation:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get machines my-node-0 &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; openshift-machine-api &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;jsonpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{.metadata.annotations}'&lt;/span&gt;
+map[metal3.io/BareMetalHost:openshift-machine-api/my-node-0]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The 1:1 relationship for the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; and the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Node&lt;/code&gt; currently requires to
+execute the &lt;a href=&quot;https://github.com/openshift-metal3/dev-scripts/blob/master/link-machine-and-node.sh&quot;&gt;link-machine-and-node.sh&lt;/a&gt; script to modify the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt;
+object &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;.status&lt;/code&gt; field:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;./link-machine-and-node.sh MACHINE NODE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, the reference is stored in the &lt;code class=&quot;language-html highlighter-rouge&quot;&gt;.status.nodeRef.name&lt;/code&gt; field in the
+&lt;code class=&quot;language-html highlighter-rouge&quot;&gt;Machine&lt;/code&gt; object:&lt;/p&gt;
+
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;syntax&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;kubectl get machine my-node-0 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;jsonpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'{.status.nodeRef.name}'&lt;/span&gt;
+
+my-node-0.example.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;recap&quot;&gt;Recap&lt;/h2&gt;
+
+&lt;p&gt;Being able to ‘just scale a node’ in k8s means a lot of underlying concepts and technologies involved behind the scenes :)&lt;/p&gt;
+
+&lt;h2 id=&quot;resourceslinks&quot;&gt;Resources/links&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dzone.com/articles/introducing-the-kubernetes-cluster-api-project-2&quot;&gt;https://dzone.com/articles/introducing-the-kubernetes-cluster-api-project-2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blogs.vmware.com/cloudnative/2019/03/14/what-and-why-of-cluster-api/&quot;&gt;https://blogs.vmware.com/cloudnative/2019/03/14/what-and-why-of-cluster-api/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api&quot;&gt;https://github.com/kubernetes-sigs/cluster-api&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kubernetes-sigs/cluster-api-provider-aws&quot;&gt;https://github.com/kubernetes-sigs/cluster-api-provider-aws&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://itnext.io/deep-dive-to-cluster-api-a0b4e792d57d&quot;&gt;https://itnext.io/deep-dive-to-cluster-api-a0b4e792d57d&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.linux.com/blog/event/kubecon/2018/4/extending-kubernetes-cluster-api&quot;&gt;https://www.linux.com/blog/event/kubecon/2018/4/extending-kubernetes-cluster-api&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Eduardo Minguez</name></author><summary type="html">Originally posted at https://www.underkube.com/posts/metal3/</summary></entry></feed>
