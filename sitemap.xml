@@ -2,19 +2,19 @@
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>https://metal3.io/faqs/baremetal-operator.html</loc>
-<lastmod>2020-03-07T07:44:00+00:00</lastmod>
+<lastmod>2020-03-08T07:44:12+00:00</lastmod>
 </url>
 <url>
 <loc>https://metal3.io/faqs/ipmi.html</loc>
-<lastmod>2020-03-07T07:44:00+00:00</lastmod>
+<lastmod>2020-03-08T07:44:12+00:00</lastmod>
 </url>
 <url>
 <loc>https://metal3.io/faqs/out-of-band.html</loc>
-<lastmod>2020-03-07T07:44:00+00:00</lastmod>
+<lastmod>2020-03-08T07:44:12+00:00</lastmod>
 </url>
 <url>
 <loc>https://metal3.io/faqs/what-is-an-operator.html</loc>
-<lastmod>2020-03-07T07:44:00+00:00</lastmod>
+<lastmod>2020-03-08T07:44:12+00:00</lastmod>
 </url>
 <url>
 <loc>https://metal3.io/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html</loc>
