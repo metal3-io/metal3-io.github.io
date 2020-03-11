@@ -81,11 +81,9 @@ $ make clean
 >
 > ```sh
 > # for CAPI v1alpha1 based deployment
+> $ make test_v1a1
+> # for CAPI v1alpha2, v1alpha3, v1alpha4 based deployment
 > $ make test
-> # for CAPI v1alpha2 based deployment
-> $ make test_v1a2
-> # for CAPI v1alpha3 based deployment
-> $ make test_v1a3
 > ```
 
 All configurations for the environment is stored in `config_${user}.sh`. You
@@ -114,7 +112,7 @@ can configure the following
 | IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                   |
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
 | SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                              |
-| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha1", "v1alpha2", "v1alpha3"   | "v1alpha3"                                                   |
+| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha1", "v1alpha2", "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
 | CLUSTER_APIENDPOINT_IP         | APIEndpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                            |
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                             |
 | POD_CIDR                       | POD CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
