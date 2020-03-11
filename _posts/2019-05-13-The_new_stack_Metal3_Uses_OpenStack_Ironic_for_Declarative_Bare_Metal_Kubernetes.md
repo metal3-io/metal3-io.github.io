@@ -1,5 +1,5 @@
 ---
-title: "The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes"
+title: "The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes"
 date: 2019-05-13T10:23:00+02:00
 draft: false
 categories:
@@ -10,13 +10,13 @@ categories:
     "baremetal",
     "stack",
     "edge",
-    "openstack",
+    "OpenStack",
     "ironic",
   ]
 author: Pedro Ibáñez Requena
 ---
 
-## The new stack Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes
+## The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes
 
 [Mike Melanson](https://thenewstack.io/author/mike-melanson/) talks in this article about the Open Infrastructure Summit in Denver, Colorado. Where bare metal was one of the main leads of the event.
 
@@ -36,5 +36,5 @@ or check the full article included below.
 
 ## References
 
-- [The new stack: Metal³ Uses OpenStack’s Ironic for Declarative Bare Metal Kubernetes](https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/)
-- [Video of the keynote: OpenStack Ironic and Baremetal Infrastructure. All Abstracions start somewhere]({% post_url 2019-10-31-OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere %})
+- [The new stack: Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes](https://thenewstack.io/metal3-uses-openstacks-ironic-for-declarative-bare-metal-kubernetes/)
+- [Video of the keynote: OpenStack Ironic and Baremetal Infrastructure. All Abstractions start somewhere]({% post_url 2019-10-31-OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere %})

@@ -1,0 +1,29 @@
+{
+  "name": "metal3.io",
+  "version": "2.0.0",
+  "description": "Baremetal provisioning on Kubernetes",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "publish-travis": "master _site",
+    "test": "yaspeller-ci --only-errors --find-repeat-words --ignore-digits  --ignore-urls ./**/*.md"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metal3-io/metal3-io.github.io.git"
+  },
+  "author": "Metal³",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/metal3-io/metal3-io.github.io/issues"
+  },
+  "devDependencies": {
+    "pre-commit": "^1.2.2",
+    "yaspeller-ci": "^1.0.2"
+  }
+}

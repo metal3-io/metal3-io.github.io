@@ -8,9 +8,9 @@ author: Pedro Ibáñez Requena
 
 ## Conference talk: Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat
 
-Metal³ (“metal kubed”) is a new open source bare metal host provisioning tool created to enable Kubernetes-native infrastructure management. Metal³ enables the management of bare metal hosts via custom resources managed through the Kubernetes API as well as the monitoring of bare metal host metrics to Prometheus. This presentation will explain the motivations behind creating the project and what has been accomplished so far. This will be followed by an architectural overview and description of the Custom Resource Definitions (CRDs) for describing bare metal hosts, leading to a demonstration of using Metal³ in a Kubernetes cluster.
+Metal³ (`metal cubed/Kube`) is a new open source bare metal host provisioning tool created to enable Kubernetes-native infrastructure management. Metal³ enables the management of bare metal hosts via custom resources managed through the Kubernetes API as well as the monitoring of bare metal host metrics to Prometheus. This presentation will explain the motivations behind creating the project and what has been accomplished so far. This will be followed by an architectural overview and description of the Custom Resource Definitions (CRDs) for describing bare metal hosts, leading to a demonstration of using Metal³ in a Kubernetes cluster.
 
-In this video, Russell Bryant and Doug Hellmann speak about the whats and hows of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
+In this video, Russell Bryant and Doug Hellmann speak about the what's and how's of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
 
 <iframe width="560" height="315" style="height: 315px" src="https://www.youtube.com/embed/KIIkVD7gujY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
