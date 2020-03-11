@@ -29,12 +29,12 @@ This repository will be archived, but kept for the integration in metal3-dev-env
 The kind of the Custom Resource Definition (CRD) has been modified for the
 following objects:
 
-* `BareMetalCluster` to `Metal3Cluster`
-* `baremetalcluster` to `metal3cluster`
-* `BareMetalMachine` to `Metal3Machine`
-* `baremetalmachine` to `metal3machine`
-* `BareMetalMachineTemplate` to `Metal3MachineTemplate`
-* `baremetalmachinetemplate` to `metal3machinetemplate`
+- `BareMetalCluster` -> `Metal3Cluster`
+- `baremetalcluster` -> `metal3cluster`
+- `BareMetalMachine` -> `Metal3Machine`
+- `baremetalmachine` -> `metal3machine`
+- `BareMetalMachineTemplate` -> `Metal3MachineTemplate`
+- `baremetalmachinetemplate` -> `metal3machinetemplate`
 
 The custom resources deployed need to be modified accordingly.
 

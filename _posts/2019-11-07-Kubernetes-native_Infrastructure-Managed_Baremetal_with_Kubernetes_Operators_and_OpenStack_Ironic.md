@@ -13,7 +13,7 @@ In this session you can hear about a new effort to enable baremetal Kubernetes d
 
 This approach aims to seamlessly integrate your infrastructure with your workloads, including baremetal servers, storage and container/VM workloads. All this can be achieved using kubernetes native applications, combined with existing, proven deployment and storage tooling.
 
-In this talk we cover the options around Kubernetes deployments today, the specific approach taken by the new Kubernetes-native "Metalkube" project, and the status/roadmap of this new community effort.
+In this talk we cover the options around Kubernetes deployments today, the specific approach taken by the new Kubernetes-native "MetalKube" project, and the status/roadmap of this new community effort.
 
 ## Speakers
 
