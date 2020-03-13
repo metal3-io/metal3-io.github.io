@@ -331,7 +331,7 @@ Interface  Type       Source     Model       MAC
 
 In the video below it is exhibited all the configuration explained and executed during this _first_ step.
 
-<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/lShd0RxDhFQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/VFbIHc3NbJo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## **Step 2: Configure the host**
 
@@ -593,7 +593,7 @@ boot
 
 In the video below it is exhibited all the configuration explained and executed during this _second_ step.
 
-<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/HfPxDqC2sH8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/m8gTRZWEvc8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## **Step 3: Launch the management cluster (minikube)**
 
@@ -763,7 +763,7 @@ deployment.apps/capi-controller-manager created
 
 In the video below it is exhibited all the configuration explained and executed during this _third_ step.
 
-<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/hDdzVyVHuQE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/GaSmL7xrYNs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## **Step 4: Verification**
 
@@ -838,7 +838,7 @@ metal3        metal3-baremetal-operator-78bffc8d-z5hqs    6/6     Running   0   
 
 In the video below it is exhibited all the configuration explained and executed during the _verification_ steps.
 
-<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/wwakVkcXtwE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/8LilwO-_WzU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## **Summary**
 
