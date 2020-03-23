@@ -36,3 +36,6 @@ gem "html-proofer"
 
 # Rouge syntax hilighter
 gem "rouge"
+
+# Table of contents automation
+gem "jekyll-toc"

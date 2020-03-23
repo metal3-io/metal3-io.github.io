@@ -45,6 +45,7 @@ plugins:
   - jekyll-paginate
   - jekyll-redirect-from
   - jekyll-sitemap
+  - jekyll-toc
 
 paginate: 5
 paginate_path: "/blog/page:num"
@@ -80,3 +81,12 @@ exclude:
   - node_modules
 
 permalink: /blog/:year/:month/:day/:title:output_ext
+
+toc:
+  min_level: 2
+  max_level: 6
+  no_toc_section_class: no_toc_section
+  list_class: section-nav
+  sublist_class: ''
+  item_class: toc-entry
+  item_prefix: toc-
