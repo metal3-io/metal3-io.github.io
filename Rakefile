@@ -19,7 +19,8 @@ namespace :links do
             :empty_alt_ignore   => true,
             :url_swap           => {
                                     'https://metal3.io/' => '',
-                                    }
+                                    },
+            :http_status_ignore => [429],
         }
         puts "Checking External links..."
         HTMLProofer.check_directory("./_site", options).run
