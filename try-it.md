@@ -61,11 +61,11 @@ The `Makefile` runs a series of scripts, described here:
 
 - `01_prepare_host.sh` - Installs all needed packages.
 
-- `02_configure_host.sh` - Create a set of VMs that will be managed as if they
+- `02_configure_host.sh` - Creates a set of VMs that will be managed as if they
   were bare metal hosts. It also downloads some images needed for Ironic.
 
-- `03_launch_mgmt_cluster.sh` - Launch a management cluster using `minikube` and
-  run the `baremetal-operator` on that cluster.
+- `03_launch_mgmt_cluster.sh` - Launches a management cluster using `minikube`
+and runs the `baremetal-operator` on that cluster.
 
 - `04_verify.sh` - Runs a set of tests that verify that the deployment completed
   successfully
@@ -77,7 +77,8 @@ $ make clean
 ```
 
 > info "Note"
-> you can also run some tests provisioning and deprovisioning machines by running:
+> you can also run some tests for provisioning and deprovisioning machines by
+> running:
 >
 > ```sh
 > # for CAPI v1alpha1 based deployment
@@ -113,9 +114,9 @@ can configure the following
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
 | SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                              |
 | CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha1", "v1alpha2", "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
-| CLUSTER_APIENDPOINT_IP         | APIEndpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                            |
+| CLUSTER_APIENDPOINT_IP         | API endpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                            |
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                             |
-| POD_CIDR                       | POD CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
+| POD_CIDR                       | Pod CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
 
 ### Using a custom image
 
@@ -271,7 +272,7 @@ This section describes how to trigger provisioning of a cluster and hosts via
 [v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2) and
 assumes that metal3-dev-env is deployed with the environment variable
 **CAPI_VERSION** set to **v1alpha2**. The v1alpha2 deployment can be done with
-Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet [resourcerequirements](#prerequisites) for successfull deployment:
+Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet [resource requirements](#prerequisites) for successfull deployment:
 
 ```sh
 $ ./scripts/v1alphaX/provision_cluster.sh
@@ -322,7 +323,7 @@ node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.11
 
 You should be able to ssh into your host once provisioning is complete. See
 the libvirt DHCP leases to find the IP address for the host that was
-provisioned. In this case, it’s `node-1` in this case.
+provisioned. In this case, it’s `node-1`.
 
 ```sh
 $ sudo virsh net-dhcp-leases baremetal
@@ -369,7 +370,7 @@ NAME    PHASE
 test1   deprovisioning
 ```
 
-#### Centos target hosts only, image update
+### Centos target hosts only, image update
 
 If you want to deploy Ubuntu hosts, please skip to the next section.
 
