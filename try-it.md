@@ -6,19 +6,19 @@ permalink: /try-it.html
 
 <!-- TOC depthFrom:1 insertAnchor:false orderedList:true updateOnSave:true withLinks:true -->
 
-- [Instructions](#instructions)
-  - [Prerequisites](#prerequisites)
-  - [Metal3-dev-env setup](#metal3-dev-env-setup)
-  - [Using a custom image](#using-a-custom-image)
-- [Working with the Environment](#working-with-the-environment)
-  - [Bare Metal Hosts](#bare-metal-hosts)
-  - [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
-  - [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
-    - [Centos target hosts only, image update](#centos-target-hosts-only-image-update)
-  - [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
-  - [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
-  - [Running Custom Cluster API Provider Metal3](#running-custom-cluster-api-provider-metal3)
-  - [Accessing Ironic API](#accessing-ironic-api)
+1. [Instructions](#instructions)
+    1. [Prerequisites](#prerequisites)
+    2. [Metal3-dev-env setup](#metal3-dev-env-setup)
+    3. [Using a custom image](#using-a-custom-image)
+2. [Working with the Environment](#working-with-the-environment)
+    1. [Bare Metal Hosts](#bare-metal-hosts)
+    2. [Provisioning Cluster and Machines](#provisioning-cluster-and-machines)
+    3. [Deprovisioning Cluster and Machines](#deprovisioning-cluster-and-machines)
+    4. [Centos target hosts only, image configuration](#centos-target-hosts-only-image-configuration)
+    5. [Directly Provisioning Bare Metal Hosts](#directly-provisioning-bare-metal-hosts)
+    6. [Running Custom Baremetal-Operator](#running-custom-baremetal-operator)
+    7. [Running Custom Cluster API Provider Metal3](#running-custom-cluster-api-provider-metal3)
+    8. [Accessing Ironic API](#accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
@@ -33,7 +33,7 @@ permalink: /try-it.html
 
 ### Prerequisites
 
-- System with CentOS 7 or Ubuntu 18.04
+- System with CentOS 8 or Ubuntu 18.04
 - Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
 - Run as a user with passwordless sudo access
 - Resource requirements for the host machine vary depending on the selected
@@ -44,7 +44,14 @@ permalink: /try-it.html
 | Centos              | 4        | 32               |
 | Ubuntu              | 4        | 16               |
 
+
+> warning "Warning"
+> The system can be running CentOS 7. However, note that there is an ongoing process to move to latest CentOS version. Therefore, in order to avoid future issues you might find, CentOS 8 is the preferred CentOS choice.
+
 ### Metal3-dev-env setup
+
+> info "Information"
+> If you need detailed information regarding the process of creating a Metal³ emulated environment using metal3-dev-env, it is worth taking a look at the blog post ["A detailed walkthrough of the Metal³ development environment"]({% post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
 This is a high-level architecture of the metal³-dev-env.
 
@@ -87,7 +94,7 @@ $ make clean
 > $ make test
 > ```
 
-All configurations for the environment is stored in `config_${user}.sh`. You
+The vast majority of configurations for the environment are stored in `config_${user}.sh`. You
 can configure the following
 
 | Name                           | Option                                                                                                                                                                                                                                                   | Allowed values                       | Default                                                      |
@@ -107,8 +114,8 @@ can configure the following
 | TEST_MAX_TIME                  | Number of maximum verification or test retries                                                                                                                                                                                                           | <int>                                | 120                                                          |
 | BMC_DRIVER                     | Set the BMC driver                                                                                                                                                                                                                                       | "ipmi", "redfish"                    | "ipmi"                                                       |
 | IMAGE_OS                       | OS of the image to boot the nodes from, overriden by IMAGE\_\* if set                                                                                                                                                                                    | "Centos", "Cirros", "FCOS", "Ubuntu" | "Centos"                                                     |
-| IMAGE_NAME                     | Image for target hosts deployment                                                                                                                                                                                                                        |                                      | "CentOS-7-x86_64-GenericCloud-1907.qcow2"                    |
-| IMAGE_LOCATION                 | Location of the image to download                                                                                                                                                                                                                        | <URL>                                | http://cloud.centos.org/centos/7/images                      |
+| IMAGE_NAME                     | Image for target hosts deployment                                                                                                                                                                                                                        |                                      | "CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2"                    |
+| IMAGE_LOCATION                 | Location of the image to download                                                                                                                                                                                                                        | <URL>                                | https://cloud.centos.org/centos/8/x86_64/images/                     |
 | IMAGE_USERNAME                 | Image username for ssh                                                                                                                                                                                                                                   |                                      | "centos"                                                     |
 | IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                   |
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
@@ -118,12 +125,29 @@ can configure the following
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                             |
 | POD_CIDR                       | Pod CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
 
+<br>
+
+There also other variables that are used throughout the metal3-dev-env environment configuration in scripts or Ansible playbooks. Below, are listed some of the variables that might be adapted to your requirements.
+
+> note "Note"
+> It is recommended modifying or adding variables in `config_${user}.sh` config file instead of exporting them in the shell. By doing that, it is assured that they are persisted.
+
+
+| Name                           | Option                                                                                                                                                                                                                                                   | Allowed values                       | Default                                                      |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
+| NUM_NODES                | Set the number of virtual machines to be provisioned. This VMs will be further configured as control-plane or worker Nodes      |   | 2 |
+| VM_EXTRADISKS            | Add extra disks to the virtual machines provisioned. By default the size of the extra disk is set in the libvirt Ansible role to 8 GB        | "true", "false" | "false" |
+| DEFAULT_HOSTS_MEMORY     | Set the default memory size in MB for the virtual machines provisioned.        |  | Ubuntu default is 4096, while CentOS is 8192. |
+| CLUSTER_NAME             | Set the name of the target cluster                        |  | test1 |
+
+<br>
+
 ### Using a custom image
 
-You can override the three following variables: `IMAGE_NAME`,
-`IMAGE_LOCATION`, `IMAGE_USERNAME`. If a file with name `IMAGE_NAME` does not
-exist in the folder `/opt/metal3-dev-env/ironic/html`, then it will be
-downloaded from `IMAGE_LOCATION`.
+Whether you want to run target cluster Nodes with your own image, you can override the three following variables: `IMAGE_NAME`,
+`IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with name `IMAGE_NAME` does not
+exist in the `IRONIC_IMAGE_DIR` (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
+downloaded from the `IMAGE_LOCATION` value configured.
 
 > warning "Warning"
 > If you see this error during the installation:
@@ -133,7 +157,7 @@ downloaded from `IMAGE_LOCATION`.
 > error: Failed to connect socket to '/var/run/libvirt/libvirt-sock':  Permission denied
 > ```
 >
-> You may need to log out then login again, and run `make` again.
+> You may need to log out then login again, and run `make clean` and `make` again.
 
 ## Working with the Environment
 
@@ -269,10 +293,10 @@ status:
 
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
-[v1alpha2](https://github.com/kubernetes-sigs/cluster-api/tree/release-0.2) and
+[v1alpha3](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPI_VERSION** set to **v1alpha2**. The v1alpha2 deployment can be done with
-Ubuntu 18.04 or Centos 7 target host images. Please make sure to meet [resource requirements](#prerequisites) for successfull deployment:
+**CAPI_VERSION** set to **v1alpha3**. The v1alpha3 deployment can be done with
+Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#prerequisites) for successfull deployment:
 
 ```sh
 $ ./scripts/v1alphaX/provision_cluster.sh
@@ -343,7 +367,25 @@ $ ssh centos@192.168.111.21
 ### Deprovisioning Cluster and Machines
 
 Deprovisioning of the cluster and machines is done just by deleting `Cluster`
-`Machine` objects.
+`Machine` objects or by executing the deprovision scripts in reverse order than provisioning:
+
+```sh
+$ ./scripts/v1alphaX/deprovision_worker.sh
+$ ./scripts/v1alphaX/deprovision_controlplane.sh
+$ ./scripts/v1alphaX/deprovision_cluster.sh
+```
+
+Note that you can easily deprovision _worker_ Nodes by decreasing the number of replicas in the `MachineDeployment` object created whene executing the worker provisioning script:
+
+```sh
+$ kubectl scale machinedeployment test1-md-0 --replicas=0
+```
+
+> warning "Warning"
+> control-plane and cluster are very tied together. This means that you are not able to deprovision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to deprovision the control-plane you need to **deprovision the cluster** as well and provision both again.
+
+Below, it is shown how the deprovision can be executed in a more manual way by just deleting the proper Custom Resources (CR)
+
 
 ```sh
 $ kubectl delete machine test1-md-0-m87bq -n metal3
@@ -356,8 +398,8 @@ $ kubectl delete cluster test1 -n metal3
 cluster.cluster.x-k8s.io "test1" deleted
 ```
 
-At this point you can see that the `BareMetalHost` and `Cluster` are going
-through a deprovisioning process.
+Once the deprovision is started, you can see that the `BareMetalHost` and `Cluster` are going
+through a deprovisioning process too.
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
@@ -370,14 +412,25 @@ NAME    PHASE
 test1   deprovisioning
 ```
 
-### Centos target hosts only, image update
+### Centos target hosts only, image configuration
 
-If you want to deploy Ubuntu hosts, please skip to the next section.
+If you want to deploy Ubuntu hosts, please skip this next section.
 
-If you want to deploy Centos 7 for the target hosts, the Centos 7 image requires
-an update of Cloud-init. An updated image can be downloaded
-[here](http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2).
-You can replace the existing centos image with the following commands :
+As shown in the [prerequisites](#prerequisites) section the preferred OS image for CentOS is version 8 for both the system where the metal3-dev-env environment is configured and the target cluster. 
+
+> warning "Warning"
+> There is an ongoing effort to move from CentOS 7 to CentOS 8, this means that in a near future CentOS 7 will not be supported or at least tested. Therefore, we suggest moving to CentOS 8 if possible.
+
+Wheter you still want to deploy Centos 7 for the target hosts, the following variables needs to be modified:
+
+
+```
+IMAGE_NAME_CENTOS="centos-updated.qcow2"
+IMAGE_LOCATION_CENTOS="http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2"
+IMAGE_OS=Centos
+```
+
+Additionally, you can let the Ansible `provision_controlplane.sh` and `provision_worker.sh` download the image automatically following the variables listed above or download the properly configured CentOS 7 image from the following location into the `IRONIC_IMAGE_DIR`:
 
 ```sh
 curl -LO http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2
@@ -393,7 +446,7 @@ It’s also possible to provision via the `BareMetalHost` interface directly
 without using the Cluster API integration.
 
 There is a helper script available to trigger provisioning of one of these
-hosts. To provision a host with CentOS 7, run:
+hosts. To provision a host with CentOS, run:
 
 ```sh
 $ ./provision_host.sh node-0
