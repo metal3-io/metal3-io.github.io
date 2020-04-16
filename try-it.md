@@ -296,7 +296,7 @@ This section describes how to trigger provisioning of a cluster and hosts via
 [v1alpha3](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
 assumes that metal3-dev-env is deployed with the environment variable
 **CAPI_VERSION** set to **v1alpha3**. The v1alpha3 deployment can be done with
-Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#prerequisites) for successfull deployment:
+Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successfull deployment:
 
 ```sh
 $ ./scripts/v1alphaX/provision_cluster.sh
@@ -415,7 +415,7 @@ test1   deprovisioning
 
 If you want to deploy Ubuntu hosts, please skip this section.
 
-As shown in the [prerequisites](#prerequisites) section, the preferred OS image for CentOS is version 8. Actually, for both the system where the metal3-dev-env environment is configured and the target cluster nodes. 
+As shown in the [prerequisites](#11-prerequisites) section, the preferred OS image for CentOS is version 8. Actually, for both the system where the metal3-dev-env environment is configured and the target cluster nodes. 
 
 > warning "Warning"
 > There is an ongoing effort to move from CentOS 7 to CentOS 8, this means that in a near future CentOS 7 will not be supported or at least tested. Therefore, we suggest moving to CentOS 8 if possible.
