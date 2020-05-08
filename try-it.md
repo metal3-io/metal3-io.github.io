@@ -116,7 +116,7 @@ can configure the following
 | IMAGE_OS                       | OS of the image to boot the nodes from, overriden by IMAGE\_\* if set                                                                                                                                                                                    | "Centos", "Cirros", "FCOS", "Ubuntu" | "Centos"                                                     |
 | IMAGE_NAME                     | Image for target hosts deployment                                                                                                                                                                                                                        |                                      | "CentOS-8-GenericCloud-8.1.1911-20200113.3.x86_64.qcow2"                    |
 | IMAGE_LOCATION                 | Location of the image to download                                                                                                                                                                                                                        | <URL>                                | https://cloud.centos.org/centos/8/x86_64/images/                     |
-| IMAGE_USERNAME                 | Image username for ssh                                                                                                                                                                                                                                   |                                      | "centos"                                                     |
+| IMAGE_USERNAME                 | Image username for ssh                                                                                                                                                                                                                                   |                                      | "metal3"                                                     |
 | IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                   |
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
 | SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                              |
@@ -143,6 +143,8 @@ There also other variables that are used throughout the metal3-dev-env environme
 | DEFAULT_HOSTS_MEMORY     | Set the default memory size in MB for the virtual machines provisioned.        |  | Ubuntu default is 4096, while CentOS is 8192. |
 | CLUSTER_NAME             | Set the name of the target cluster                        |  | test1 |
 
+> note "Note"
+> The IMAGE_USERNAME for ssh has been changed to `metal3` for both Centos and Ubuntu images.
 <br>
 
 ### 1.3. Using a custom image
@@ -361,10 +363,10 @@ Expiry Time          MAC address        Protocol  IP address                Host
 2020-02-05 11:59:18  00:f8:16:dd:3b:a1  ipv4      192.168.111.21/24         node-1          -
 ```
 
-The default username for the CentOS image is `centos`.
+The default username for the CentOS image is `metal3`.
 
 ```sh
-$ ssh centos@192.168.111.21
+$ ssh metal3@192.168.111.21
 ```
 
 ### 2.3. Deprovisioning Cluster and Machines
@@ -475,10 +477,10 @@ $ sudo virsh net-dhcp-leases baremetal
  2019-05-06 19:04:18  00:1c:cc:c6:29:3d  ipv4      192.168.111.21/24         node-1          -
 ```
 
-The default user for the CentOS image is `centos`.
+The default user for the CentOS image is `metal3`.
 
 ```sh
-ssh centos@192.168.111.20
+ssh metal3@192.168.111.20
 ```
 
 There is another helper script to deprovision a host.
