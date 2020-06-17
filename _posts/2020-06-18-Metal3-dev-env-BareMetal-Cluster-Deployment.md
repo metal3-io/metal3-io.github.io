@@ -1,5 +1,5 @@
 ---
-title: "Metal³ development environment walkthrough part 2: Deploying a new baremetal cluster"
+title: "Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster"
 draft: false
 categories: ["metal3", "kubernetes", "cluster API", "metal3-dev-env"]
 author: Himanshu Roy
@@ -13,7 +13,6 @@ This post builds upon the [detailed metal3-dev-env walkthrough blogpost]({%post_
 
 Before we get started, there are a couple of requirements we are expecting to be fulfilled.
 
-<br/>
 
 ## Requirements
 
@@ -23,37 +22,30 @@ Before we get started, there are a couple of requirements we are expecting to be
   - NUM_NODES
   - CLUSTER_NAME
 
-<br/>
-
 
 ## Overview of Config and Resource types
-In this section we give a brief overview of the important config files and resources used as part of the BAREMETAL-Cluster deployment. The following sub-sections shows where and which config files, resources are created and give a brief description about some of them. These will help you understand the technical details of the cluster deployment. You can also skip this section, visit the next section about *provisioning* first and then revisit this 
+In this section we give a brief overview of the important config files and resources used as part of the bare metal cluster deployment. 
+The following sub-sections show the config files and resources that are created and give a brief description about some of them. This will help you understand the technical details of the cluster deployment. You can also choose to skip this section, visit the next section about *provisioning* first and then revisit this.
 
 
 ### Config Files and Resources Types
 
-!["A list of files under manifests directory for CLUSTER_NAME=bmetalcluster"](/assets/2020-06-18-Metal3-dev-env-BareMetal-Cluster-Deployment/manifest-directory.png)  
+!["The directory tree for the ansible role used for deployment"](/assets/2020-06-18-Metal3-dev-env-BareMetal-Cluster-Deployment/manifest-directory.png)  
 > info "Note"
-> All these files are generated under the path `https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/files` as part of the provisioning process. When you do a provisioning for the first time, this directory is created and is subsequently used to store the templates and config files generated for deploying the baremetal cluster.
+> Among these the config files are rendered under the path `https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/files` as part of the provisioning process.
 
 <br/>
 
-Some of the configuration files generated as part of provisioning a cluster, in a centos based environment, are :
+A description of some of the files part of provisioning a cluster, in a centos based environment :
 
 | Name           | Description                                       | Path                          |
 | ------------------- | ---------------------------------------------| ----------------------------- |
+| (de)provisioning scripts| Scripts to trigger provisioning or deprovisioning of cluster, control plane or worker | `${metal3-dev-env}/scripts/v1alphaX/` |
+| [templates directory](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates) | Templates for cluster, control plane, worker definitions | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/templates` |
 | clusterctl env file   | Cluster parameters and details  | `${Manifests}/clusterctl_env_centos.rc` |
-| manifest file    | Generated using clusterctl-tool, contains list of resources  | `${Manifests}/manifests.yaml`  |
-| **base** directory | directory for [`kustomization`](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) resource files, templates of resources created while provisioning               | `${Manifests}/base` |
-| [kustomization](https://kubernetes.io/docs/tasks/manage-kubernetes-objects/kustomization/) file | copied from templates for kustomization in [templates-directory](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates)               | `${Maifests}/kustomization.yaml` |
+| [generate templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml) | Renders cluster, control plane and worker definitions in the `Manifest` directory | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml` |
+| [main vars file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/vars/main.yml)    | Variable file that assigns all the defaults used during deployment  | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/vars/main.yml`  |
 
-<br/>
-
-> Note : the `base` directory has templates for the resources that are created while provisioning
->  - [`kustomize-tool`](https://github.com/kubernetes-sigs/kustomize) is used to build manifests in the base directory
->  - Cluster, Controlplane and MachineDeployment manifests are generated in `base` directory
->  - worker manifests are generated and added using kustomize-tool
->  - All the resources created as part of provisioning have their templates under the ‘base’ directory 
 
 <br/>
 
@@ -62,24 +54,24 @@ Here are some of the resources that are created as part of provisioning :
 
 | Name                | Description                                       |
 | ------------------- | ------------------------------------------------- | 
-| Cluster | Cluster API resource for managing a cluster |
-| Metal3Cluster | Corresponding Metal3 resource generated as part of BareMetalCluster deployment, and managed by `Cluster`|
-| KubeadmControlPlane | Cluster API resource for managing the Controlplane, it also manages the `Machine` object for Controlplane, and has the **KubeadmConfig** for the Controlplane |
+| Cluster | a Cluster API resource for managing a cluster |
+| Metal3Cluster | Corresponding Metal3 resource generated as part of bare metal cluster deployment, and managed by `Cluster`|
+| KubeadmControlPlane | Cluster API resource for managing the control plane, it also manages the `Machine` object, and has the **KubeadmConfig** |
 | MachineDeployment | Cluster API resource for managing workers via `MachineSet` object, it can be used to add/remove workers by scaling Up/Down |
 | MachineSet | Cluster API resource for managing `Machine` objects for worker nodes |
-| Machine | Cluster API resource for managing nodes - Controlplane or Workers. In case of Controlplane, its directly managed by `KubeadmControlPlane`, whereas for Workers it's managed by a `MachineSet`|
-| Metal3Machine | Corresponding Metal3 resource for managing Baremetal Nodes, it's managed by a `Machine` resource |
-| Metal3MachineTemplate | Metal3 resource which acts as a template when creating a Controlplane or a Worker node |
+| Machine | Cluster API resource for managing nodes - control plane or workers. In case of Controlplane, its directly managed by `KubeadmControlPlane`, whereas for Workers it's managed by a `MachineSet`|
+| Metal3Machine | Corresponding Metal3 resource for managing bare metal nodes, it's managed by a `Machine` resource |
+| Metal3MachineTemplate | Metal3 resource which acts as a template when creating a control plane or a worker node |
 | KubeadmConfigTemplate | A template of `KubeadmConfig`, for Workers, used to generate KubeadmConfig when a new worker node is provisioned |
 
-> **Note** : The corresponding `KubeadmConfig` is copied to the Controlplane/Worker at the time of provisioning.  
+> **Note** : The corresponding `KubeadmConfig` is copied to the control plane/worker at the time of provisioning.  
   
 <br/>
 
 
-## BareMetal Cluster Deployment
+## Bare Metal Cluster Deployment
 
-The deployment scripts primarily use ansible and the existing Kubernetes management cluster (based on minikube ) for deploying the bare-metal cluster. Make sure that some of the environment variables used for Metal³ deployment are set, if you didn't use `config_${user}.sh` for setting the environment varilables.
+The deployment scripts primarily use ansible and the existing Kubernetes management cluster (based on minikube ) for deploying the bare-metal cluster. Make sure that some of the environment variables used for Metal³ deployment are set, if you didn't use `config_${user}.sh` for setting the environment variables.
 
 | Parameter           | Description                  | Default                  |
 | ------------------- | ---------------------------- | ------------------------ |
@@ -94,26 +86,18 @@ The deployment scripts primarily use ansible and the existing Kubernetes managem
 
 All the scripts for cluster provisioning or deprovisioning are located at - [`${metal3-dev-env}/scripts/v1alphaX/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts/v1alphaX). The scripts call a common playbook which handles all the tasks that are available.
 
-> info "Note"
-> Here is a depiction of the common steps, mainly involving generating templates and config files. 
-
-<br/>
-
-!["A diagram depicting the Generate Templates workflow"](/assets/2020-06-18-Metal3-dev-env-BareMetal-Cluster-Deployment/metal3-generate-templates.png)
-<br/>
-<br/>
 
 The steps involved in the process are :
 
 - The script calls an ansible playbook with necessary parameter ( from env variables and defaults )
-- The playbook executes the role -, [`${metal3-dev-env}/vm-setup/roles/v1aX_integration_test`](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test), which runs the corresponding [task_file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks) for provisioning/deprovisioning the cluster/controlplane or a worker
-- There are [templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates) in the role, which are copied to the `manifest` directory. They are used for generating configuration for the cluster and kubeadm, which is then supplied to the Kubernetes module of ansible to create the cluster.
-- During provisioning, first the `clusterctl` env file is generated, then and `manifest` file is created/updated using the `clusterctl` tool, which is then supplied to `kustomize` tool to create the config files for provisioning the resource, from the available templates.
-- The manifests are generated for - cluster, controlplane and machinedeployment, and the worker manifests are merged with the deployment manifests.
-- Finally a yaml file is generated with all the details for the cluster/controlplane/worker, which is then passed to K8s module in ansible which creates the resources.
-- There are also manifests stored in ${Manifests} directory - [`${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/files/manifests`](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test), for the cluster which can be used to deprovision the cluster at a later point in time.
-> **Note** : * the `manifests` directory is not present but created when you first use the scripts.*
-- Centos or Ubuntu images [are downloaded](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/v1aX_integration_test/tasks/download_image.yml) when provisioning a controlplane or a worker  
+- The playbook executes the role -, [`${metal3-dev-env}/vm-setup/roles/v1aX_integration_test`](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test), which runs the main [task_file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/main.yml) for provisioning/deprovisioning the cluster, control plane or a worker
+- There are [templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates) in the role, which are used to render configurations in the `Manifest` directory. These configurations use kubeadm and are supplied to the Kubernetes module of ansible to create the cluster.
+- During provisioning, first the `clusterctl` env file is generated, then the cluster, control plane and worker definition templates for `clusterctl` are generated at `${HOME}/.cluster-api/overrides/infrastructure-metal3/${CAPM3RELEASE}`.
+- Using the templates generated in previous step, the definitions for resources related to cluster, control plane and worker are rendered using `clusterctl`.
+- Centos or Ubuntu image [is downloaded](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/v1aX_integration_test/tasks/download_image.yml) in the next step.
+- Finally using the above definitions, which are passed to the `K8s` module in ansible, the corresponding resource( cluster/control plane/worker ) is provisioned.
+- These same definitions are reused at the time of deprovisioning the corresponding resource, again using the `K8s` module in ansible
+> **Note** : The manifest directory is created when provisioning is triggered for the first time and is subsequently used to store the config files that are rendered for deploying the bare metal cluster.
 
 <br/>
 <br/>
@@ -128,10 +112,10 @@ The steps involved in the process are :
 
 
 ### Provision Cluster
-This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the cluster by creating a `Metal3Cluster` resource. 
+This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the cluster by creating a `Metal3Cluster` and a `Cluster` resource. 
 
 <br/>
-To see if you have a successful Cluster resource creation( the cluster still doesn't have a Controlplane or Workers ), just do :
+To see if you have a successful Cluster resource creation( the cluster still doesn't have a control plane or workers ), just do :
 
 ```console
 kubectl get Metal3Cluster ${CLUSTER_NAME} -n metal3
@@ -181,10 +165,10 @@ status:
 
 ### Provision Controlplane
 
-This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the controlplane or the master of the cluster. As part of the controlplane provisioning, the generated manifests are for cluster, controlplane and machinedeployment. The `MachineDeployment` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the controlplane node, and it is then provisioned by the BareMetalOperator. there are other resources created in the process of provisioning, like `KubeadmControlPlane` and `Metal3MachineTemplate` resource which are involved in the provisioning process.
+This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the control plane member of the cluster using the rendered definition of control plane explained in the **Steps Involved** section. The `KubeadmControlPlane` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the control plane node, and it is then provisioned by the Bare Metal Operator. A `Metal3MachineTemplate` resource is also created as part of the provisioning process.
 
 > info "Note"
-> It takes some time for the provisioning of the Controlplane, you can watch the process using some steps shared a bit later
+> It takes some time for the provisioning of the control plane, you can watch the process using some steps shared a bit later
 
 ```console
 kubectl get KubeadmControlPlane ${CLUSTER_NAME} -n metal3
@@ -236,17 +220,17 @@ To track the progress of provisioning, you can try the following:
 ```console 
 kubectl get BareMetalHosts -n metal3 -w
 ```
-> The `BareMetalHosts` resource is created when `Metal³/metal3-dev-env` was deployed. It is a kubernetes resource that represents a Baremetal Machine, with all its details and configuration, and is managed by the `BareMetalOperator`. You can also use the short representation instead, i.e. `bmh` ( short for `BareMetalHosts`) in the command above.
+> The `BareMetalHosts` resource is created when `Metal³/metal3-dev-env` was deployed. It is a kubernetes resource that represents a bare metal Machine, with all its details and configuration, and is managed by the `Bare Metal Operator`. You can also use the short representation instead, i.e. `bmh` ( short for `BareMetalHosts`) in the command above.
 
 > You should see all the nodes that were created at the time of metal3 deployment, along with their current status as the provisioning progresses
 > info "Note"
-> All the baremetal hosts listed above were created when Metal³ was deployed in the *detailed metal3-dev-env walkthrough blogpost*.
+> All the bare metal hosts listed above were created when Metal³ was deployed in the *detailed metal3-dev-env walkthrough blogpost*.
 
 
 ```console
 kubectl get Machine -n metal3 -w
 ```
-> This shows the status of Machine associated with controlplane and we can watch the status of provisioning under PHASE 
+> This shows the status of Machine associated with control plane and we can watch the status of provisioning under PHASE 
 
 <br/>
 Once the provisioning is finished, let's get the host-ip : 
@@ -255,13 +239,14 @@ Once the provisioning is finished, let's get the host-ip :
 sudo virsh net-dhcp-leases baremetal
 ```
 > info "Note"
-> *baremetal is one of the 2 networks that were created at the time of Metal3 deployment, the other being “provisioning” which is used - as you have guessed - for provisioning the bare metal cluster. More details about networking setup in the metal3-dev-env environment are described in the - detailed metal3-dev-env walkthrough blogpost.*
+> `baremetal` is one of the 2 networks that were created at the time of Metal3 deployment, the other being “provisioning” which is used - as you have guessed - for provisioning the bare metal cluster. More details about networking setup in the metal3-dev-env environment are described in the - [detailed metal3-dev-env walkthrough blogpost]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
 <br/>
-You can login to the master node if you want, and can check the deployment status
+You can login to the control plane node if you want, and can check the deployment status using two methods.
 
 ```console
-ssh metal3@{master-node-ip}
+ssh metal3@{control-plane-node-ip}
+ssh metal3@192.168.111.249
 ```
 <br/>
 <br/>
@@ -269,10 +254,10 @@ ssh metal3@{master-node-ip}
 
 ### Provision Workers
 
-The script is located at `${metal3-dev-env-path}/scripts/v1alphaX/provision_worker.sh` and it provisions a node to be added as a worker to the baremetal cluster. It selects one of the remaining nodes and provisions it and adds it to the baremetal cluster ( which only has a master at this point ). The resources created for workers are - `MachineDeployment` which can be scaled up to add more workers to the cluster, and it also created a `MachineSet` which then creates a `Machine` managing the node.
+The script is located at `${metal3-dev-env-path}/scripts/v1alphaX/provision_worker.sh` and it provisions a node to be added as a worker to the bare metal cluster. It selects one of the remaining nodes and provisions it and adds it to the bare metal cluster ( which only has a control plane node at this point ). The resources created for workers are - `MachineDeployment` which can be scaled up to add more workers to the cluster and `MachineSet` which then creates a `Machine` managing the node.
 
 > info "Note"
-> Similar to a Controlplane provisioning, a Worker provisioning also takes some time, and you can watch the process using steps shared a bit later. This will also apply when you scale Up/Down workers at a later point in time.
+> Similar to a control plane provisioning, a worker provisioning also takes some time, and you can watch the process using steps shared a bit later. This will also apply when you scale Up/Down workers at a later point in time.
 
 <br/>
 This is what a `MachineDeployment` looks like
@@ -354,7 +339,8 @@ sudo virsh net-dhcp-leases baremetal
 > To get the nodes IP
 
 ```console
-ssh metal3@{master-node-ip}
+ssh metal3@{control-plane-node-ip}
+kubectl get nodes
 ```
 > To check if its added to the cluster
 
@@ -373,18 +359,28 @@ kubectl scale --replicas=3 MachineDeployment ${CLUSTER_NAME} -n metal3
 
 ### Deprovisioning
 
-All of the previous components have corresponding deprovisioning scripts which use config files, in the previously mentioned manifest directory, and use them to clean up worker, controlplane and cluster.
+All of the previous components have corresponding deprovisioning scripts which use config files, in the previously mentioned manifest directory, and use them to clean up worker, control plane and cluster.
+
+This step will use the already generated cluster/control plane/worker definition file, and supply it to **Kubernetes** ansible module to remove/deprovision the resource. You can find it, under the `Manifest` directory, in the Snapshot shared at the beginning of this blogpost where we show the file structure.
+
 For example if you wish to deprovision the cluster, you would do :
 
 ```console
+sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_worker.sh
+sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_controlplane.sh
 sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_cluster.sh
 ```
-> This will use the already generated cluster definition file, generated when the cluster was provisioned, and supply it to **Kubernetes** ansible module to remove/deprovision the cluster. The cluster definition file according to the parameters in above examples, will be - `${Manifests}/v1alpha3_cluster_bmetalcluster_centos.yaml`. You can find it in the Snapshot shared at the beginning of this blogpost where we show a directory structure.
+> Note :
+> The reason for running the `deprovision_worker.sh` and `deprovision_controlplane.sh` scripts is that not all objects are cleared when we just run the `deprovision_cluster.sh` script. Following this, if you want to deprovision control plane it is recommended to deprovision the cluster itself since we can't provision a new control plane with the same cluster. For worker deprovisioning, we only need to run the worker script.
 
 
 ## Summary
 
-In this blogpost we saw how to deploy a baremetal cluster once we have a Metal³(metal3-dev-env repo) deployed and by that point we will already have the nodes ready to be used for a baremetal cluster deployment. In the first section we show the various configuration files, templates, resource types and their meanings. Then we see the workflow of an important component of provisioning - generating templates. After that we see a general overview of how all resources are related and at what point are they created - provision_cluster/controlplane/worker. In each of the provisioning sections we see the steps to monitor the provisioning and how to confirm if its successful or not, with brief explanations wherever required. Finally we see the deprovisioning section which uses the resource definitions generated at the time of provisioning to deprovision  cluster, controlplane or worker.
+In this blogpost we saw how to deploy a bare metal cluster once we have a Metal³(metal3-dev-env repo) deployed and by that point we will already have the nodes ready to be used for a bare metal cluster deployment. 
+
+In the first section we show the various configuration files, templates, resource types and their meanings.Then we see the common steps involved in the provisioning process. After that we see a general overview of how all resources are related and at what point are they created - provision cluster/control plane/worker. 
+
+In each of the provisioning sections we see the steps to monitor the provisioning and how to confirm if its successful or not, with brief explanations wherever required. Finally we see the deprovisioning section which uses the resource definitions generated at the time of provisioning to deprovision  cluster, control plane or worker.
 
 Here are a few resources which you might find useful if you want to explore further, some of them have already been shared earlier.
 
