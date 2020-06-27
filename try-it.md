@@ -36,14 +36,7 @@ permalink: /try-it.html
 - System with CentOS 8 or Ubuntu 18.04
 - Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
 - Run as a user with passwordless sudo access
-- Resource requirements for the host machine vary depending on the selected
-  Linux distribution of the target nodes:
-
-| Target distribution | host CPU | host memory (Gb) |
-| ------------------- | -------- | ---------------- |
-| Centos              | 4        | 32               |
-| Ubuntu              | 4        | 16               |
-
+- Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory.
 
 > warning "Warning"
 > The system can be running CentOS 7. However, note that there is an ongoing process to move to latest CentOS version. Therefore, in order to avoid future issues you might find, CentOS 8 is the preferred CentOS choice.
@@ -88,9 +81,6 @@ $ make clean
 > running:
 >
 > ```sh
-> # for CAPI v1alpha1 based deployment
-> $ make test_v1a1
-> # for CAPI v1alpha2, v1alpha3, v1alpha4 based deployment
 > $ make test
 > ```
 
@@ -99,6 +89,7 @@ can configure the following
 
 | Name                           | Option                                                                                                                                                                                                                                                   | Allowed values                       | Default                                                      |
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
+| EPHEMERAL_CLUSTER              | Tool for running management/ephemeral cluster.  | minikube, kind   | Ubuntu default is kind, while CentOS is minikube. |
 | EXTERNAL_SUBNET                | This is the subnet used on the "baremetal" libvirt network, created as the primary network interface for the virtual bare metalhosts.                                                                                                                    | <CIDR>                               | 192.168.111.0/24                                             |
 | SSH_PUB_KEY                    | This SSH key will be automatically injected into the provisioned host by the provision_host.sh script.                                                                                                                                                   | <file path>                          | ~/.ssh/id_rsa.pub                                            |
 | CONTAINER_RUNTIME              | Select the Container Runtime                                                                                                                                                                                                                             | "docker", "podman"                   | "podman"                                                     |
@@ -120,7 +111,7 @@ can configure the following
 | IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                   |
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
 | SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                              |
-| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha1", "v1alpha2", "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
+| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
 | CLUSTER_APIENDPOINT_IP         | API endpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                            |
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                             |
 | POD_CIDR                       | Pod CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
@@ -140,7 +131,7 @@ There also other variables that are used throughout the metal3-dev-env environme
 | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------ |
 | NUM_NODES                | Set the number of virtual machines to be provisioned. This VMs will be further configured as control-plane or worker Nodes      |   | 2 |
 | VM_EXTRADISKS            | Add extra disks to the virtual machines provisioned. By default the size of the extra disk is set in the libvirt Ansible role to 8 GB        | "true", "false" | "false" |
-| DEFAULT_HOSTS_MEMORY     | Set the default memory size in MB for the virtual machines provisioned.        |  | Ubuntu default is 4096, while CentOS is 8192. |
+| DEFAULT_HOSTS_MEMORY     | Set the default memory size in MB for the virtual machines provisioned.        |  | 4096 |
 | CLUSTER_NAME             | Set the name of the target cluster                        |  | test1 |
 
 > note "Note"
