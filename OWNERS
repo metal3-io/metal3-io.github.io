@@ -2,12 +2,10 @@
 filters:
   ".*":
     approvers:
-      - alosadagrande
+      - codificat
       - dhellmann
       - hardys
-      - iranzo
       - knowncitizen
-      - ptrnull
       - russellb
 
   "^_posts/.*":
