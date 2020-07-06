@@ -16,7 +16,9 @@ filters:
     approvers:
       - dhellmann
       - hardys
+      - maelk
       - russellb
+      - stbenjam
 
   "^_(data|layouts|sass|css|js)/.*":
     labels:
