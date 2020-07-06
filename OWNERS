@@ -2,33 +2,33 @@
 filters:
   ".*":
     reviewers:
+      - alosadagrande
+      - dhellmann
+      - hardys
       - iranzo
       - knowncitizen
       - ptrnull
-      - dhellmann
-      - hardys
       - russellb
-      - alosadagrande
     approvers:
+      - alosadagrande
       - dhellmann
       - hardys
-      - russellb
       - iranzo
       - knowncitizen
       - ptrnull
-      - alosadagrande
+      - russellb
 
   "^_posts/.*":
     labels:
       - kind/blog
     reviewers:
-      - russellb
       - dhellmann
       - hardys
+      - russellb
     approvers:
-      - russellb
       - dhellmann
       - hardys
+      - russellb
 
   "^_(data|layouts|sass|css|js)/.*":
     labels:
