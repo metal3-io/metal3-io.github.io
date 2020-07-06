@@ -1,14 +1,6 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 filters:
   ".*":
-    reviewers:
-      - alosadagrande
-      - dhellmann
-      - hardys
-      - iranzo
-      - knowncitizen
-      - ptrnull
-      - russellb
     approvers:
       - alosadagrande
       - dhellmann
@@ -21,10 +13,6 @@ filters:
   "^_posts/.*":
     labels:
       - kind/blog
-    reviewers:
-      - dhellmann
-      - hardys
-      - russellb
     approvers:
       - dhellmann
       - hardys
@@ -34,6 +22,4 @@ filters:
     labels:
       - kind/website
     approvers:
-      - matthewcarleton
-    reviewers:
       - matthewcarleton
