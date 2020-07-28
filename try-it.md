@@ -535,17 +535,23 @@ Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
 connection settings for Ironic.
 
-metal3-dev-env will install the openstack command line tool on the
-provisioning host as part of setting up the cluster. The openstack tool
-will look for clouds.yaml in the current directory or you can copy it to
-~/.config/openstack/clouds.yaml. Version 3.19.0 or higher is needed to
-interact with Ironic using clouds.yaml.
+Metal3-dev-env will install the unified OpenStack and standalone 
+OpenStack Ironic command-line clients on the provisioning host as 
+part of setting up the cluster. 
+
+Note that currently you can use either unified OpenStack client
+or Ironic client. In this example we are using Ironic client to interact
+with Ironic API.
+
+Please make sure to export
+```CONTAINER_RUNTIME``` environment variable before you execute
+commands.
 
 Example:
 
 ```sh
-[notstack@metal3 metal3-dev-env]$ export OS_CLOUD=metal3
-[notstack@metal3 metal3-dev-env]$ openstack baremetal node list
+[notstack@metal3 metal3-dev-env]$ export CONTAINER_RUNTIME=docker
+[notstack@metal3 metal3-dev-env]$ baremetal node list
 +--------------------------------------+--------+---------------+-------------+--------------------+-------------+
 | UUID                                 | Name   | Instance UUID | Power State | Provisioning State | Maintenance |
 +--------------------------------------+--------+---------------+-------------+--------------------+-------------+
@@ -559,8 +565,7 @@ To view a particular node's details, run the below command. The
 useful for troubleshooting to find out why a node did not deploy.
 
 ```sh
-[notstack@metal3 metal3-dev-env]$ export OS_CLOUD=metal3
-[notstack@metal3 metal3-dev-env]$ openstack baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
+[notstack@metal3 metal3-dev-env]$ baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
 +------------------------+------------------------------------------------------------+
 | Field                  | Value                                                      |
 +------------------------+------------------------------------------------------------+
