@@ -118,7 +118,7 @@ Also, `common.sh` library also sets more global variables apart from the those i
 | IRONIC_IMAGE             | quay.io/metal3-io/ironic                                  |
 | IRONIC_INSPECTOR_IMAGE   | quay.io/metal3-io/ironic-inspector                        |
 | BAREMETAL_OPERATOR_IMAGE | quay.io/metal3-io/baremetal-operator                      |
-| CAPI_VERSION             | v1alpha1                                                  |
+| CAPM3_VERSION            | v1alpha3                                                  |
 | CAPBM_IMAGE              | quay.io/metal3-io/cluster-api-provider-baremetal:v1alpha1 |
 | CAPBM_IMAGE              | quay.io/metal3-io/cluster-api-provider-baremetal          |
 | DEFAULT_HOSTS_MEMORY     | 8192                                                      |
@@ -613,7 +613,7 @@ In case of the `Bare Metal Operator`, the branch by default to clone is master, 
 | BMOREPO                  | https://github.com/metal3-io/baremetal-operator.git             |
 | BMOBRANCH                | master                                                          |
 | CAPBMREPO                | https://github.com/metal3-io/cluster-api-provider-baremetal.git |
-| CAPI_VERSION             | v1alpha2                                                        | v1alpha1 or v1alpha3 |
+| CAPM3_VERSION            | v1alpha3                                                        | v1alpha4 or v1alpha3 |
 | FORCE_REPO_UPDATE        | false                                                           |
 | BMO_RUN_LOCAL            | false                                                           |
 | CAPBM_RUN_LOCAL          | false                                                           |

@@ -111,7 +111,7 @@ can configure the following
 | IRONIC_IMAGE                   | Container image for local ironic services                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/ironic"                                   |
 | VBMC_IMAGE                     | Container image for vbmc container                                                                                                                                                                                                                       |                                      | "quay.io/metal3-io/vbmc"                                     |
 | SUSHY_TOOLS_IMAGE              | Container image for sushy-tools container                                                                                                                                                                                                                |                                      | "quay.io/metal3-io/sushy-tools"                              |
-| CAPI_VERSION                   | Version of Cluster API                                                                                                                                                                                                                                   | "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
+| CAPM3_VERSION                   | Version of Cluster API provider Metal3                                                                                                                                                                                                                                   | "v1alpha3", "v1alpha4"   | "v1alpha3"                                                   |
 | CLUSTER_APIENDPOINT_IP         | API endpoint IP for target cluster                                                                                                                                                                                                                        | "x.x.x.x/x"                          | "192.168.111.249"                                            |
 | CLUSTER_PROVISIONING_INTERFACE | Cluster provisioning Interface                                                                                                                                                                                                                           | "ironicendpoint"                     | "ironicendpoint"                                             |
 | POD_CIDR                       | Pod CIDR                                                                                                                                                                                                                                                 | "x.x.x.x/x"                          | "192.168.0.0/18"                                             |
@@ -291,7 +291,7 @@ This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1alpha3](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPI_VERSION** set to **v1alpha3**. The v1alpha3 deployment can be done with
+**CAPM3_VERSION** set to **v1alpha3**. The v1alpha3 deployment can be done with
 Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successfull deployment:
 
 ```sh
@@ -411,7 +411,7 @@ test1   deprovisioning
 
 If you want to deploy Ubuntu hosts, please skip this section.
 
-As shown in the [prerequisites](#11-prerequisites) section, the preferred OS image for CentOS is version 8. Actually, for both the system where the metal3-dev-env environment is configured and the target cluster nodes. 
+As shown in the [prerequisites](#11-prerequisites) section, the preferred OS image for CentOS is version 8. Actually, for both the system where the metal3-dev-env environment is configured and the target cluster nodes.
 
 > warning "Warning"
 > There is an ongoing effort to move from CentOS 7 to CentOS 8, this means that in a near future CentOS 7 will not be supported or at least tested. Therefore, we suggest moving to CentOS 8 if possible.
