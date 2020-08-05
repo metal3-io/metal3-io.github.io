@@ -295,9 +295,9 @@ assumes that metal3-dev-env is deployed with the environment variable
 Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successfull deployment:
 
 ```sh
-$ ./scripts/v1alphaX/provision_cluster.sh
-$ ./scripts/v1alphaX/provision_controlplane.sh
-$ ./scripts/v1alphaX/provision_worker.sh
+$ ./scripts/provision/cluster.sh
+$ ./scripts/provision/controlplane.sh
+$ ./scripts/provision/worker.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
