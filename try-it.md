@@ -77,6 +77,10 @@ $ make clean
 ```
 
 > info "Note"
+> When redeploying metal³-dev-env with a different release version of CAPM3, you
+> must set the `FORCE_REPO_UPDATE` variable in `config_${user}.sh` to *true*.
+
+> info "Note"
 > you can also run some tests for provisioning and deprovisioning machines by
 > running:
 >
