@@ -40,7 +40,8 @@ A description of some of the files part of provisioning a cluster, in a centos b
 
 | Name           | Description                                       | Path                          |
 | ------------------- | ---------------------------------------------| ----------------------------- |
-| (de)provisioning scripts| Scripts to trigger provisioning or deprovisioning of cluster, control plane or worker | `${metal3-dev-env}/scripts/v1alphaX/` |
+| provisioning scripts| Scripts to trigger provisioning of cluster, control plane or worker | `${metal3-dev-env}/scripts/provision/` |
+| deprovisioning scripts| Scripts to trigger deprovisioning of cluster, control plane or worker | `${metal3-dev-env}/scripts/deprovision/` |
 | [templates directory](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates) | Templates for cluster, control plane, worker definitions | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/templates` |
 | clusterctl env file   | Cluster parameters and details  | `${Manifests}/clusterctl_env_centos.rc` |
 | [generate templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml) | Renders cluster, control plane and worker definitions in the `Manifest` directory | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml` |
@@ -84,7 +85,7 @@ The deployment scripts primarily use ansible and the existing Kubernetes managem
 
 ### Steps Involved
 
-All the scripts for cluster provisioning or deprovisioning are located at - [`${metal3-dev-env}/scripts/v1alphaX/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts/v1alphaX). The scripts call a common playbook which handles all the tasks that are available.
+All the scripts for cluster provisioning or deprovisioning are located at - [`${metal3-dev-env}/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts). The scripts call a common playbook which handles all the tasks that are available.
 
 
 The steps involved in the process are :
@@ -112,7 +113,7 @@ The steps involved in the process are :
 
 
 ### Provision Cluster
-This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the cluster by creating a `Metal3Cluster` and a `Cluster` resource.
+This script, located at the path - `${metal3-dev-env}/scripts/provision/cluster.sh`, provisions the cluster by creating a `Metal3Cluster` and a `Cluster` resource.
 
 <br/>
 To see if you have a successful Cluster resource creation( the cluster still doesn't have a control plane or workers ), just do :
@@ -165,7 +166,7 @@ status:
 
 ### Provision Controlplane
 
-This script, located at the path - `${metal3-dev-env}/scripts/v1alphaX/provision_clusters.sh`, provisions the control plane member of the cluster using the rendered definition of control plane explained in the **Steps Involved** section. The `KubeadmControlPlane` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the control plane node, and it is then provisioned by the Bare Metal Operator. A `Metal3MachineTemplate` resource is also created as part of the provisioning process.
+This script, located at the path - `${metal3-dev-env}/scripts/provision/controlplane.sh`, provisions the control plane member of the cluster using the rendered definition of control plane explained in the **Steps Involved** section. The `KubeadmControlPlane` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the control plane node, and it is then provisioned by the Bare Metal Operator. A `Metal3MachineTemplate` resource is also created as part of the provisioning process.
 
 > info "Note"
 > It takes some time for the provisioning of the control plane, you can watch the process using some steps shared a bit later
@@ -254,7 +255,7 @@ ssh metal3@192.168.111.249
 
 ### Provision Workers
 
-The script is located at `${metal3-dev-env-path}/scripts/v1alphaX/provision_worker.sh` and it provisions a node to be added as a worker to the bare metal cluster. It selects one of the remaining nodes and provisions it and adds it to the bare metal cluster ( which only has a control plane node at this point ). The resources created for workers are - `MachineDeployment` which can be scaled up to add more workers to the cluster and `MachineSet` which then creates a `Machine` managing the node.
+The script is located at `${metal3-dev-env-path}/scripts/provision/worker.sh` and it provisions a node to be added as a worker to the bare metal cluster. It selects one of the remaining nodes and provisions it and adds it to the bare metal cluster ( which only has a control plane node at this point ). The resources created for workers are - `MachineDeployment` which can be scaled up to add more workers to the cluster and `MachineSet` which then creates a `Machine` managing the node.
 
 > info "Note"
 > Similar to a control plane provisioning, a worker provisioning also takes some time, and you can watch the process using steps shared a bit later. This will also apply when you scale Up/Down workers at a later point in time.
@@ -366,12 +367,12 @@ This step will use the already generated cluster/control plane/worker definition
 For example if you wish to deprovision the cluster, you would do :
 
 ```console
-sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_worker.sh
-sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_controlplane.sh
-sh ${metal3-dev-env-path}/scripts/v1alphaX/deprovision_cluster.sh
+sh ${metal3-dev-env-path}/scripts/deprovision/worker.sh
+sh ${metal3-dev-env-path}/scripts/deprovision/controlplane.sh
+sh ${metal3-dev-env-path}/scripts/deprovision/cluster.sh
 ```
 > Note :
-> The reason for running the `deprovision_worker.sh` and `deprovision_controlplane.sh` scripts is that not all objects are cleared when we just run the `deprovision_cluster.sh` script. Following this, if you want to deprovision control plane it is recommended to deprovision the cluster itself since we can't provision a new control plane with the same cluster. For worker deprovisioning, we only need to run the worker script.
+> The reason for running the `deprovision/worker.sh` and `deprovision/controlplane.sh` scripts is that not all objects are cleared when we just run the `deprovision/cluster.sh` script. Following this, if you want to deprovision control plane it is recommended to deprovision the cluster itself since we can't provision a new control plane with the same cluster. For worker deprovisioning, we only need to run the worker script.
 
 
 ## Summary

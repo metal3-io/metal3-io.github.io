@@ -295,9 +295,9 @@ assumes that metal3-dev-env is deployed with the environment variable
 Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successfull deployment:
 
 ```sh
-$ ./scripts/v1alphaX/provision_cluster.sh
-$ ./scripts/v1alphaX/provision_controlplane.sh
-$ ./scripts/v1alphaX/provision_worker.sh
+$ ./scripts/provision/cluster.sh
+$ ./scripts/provision/controlplane.sh
+$ ./scripts/provision/worker.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
@@ -365,9 +365,9 @@ $ ssh metal3@192.168.111.21
 Deprovisioning of the target cluster is done just by deleting `Cluster` and `Machine` objects or by executing the deprovisioning scripts in reverse order than provisioning:
 
 ```sh
-$ ./scripts/v1alphaX/deprovision_worker.sh
-$ ./scripts/v1alphaX/deprovision_controlplane.sh
-$ ./scripts/v1alphaX/deprovision_cluster.sh
+$ ./scripts/deprovision/worker.sh
+$ ./scripts/deprovision/controlplane.sh
+$ ./scripts/deprovision/cluster.sh
 ```
 
 Note that you can easily deprovision _worker_ Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision_worker.sh` script:
