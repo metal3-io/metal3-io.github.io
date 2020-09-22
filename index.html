@@ -56,7 +56,7 @@ layout: default
     <a href="{{ site.baseurl }}/blog/index.html" class="mk-button mk-button--link">Blog</a>
 </header>
 <div class="mk-blog-meta__preview__scroll-wrapper">
-{% for post in site.posts %}
+{% for post in site.posts limit:3 %}
 <a href="{{ post.url }}" class="mk-blog-meta__snippet">
     <h3 class="mk-heading--lg mk-blog-meta__title">{{ post.title }}</h3>
     <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--dark">{{ post.date | date: "%a, %-d/%m/%y" }}</time>
