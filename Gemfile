@@ -36,3 +36,6 @@ gem "html-proofer"
 
 # Rouge syntax hilighter
 gem "rouge"
+
+# Allow running 'rake', e.g. for local link checks
+gem "rake"
