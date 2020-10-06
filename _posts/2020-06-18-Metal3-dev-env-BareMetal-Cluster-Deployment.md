@@ -378,7 +378,7 @@ sh ${metal3-dev-env-path}/scripts/deprovision/cluster.sh
 
 
 
-This video below exhibits the provisioning and deprovisioning a Kubernetes Cluster as shown above.
+The following video demonstrates all the steps to provision and de-provision a Kubernetes cluster explained above.
 
 <iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/FzDQs_9XvtU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
