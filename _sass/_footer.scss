@@ -3,3 +3,15 @@
     font-size: var(--mk--FontSize--xs);
     padding: var(--mk--spacer--lg) var(--mk--spacer--md);
 }
+
+.mk-cncf-footer {
+    width: 80%;
+    float: left ;
+}
+
+.mk-icons-footer {
+    width: 20%;
+    float: right;
+    text-align: right;
+    top: 50%;
+}
