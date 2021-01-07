@@ -16,6 +16,7 @@ namespace :links do
             :log_level          => :info,
             :internal_domains   => ["https://instructor.labs.sysdeseng.com", "https://www.youtube.com"],
             :external_only      => true,
+            :url_ignore         => [ /http(s)?:\/\/(www.)?twitter.com.*/ ],
             :empty_alt_ignore   => true,
             :url_swap           => {
                                     'https://metal3.io/' => '',
