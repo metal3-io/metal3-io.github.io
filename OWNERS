@@ -2,11 +2,14 @@
 filters:
   ".*":
     approvers:
-      - codificat
       - dhellmann
       - hardys
+      - hroyrh
       - knowncitizen
       - russellb
+
+    emeritus_approvers:
+      - codificat       # 2021-03-03
 
   "^_posts/.*":
     labels:
