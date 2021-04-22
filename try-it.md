@@ -10,19 +10,20 @@ permalink: /try-it.html
   - [1.1. Prerequisites](#11-prerequisites)
   - [1.2. Setup](#12-setup)
   - [1.3. Using Custom Image](#13-using-custom-image)
+  - [1.4. Setting environment variables](#14-setting-environment-variables)
 - [2. Working with Environment](#2-working-with-environment)
   - [2.1. BareMetalHosts](#21-baremetalhosts)
   - [2.2. Provision Cluster and Machines](#22-provision-cluster-and-machines)
   - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
-  - [2.4. Image configuration (Centos 7 target hosts only)](#24-image-configuration-centos-7-target-hosts-only)
-  - [2.5. Directly Provision BareMetalHost](#25-directly-provision-baremetalhost)
-  - [2.6. Running Custom Baremetal-Operator](#26-running-custom-baremetal-operator)
-  - [2.7. Running Custom Cluster API Provider Metal3](#27-running-custom-cluster-api-provider-metal3)
-  - [2.8. Accessing Ironic API](#28-accessing-ironic-api)
+  - [2.4. Directly Provision BareMetalHost](#24-directly-provision-baremetalhost)
+  - [2.5. Running Custom Baremetal-Operator](#25-running-custom-baremetal-operator)
+  - [2.6. Running Custom Cluster API Provider Metal3](#26-running-custom-cluster-api-provider-metal3)
+  - [2.7. Accessing Ironic API](#27-accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
-## 1. Environment-Setup
+
+## 1. Environment Setup
 
 > info "Naming"
 > For the v1alpha3 release, the Cluster API provider for Metal3 was renamed from
@@ -43,7 +44,7 @@ permalink: /try-it.html
 
 This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for CentOS based setup only Minikube is currently supported. Ephemeral cluster creation tool can be manipulated with EPHEMERAL_CLUSTER environment variable.
 
-<p align="center">
+<p style="text-align: center">
   <img src="assets/images/metal3-dev-env.svg">
 </p>
 
@@ -78,13 +79,6 @@ $ make clean
 > When redeploying metal³-dev-env with a different release version of CAPM3, you
 > must set the `FORCE_REPO_UPDATE` variable in `config_${user}.sh` to _true_.
 
-### 1.3. Using Custom Image
-
-Whether you want to run target cluster Nodes with your own image, you can override the three following variables: `IMAGE_NAME`,
-`IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with name `IMAGE_NAME` does not
-exist in the `IRONIC_IMAGE_DIR` (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
-downloaded from the `IMAGE_LOCATION` value configured.
-
 > warning "Warning"
 > If you see this error during the installation:
 >
@@ -94,6 +88,22 @@ downloaded from the `IMAGE_LOCATION` value configured.
 > ```
 >
 > You may need to log out then login again, and run `make clean` and `make` again.
+
+### 1.3. Using Custom Image
+
+Whether you want to run target cluster Nodes with your own image, you can override the three following variables: `IMAGE_NAME`,
+`IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with name `IMAGE_NAME` does not
+exist in the `IRONIC_IMAGE_DIR` (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
+downloaded from the `IMAGE_LOCATION` value configured.
+
+### 1.4. Setting environment variables
+
+To set environment variables persistently, export them from the configuration file used by metal³-dev-env scripts:
+
+```bash
+$ cp config_example.sh config_$(whoami).sh
+$ vim config_$(whoami).sh
+```
 
 ## 2. Working with Environment
 
@@ -113,13 +123,13 @@ $ sudo virsh list
 
 Each of the VMs (aside from the `minikube` management cluster VM) are
 represented by `BareMetalHost` objects in our management cluster. The yaml
-defition file used to create these host objects is in `bmhosts_crs.yaml`.
+definition file used to create these host objects is in `bmhosts_crs.yaml`.
 
 ```sh
-$ kubectl get baremetalhosts -n metal3
-NAME     STATUS   PROVISIONING STATUS   CONSUMER   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0   OK       ready                            ipmi://192.168.111.1:6230   unknown            true
-node-1   OK       ready                            ipmi://192.168.111.1:6231   unknown            true
+$ kubectl get baremetalhosts -n metal3 -o wide
+NAME     STATUS   STATE   CONSUMER   BMC                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       ready              ipmi://192.168.111.1:6230   unknown            true
+node-1   OK       ready              ipmi://192.168.111.1:6231   unknown            true
 ```
 
 You can also look at the details of a host, including the hardware information
@@ -230,10 +240,10 @@ status:
 
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
-[v1alpha3](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
+[v1alpha4](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPM3_VERSION** set to **v1alpha3**. The v1alpha3 deployment can be done with
-Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successfull deployment:
+**CAPM3_VERSION** set to **v1alpha4**. This is the default behaviour. The v1alpha4 deployment can be done with
+Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successful deployment:
 
 The following scripts can be used to provision a cluster, controlplane node and worker node.
 
@@ -248,7 +258,7 @@ At this point, the `Machine` actuator will respond and try to claim a
 here:
 
 ```sh
-$ kubectl logs -n capm3 pod/capm3-manager-7bbc6897c7-bp2pw -c manager
+$ kubectl logs -n capm3-system pod/capm3-manager-7bbc6897c7-bp2pw -c manager
 
 09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
 09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
@@ -279,7 +289,7 @@ provisioned and associated with a `Machine`.
 ```sh
 $ kubectl get baremetalhosts -n metal3
 
-NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
+NAME     STATUS   STATE                 CONSUMER               BMC                         HARDWARE_PROFILE   ONLINE   ERROR
 node-0   OK       provisioning          test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            true
 node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            true
 ```
@@ -331,7 +341,7 @@ through a deprovisioning process too.
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
-NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE PROFILE   ONLINE   ERROR
+NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE_PROFILE   ONLINE   ERROR
 node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            false
 node-1   OK       deprovisioning        test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            false
 
@@ -339,85 +349,7 @@ $ kubectl get cluster -n metal3
 NAME    PHASE
 test1   deprovisioning
 ```
-
-### 2.4. Image Configuration (Centos 7 target hosts only)
-
-If you want to deploy Ubuntu hosts, please skip this section.
-
-As shown in the [prerequisites](#11-prerequisites) section, the preferred OS image for CentOS is version 8. Actually, for both the system where the metal3-dev-env environment is configured and the target cluster nodes.
-
-Wheter you still want to deploy Centos 7 for the target hosts, the following variables needs to be modified:
-
-```
-IMAGE_NAME_CENTOS="centos-updated.qcow2"
-IMAGE_LOCATION_CENTOS="http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2"
-IMAGE_OS=Centos
-```
-
-Additionally, you can let the Ansible `provision_controlplane.sh` and `provision_worker.sh` download the image automatically following the variables listed above or download the properly configured CentOS 7 image from the following location into the `IRONIC_IMAGE_DIR`:
-
-```sh
-curl -LO http://artifactory.nordix.org/artifactory/airship/images/centos.qcow2
-mv centos.qcow2 /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2
-md5sum /opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2 | \
-awk '{print $1}' > \
-/opt/metal3-dev-env/ironic/html/images/centos-updated.qcow2.md5sum
-```
-
-### 2.5. Directly Provision BareMetalHost
-
-It’s also possible to provision via the `BareMetalHost` interface directly
-without using the Cluster API integration.
-
-There is a helper script available to trigger provisioning of one of these
-hosts. To provision a host with CentOS, run:
-
-```sh
-$ ./provision_host.sh node-0
-```
-
-The `BareMetalHost` will go through the provisioning process, and will
-eventually reboot into the operating system we wrote to disk.
-
-```sh
-$ kubectl get baremetalhost node-0 -n metal3
-NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0     OK       provisioned                     ipmi://192.168.111.1:6230   unknown            true
-```
-
-`provision_host.sh` will inject your SSH public key into the VM. To find the IP
-address, you can check the DHCP leases on the `baremetal` libvirt network.
-
-```sh
-$ sudo virsh net-dhcp-leases baremetal
-
- Expiry Time          MAC address        Protocol  IP address                Hostname        Client ID or DUID
--------------------------------------------------------------------------------------------------------------------
- 2019-05-06 19:03:46  00:1c:cc:c6:29:39  ipv4      192.168.111.20/24         node-0          -
- 2019-05-06 19:04:18  00:1c:cc:c6:29:3d  ipv4      192.168.111.21/24         node-1          -
-```
-
-The default user for the CentOS image is `metal3`.
-
-```sh
-ssh metal3@192.168.111.20
-```
-
-There is another helper script to deprovision a host.
-
-```sh
-$ ./deprovision_host.sh node-0
-```
-
-You will then see the host go into a `deprovisioning` status:
-
-```sh
-$ kubectl get baremetalhost node-0 -n metal3
-NAME       STATUS   PROVISIONING STATUS   MACHINE   BMC                         HARDWARE PROFILE   ONLINE   ERROR
-node-0     OK       deprovisioning                  ipmi://192.168.111.1:6230   unknown            true
-```
-
-### 2.6. Running Custom Baremetal-Operator
+### 2.4. Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
 image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io/baremetal-operator) repository. If you’d like to test changes to the
@@ -439,7 +371,7 @@ cd ~/go/src/github.com/metal3-io/baremetal-operator
 make run
 ```
 
-### 2.7. Running Custom Cluster API Provider Metal3
+### 2.5. Running Custom Cluster API Provider Metal3
 
 There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
@@ -458,7 +390,7 @@ cd ~/go/src/github.com/metal3-io/cluster-api-provider-metal3
 make run
 ```
 
-### 2.8. Accessing Ironic API
+### 2.6. Accessing Ironic API
 
 Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
