@@ -7,6 +7,9 @@ filters:
       - hardys
       - knowncitizen
       - russellb
+    
+    reviewers:
+      - fmuyassarov
 
   "^_posts/.*":
     labels:
