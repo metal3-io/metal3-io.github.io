@@ -73,11 +73,11 @@ The following is an example of the BMH image spec field in Metal3 Dev Env.
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
 spec:
-    image:
-        format: raw
-        url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
-        checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
-        checksumType: md5
+  image:
+    format: raw
+    url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
+    checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
+    checksumType: md5
 ```
 
 If deploying with Cluster API provider Metal3 (CAPM3), CAPM3 takes care of
@@ -92,11 +92,11 @@ The following is an example of the M3M image spec field in metal3-dev-env :
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
 kind: Metal3Machine
 spec:
-    image:
-        format: raw
-        url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
-        checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
-        checksumType: md5
+  image:
+    format: raw
+    url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
+    checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
+    checksumType: md5
 ```
 
 The following is for a M3MT in metal3-dev-env :
@@ -105,13 +105,13 @@ The following is for a M3MT in metal3-dev-env :
 apiVersion: infrastructure.cluster.x-k8s.io/v1alpha3
 kind: Metal3MachineTemplate
 spec:
-    template:
-        spec:
-            image:
-                format: raw
-                url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
-                checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
-                checksumType: md5
+  template:
+    spec:
+      image:
+        format: raw
+        url: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img
+        checksum: http://172.22.0.1/images/bionic-server-cloudimg-amd64-raw.img.md5sum
+        checksumType: md5
 ```
 
 This will enable raw image streaming. By default, metal3-dev-env uses raw image

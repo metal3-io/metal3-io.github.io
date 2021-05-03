@@ -7,18 +7,18 @@ permalink: /try-it.html
 <!-- TOC depthFrom:2 insertAnchor:false orderedList:false updateOnSave:true withLinks:true -->
 
 - [1. Environment Setup](#1-environment-setup)
-    - [1.1. Prerequisites](#11-prerequisites)
-    - [1.2. Setup](#12-setup)
-    - [1.3. Using Custom Image](#13-using-custom-image)
+  - [1.1. Prerequisites](#11-prerequisites)
+  - [1.2. Setup](#12-setup)
+  - [1.3. Using Custom Image](#13-using-custom-image)
 - [2. Working with Environment](#2-working-with-environment)
-    - [2.1. BareMetalHosts](#21-baremetalhosts)
-    - [2.2. Provision Cluster and Machines](#22-provision-cluster-and-machines)
-    - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
-    - [2.4. Image configuration (Centos 7 target hosts only)](#24-image-configuration-centos-7-target-hosts-only)
-    - [2.5. Directly Provision BareMetalHost](#25-directly-provision-baremetalhost)
-    - [2.6. Running Custom Baremetal-Operator](#26-running-custom-baremetal-operator)
-    - [2.7. Running Custom Cluster API Provider Metal3](#27-running-custom-cluster-api-provider-metal3)
-    - [2.8. Accessing Ironic API](#28-accessing-ironic-api)
+  - [2.1. BareMetalHosts](#21-baremetalhosts)
+  - [2.2. Provision Cluster and Machines](#22-provision-cluster-and-machines)
+  - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
+  - [2.4. Image configuration (Centos 7 target hosts only)](#24-image-configuration-centos-7-target-hosts-only)
+  - [2.5. Directly Provision BareMetalHost](#25-directly-provision-baremetalhost)
+  - [2.6. Running Custom Baremetal-Operator](#26-running-custom-baremetal-operator)
+  - [2.7. Running Custom Cluster API Provider Metal3](#27-running-custom-cluster-api-provider-metal3)
+  - [2.8. Accessing Ironic API](#28-accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
@@ -26,7 +26,7 @@ permalink: /try-it.html
 
 > info "Naming"
 > For the v1alpha3 release, the Cluster API provider for Metal3 was renamed from
-> Cluster API provider BareMetal (CAPBM) to Cluster API provider Metal3 (CAPM3). Hence, 
+> Cluster API provider BareMetal (CAPBM) to Cluster API provider Metal3 (CAPM3). Hence,
 > from v1alpha3 onwards it is Cluster API provider Metal3.
 
 ### 1.1. Prerequisites
@@ -41,7 +41,7 @@ permalink: /try-it.html
 > info "Information"
 > If you need detailed information regarding the process of creating a Metal³ emulated environment using metal3-dev-env, it is worth taking a look at the blog post ["A detailed walkthrough of the Metal³ development environment"]({% post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
-This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for CentOS based setup only Minikube is currently supported. Ephemeral cluster creation tool can be manipulated with EPHEMERAL_CLUSTER environment variable. 
+This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for CentOS based setup only Minikube is currently supported. Ephemeral cluster creation tool can be manipulated with EPHEMERAL_CLUSTER environment variable.
 
 <p align="center">
   <img src="assets/images/metal3-dev-env.svg">
@@ -62,7 +62,7 @@ The `Makefile` runs a series of scripts, described here:
   were bare metal hosts. It also downloads some images needed for Ironic.
 
 - `03_launch_mgmt_cluster.sh` - Launches a management cluster using `minikube` or `kind`
-and runs the `baremetal-operator` on that cluster.
+  and runs the `baremetal-operator` on that cluster.
 
 - `04_verify.sh` - Runs a set of tests that verify that the deployment completed successfully.
 
@@ -73,9 +73,10 @@ To tear down the environment, run
 ```sh
 $ make clean
 ```
+
 > info "Note"
 > When redeploying metal³-dev-env with a different release version of CAPM3, you
-> must set the `FORCE_REPO_UPDATE` variable in `config_${user}.sh` to *true*.
+> must set the `FORCE_REPO_UPDATE` variable in `config_${user}.sh` to _true_.
 
 ### 1.3. Using Custom Image
 
@@ -86,10 +87,12 @@ downloaded from the `IMAGE_LOCATION` value configured.
 
 > warning "Warning"
 > If you see this error during the installation:
->```
+>
+> ```
 > error: failed to connect to the hypervisor \
 > error: Failed to connect socket to '/var/run/libvirt/libvirt-sock':  Permission denied
->```
+> ```
+>
 > You may need to log out then login again, and run `make clean` and `make` again.
 
 ## 2. Working with Environment
@@ -257,7 +260,7 @@ $ kubectl logs -n capm3 pod/capm3-manager-7bbc6897c7-bp2pw -c manager
 
 ```
 
-If you look at the yaml representation of the `Machine` object, you will see a 
+If you look at the yaml representation of the `Machine` object, you will see a
 new annotation that identifies which `BareMetalHost` was chosen to satisfy this
 `Machine` request.
 
@@ -283,8 +286,8 @@ node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.11
 
 You should be able to ssh into your host once provisioning is completed.
 The default username for both CentOS & Ubuntu image is `metal3`.
-For the IP address, you can either use API endpoint IP of the target cluster 
-which is - `192.168.111.249` by default or use predictable IP address of the first 
+For the IP address, you can either use API endpoint IP of the target cluster
+which is - `192.168.111.249` by default or use predictable IP address of the first
 master node - `192.168.111.100`.
 
 ```sh
@@ -311,7 +314,6 @@ $ kubectl scale machinedeployment test1-md-0 --replicas=0
 > control-plane and cluster are very tied together. This means that you are not able to deprovision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to deprovision the control-plane you need to **deprovision the cluster** as well and provision both again.
 
 Below, it is shown how the deprovisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR)
-
 
 ```sh
 $ kubectl delete machine test1-md-0-m87bq -n metal3
@@ -462,16 +464,16 @@ Sometimes you may want to look directly at Ironic to debug something.
 The metal3-dev-env repository contains a clouds.yaml file with
 connection settings for Ironic.
 
-Metal3-dev-env will install the unified OpenStack and standalone 
-OpenStack Ironic command-line clients on the provisioning host as 
-part of setting up the cluster. 
+Metal3-dev-env will install the unified OpenStack and standalone
+OpenStack Ironic command-line clients on the provisioning host as
+part of setting up the cluster.
 
 Note that currently you can use either unified OpenStack client
 or Ironic client. In this example we are using Ironic client to interact
 with Ironic API.
 
 Please make sure to export
-```CONTAINER_RUNTIME``` environment variable before you execute
+`CONTAINER_RUNTIME` environment variable before you execute
 commands.
 
 Example:
