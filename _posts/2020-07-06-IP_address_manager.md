@@ -101,7 +101,6 @@ spec:
   gateway: 2001:0db8:85a3:0000:0000:8a2d::1
 ```
 
-
 Whenever something requires an IP address from the `IPPool`, it will create an
 `IPClaim`. The `IPClaim` contains a pointer to the `IPPool` and an owner reference
 to the object that created it.
