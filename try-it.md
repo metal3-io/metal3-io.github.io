@@ -15,10 +15,9 @@ permalink: /try-it.html
   - [2.1. BareMetalHosts](#21-baremetalhosts)
   - [2.2. Provision Cluster and Machines](#22-provision-cluster-and-machines)
   - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
-  - [2.4. Directly Provision BareMetalHost](#24-directly-provision-baremetalhost)
-  - [2.5. Running Custom Baremetal-Operator](#25-running-custom-baremetal-operator)
-  - [2.6. Running Custom Cluster API Provider Metal3](#26-running-custom-cluster-api-provider-metal3)
-  - [2.7. Accessing Ironic API](#27-accessing-ironic-api)
+  - [2.4. Running Custom Baremetal-Operator](#24-running-custom-baremetal-operator)
+  - [2.5. Running Custom Cluster API Provider Metal3](#25-running-custom-cluster-api-provider-metal3)
+  - [2.6. Accessing Ironic API](#26-accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
@@ -48,7 +47,7 @@ This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu b
   <img src="assets/images/metal3-dev-env.svg">
 </p>
 
-tl;dr - Clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
+The short version is: clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
 and run
 
 ```sh
@@ -67,7 +66,7 @@ The `Makefile` runs a series of scripts, described here:
 
 - `04_verify.sh` - Runs a set of tests that verify that the deployment completed successfully.
 
-When the environment setup is completed, you should be able to see `BareMetalHost` (bmh) objects in Ready state.
+When the environment setup is completed, you should be able to see `BareMetalHost` (`bmh`) objects in Ready state.
 
 To tear down the environment, run
 
@@ -349,6 +348,7 @@ $ kubectl get cluster -n metal3
 NAME    PHASE
 test1   deprovisioning
 ```
+
 ### 2.4. Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
