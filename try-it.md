@@ -9,16 +9,16 @@ permalink: /try-it.html
 - [1. Environment Setup](#1-environment-setup)
   - [1.1. Prerequisites](#11-prerequisites)
   - [1.2. Setup](#12-setup)
-  - [1.3. Using Custom Image](#13-using-custom-image)
-  - [1.4. Setting environment variables](#14-setting-environment-variables)
+  - [1.3. Tear Down](#13-tear-down)
+  - [1.4. Using Custom Image](#14-using-custom-image)
+  - [1.5. Setting environment variables](#15-setting-environment-variables)
 - [2. Working with Environment](#2-working-with-environment)
   - [2.1. BareMetalHosts](#21-baremetalhosts)
   - [2.2. Provision Cluster and Machines](#22-provision-cluster-and-machines)
   - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
-  - [2.4. Directly Provision BareMetalHost](#24-directly-provision-baremetalhost)
-  - [2.5. Running Custom Baremetal-Operator](#25-running-custom-baremetal-operator)
-  - [2.6. Running Custom Cluster API Provider Metal3](#26-running-custom-cluster-api-provider-metal3)
-  - [2.7. Accessing Ironic API](#27-accessing-ironic-api)
+  - [2.4. Running Custom Baremetal-Operator](#24-running-custom-baremetal-operator)
+  - [2.5. Running Custom Cluster API Provider Metal3](#25-running-custom-cluster-api-provider-metal3)
+  - [2.6. Accessing Ironic API](#26-accessing-ironic-api)
 
 <!-- /TOC -->
 <hr>
@@ -48,7 +48,7 @@ This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu b
   <img src="assets/images/metal3-dev-env.svg">
 </p>
 
-tl;dr - Clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
+The short version is: clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
 and run
 
 ```sh
@@ -67,7 +67,9 @@ The `Makefile` runs a series of scripts, described here:
 
 - `04_verify.sh` - Runs a set of tests that verify that the deployment completed successfully.
 
-When the environment setup is completed, you should be able to see `BareMetalHost` (bmh) objects in Ready state.
+When the environment setup is completed, you should be able to see `BareMetalHost` (`bmh`) objects in Ready state.
+
+### 1.3. Tear Down
 
 To tear down the environment, run
 
@@ -89,14 +91,14 @@ $ make clean
 >
 > You may need to log out then login again, and run `make clean` and `make` again.
 
-### 1.3. Using Custom Image
+### 1.4. Using Custom Image
 
 Whether you want to run target cluster Nodes with your own image, you can override the three following variables: `IMAGE_NAME`,
 `IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with name `IMAGE_NAME` does not
 exist in the `IRONIC_IMAGE_DIR` (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
 downloaded from the `IMAGE_LOCATION` value configured.
 
-### 1.4. Setting environment variables
+### 1.5. Setting environment variables
 
 To set environment variables persistently, export them from the configuration file used by metal³-dev-env scripts:
 
@@ -258,7 +260,7 @@ At this point, the `Machine` actuator will respond and try to claim a
 here:
 
 ```sh
-$ kubectl logs -n capm3-system pod/capm3-manager-7bbc6897c7-bp2pw -c manager
+$ kubectl logs -n capm3-system pod/capm3-controller-manager-646878769b-qmrrp -c manager
 
 09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
 09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
@@ -349,6 +351,7 @@ $ kubectl get cluster -n metal3
 NAME    PHASE
 test1   deprovisioning
 ```
+
 ### 2.4. Running Custom Baremetal-Operator
 
 The `baremetal-operator` comes up running in the cluster by default, using an
@@ -359,7 +362,7 @@ First, you must scale down the deployment of the `baremetal-operator` running
 in the cluster.
 
 ```sh
-kubectl scale deployment metal3-baremetal-operator -n metal3 --replicas=0
+kubectl scale deployment capm3-baremetal-operator-controller-manager -n metal3 --replicas=0
 ```
 
 To be able to run `baremetal-operator` locally, you need to install
@@ -380,7 +383,7 @@ controller for Metal3. If you want to try changes to
 controller manager first.
 
 ```sh
-$ kubectl scale statefulset capm3-controller-manager -n capm3-system --replicas=0
+$ kubectl scale deployment capm3-controller-manager -n capm3-system --replicas=0
 ```
 
 Then you can run the custom Machine controller manager out of your local git tree.
