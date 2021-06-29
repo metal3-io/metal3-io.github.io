@@ -2,7 +2,6 @@
 filters:
   ".*":
     approvers:
-      - dhellmann
       - hardys
       - hroyrh
       - knowncitizen
@@ -18,7 +17,6 @@ filters:
     labels:
       - kind/blog
     approvers:
-      - dhellmann
       - hardys
       - maelk
       - russellb
