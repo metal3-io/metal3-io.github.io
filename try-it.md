@@ -118,7 +118,6 @@ hosts. You can see the VMs using `virsh`.
 $ sudo virsh list
  Id    Name                           State
 ----------------------------------------------------
- 6     minikube                       running
  9     node_0                         running
  10    node_1                         running
 ```
@@ -131,7 +130,7 @@ definition file used to create these host objects is in `bmhosts_crs.yaml`.
 $ kubectl get baremetalhosts -n metal3 -o wide
 NAME     STATUS   STATE   CONSUMER   BMC                         HARDWARE_PROFILE   ONLINE   ERROR
 node-0   OK       ready              ipmi://192.168.111.1:6230   unknown            true
-node-1   OK       ready              ipmi://192.168.111.1:6231   unknown            true
+node-1   OK       provisioned   test1-workers-gjcts        redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            true
 ```
 
 You can also look at the details of a host, including the hardware information
@@ -145,97 +144,172 @@ kind: BareMetalHost
 metadata:
   annotations:
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"metal3.io/v1alpha1","kind":"BareMetalHost","metadata":{"annotations":{},"name":"node-0","namespace":"metal3"},"spec":{"bmc":{"address":"ipmi://192.168.111.1:6230","credentialsName":"node-0-bmc-secret"},"bootMACAddress":"00:f8:16:dd:3b:9b","online":true}}
-  creationTimestamp: "2020-02-05T09:09:44Z"
+      {"apiVersion":"metal3.io/v1alpha1","kind":"BareMetalHost","metadata":{"annotations":{},"name":"node-0","namespace":"metal3"},"spec":{"bmc":{"address":"ipmi://192.168.111.1:6230","credentialsName":"node-0-bmc-secret"},"bootMACAddress":"00:ee:d0:b8:47:7d","bootMode":"legacy","online":true}}
+  creationTimestamp: "2021-07-12T11:04:10Z"
   finalizers:
   - baremetalhost.metal3.io
   generation: 1
   name: node-0
   namespace: metal3
-  resourceVersion: "16312"
-  selfLink: /apis/metal3.io/v1alpha1/namespaces/metal3/baremetalhosts/node-0
-  uid: 99f4c905-b850-45e0-bf1b-61b12f91182b
+  resourceVersion: "3243"
+  uid: 3bd8b945-a3e8-43b9-b899-2f869680d28c
 spec:
+  automatedCleaningMode: metadata
   bmc:
     address: ipmi://192.168.111.1:6230
     credentialsName: node-0-bmc-secret
-  bootMACAddress: 00:f8:16:dd:3b:9b
+  bootMACAddress: 00:ee:d0:b8:47:7d
+  bootMode: legacy
   online: true
 status:
+  errorCount: 0
   errorMessage: ""
   goodCredentials:
     credentials:
       name: node-0-bmc-secret
       namespace: metal3
-    credentialsVersion: "1242"
+    credentialsVersion: "1789"
   hardware:
     cpu:
       arch: x86_64
-      clockMegahertz: 2399.998
-      count: 4
+      clockMegahertz: 2694
+      count: 2
+      flags:
+      - aes
+      - apic
+      - arat
+      - arch_capabilities
+      - avx
+      - clflush
+      - cmov
+      - constant_tsc
+      - cpuid
+      - cpuid_fault
+      - cx16
+      - cx8
+      - de
+      - ept
+      - ept_ad
+      - erms
+      - f16c
+      - flexpriority
+      - fpu
+      - fsgsbase
+      - fxsr
+      - hypervisor
+      - lahf_lm
+      - lm
+      - mca
+      - mce
+      - mmx
+      - msr
+      - mtrr
+      - nopl
+      - nx
+      - pae
+      - pat
+      - pcid
+      - pclmulqdq
+      - pge
+      - pni
+      - popcnt
+      - pse
+      - pse36
+      - pti
+      - rdrand
+      - rdtscp
+      - rep_good
+      - sep
+      - smep
+      - sse
+      - sse2
+      - sse4_1
+      - sse4_2
+      - ssse3
+      - syscall
+      - tpr_shadow
+      - tsc
+      - tsc_adjust
+      - tsc_deadline_timer
+      - tsc_known_freq
+      - umip
+      - vme
+      - vmx
+      - vnmi
+      - vpid
+      - x2apic
+      - xsave
+      - xsaveopt
+      - xtopology
       model: Intel Xeon E3-12xx v2 (Ivy Bridge)
     firmware:
       bios:
         date: 04/01/2014
         vendor: SeaBIOS
-        version: 1.10.2-1ubuntu1
+        version: 1.13.0-1ubuntu1.1
     hostname: node-0
     nics:
-    - ip: 192.168.111.20
-      mac: 00:f8:16:dd:3b:9d
+    - ip: 172.22.0.20
+      mac: 00:ee:d0:b8:47:7d
       model: 0x1af4 0x0001
-      name: eth1
-      pxe: false
-      speedGbps: 0
-      vlanId: 0
-    - ip: 172.22.0.47
-      mac: 00:f8:16:dd:3b:9b
-      model: 0x1af4 0x0001
-      name: eth0
+      name: enp1s0
       pxe: true
-      speedGbps: 0
-      vlanId: 0
-    ramMebibytes: 8192
+    - ip: fe80::1863:f385:feab:381c%enp1s0
+      mac: 00:ee:d0:b8:47:7d
+      model: 0x1af4 0x0001
+      name: enp1s0
+      pxe: true
+    - ip: 192.168.111.20
+      mac: 00:ee:d0:b8:47:7f
+      model: 0x1af4 0x0001
+      name: enp2s0
+    - ip: fe80::521c:6a5b:f79:9a75%enp2s0
+      mac: 00:ee:d0:b8:47:7f
+      model: 0x1af4 0x0001
+      name: enp2s0
+    ramMebibytes: 4096
     storage:
     - hctl: "0:0:0:0"
       model: QEMU HARDDISK
       name: /dev/sda
       rotational: true
-      serialNumber: drivMetal3-dev-env setupe-scsi0-0-0-0
+      serialNumber: drive-scsi0-0-0-0
       sizeBytes: 53687091200
+      type: HDD
       vendor: QEMU
     systemVendor:
       manufacturer: QEMU
       productName: Standard PC (Q35 + ICH9, 2009)
-      serialNumber: ""
   hardwareProfile: unknown
-  lastUpdated: "2020-02-05T10:10:49Z"
+  lastUpdated: "2021-07-12T11:08:53Z"
   operationHistory:
     deprovision:
       end: null
       start: null
     inspect:
-      end: "2020-02-05T09:15:08Z"
-      start: "2020-02-05T09:11:33Z"
+      end: "2021-07-12T11:08:23Z"
+      start: "2021-07-12T11:04:55Z"
     provision:
       end: null
       start: null
     register:
-      end: "2020-02-05T09:11:33Z"
-      start: "2020-02-05T09:10:32Z"
+      end: "2021-07-12T11:04:55Z"
+      start: "2021-07-12T11:04:44Z"
   operationalStatus: OK
   poweredOn: true
   provisioning:
-    ID: b605df1d-7674-44ad-9810-20ad3e3c558b
+    ID: 8effe29b-62fe-4fb6-9327-a3663550e99d
+    bootMode: legacy
     image:
-      checksum: ""
       url: ""
+    rootDeviceHints:
+      deviceName: /dev/sda
     state: ready
   triedCredentials:
     credentials:
       name: node-0-bmc-secret
       namespace: metal3
-    credentialsVersion: "1242"
+    credentialsVersion: "1789"
 ```
 
 ### 2.2. Provision Cluster and Machines
@@ -244,7 +318,7 @@ This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1alpha4](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPM3_VERSION** set to **v1alpha4**. This is the default behaviour. The v1alpha4 deployment can be done with
+**CAPM3_VERSION** set to **v1alpha4**. This is the default behavior. The v1alpha4 deployment can be done with
 Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successful deployment:
 
 The following scripts can be used to provision a cluster, controlplane node and worker node.
@@ -255,12 +329,26 @@ $ ./scripts/provision/controlplane.sh
 $ ./scripts/provision/worker.sh
 ```
 
+
 At this point, the `Machine` actuator will respond and try to claim a
-`BareMetalHost` for this `Machine`. You can check the logs of the actuator
-here:
+`BareMetalHost` for this `Machine`. You can check the logs of the actuator.
+
+First check the names of the pods running in the `capm3-system` namespace and the output should be something similar
+to this:
 
 ```sh
-$ kubectl logs -n capm3-system pod/capm3-controller-manager-646878769b-qmrrp -c manager
+$ kubectl -n capm3-system get pods
+NAME                                                           READY   STATUS    RESTARTS   AGE
+capm3-baremetal-operator-controller-manager-7fd6769dc5-2krhm   2/2     Running   2          10m
+capm3-controller-manager-5d968ffd9d-8f6jz                      2/2     Running   0          10m
+capm3-ipam-controller-manager-6b77b87b46-nrrmt                 2/2     Running   0          10m
+```
+
+In order to get the logs of the actuator the logs of the capm3-controller-manager instance has to be queried with
+the following command:
+
+```sh
+$ kubectl logs -n capm3-system pod/capm3-controller-manager-5d968ffd9d-8f6jz -c manager
 
 09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
 09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
@@ -272,13 +360,27 @@ $ kubectl logs -n capm3-system pod/capm3-controller-manager-646878769b-qmrrp -c 
 
 ```
 
-If you look at the yaml representation of the `Machine` object, you will see a
+Keep in mind that the suffix hashes e.g. `5d968ffd9d-8f6jz` are automatically generated and change in case of a different
+deployment.
+
+If you look at the yaml representation of the `Metal3Machine` object, you will see a
 new annotation that identifies which `BareMetalHost` was chosen to satisfy this
-`Machine` request.
+`Metal3Machine` request.
+
+First list the machine objects present in the `metal3` namespace:
 
 ```sh
-$ kubectl get machine centos -n metal3 -o yaml
+$ kubectl get metal3machines -n metal3
+NAME                       PROVIDERID                                      READY   CLUSTER   PHASE
+test1-controlplane-ssd56   metal3://d4848820-55fd-410a-b902-5b2122dd206c   true    test1
+test1-workers-gjcts        metal3://ee337588-be96-4d5b-95b9-b7375969debd   true    test1
+```
 
+Based on the name of the `Metal3Machine` objects you can check the yaml representation of the object and
+see which `BareMetalHost` was chosen.
+
+```sh
+$ kubectl get metal3machine test1-workers-gjcts -n metal3 -o yaml
 ...
   annotations:
     metal3.io/BareMetalHost: metal3/node-1
@@ -286,15 +388,44 @@ $ kubectl get machine centos -n metal3 -o yaml
 ```
 
 You can also see in the list of `BareMetalHosts` that one of the hosts is now
-provisioned and associated with a `Machine`.
+provisioned and associated with a `Metal3Machines` by looking at the `CONSUMER` output column of the following command:
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
-
-NAME     STATUS   STATE                 CONSUMER               BMC                         HARDWARE_PROFILE   ONLINE   ERROR
-node-0   OK       provisioning          test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            true
-node-1   OK       provisioning          test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            true
+NAME     STATUS   STATE         CONSUMER                   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       provisioned   test1-controlplane-ssd56   ipmi://192.168.111.1:6230                                                                   unknown            true
+node-1   OK       provisioned   test1-workers-gjcts        redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            true
 ```
+
+It is also possible to check that which `Metal3Machine` serves as infrastructure for the ClusterAPI `Machine`
+objects.
+
+First list the `Machine` objects:
+
+```sh
+$ kubectl get machine -n metal3
+NAME                     PROVIDERID                                      PHASE     VERSION
+test1-75678f6485-z928j   metal3://ee337588-be96-4d5b-95b9-b7375969debd   Running   v1.21.2
+test1-m77bn              metal3://d4848820-55fd-410a-b902-5b2122dd206c   Running   v1.21.2
+```
+
+As a next step you can check what serves as the infrastructure backend for e.g. `test1-75678f6485-z928j` `Machine`
+object:
+
+```sh
+$ kubectl get machine test1-75678f6485-z928j -n metal3 -o yaml
+...
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+    kind: Metal3Machine
+    name: test1-workers-gjcts
+    namespace: metal3
+    uid: 9adaec5f-f72b-4674-9f8f-1dc6c9039755
+...
+```
+
+Based on the result of  the query `test1-75678f6485-z928j` ClusterAPI `Machine` object is backed by
+`test1-workers-gjcts` `Metal3Machine` object.
 
 You should be able to ssh into your host once provisioning is completed.
 The default username for both CentOS & Ubuntu image is `metal3`.
@@ -325,31 +456,45 @@ $ kubectl scale machinedeployment test1-md-0 --replicas=0
 > warning "Warning"
 > control-plane and cluster are very tied together. This means that you are not able to deprovision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to deprovision the control-plane you need to **deprovision the cluster** as well and provision both again.
 
-Below, it is shown how the deprovisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR)
+Below, it is shown how the deprovisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR).
+
+The order of deletion is:
+1. Metal3Machine objects of the workers
+2. Machine objects of the workers
+3. Metal3Machine objects of the control plane
+4. Machine objects of the control plane
+5. The cluster object
+
+An additional details is that the `Machine` object `test1-workers-gjcts` is controlled by the the `test1` `MachineDeployment`
+object thus in order to avoid reprovisioning of the `Machine` object the  `MachineDeployment` has to be deleted instead of the `Machine` object in the case of `test1-workers-gjcts`.
 
 ```sh
-$ kubectl delete machine test1-md-0-m87bq -n metal3
-machine.cluster.x-k8s.io "test1-md-0-m87bq" deleted
+$ kubectl delete machinedeployment test1 -n metal3
+machinedeployment.cluster.x-k8s.io "test1" deleted
 
-$ kubectl delete machine test1-controlplane-0 -n metal3
-machine.cluster.x-k8s.io "test1-controlplane-0" deleted
+$ kubectl delete metal3machine test1-workers-gjcts -n metal3
+machine.cluster.x-k8s.io "test1-75678f6485-z928j" deleted
+
+$ kubectl delete machine test1-m77bn -n metal3
+machine.cluster.x-k8s.io "test1-m77bn" deleted
+
+$ kubectl delete metal3machine test1-controlplane-ssd56 -n metal3
+machine.cluster.x-k8s.io "test1-controlplane-ssd56" deleted
 
 $ kubectl delete cluster test1 -n metal3
 cluster.cluster.x-k8s.io "test1" deleted
 ```
 
-Once the deprovisioning is started, you can see that the `BareMetalHost` and `Cluster` are going
-through a deprovisioning process too.
+Once the deletion has finished, you can see that the `BareMetalHosts` are offline  and `Cluster` object is not present anymore
 
 ```sh
 $ kubectl get baremetalhosts -n metal3
-NAME     STATUS   PROVISIONING STATUS   CONSUMER               BMC                         HARDWARE_PROFILE   ONLINE   ERROR
-node-0   OK       deprovisioning        test1-md-0-m87bq       ipmi://192.168.111.1:6230   unknown            false
-node-1   OK       deprovisioning        test1-controlplane-0   ipmi://192.168.111.1:6231   unknown            false
+NAME     STATUS   STATE   CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       ready              ipmi://192.168.111.1:6230                                                                   unknown            false
+node-1   OK       ready              redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            false
 
 $ kubectl get cluster -n metal3
-NAME    PHASE
-test1   deprovisioning
+No resources found in metal3 namespace.
 ```
 
 ### 2.4. Running Custom Baremetal-Operator
