@@ -1,0 +1,1587 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>A detailed walkthrough of the Metal³ development environment | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="Alberto Losada" >
+    <meta property="og:type" content="article" >
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="metal3, baremetal, metal3-dev-env, documentation, development" >
+    <meta property="og:title" content="A detailed walkthrough of the Metal³ development environment | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="Alberto Losada" >
+    <meta property="og:article:published_time" content="2020-02-18 04:09:00 -0600" >
+    <meta name="twitter:title" content="A detailed walkthrough of the Metal³ development environment | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <nav role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="/documentation.html">Documentation</a></li>
+          <li ><a class="mk-main-nav__item" href="/try-it.html">Try It!</a></li>
+          <li >
+            <form action="/search.html" method="get" autocomplete="off">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="search term" name="query">
+              </div>
+              <input id="search-button" type="submit" value="🔍" disabled='true'>
+            </form>
+          </li>
+      </li>
+
+
+        </ul>
+      </nav>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+        <h1 class="mk-masthead__content--sub__title">Blog</h1>
+        <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
+</div>
+</section>
+<main class="mk-main mk-blog">
+            <article class="mk-main__section mk-main__content mk-main__section__content">
+                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">A detailed walkthrough of the Metal³ development environment</h1>
+                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Tuesday, 18/02/2020</time>
+                    <div class="mk-blog-meta__item mk-blog-meta__author">By Alberto Losada</div>
+                    <div class="mk-blog-meta__categories">
+                                
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
+                                  metal3
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#baremetal">
+                                  baremetal
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3-dev-env">
+                                  metal3-dev-env
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#documentation">
+                                  documentation
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#development">
+                                  development
+                                </a>
+                              
+                </div>
+
+<div class="mk-share-buttons">
+
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Share on Facebook" >
+            <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 1024 1024" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	<path d="M1024,512C1024,229.2,794.8,0,512,0S0,229.2,0,512c0,255.6,187.2,467.4,432,505.8V660H302V512h130V399.2   C432,270.9,508.4,200,625.4,200c56,0,114.6,10,114.6,10v126h-64.6c-63.6,0-83.4,39.5-83.4,80v96h142l-22.7,148H592v357.8   C836.8,979.4,1024,767.6,1024,512z"/>
+	<path class="st0" d="M711.3,660L734,512H592v-96c0-40.5,19.8-80,83.4-80H740V210c0,0-58.6-10-114.6-10   c-117,0-193.4,70.9-193.4,199.2V512H302v148h130v357.8c26.1,4.1,52.8,6.2,80,6.2s53.9-2.1,80-6.2V660H711.3z"/>
+</svg>Share on Facebook</a> -->
+
+
+        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=A detailed walkthrough of the Metal³ development environment&url=https://metal3.io/blog/2020/02/18/metal3-dev-env-install-deep-dive.html"
+        onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+        title="Share on Twitter" >
+        <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 250 203.1" version="1.1" viewBox="0 0 250 203.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<path class="st1" d="m78.6 203.1c94.3 0 145.9-78.2 145.9-145.9 0-2.2 0-4.4-0.1-6.6 10-7.3 18.7-16.3 25.6-26.5-9.4 4.1-19.3 6.9-29.5 8.1 10.7-6.4 18.7-16.5 22.5-28.4-10.1 6-21.1 10.2-32.6 12.4-19.4-20.7-51.9-21.7-72.6-2.2-13.3 12.5-19 31.2-14.8 49-41.1-2.1-79.6-21.6-105.6-53.6-13.6 23.4-6.7 53.4 15.9 68.4-8.2-0.2-16.1-2.4-23.3-6.4v0.6c0 24.4 17.2 45.4 41.2 50.3-7.6 2.1-15.5 2.4-23.2 0.9 6.7 20.9 26 35.2 47.9 35.6-18.2 14.3-40.6 22-63.7 22-4.1 0-8.2-0.3-12.2-0.7 23.5 15.1 50.7 23 78.6 23"/>
+</svg> Share on Twitter
+    </a>
+</div>
+        <h2 id="introduction-to-metal3-dev-env"><strong>Introduction to metal3-dev-env</strong></h2>
+
+<p>The <a href="https://github.com/metal3-io/metal3-dev-env">metal3-dev-env</a> is a collection of scripts in a Github repository inside the <a href="https://github.com/metal3-io?type=source">Metal³</a> project that aims to allow contributors and other interested users to run a fully functional Metal³ environment for testing and have a first contact with the project. Actually, <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> sets up an <strong>emulated environment</strong> which creates a set of virtual machines (VMs) to manage as if they were bare metal hosts.</p>
+
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>This is not an installation that is supposed to be run in production. Instead, it is focused on providing a development environment to test and validate new features.</p>
+
+
+</div></div>
+<p>The <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> repository includes a set of scripts, libraries and resources used to set up a Metal³ development environment. On the <a href="https://metal3.io/try-it.html">Metal³ website</a> there is already a documented process on how to use the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> scripts to set up a fully functional cluster to test the functionality of the Metal³ components.</p>
+
+<p>This procedure at 10,000 foot view is composed by 3 bash scripts plus a verification one:</p>
+
+<ul>
+  <li><strong>01_prepare_host.sh</strong> - Mainly installs all needed packages.</li>
+  <li><strong>02_configure_host.sh</strong> - Basically create a set of VMs that will be managed as if they were bare metal hosts. It also downloads some images needed for Ironic.</li>
+  <li><strong>03_launch_mgmt_cluster.sh</strong> - Launches a management cluster using minikube and runs the baremetal-operator on that cluster.</li>
+  <li><strong>04_verify.sh</strong> - Finally runs a set of tests that verify that the deployment completed successfully</li>
+</ul>
+
+<p>In this blog post we are going to expand the information and provide some hints and recommendations.</p>
+
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>Metal³ project is changing rapidly, so probably this information is valuable in the short term. In any case, it is encouraged to double check that the information provided is still valid.</p>
+
+
+</div></div>
+<p>Before get down to it, it is worth defining the nomenclature used along the blog post:</p>
+
+<ul>
+  <li><strong>Host.</strong> It is the server where the virtual environment is running. In this case it is a physical PowerEdge M520 with 2 x Intel(R) Xeon(R) CPU E5-2450 v2 @ 2.50GHz, 96GB RAM and a 140GB drive running CentOS 7 latest. Do not panic, lab environment should work with lower resources as well.</li>
+  <li><strong>Virtual bare metal hosts.</strong> These are the virtual machines (KVM based) that are running on the host which are emulating physical hosts in our lab. They are also called bare metal hosts even if they are not physical servers.</li>
+  <li><strong>Management or bootstrap cluster.</strong> It is a fully functional Kubernetes cluster in charge of running all the necessary Metal³ operators and controllers to manage the infrastructure. In this case it is the minikube virtual machine.</li>
+  <li><strong>Target cluster.</strong> It is the Kubernetes cluster created from the management one. It is provisioned and configured using a native Kubernetes API for that purpose.</li>
+</ul>
+
+<h2 id="create-the-metal-laboratory"><strong>Create the Metal³ laboratory</strong></h2>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>A non-root user must exist in the host with password-less sudo access. This user is in charge of running the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> scripts.</p>
+
+
+</div></div>
+<p>First thing that needs to be done is, obviously, cloning the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> repository:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1: ~]<span class="nv">$ </span>git clone https://github.com/metal3-io/metal3-dev-env.git
+Cloning into <span class="s1">'metal3-dev-env'</span>...
+remote: Enumerating objects: 22, <span class="k">done</span><span class="nb">.</span>
+remote: Counting objects: 100% <span class="o">(</span>22/22<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Compressing objects: 100% <span class="o">(</span>22/22<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+remote: Total 1660 <span class="o">(</span>delta 8<span class="o">)</span>, reused 8 <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused 1638
+Receiving objects: 100% <span class="o">(</span>1660/1660<span class="o">)</span>, 446.08 KiB | 678.00 KiB/s, <span class="k">done</span><span class="nb">.</span>
+Resolving deltas: 100% <span class="o">(</span>870/870<span class="o">)</span>, <span class="k">done</span><span class="nb">.</span>
+</code></pre></div></div>
+
+<p>Before starting to deploy the Metal³ environment, it makes sense to detail a series of scripts inside the library folder that will be sourced in every step of the installation process. They are called <em>shared libraries</em>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1:~]<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-1</span> metal3-dev-env/lib/
+common.sh
+images.sh
+logging.sh
+network.sh
+</code></pre></div></div>
+
+<h3 id="shared-libraries">Shared libraries</h3>
+
+<p>Although there are several scripts placed inside the lib folder that are sourced in some of the deployment steps, <code class="language-plaintext highlighter-rouge">common.sh</code> and <code class="language-plaintext highlighter-rouge">logging.sh</code> are the only ones used in all of the executions during the installation process.</p>
+
+<h4 id="commonsh"><strong>common.sh</strong></h4>
+
+<p>First time this library is run, a new configuration file is created with several variables along with their default values. They will be used during the installation process. On the other hand, if the file already exists, then it just sources the values configured. The configuration file is created inside the cloned folder with <code class="language-plaintext highlighter-rouge">config_$USER</code> as file name.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span> <span class="nb">ls </span>config_<span class="k">*</span>
+config_alosadag.sh
+</code></pre></div></div>
+
+<p>The configuration file contains multiple variables that will be used during the set up. Some of them are detailed <a href="https://metal3.io/try-it.html#setup">in the setup section of the Metal³ try-it web page</a>. In case you need to add or change global variables it should be done in this config file.</p>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>I personally recommend modify or add variables in this config file instead of exporting them in the shell. By doing that, it is assured that they are persisted</p>
+
+
+</div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span><span class="nb">cat</span> ~/metal3-dev-env/config_alosadag.sh
+<span class="c">#!/bin/bash</span>
+<span class="c">#</span>
+<span class="c"># This is the subnet used on the "baremetal" libvirt network, created as the</span>
+<span class="c"># primary network interface for the virtual bare metalhosts.</span>
+<span class="c">#</span>
+<span class="c"># Default of 192.168.111.0/24 set in lib/common.sh</span>
+<span class="c">#</span>
+<span class="c">#export EXTERNAL_SUBNET="192.168.111.0/24"</span>
+<span class="c">#</span>
+<span class="c"># This SSH key will be automatically injected into the provisioned host</span>
+<span class="c"># by the provision_host.sh script.</span>
+<span class="c">#</span>
+<span class="c"># Default of ~/.ssh/id_rsa.pub is set in lib/common.sh</span>
+<span class="c">#</span>
+<span class="c">#export SSH_PUB_KEY=~/.ssh/id_rsa.pub</span>
+...
+</code></pre></div></div>
+
+<p>This <code class="language-plaintext highlighter-rouge">common.sh</code> library also makes sure there is a ssh public key available in the user’s ssh folder. This key will be injected by <code class="language-plaintext highlighter-rouge">cloud-init</code> in all the virtual bare metal machines that will be configured later. Then, the user that executed the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> scripts is able to access the target cluster through ssh.</p>
+
+<p>Also, <code class="language-plaintext highlighter-rouge">common.sh</code> library also sets more global variables apart from the those in the config file. Note that these variables can be added to the config file along with the proper values for your environment.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Name of the variable</strong></th>
+      <th><strong>Default value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SSH_KEY</td>
+      <td>${HOME}/.ssh/id_rsa</td>
+    </tr>
+    <tr>
+      <td>SSH_PUB_KEY</td>
+      <td>${SSH_KEY}.pub</td>
+    </tr>
+    <tr>
+      <td>NUM_NODES</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>VM_EXTRADISKS</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>DOCKER_REGISTRY_IMAGE</td>
+      <td>docker.io/registry:latest</td>
+    </tr>
+    <tr>
+      <td>VBMC_IMAGE</td>
+      <td>quay.io/metal3-io/vbmc</td>
+    </tr>
+    <tr>
+      <td>SUSHY_TOOLS_IMAGE</td>
+      <td>quay.io/metal3-io/sushy-tools</td>
+    </tr>
+    <tr>
+      <td>IPA_DOWNLOADER_IMAGE</td>
+      <td>quay.io/metal3-io/ironic-ipa-downloader</td>
+    </tr>
+    <tr>
+      <td>IRONIC_IMAGE</td>
+      <td>quay.io/metal3-io/ironic</td>
+    </tr>
+    <tr>
+      <td>IRONIC_INSPECTOR_IMAGE</td>
+      <td>quay.io/metal3-io/ironic-inspector</td>
+    </tr>
+    <tr>
+      <td>BAREMETAL_OPERATOR_IMAGE</td>
+      <td>quay.io/metal3-io/baremetal-operator</td>
+    </tr>
+    <tr>
+      <td>CAPM3_VERSION</td>
+      <td>v1alpha3</td>
+    </tr>
+    <tr>
+      <td>CAPBM_IMAGE</td>
+      <td>quay.io/metal3-io/cluster-api-provider-baremetal:v1alpha1</td>
+    </tr>
+    <tr>
+      <td>CAPBM_IMAGE</td>
+      <td>quay.io/metal3-io/cluster-api-provider-baremetal</td>
+    </tr>
+    <tr>
+      <td>DEFAULT_HOSTS_MEMORY</td>
+      <td>8192</td>
+    </tr>
+    <tr>
+      <td>CLUSTER_NAME</td>
+      <td>test1</td>
+    </tr>
+    <tr>
+      <td>KUBERNETES_VERSION</td>
+      <td>v1.17.0</td>
+    </tr>
+    <tr>
+      <td>KUSTOMIZE_VERSION</td>
+      <td>v3.2.3</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>It is important to mention that there are several basic functions defined in this file that will be used by the rest of scripts.</p>
+
+
+</div></div>
+<h4 id="loggingsh"><strong>logging.sh</strong></h4>
+
+<p>This script ensures that there is a log folder where all the information gathered during the execution of the scripts is stored. If there is any issue during the deployment, this is one of the first places to look at.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span><span class="nb">ls</span> <span class="nt">-1</span> logs/
+01_prepare_host-2020-02-03-122452.log
+01_prepare_host-2020-02-03-122956.log
+host_cleanup-2020-02-03-122656.log
+</code></pre></div></div>
+
+<h2 id="first-step-prepare-the-host"><strong>First step: Prepare the host</strong></h2>
+
+<p>In this first step (<code class="language-plaintext highlighter-rouge">01_prepare_host.sh</code>), the requirements needed to start the preparation of the host where the virtual bare metal hosts will run are fulfilled. Depending on the host’s operating system (OS), it will trigger a specific script for <code class="language-plaintext highlighter-rouge">CentOS/Red Hat</code> or <code class="language-plaintext highlighter-rouge">Ubuntu</code>.</p>
+
+<blockquote>
+  <p>note: “Note”
+Currently <code class="language-plaintext highlighter-rouge">CentOS Linux 7</code>, <code class="language-plaintext highlighter-rouge">Red Hat Enterprise Linux 8</code> and <code class="language-plaintext highlighter-rouge">Ubuntu</code> have been tested. <a href="https://github.com/metal3-io/metal3-dev-env/pull/157">There is work in progress to adapt the deployment for CentOS Linux 8.</a></p>
+</blockquote>
+
+<p>As stated previously, <code class="language-plaintext highlighter-rouge">CentOS 7</code> is the operating system chosen to run in both, the host and virtual servers. Therefore, specific packages of the operating system are applied in the following script:</p>
+
+<blockquote>
+  <ul>
+    <li><strong>centos_install_requirements.sh</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>This script enables <code class="language-plaintext highlighter-rouge">epel</code> and <code class="language-plaintext highlighter-rouge">tripleo</code> (current-tripleo) repositories where several packages are installed: <code class="language-plaintext highlighter-rouge">dnf</code>, <code class="language-plaintext highlighter-rouge">ansible</code>, <code class="language-plaintext highlighter-rouge">wget</code>, <code class="language-plaintext highlighter-rouge">python3</code> and python related packages such as <code class="language-plaintext highlighter-rouge">python-virtualbmc</code> from tripleo repository.</p>
+</blockquote>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>Notice that <em>SELinux</em> is set to <em>permissive</em> and an OS update is triggered, which will cause several packages to be upgraded since there are newer packages in the tripleo repositories (mostly python related) than in the rest of enabled repositories.
+At this point, the container runtime is also installed. Note that by setting the variable <code class="language-plaintext highlighter-rouge">CONTAINER_RUNTIME</code> defined in <a href="#commonsh">common.sh</a> is possible to choose between docker and podman, which is the default for CentOS. Remember that this behaviour can be overwritten in your config file.</p>
+
+
+</div></div>
+<p>Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually <em>minikube</em>, <em>kubectl</em> and <em>kustomize</em> are downloaded from the internet. Notice that the version of Kustomize and Kubernetes are defined by <code class="language-plaintext highlighter-rouge">KUSTOMIZE_VERSION</code> and <code class="language-plaintext highlighter-rouge">KUBERNETES_VERSION</code> variables inside <a href="#commonsh">common.sh</a>, but minikube is always downloading the latest version available.</p>
+
+<p>Next step deals with cleaning ironic containers and <strong>pods</strong> that could be running in the host from failed deployments. This will ensure that there will be no issues when creating <code class="language-plaintext highlighter-rouge">ironic-pod</code> and <code class="language-plaintext highlighter-rouge">infra-pod</code> a little bit later in this first step.</p>
+
+<blockquote>
+  <ul>
+    <li><strong>network.sh.</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>At this point, the network library script is sourced. As expected, this library deals with the network configuration which includes: IP addresses, network definitions and IPv6 support which is disabled by default by setting <code class="language-plaintext highlighter-rouge">PROVISIONING_IPV6</code> variable:</p>
+
+  <blockquote>
+
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <table>
+    <thead>
+      <tr>
+        <th>Name of the variable</th>
+        <th>Default value</th>
+        <th>Option</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>PROVISIONING_NETWORK</td>
+        <td>172.22.0.0/24</td>
+        <td>This is the subnet used to run the OS provisioning process</td>
+      </tr>
+      <tr>
+        <td>EXTERNAL_SUBNET</td>
+        <td>192.168.111.0/24</td>
+        <td>This is the subnet used on the “baremetal” libvirt network, created as the primary network interface for the virtual bare metal hosts</td>
+      </tr>
+      <tr>
+        <td>LIBVIRT_FIRMWARE</td>
+        <td>bios</td>
+        <td> </td>
+      </tr>
+      <tr>
+        <td>PROVISIONING_IPV6</td>
+        <td>false</td>
+        <td> </td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<blockquote>
+  <p>Below it is depicted a network diagram of the different virtual networks and virtual servers involved in the Metal³ environment:</p>
+</blockquote>
+
+<p><img src="/assets/2020-02-18-metal3-dev-env-install-deep-dive/metal3-dev-env.resized.png" alt="metal³ dev env virtual networking" /></p>
+
+<blockquote>
+  <ul>
+    <li><strong>images.sh.</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>The <code class="language-plaintext highlighter-rouge">images.sh</code> library file is sourced as well in script <code class="language-plaintext highlighter-rouge">01_prepare_host.sh</code>. The <code class="language-plaintext highlighter-rouge">images.sh</code> script contains multiple variables that set the URL (<code class="language-plaintext highlighter-rouge">IMAGE_LOCATION</code>), name (<code class="language-plaintext highlighter-rouge">IMAGE_NAME</code>) and default username (<code class="language-plaintext highlighter-rouge">IMAGE_USERNAME</code>) of the cloud image that needs to be downloaded. The values of each variable will differ depending on the operating system of the virtual bare metal hosts. Note that these images will be served from the host to the virtual servers through the provisioning network.</p>
+</blockquote>
+
+<blockquote>
+  <p>In our case, since <code class="language-plaintext highlighter-rouge">CentOS 7</code> is the base operating system, values will be defined as:</p>
+
+  <blockquote>
+
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <table>
+    <thead>
+      <tr>
+        <th><strong>Name of the variable</strong></th>
+        <th><strong>Default value</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>IMAGE_NAME</td>
+        <td>CentOS-7-x86_64-GenericCloud-1907.qcow2</td>
+      </tr>
+      <tr>
+        <td>IMAGE_LOCATION</td>
+        <td>http://cloud.centos.org/centos/7/images</td>
+      </tr>
+      <tr>
+        <td>IMAGE USERNAME</td>
+        <td>centos</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>In case it is expected to use a custom cloud image, just modify the previous variables to match the right location.</p>
+
+
+</div></div>
+<p>Now that the cloud image is defined, the download process can be started. First, a folder defined by <code class="language-plaintext highlighter-rouge">IRONIC_IMAGE_DIR</code> should exist so that the image (<code class="language-plaintext highlighter-rouge">CentOS-7-x86_64-GenericCloud-1907.qcow2</code>) and its checksum can be stored. This folder and its content will be exposed through a local <code class="language-plaintext highlighter-rouge">ironic</code> container running in the host.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name of the variable</strong></td>
+      <td><strong>Default value</strong></td>
+    </tr>
+    <tr>
+      <td>IRONIC_IMAGE_DIR</td>
+      <td>/opt/metal3-dev-env/ironic/html/images</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Below it is verified that the cloud image files were downloaded successfully in the defined folder:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span>ll /opt/metal3-dev-env/ironic/html/images
+total 920324
+<span class="nt">-rw-rw-r--</span><span class="nb">.</span> 1 alosadag alosadag 942407680 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2
+<span class="nt">-rw-rw-r--</span><span class="nb">.</span> 1 alosadag alosadag        33 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2.md5sum
+</code></pre></div></div>
+
+<p>Once the shared script <code class="language-plaintext highlighter-rouge">images.sh</code> is sourced, the following container images are pre-cached locally to the host in order to speed up things later. Below it is shown the code snippet in charge of that task:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="k">for </span>IMAGE_VAR <span class="k">in </span>IRONIC_IMAGE IPA_DOWNLOADER_IMAGE VBMC_IMAGE SUSHY_TOOLS_IMAGE DOCKER_REGISTRY_IMAGE
++ <span class="nv">IMAGE</span><span class="o">=</span>quay.io/metal3-io/ironic
++ <span class="nb">sudo </span>podman pull quay.io/metal3-io/ironic
+...
+....
+</code></pre></div></div>
+
+<p>The container image location of each one is defined by their respective variables:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Name of the variable</strong></th>
+      <th><strong>Default value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VBMC_IMAGE</td>
+      <td>quay.io/metal3-io/vbmc</td>
+    </tr>
+    <tr>
+      <td>SUSHY_TOOLS_IMAGE</td>
+      <td>quay.io/metal3-io/sushy-tools</td>
+    </tr>
+    <tr>
+      <td>IPA_DOWNLOADER_IMAGE</td>
+      <td>quay.io/metal3-io/ironic-ipa-downloader</td>
+    </tr>
+    <tr>
+      <td>IRONIC_IMAGE</td>
+      <td>quay.io/metal3-io/ironic</td>
+    </tr>
+    <tr>
+      <td>DOCKER_REGISTRY_IMAGE</td>
+      <td>docker.io/registry:latest</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>In case it is expected to modify the public container images to test new features, it is worth mentioning that there is a container registry running as a privileged container in the host. Therefore it is recommended to upload your modified images there and just overwrite the previous variables to match the right location.</p>
+
+
+</div></div>
+<p>At this point, an Ansible role is run locally in order to complete the local configuration.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>ansible-playbook <span class="se">\</span>
+  <span class="nt">-e</span> <span class="s2">"working_dir=</span><span class="nv">$WORKING_DIR</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-e</span> <span class="s2">"virthost=</span><span class="nv">$HOSTNAME</span><span class="s2">"</span> <span class="se">\</span>
+  <span class="nt">-i</span> vm-setup/inventory.ini <span class="se">\</span>
+  <span class="nt">-b</span> <span class="nt">-vvv</span> vm-setup/install-package-playbook.yml
+</code></pre></div></div>
+
+<p>This playbook imports two roles. One called <code class="language-plaintext highlighter-rouge">packages_installation</code>, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml">in the vm-setup role inside the metal3-dev-env repository</a>. The other role is based on the <a href="https://galaxy.ansible.com/fubarhouse/golang">fubarhouse.golang</a> Ansible Galaxy role. It is in charge of installing and configuring the exact <code class="language-plaintext highlighter-rouge">golang</code> version <code class="language-plaintext highlighter-rouge">1.12.12</code> defined in an Ansible variable in the <a href="https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12">install-package-playbook.yml playbook</a></p>
+
+<p>Once the playbook is finished, a pod called <code class="language-plaintext highlighter-rouge">ironic-pod</code> is created. Inside that pod, a <em>privileged</em> <code class="language-plaintext highlighter-rouge">ironic-ipa-downloader</code> container is started and attached to the host network. This container is in charge of downloading the <a href="https://docs.openstack.org/ironic-python-agent/latest/">Ironic Python Agent</a> (IPA) files to a shared volume defined by <code class="language-plaintext highlighter-rouge">IRONIC_IMAGE_DIR</code>. This folder is exposed by the <code class="language-plaintext highlighter-rouge">ironic</code> container through HTTP.</p>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>The <a href="https://docs.openstack.org/ironic-python-agent/latest/">Ironic Python Agent</a> is an agent for controlling and deploying Ironic controlled baremetal nodes. Typically run in a ramdisk, the agent exposes a REST API for provisioning servers.</p>
+
+
+</div></div>
+<p>See below the code snippet that fulfills the task:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">sudo </span>podman run <span class="nt">-d</span> <span class="nt">--net</span> host <span class="nt">--privileged</span> <span class="nt">--name</span> ipa-downloader <span class="nt">--pod</span> ironic-pod <span class="nt">-e</span> <span class="nv">IPA_BASEURI</span><span class="o">=</span> <span class="nt">-v</span> /opt/metal3-dev-env/ironic:/shared quay.io/metal3-io/ironic-ipa-downloader /usr/local/bin/get-resource.sh
+</code></pre></div></div>
+
+<p>Below, it is shown the status of the pods and containers at this point:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>root@eko1 metal3-dev-env]# podman pod list <span class="nt">--ctr-names</span>
+POD ID         NAME         STATUS    CREATED      CONTAINER INFO                                             INFRA ID
+5a0d475351aa   ironic-pod   Running   6 days ago   <span class="o">[</span>5a0d475351aa-infra] <span class="o">[</span>ipa-downloader]                      18f3a8f61407
+</code></pre></div></div>
+
+<p>The process will wait until the <code class="language-plaintext highlighter-rouge">ironic-python-agent</code> (IPA) initramfs, kernel and headers files are downloaded successfully. See below the files downloaded along with the <code class="language-plaintext highlighter-rouge">CentOS 7</code> cloud image:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span>ll /opt/metal3-dev-env/ironic/html/images
+total 920324
+<span class="nt">-rw-rw-r--</span><span class="nb">.</span> 1 alosadag alosadag 942407680 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2
+<span class="nt">-rw-rw-r--</span><span class="nb">.</span> 1 alosadag alosadag        33 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2.md5sum
+drwxr-xr-x. 2 root     root           147 Feb  3 12:41 ironic-python-agent-1862d000-59d9fdc6304b1
+lrwxrwxrwx. 1 root     root            72 Feb  3 12:41 ironic-python-agent.initramfs -&gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.initramfs
+lrwxrwxrwx. 1 root     root            69 Feb  3 12:41 ironic-python-agent.kernel -&gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.kernel
+lrwxrwxrwx. 1 root     root            74 Feb  3 12:41 ironic-python-agent.tar.headers -&gt; ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.tar.headers
+</code></pre></div></div>
+
+<p>Afterwards, the script makes sure that libvirt is running successfully on the host and the non-privilege user has permissions to interact with it. Libvirt daemon should be running so that minikube can be installed successfully. See the following script snippet starting the minikube VM:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="nb">sudo </span>su <span class="nt">-l</span> <span class="nt">-c</span> <span class="s1">'minikube start --insecure-registry 192.168.111.1:5000'</span>
+<span class="k">*</span> minikube v1.6.2 on Centos 7.7.1908
+<span class="k">*</span> Selecting <span class="s1">'kvm2'</span> driver from user configuration <span class="o">(</span>alternates: <span class="o">[</span>none]<span class="o">)</span>
+</code></pre></div></div>
+
+<p>In the same way as with the host, container images are pre-cached but in this case inside minikube local image repository. Notice that in this case the <a href="https://github.com/metal3-io/baremetal-operator/">Bare Metal operator</a> (BMO) is also downloaded since it will run on minikube. The container location is defined by <code class="language-plaintext highlighter-rouge">BAREMETAL_OPERATOR_IMAGE</code>. In case you want to test new features or new fixes to the BMO, just change the value of the variable to match the location of the modified image:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><strong>Name of the variable</strong></td>
+      <td><strong>Default value</strong></td>
+    </tr>
+    <tr>
+      <td>BAREMETAL_OPERATOR_IMAGE</td>
+      <td>quay.io/metal3-io/baremetal-operator</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>Remember that minikube is the management cluster in our environment. So it must run all the operators and controllers needed for Metal³.</p>
+
+
+</div></div>
+<p>Below it is shown the output of the script once all the container images have been pulled to minikube:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="nb">sudo </span>su <span class="nt">-l</span> <span class="nt">-c</span> <span class="s1">'minikube ssh sudo docker image ls'</span> alosadag
+REPOSITORY                                TAG                 IMAGE ID            CREATED             SIZE
+quay.io/metal3-io/ironic                  latest              e5d81adf05ee        26 hours ago        693MB
+quay.io/metal3-io/ironic-ipa-downloader   latest              d55b0dac2144        6 days ago          239MB
+quay.io/metal3-io/ironic-inspector        latest              8bb5b844ada6        6 days ago          408MB
+quay.io/metal3-io/baremetal-operator      latest              3c692a32ddd6        9 days ago          1.77GB
+k8s.gcr.io/kube-proxy                     v1.17.0             7d54289267dc        7 weeks ago         116MB
+k8s.gcr.io/kube-controller-manager        v1.17.0             5eb3b7486872        7 weeks ago         161MB
+k8s.gcr.io/kube-scheduler                 v1.17.0             78c190f736b1        7 weeks ago         94.4MB
+k8s.gcr.io/kube-apiserver                 v1.17.0             0cae8d5cc64c        7 weeks ago         171MB
+kubernetesui/dashboard                    v2.0.0-beta8        eb51a3597525        7 weeks ago         90.8MB
+k8s.gcr.io/coredns                        1.6.5               70f311871ae1        2 months ago        41.6MB
+k8s.gcr.io/etcd                           3.4.3-0             303ce5db0e90        3 months ago        288MB
+kubernetesui/metrics-scraper              v1.0.2              3b08661dc379        3 months ago        40.1MB
+k8s.gcr.io/kube-addon-manager             v9.0.2              bd12a212f9dc        6 months ago        83.1MB
+k8s.gcr.io/pause                          3.1                 da86e6ba6ca1        2 years ago         742kB
+gcr.io/k8s-minikube/storage-provisioner   v1.8.1              4689081edb10        2 years ago         80.8MB
+</code></pre></div></div>
+
+<p>Once the container images are stored, minikube can be stopped. In that moment, the virtual networks shown in the previous picture are attached to the minikube VM as it can be verified by the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@smc-master metal3-dev-env]<span class="nv">$ </span><span class="nb">sudo </span>virsh domiflist minikube
+Interface  Type       Source     Model       MAC
+<span class="nt">-------------------------------------------------------</span>
+-          network    default    virtio      d4:38:25:25:c6:ca
+-          network    minikube-net virtio    a4:c2:8a:9d:2a:d8
+-          network    provisioning virtio    52:54:00:c8:50:97
+-          network    baremetal  virtio      52:54:00:17:b4:ec
+</code></pre></div></div>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>At this point the host is ready to create the virtual infrastructure.</p>
+
+
+</div></div>
+<p>In the video below it is exhibited all the configuration explained and executed during this <em>first</em> step.</p>
+
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/VFbIHc3NbJo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="step-2-configure-the-host"><strong>Step 2: Configure the host</strong></h2>
+
+<p>In this step, the script <code class="language-plaintext highlighter-rouge">02_configure_host.sh</code> basically configures the libvirt/KVM virtual infrastructure and starts services in the host that will be consumed by the virtual bare metal machines:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Web server</code> to expose the <code class="language-plaintext highlighter-rouge">ironic-python-agent</code> (IPA) initramfs, kernel, headers and operating system cloud images.</li>
+  <li><code class="language-plaintext highlighter-rouge">Virtual BMC</code> to emulate a real baseboard management controller (BMC).</li>
+  <li><code class="language-plaintext highlighter-rouge">Container registry</code> where the virtual servers will pull the images needed to run a K8s installation.</li>
+</ul>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>A baseboard management controller (BMC) is a specialized service processor that monitors the physical state of a computer, network server or other hardware device using sensors and communicating with the system administrator through an independent connection. The BMC is part of the Intelligent Platform Management Interface (IPMI) and is usually contained in the motherboard or main circuit board of the device to be monitored.</p>
+
+
+</div></div>
+<p>First, a ssh-key in charge of communicating to libvirt is created if it does not exist previously. This key is called <code class="language-plaintext highlighter-rouge">id_rsa_virt_power</code>. It is added to the root authorized_keys and is used by <code class="language-plaintext highlighter-rouge">vbmc</code> and <code class="language-plaintext highlighter-rouge">sushy tools</code> to contact libvirt.</p>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p><code class="language-plaintext highlighter-rouge">sushy-tools</code> is a set of simple simulation tools aiming at supporting the development and testing of the Redfish protocol implementations.</p>
+
+
+</div></div>
+<p>Next, another Ansible playbook called <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml">setup-playbook.yml</a> is run against the host. It is focused on set up the virtual infrastructure around <code class="language-plaintext highlighter-rouge">metal3-dev-env</code>. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the <a href="#commonsh">common.sh</a> or the configuration file.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">ANSIBLE_FORCE_COLOR</span><span class="o">=</span><span class="nb">true </span>ansible-playbook <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"working_dir=</span><span class="nv">$WORKING_DIR</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"num_nodes=</span><span class="nv">$NUM_NODES</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"extradisks=</span><span class="nv">$VM_EXTRADISKS</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"virthost=</span><span class="nv">$HOSTNAME</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"platform=</span><span class="nv">$NODES_PLATFORM</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"libvirt_firmware=</span><span class="nv">$LIBVIRT_FIRMWARE</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"default_memory=</span><span class="nv">$DEFAULT_HOSTS_MEMORY</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"manage_baremetal=</span><span class="nv">$MANAGE_BR_BRIDGE</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-e</span> <span class="s2">"provisioning_url_host=</span><span class="nv">$PROVISIONING_URL_HOST</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-i</span> vm-setup/inventory.ini <span class="se">\</span>
+    <span class="nt">-b</span> <span class="nt">-vvv</span> vm-setup/setup-playbook.yml
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Name of the variable</strong></th>
+      <th><strong>Default value</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>WORKING_DIR</td>
+      <td>/opt/metal3-dev-env</td>
+    </tr>
+    <tr>
+      <td>NUM_NODES</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>VM_EXTRADISKS</td>
+      <td>false</td>
+    </tr>
+    <tr>
+      <td>HOSTNAME</td>
+      <td><code class="language-plaintext highlighter-rouge">hostname</code></td>
+    </tr>
+    <tr>
+      <td>NODES_PLATFORM</td>
+      <td>libvirt</td>
+    </tr>
+    <tr>
+      <td>LIBVIRT_FIRMWARE</td>
+      <td>bios</td>
+    </tr>
+    <tr>
+      <td>DEFAULT_HOSTS_MEMORY</td>
+      <td>8192</td>
+    </tr>
+    <tr>
+      <td>MANAGE_BR_BRIDGE</td>
+      <td>y</td>
+    </tr>
+    <tr>
+      <td>PROVISIONING_URL_HOST</td>
+      <td>172.22.0.1</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>There are variables that are only defined as Ansible variables, e.g. number of CPUs of the virtual bare metal server, size of disks, etc. In case you would like to change properties not defined globally in the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> take a look at the default variables specified in role: <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/common/defaults/main.yml">common</a> and <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/defaults/main.yml">libvirt</a></p>
+
+
+</div></div>
+<p>The <code class="language-plaintext highlighter-rouge">setup-playbook.yml</code> is composed by 3 roles, which are detailed below:</p>
+
+<blockquote>
+  <ul>
+    <li><strong>Common.</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>This role sets up the virtual hardware and network configuration of the VMs. Actually it is a <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/meta/main.yml">dependency</a> of the <code class="language-plaintext highlighter-rouge">libvirt</code> and <code class="language-plaintext highlighter-rouge">virtbmc</code> Ansible roles. This means that the <code class="language-plaintext highlighter-rouge">common</code> role must always be executed before the roles that depend on them. Also, they are only executed once. If two roles state the same one as their dependency, it is only executed the first time.</p>
+
+  <blockquote>
+
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <ul>
+    <li><strong>Libvirt.</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>It actually is the role that configures the virtual bare metal servers. They are all identically defined with the same hardware and network configuration. Note that they are not started since they will be booted later by ironic during the provisioning process.</p>
+</blockquote>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>It is possible to change the number of VMs to provision by replacing the value of <code class="language-plaintext highlighter-rouge">NUMBER_NODES</code></p>
+
+
+</div></div>
+<blockquote>
+  <p>Finally, once the VMs are defined and we have their MAC address, the ironic inventory file <code class="language-plaintext highlighter-rouge">ironic_nodes_json</code> is created. The action of creating a node is part of the enrollment process and the first step to prepare a node to reach the <code class="language-plaintext highlighter-rouge">available</code> status.</p>
+</blockquote>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"nodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipmi"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"resource_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"baremetal"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"driver_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"port"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6230"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipmi://192.168.111.1:6230"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deploy_kernel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://172.22.0.1/images/ironic-python-agent.kernel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deploy_ramdisk"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://172.22.0.1/images/ironic-python-agent.initramfs"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ports"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00:00:e0:4b:24:8b"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pxe_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"local_gb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cpu_arch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node-1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"driver"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipmi"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"resource_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"baremetal"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"driver_info"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"password"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"port"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6231"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ipmi://192.168.111.1:6231"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deploy_kernel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://172.22.0.1/images/ironic-python-agent.kernel"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deploy_ramdisk"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://172.22.0.1/images/ironic-python-agent.initramfs"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ports"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00:00:e0:4b:24:8f"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"pxe_enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"local_gb"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cpu_arch"</span><span class="p">:</span><span class="w"> </span><span class="s2">"x86_64"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+
+</span></code></pre></div></div>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>This role is also used to tear down the virtual infrastructure depending on the variable <a href="https://github.com/metal3-io/metal3-dev-env/blob/2b5d8e76f33d143757d1f0b9b1e82dc662245b9c/vm-setup/roles/libvirt/defaults/main.yml#L2">libvirt_action</a> inside the Ansible role: <code class="language-plaintext highlighter-rouge">setup or teardown</code>.</p>
+
+
+</div></div>
+<blockquote>
+  <ul>
+    <li><strong>VirtBMC</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>This role is only executed if the bare metal virtual machines are created in libvirt, because <code class="language-plaintext highlighter-rouge">vbmc</code> needs libvirt to emulate a real BMC.</p>
+</blockquote>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>VirtualBMC (<code class="language-plaintext highlighter-rouge">vmbc</code>) tool simulates a Baseboard Management Controller (BMC) by exposing IPMI responder to the network and talking to libvirt at the host vBMC is running at. Basically, manipulate virtual machines which pretend to be bare metal servers.</p>
+
+
+</div></div>
+<blockquote>
+  <p>The <code class="language-plaintext highlighter-rouge">virtbmc</code> Ansible role creates the <code class="language-plaintext highlighter-rouge">vbmc</code> and <code class="language-plaintext highlighter-rouge">sushy-tools</code> configuration in the host for each virtual bare metal nodes. Note that each virtual bare metal host will have a different <code class="language-plaintext highlighter-rouge">vbmc</code> socket exposed in the host. The communication to each <code class="language-plaintext highlighter-rouge">vbmc</code> is needed by the BMO to start, stop, configure the boot order, etc during the provisioning stage. Finally, this folders containing the configuration will be mounted by the <code class="language-plaintext highlighter-rouge">vbmc</code> and <code class="language-plaintext highlighter-rouge">sushy-tools</code> containers.</p>
+
+  <blockquote>
+
+  </blockquote>
+</blockquote>
+
+<blockquote>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 metal3-dev-env]<span class="nv">$ </span><span class="nb">sudo ls</span> <span class="nt">-l</span> <span class="nt">--color</span> /opt/metal3-dev-env/virtualbmc
+total 0
+drwxr-x---. 2 root root 21 Feb  5 11:07 sushy-tools
+drwxr-x---. 4 root root 70 Feb  5 11:08 vbmc
+</code></pre></div>  </div>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="syntax"><code>
+Next, both host provisioning and baremetal interfaces are configured. The provisioning interface, as the name suggests, will be used to provision the virtual bare metal hosts by means of the `Bare Metal Operator`. This interface is configured with an static IP (172.22.0.1):
+
+```sh
+[alosadag@smc-master metal3-dev-env]$ ifconfig provisioning
+provisioning: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500
+    inet 172.22.0.1  netmask 255.255.255.0  broadcast 172.22.0.255
+    inet6 fe80::1091:c1ff:fea1:6a0f  prefixlen 64  scopeid 0x20&lt;link&gt;
+    ether 12:91:c1:a1:6a:0f  txqueuelen 1000  (Ethernet)
+</code></pre></div></div>
+
+<p>On the other hand, the baremetal virtual interface behaves as an external network. This interface is able to reach the internet and it is the network where the different Kubernetes nodes will exchange information. This interface is configured as auto, so the IP is retrieved by DHCP.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@smc-master metal3-dev-env]<span class="nv">$ </span>ifconfig baremetal
+baremetal: <span class="nv">flags</span><span class="o">=</span>4099&lt;UP,BROADCAST,MULTICAST&gt;  mtu 1500
+    inet 192.168.111.1  netmask 255.255.255.0  broadcast 192.168.111.255
+    ether 52:54:00:db:85:29  txqueuelen 1000  <span class="o">(</span>Ethernet<span class="o">)</span>
+</code></pre></div></div>
+
+<p>Next, an Ansible role called <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml">firewall</a> will be executed targetting the host to be sure that the proper ports are opened. In case your host is running <code class="language-plaintext highlighter-rouge">Red Hat Enterprise Linux</code> or <code class="language-plaintext highlighter-rouge">CentOS 8</code>, firewalld module will be used. In any other case, iptables module is the choice.</p>
+
+<p>Below, the code snippet where <code class="language-plaintext highlighter-rouge">firewalld</code> or <code class="language-plaintext highlighter-rouge">iptables</code> is assigned:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Use firewalld on CentOS/RHEL, iptables everywhere else</span>
+
+<span class="nb">export </span><span class="nv">USE_FIREWALLD</span><span class="o">=</span>False
+<span class="k">if</span> <span class="o">[[</span> <span class="o">(</span><span class="nv">$OS</span> <span class="o">==</span> <span class="s2">"rhel"</span> <span class="o">||</span> <span class="nv">$OS</span> <span class="o">=</span> <span class="s2">"centos"</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="k">${</span><span class="nv">OS_VERSION</span><span class="k">}</span> <span class="o">==</span> 8 <span class="o">]]</span>
+<span class="k">then
+ </span><span class="nb">export </span><span class="nv">USE_FIREWALLD</span><span class="o">=</span>True
+<span class="k">fi</span>
+</code></pre></div></div>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>This behaviour can be changed by replacing the value of the <code class="language-plaintext highlighter-rouge">USE_FIREWALLD</code> variable</p>
+
+
+</div></div>
+<p>The ports managed by this role are all associated to the services that take part of the provisioning process: <code class="language-plaintext highlighter-rouge">ironic</code>, <code class="language-plaintext highlighter-rouge">vbmc</code>, <code class="language-plaintext highlighter-rouge">httpd</code>, <code class="language-plaintext highlighter-rouge">pxe</code>, <code class="language-plaintext highlighter-rouge">container registry</code>..</p>
+
+<div class="premonition note"><div class="fa fa-check-square"></div><div class="content"><p class="header">Note</p><p>Services like ironic, pxe, keepalived, httpd and the container registry are running in the host as containers attached to the host network on the host’s provisioning interface. On the other hand, the vbmc service is also running as a privileged container and it is listening in the host’s baremetal interface.</p>
+
+
+</div></div>
+<p>Once the network is configured, a local <code class="language-plaintext highlighter-rouge">container registry</code> is started. It will be needed in the case of using local built images. In that case, the container images can be modified locally and pushed to the local registry. At that point, the specific image location variable must be changed so it must point out the local registry. This process makes easy to verify and test changes to the code locally.</p>
+
+<p>At this point the following containers are running inside two pods on the host: <em>infra-pod</em> and <em>ironic-pod</em>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>root@eko1 metal3-dev-env]# podman pod list <span class="nt">--ctr-names</span>
+POD ID         NAME         STATUS    CREATED      CONTAINER INFO                                             INFRA ID
+67cc53713145   infra-pod    Running   6 days ago   <span class="o">[</span>vbmc] <span class="o">[</span>sushy-tools] <span class="o">[</span>httpd-infra] <span class="o">[</span>67cc53713145-infra]    f1da23fcd77f
+5a0d475351aa   ironic-pod   Running   6 days ago   <span class="o">[</span>5a0d475351aa-infra] <span class="o">[</span>ipa-downloader]                      18f3a8f61407
+</code></pre></div></div>
+
+<p>Below are detailed the containers inside the <em>infra-pod</em> pod which are running as privileged using the host network:</p>
+
+<blockquote>
+  <ul>
+    <li><strong>The httpd container.</strong> &gt; &gt;
+A folder called <em>shared</em> where the cloud OS image and IPA files are available is mounted and exposed to the virtual bare metal hosts.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>
+</code></pre></div>  </div>
+</blockquote>
+
+<ul>
+  <li>sudo podman run -d –net host –privileged –name httpd-infra –pod infra-pod -v /opt/metal3-dev-env/ironic:/shared –entrypoint /bin/runhttpd quay.io/metal3-io/ironic</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="syntax"><code>
+&gt; This folder also contains the `inspector.ipxe` file which contains the information needed to be able to run the `ironic-python-agent` kernel and initramfs. Below, httpd-infra container is accessed and it has been verified that host's `/opt/metal3-dev-env/ironic/` (`IRONIC_DATA_DIR`) is mounted inside the *shared* folder of the container:
+
+```sh
+[alosadag@eko1 metal3-dev-env]$ sudo podman exec -it httpd-infra bash
+[root@infra-pod shared]# cat html/inspector.ipxe
+#!ipxe
+
+:retry_boot
+echo In inspector.ipxe
+imgfree
+# NOTE(dtantsur): keep inspection kernel params in [mdns]params in ironic-inspector-image
+kernel --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.kernel ipa-inspection-callback-url=http://172.22.0.1:5050/v1/continue ipa-inspection-collectors=default,extra-hardware,logs systemd.journald.forward_to_console=yes BOOTIF=${mac} ipa-debug=1 ipa-inspection-dhcp-all-interfaces=1 ipa-collect-lldp=1 initrd=ironic-python-agent.initramfs || goto retry_boot
+initrd --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.initramfs || goto retry_boot
+boot
+</code></pre></div></div>
+
+<blockquote>
+  <ul>
+    <li><strong>The vbmc container.</strong></li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>This container mounts two host folders: one is <code class="language-plaintext highlighter-rouge">/opt/metal3-dev-env/virtualbmc/vbmc</code> where <code class="language-plaintext highlighter-rouge">vbmc</code> configuration for each node is stored, the other folder is <code class="language-plaintext highlighter-rouge">/root/.ssh</code> where root keys are located, specifically <code class="language-plaintext highlighter-rouge">id_rsa_virt_power</code> which is used to manage the communication with libvirt.</p>
+</blockquote>
+
+<blockquote>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="nb">sudo </span>podman run <span class="nt">-d</span> <span class="nt">--net</span> host <span class="nt">--privileged</span> <span class="nt">--name</span> vbmc <span class="nt">--pod</span> infra-pod <span class="nt">-v</span> /opt/metal3-dev-env/virtualbmc/vbmc:/root/&gt; .vbmc <span class="nt">-v</span> /root/.ssh:/root/ssh quay.io/metal3-io/vbmc
+</code></pre></div>  </div>
+
+  <ul>
+    <li><strong>The sushy-tools container.</strong></li>
+  </ul>
+
+  <p>This container mounts the <code class="language-plaintext highlighter-rouge">/opt/metal3-dev-env/virtualbmc/sushy-tools config folder and the</code>/root/.ssh<code class="language-plaintext highlighter-rouge">local folder as well. The functionality is similar as the</code>vbmc`, however this use redfish instead of ipmi to connect to the BMC.</p>
+</blockquote>
+
+<blockquote>
+  <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="nb">sudo </span>podman run <span class="nt">-d</span> <span class="nt">--net</span> host <span class="nt">--privileged</span> <span class="nt">--name</span> sushy-tools <span class="nt">--pod</span> infra-pod <span class="nt">-v</span> /opt/metal3-dev-env/virtualbmc/&gt; sushy-tools:/root/sushy <span class="nt">-v</span> /root/.ssh:/root/ssh quay.io/metal3-io/sushy-tools
+</code></pre></div>  </div>
+</blockquote>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>At this point the virtual infrastructure must be ready to apply the Kubernetes specific configuration. Note that all the VMs specified by <code class="language-plaintext highlighter-rouge">NUMBER_NODES</code> and minikube must be shut down and the defined virtual network must be active:</p>
+
+
+</div></div>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@smc-master metal3-dev-env]<span class="nv">$ </span><span class="nb">sudo </span>virsh list <span class="nt">--all</span>
+ Id    Name                           State
+<span class="nt">----------------------------------------------------</span>
+ -     minikube                       shut off
+ -     node_0                         shut off
+ -     node_1                         shut off
+ -     node_2                         shut off
+
+<span class="o">[</span>alosadag@smc-master metal3-dev-env]<span class="nv">$ </span><span class="nb">sudo </span>virsh net-list <span class="nt">--all</span>
+ Name                 State      Autostart     Persistent
+<span class="nt">----------------------------------------------------------</span>
+ baremetal            active     <span class="nb">yes           yes
+ </span>default              active     <span class="nb">yes           yes
+ </span>minikube-net         active     <span class="nb">yes           yes
+ </span>provisioning         active     <span class="nb">yes           yes</span>
+</code></pre></div></div>
+
+<p>In the video below it is exhibited all the configuration explained and executed during this <em>second</em> step.</p>
+
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/m8gTRZWEvc8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="step-3-launch-the-management-cluster-minikube"><strong>Step 3: Launch the management cluster (minikube)</strong></h2>
+
+<p>The third script called <code class="language-plaintext highlighter-rouge">03_launch_mgmt_cluster.sh</code> basically configures minikube to become a Metal³ management cluster. On top of minikube the <code class="language-plaintext highlighter-rouge">baremetal-operator</code>, <code class="language-plaintext highlighter-rouge">capi-controller-manager</code>, <code class="language-plaintext highlighter-rouge">capbm-controller-manager</code> and <code class="language-plaintext highlighter-rouge">cabpk-controller-manager</code> are installed in the metal3 namespace.</p>
+
+<p>In a more detailed way, the script clones the <code class="language-plaintext highlighter-rouge">Bare Metal Operator</code> (<a href="https://github.com/metal3-io/baremetal-operator">BMO</a>) and <code class="language-plaintext highlighter-rouge">Cluster API Provider for Managed Bare Metal Hardware operator</code> (<a href="https://github.com/metal3-io/cluster-api-provider-baremetal">CAPBM</a>) git repositories, creates the cloud.yaml file and starts the minikube virtual machine. Once minikube is up and running, the <code class="language-plaintext highlighter-rouge">BMO</code> is built and executed in minikube’s Kubernetes cluster.</p>
+
+<p>In case of the <code class="language-plaintext highlighter-rouge">Bare Metal Operator</code>, the branch by default to clone is master, however this and other variables shown in the following table can be replaced in the config file:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ <span class="nv">BMOREPO</span><span class="o">=</span>https://github.com/metal3-io/baremetal-operator.git
++ <span class="nv">BMOBRANCH</span><span class="o">=</span>master
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Name of the variable</strong></th>
+      <th><strong>Default value</strong></th>
+      <th><strong>Options</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BMOREPO</td>
+      <td>https://github.com/metal3-io/baremetal-operator.git</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>BMOBRANCH</td>
+      <td>master</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>CAPBMREPO</td>
+      <td>https://github.com/metal3-io/cluster-api-provider-baremetal.git</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>CAPM3_VERSION</td>
+      <td>v1alpha3</td>
+      <td>v1alpha4 or v1alpha3</td>
+    </tr>
+    <tr>
+      <td>FORCE_REPO_UPDATE</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>BMO_RUN_LOCAL</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>CAPBM_RUN_LOCAL</td>
+      <td>false</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Once the <code class="language-plaintext highlighter-rouge">BMO</code> variables are configured, it is time for the operator to be deployed using <code class="language-plaintext highlighter-rouge">kustomize</code> and <code class="language-plaintext highlighter-rouge">kubectl</code> as it can seen from the logs:</p>
+
+<blockquote>
+  <p><strong>Information:</strong> <a href="https://github.com/kubernetes-sigs/kustomize">Kustomize</a> is a Kubernetes tool that lets you customize raw, template-free YAML files for multiple purposes, leaving the original YAML untouched and usable as is.</p>
+</blockquote>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ kustomize build bmo-dirPrHIrcl
++ kubectl apply <span class="nt">-f-</span>
+namespace/metal3 created
+customresourcedefinition.apiextensions.k8s.io/baremetalhosts.metal3.io created
+serviceaccount/metal3-baremetal-operator created
+clusterrole.rbac.authorization.k8s.io/metal3-baremetal-operator created
+clusterrolebinding.rbac.authorization.k8s.io/metal3-baremetal-operator created
+configmap/ironic-bmo-configmap-75tkt49k5c created
+secret/mariadb-password-d88m524c46 created
+deployment.apps/metal3-baremetal-operator created
+</code></pre></div></div>
+
+<p>Once the <code class="language-plaintext highlighter-rouge">BMO</code> objects are applied, it’s time to transform the virtual bare metal hosts information into a yaml file of kind <code class="language-plaintext highlighter-rouge">BareMetalHost</code> Custom Resource (CR). This is done by a golang script passing them the IPMI address, BMC username and password, which are stored as a Kubernetes secret, MAC address and name:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go <span class="nt">-address</span> ipmi://192.168.111.1:6230 <span class="nt">-password</span> password <span class="nt">-user</span> admin <span class="nt">-boot-mac</span> 00:be:bc:fd:17:f3 node-0
++ <span class="nb">read</span> <span class="nt">-r</span> name address user password mac
++ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go <span class="nt">-address</span> ipmi://192.168.111.1:6231 <span class="nt">-password</span> password <span class="nt">-user</span> admin <span class="nt">-boot-mac</span> 00:be:bc:fd:17:f7 node-1
++ <span class="nb">read</span> <span class="nt">-r</span> name address user password mac
++ go run /home/alosadag/go/src/github.com/metal3-io/baremetal-operator/cmd/make-bm-worker/main.go <span class="nt">-address</span> ipmi://192.168.111.1:6232 <span class="nt">-password</span> password <span class="nt">-user</span> admin <span class="nt">-boot-mac</span> 00:be:bc:fd:17:fb node-2
++ <span class="nb">read</span> <span class="nt">-r</span> name address user password mac
+</code></pre></div></div>
+
+<p>Below is shown the bare metal host definition of node-1. Note that the IPMI address is the IP of the host’s provisioning interface. Behind the scenes, IPMI is handled by the <code class="language-plaintext highlighter-rouge">vbmc</code> container running in the host.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">node-1-bmc-secret</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">username</span><span class="pi">:</span> <span class="s">YWRtaW4=</span>
+  <span class="na">password</span><span class="pi">:</span> <span class="s">cGFzc3dvcmQ=</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">metal3.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">BareMetalHost</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">node-1</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">online</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">bootMACAddress</span><span class="pi">:</span> <span class="s">00:00:e0:4b:24:8f</span>
+  <span class="na">bmc</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">ipmi://192.168.111.1:6231</span>
+    <span class="na">credentialsName</span><span class="pi">:</span> <span class="s">node-1-bmc-secret</span>
+</code></pre></div></div>
+
+<p>See that the MAC address configured in the <code class="language-plaintext highlighter-rouge">BareMetalHost</code> spec definition matches <em>node-1</em> provisioning interface:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>root@eko1 metal3-dev-env]# virsh domiflist node_1
+Interface  Type       Source     Model       MAC
+<span class="nt">-------------------------------------------------------</span>
+vnet4      bridge     provisioning virtio      00:00:e0:4b:24:8f
+vnet5      bridge     baremetal  virtio      00:00:e0:4b:24:91
+</code></pre></div></div>
+
+<p>Finally, the script apply in namespace metal3 each of the <code class="language-plaintext highlighter-rouge">BareMetalHost</code> yaml files that match each virtual bare metal host:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ kubectl apply <span class="nt">-f</span> bmhosts_crs.yaml <span class="nt">-n</span> metal3
+secret/node-0-bmc-secret created
+baremetalhost.metal3.io/node-0 created
+secret/node-1-bmc-secret created
+baremetalhost.metal3.io/node-1 created
+secret/node-2-bmc-secret created
+baremetalhost.metal3.io/node-2 created
+</code></pre></div></div>
+
+<p>Lastly, it is the turn of the <code class="language-plaintext highlighter-rouge">CAPBM</code>. Similar to <code class="language-plaintext highlighter-rouge">BMO</code>, <code class="language-plaintext highlighter-rouge">kustomize</code> is used to create the different Kubernetes components and <code class="language-plaintext highlighter-rouge">kubectl</code> applied the files into the management cluster.</p>
+
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>Note that installing <code class="language-plaintext highlighter-rouge">CAPBM</code> includes installing the components of the <a href="https://github.com/kubernetes-sigs/cluster-api">Cluster API</a> and the components of the <a href="https://github.com/kubernetes-sigs/cluster-api/tree/master/bootstrap/kubeadm">Cluster API bootstrap provider kubeadm</a> (CABPK)</p>
+
+
+</div></div>
+<p>Below the objects are created through the <code class="language-plaintext highlighter-rouge">generate.sh</code> script:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>++ <span class="nb">mktemp</span> <span class="nt">-d</span> capbm-XXXXXXXXXX
++ <span class="nv">kustomize_overlay_path</span><span class="o">=</span>capbm-eJPOjCPASD
+
++ ./examples/generate.sh <span class="nt">-f</span>
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/cluster.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/controlplane.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/metal3crds.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/metal3plane.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/machinedeployment.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-cluster-api.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-kubeadm.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/provider-components/provider-components-baremetal.yaml
+Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/provider-components.yaml
+</code></pre></div></div>
+
+<p>Then, <code class="language-plaintext highlighter-rouge">kustomize</code> configures the files accordingly to the values defined and <code class="language-plaintext highlighter-rouge">kubectl</code> applies them:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>+ kustomize build capbm-eJPOjCPASD
++ kubectl apply <span class="nt">-f-</span>
+namespace/cabpk-system created
+namespace/capbm-system created
+namespace/capi-system created
+customresourcedefinition.apiextensions.k8s.io/baremetalclusters.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/baremetalmachines.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/baremetalmachinetemplates.infrastructure.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/clusters.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/kubeadmconfigs.bootstrap.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machinedeployments.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machines.cluster.x-k8s.io created
+customresourcedefinition.apiextensions.k8s.io/machinesets.cluster.x-k8s.io created
+role.rbac.authorization.k8s.io/cabpk-leader-election-role created
+role.rbac.authorization.k8s.io/capbm-leader-election-role created
+role.rbac.authorization.k8s.io/capi-leader-election-role created
+clusterrole.rbac.authorization.k8s.io/cabpk-manager-role created
+clusterrole.rbac.authorization.k8s.io/cabpk-proxy-role created
+clusterrole.rbac.authorization.k8s.io/capbm-manager-role created
+clusterrole.rbac.authorization.k8s.io/capbm-proxy-role created
+clusterrole.rbac.authorization.k8s.io/capi-manager-role created
+rolebinding.rbac.authorization.k8s.io/cabpk-leader-election-rolebinding created
+rolebinding.rbac.authorization.k8s.io/capbm-leader-election-rolebinding created
+rolebinding.rbac.authorization.k8s.io/capi-leader-election-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/cabpk-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/cabpk-proxy-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capbm-manager-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capbm-proxy-rolebinding created
+clusterrolebinding.rbac.authorization.k8s.io/capi-manager-rolebinding created
+secret/capbm-webhook-server-secret created
+service/cabpk-controller-manager-metrics-service created
+service/capbm-controller-manager-service created
+service/capbm-controller-metrics-service created
+deployment.apps/cabpk-controller-manager created
+deployment.apps/capbm-controller-manager created
+deployment.apps/capi-controller-manager created
+</code></pre></div></div>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>At this point all controllers and operators must be running in the namespace metal3 of the management cluster (minikube). All virtual bare metal hosts configured must be shown as <code class="language-plaintext highlighter-rouge">BareMetalHosts</code> resources in the metal3 namespace as well. They should be in ready status and stopped (online is false)</p>
+
+
+</div></div>
+<p>In the video below it is exhibited all the configuration explained and executed during this <em>third</em> step.</p>
+
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/GaSmL7xrYNs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="step-4-verification"><strong>Step 4: Verification</strong></h2>
+
+<p>The last script <code class="language-plaintext highlighter-rouge">04_verify.sh</code> is in charge of verifying that the deployment has been successful by checking several things:</p>
+
+<ul>
+  <li>Custom resources (CR) and custom resource definition (CRD) were applied and exist in the cluster.</li>
+  <li>Verify that the virtual bare metal hosts matches the information detailed in the<code class="language-plaintext highlighter-rouge">BareMetalHost</code> object.</li>
+  <li>All containers are in running status.</li>
+  <li>Verify virtual network configuration and status.</li>
+  <li>Verify operators and controllers are running.</li>
+</ul>
+
+<p>However, this verification can be easily achieved manually. For instance, checking that controllers and operators running in the management cluster (minikube) and all the virtual bare metal hosts are in ready status:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 ~]<span class="nv">$ </span>kubectl get pods <span class="nt">-n</span> metal3 <span class="nt">-o</span> wide
+NAME                                         READY   STATUS    RESTARTS   AGE     IP               NODE       NOMINATED NODE   READINESS GATES
+cabpk-controller-manager-5c67dd56c4-wfwbh    2/2     Running   9          6d23h   172.17.0.5       minikube   &lt;none&gt;           &lt;none&gt;
+capbm-controller-manager-7f9b8f96b7-grl4r    2/2     Running   12         6d23h   172.17.0.4       minikube   &lt;none&gt;           &lt;none&gt;
+capi-controller-manager-798c76675f-dxh2n     1/1     Running   10         6d23h   172.17.0.6       minikube   &lt;none&gt;           &lt;none&gt;
+metal3-baremetal-operator-5b4c59755d-h4zkp   6/6     Running   8          6d23h   192.168.39.101   minikube   &lt;none&gt;           &lt;none&gt;
+</code></pre></div></div>
+
+<p>Verify that the <code class="language-plaintext highlighter-rouge">BareMetalHosts</code> provisioning status is <code class="language-plaintext highlighter-rouge">ready</code> and the BMC configuration is correct. Check that all virtual bare metal hosts are shut down (online is false):</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 ~]<span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+NAME     STATUS   PROVISIONING STATUS   CONSUMER             BMC                         HARDWARE PROFILE   ONLINE   ERROR
+node-0   OK       ready                                      ipmi://192.168.111.1:6230   unknown            <span class="nb">false
+</span>node-1   OK       ready                                      ipmi://192.168.111.1:6231   unknown            <span class="nb">false
+</span>node-2   OK       ready                                      ipmi://192.168.111.1:6232   unknown            <span class="nb">false</span>
+</code></pre></div></div>
+
+<p>Get the list of CRDs created in the cluster. Check that, at least, the following ones exist:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@eko1 ~]<span class="nv">$ </span>kubectl get crds
+NAME                                                        CREATED AT
+baremetalclusters.infrastructure.cluster.x-k8s.io           2020-01-22T13:19:42Z
+baremetalhosts.metal3.io                                    2020-01-22T13:19:35Z
+baremetalmachines.infrastructure.cluster.x-k8s.io           2020-01-22T13:19:42Z
+baremetalmachinetemplates.infrastructure.cluster.x-k8s.io   2020-01-22T13:19:42Z
+clusters.cluster.x-k8s.io                                   2020-01-22T13:19:42Z
+kubeadmconfigs.bootstrap.cluster.x-k8s.io                   2020-01-22T13:19:42Z
+kubeadmconfigtemplates.bootstrap.cluster.x-k8s.io           2020-01-22T13:19:42Z
+machinedeployments.cluster.x-k8s.io                         2020-01-22T13:19:43Z
+machines.cluster.x-k8s.io                                   2020-01-22T13:19:43Z
+machinesets.cluster.x-k8s.io                                2020-01-22T13:19:43Z
+</code></pre></div></div>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p><code class="language-plaintext highlighter-rouge">KUBECONFIG</code> file is stored in the user’s home directory (~/.kube/config) that executed the scripts.</p>
+
+
+</div></div>
+<p>Check the status of all the applications running in minikube or better said, in the management cluster.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>alosadag@smc-master logs]<span class="nv">$ </span>kubectl get pods <span class="nt">-A</span>
+NAMESPACE     NAME                                        READY   STATUS    RESTARTS   AGE
+kube-system   coredns-6955765f44-fkdzp                    1/1     Running   1          164m
+kube-system   coredns-6955765f44-fxzvz                    1/1     Running   1          164m
+kube-system   etcd-minikube                               1/1     Running   1          164m
+kube-system   kube-addon-manager-minikube                 1/1     Running   1          164m
+kube-system   kube-apiserver-minikube                     1/1     Running   1          164m
+kube-system   kube-controller-manager-minikube            1/1     Running   1          164m
+kube-system   kube-proxy-87g98                            1/1     Running   1          164m
+kube-system   kube-scheduler-minikube                     1/1     Running   1          164m
+kube-system   storage-provisioner                         1/1     Running   2          164m
+metal3        cabpk-controller-manager-5c67dd56c4-rldk4   2/2     Running   0          156m
+metal3        capbm-controller-manager-7f9b8f96b7-mdfcw   2/2     Running   0          156m
+metal3        capi-controller-manager-84947c7497-k6twl    1/1     Running   0          156m
+metal3        metal3-baremetal-operator-78bffc8d-z5hqs    6/6     Running   0          156m
+</code></pre></div></div>
+
+<p>In the video below it is exhibited all the configuration explained and executed during the <em>verification</em> steps.</p>
+
+<iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/8LilwO-_WzU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+<h2 id="summary"><strong>Summary</strong></h2>
+
+<p>In this post a deep dive into the <code class="language-plaintext highlighter-rouge">metal3-dev-env</code> scripts was shown. It has been deeply detailed the process of creating a Metal³ <strong>emulated environment</strong> from a set of virtual machines (VMs) to manage as if they were bare metal hosts.</p>
+
+<p>After this post, the reader should have acquired a basic understanding of all the pieces involved in the Metal³ project. Also, and more important, how these scripts can be adapted to your specific needs. Remember that this can be achieved in multiple ways: replacing values in the global variables, replacing Ansible default variables or even modifying playbooks or the scripts themselves.</p>
+
+<p>Notice that the Metal³ development environment also focuses on developing new features of the BMO or CAPBM and being able to test them locally.</p>
+
+<h2 id="references"><strong>References</strong></h2>
+
+<ul>
+  <li><a href="https://www.youtube.com/playlist?list=PL2y-qnqBbesZZQKyKbuI6vIVkPrCPuK9T">Video playlist: A detailed walkthrough the installation of the metal3-dev-env on Youtube</a></li>
+  <li><a href="https://metal3.io/try-it.html">Getting started with Metal3.io</a></li>
+  <li><a href="https://github.com/metal3-io?type=source">Metal³ code repositories</a></li>
+</ul>
+
+</article>
+<nav class="mk-pagination">
+        
+          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html" aria-label="previous page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
+                </svg>
+          </a>
+        
+        
+          <a class="mk-pagination__page mk-pagination__page--next" href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html" aria-label="next page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.6 320.1" version="1.1" viewBox="0 0 398.6 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199.6 177.1l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.7c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.5-96.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.8c9.4-9.4 24.6-9.4 33.9 0l136 136c9.4 9.3 9.4 24.6 0.1 34zm191.9-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.5c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.7z"/>
+                </svg>
+          </a>
+        
+</nav>
+
+        <aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
+    </header>
+    <ul class="mk-blog__related-entries">
+
+        
+        
+        
+        
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2021/05/05/Pivoting.html">Metal3 Introduces Pivoting</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/07/06/IP_address_manager.html">Introducing the Metal3 IP Address Manager</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/07/05/raw-image-streaming.html">Raw image streaming available in Metal3</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2020/06/18/Metal3-dev-env-BareMetal-Cluster-Deployment.html">Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster</a></li>
+              
+              
+                
+    </ul>
+
+</aside>
+
+    </main>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2021 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2021 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+    <div class="mk-icons-footer">
+      <p>
+        <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+        <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+          <i class="fab fa-slack fa-lg"></i>
+        </a>
+        <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+          <i class="fab fa-github fa-lg"></i>
+        </a>
+        <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+          <i class="fas fa-envelope fa-lg"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+

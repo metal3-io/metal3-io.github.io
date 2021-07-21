@@ -1,0 +1,29 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+filters:
+  ".*":
+    approvers:
+      - hardys
+      - hroyrh
+      - knowncitizen
+      - russellb
+    
+    reviewers:
+      - fmuyassarov
+
+    emeritus_approvers:
+      - codificat       # 2021-03-03
+
+  "^_posts/.*":
+    labels:
+      - kind/blog
+    approvers:
+      - hardys
+      - maelk
+      - russellb
+      - stbenjam
+
+  "^_(data|layouts|sass|css|js)/.*":
+    labels:
+      - kind/website
+    approvers:
+      - matthewcarleton

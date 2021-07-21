@@ -1,0 +1,930 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>Try it: Getting started with Metal3.io | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="The Metal³ - Metal Kubed website team, " >
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, openstack, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, cluster-api, provider, raw-image, image-streaming, ipam, ip-address-manager, pivoting, move, " >
+    <meta property="og:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/try-it.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
+    <meta property="og:article:published_time" content="2021-07-20 20:11:01 -0500" >
+    <meta name="twitter:title" content="Try it: Getting started with Metal3.io | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <nav role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="/documentation.html">Documentation</a></li>
+          <li  class="active" ><a class="mk-main-nav__item" href="/try-it.html">Try It!</a></li>
+          <li >
+            <form action="/search.html" method="get" autocomplete="off">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="search term" name="query">
+              </div>
+              <input id="search-button" type="submit" value="🔍" disabled='true'>
+            </form>
+          </li>
+      </li>
+
+
+        </ul>
+      </nav>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+  <h1 class="mk-masthead__content--sub__title">Getting started with Metal3.io</h1>
+  <p class="mk-masthead__content--sub__text">Ready to start taking steps towards your first experience with metal3.io? Follow these commands to get started! </p>
+</div>
+</section>
+<main>
+
+  <section class="mk-main__section mk-main__section__content">
+        <!-- TOC depthFrom:2 insertAnchor:false orderedList:false updateOnSave:true withLinks:true -->
+
+<ul>
+  <li><a href="#1-environment-setup">1. Environment Setup</a>
+    <ul>
+      <li><a href="#11-prerequisites">1.1. Prerequisites</a></li>
+      <li><a href="#12-setup">1.2. Setup</a></li>
+      <li><a href="#13-tear-down">1.3. Tear Down</a></li>
+      <li><a href="#14-using-custom-image">1.4. Using Custom Image</a></li>
+      <li><a href="#15-setting-environment-variables">1.5. Setting environment variables</a></li>
+    </ul>
+  </li>
+  <li><a href="#2-working-with-environment">2. Working with Environment</a>
+    <ul>
+      <li><a href="#21-baremetalhosts">2.1. BareMetalHosts</a></li>
+      <li><a href="#22-provision-cluster-and-machines">2.2. Provision Cluster and Machines</a></li>
+      <li><a href="#23-deprovision-cluster-and-machines">2.3. Deprovision Cluster and Machines</a></li>
+      <li><a href="#24-running-custom-baremetal-operator">2.4. Running Custom Baremetal-Operator</a></li>
+      <li><a href="#25-running-custom-cluster-api-provider-metal3">2.5. Running Custom Cluster API Provider Metal3</a></li>
+      <li><a href="#26-accessing-ironic-api">2.6. Accessing Ironic API</a></li>
+    </ul>
+  </li>
+</ul>
+
+<!-- /TOC -->
+<hr />
+
+<h2 id="1-environment-setup">1. Environment Setup</h2>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Naming</p><p>For the v1alpha3 release, the Cluster API provider for Metal3 was renamed from
+Cluster API provider BareMetal (CAPBM) to Cluster API provider Metal3 (CAPM3). Hence,
+from v1alpha3 onwards it is Cluster API provider Metal3.</p>
+
+
+</div></div>
+<h3 id="11-prerequisites">1.1. Prerequisites</h3>
+
+<ul>
+  <li>System with CentOS 8 or Ubuntu 18.04</li>
+  <li>Bare metal preferred, as we will be creating VMs to emulate bare metal hosts</li>
+  <li>Run as a user with passwordless sudo access</li>
+  <li>Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory.</li>
+</ul>
+
+<h3 id="12-setup">1.2. Setup</h3>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Information</p><p>If you need detailed information regarding the process of creating a Metal³ emulated environment using metal3-dev-env, it is worth taking a look at the blog post <a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">“A detailed walkthrough of the Metal³ development environment”</a>.</p>
+
+
+</div></div>
+<p>This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for CentOS based setup only Minikube is currently supported. Ephemeral cluster creation tool can be manipulated with EPHEMERAL_CLUSTER environment variable.</p>
+
+<p style="text-align: center">
+  <img src="assets/images/metal3-dev-env.svg" />
+</p>
+
+<p>The short version is: clone <a href="https://github.com/metal3-io/metal3-dev-env">metal³-dev-env</a>
+and run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>make
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">Makefile</code> runs a series of scripts, described here:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">01_prepare_host.sh</code> - Installs all needed packages.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">02_configure_host.sh</code> - Creates a set of VMs that will be managed as if they
+were bare metal hosts. It also downloads some images needed for Ironic.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">03_launch_mgmt_cluster.sh</code> - Launches a management cluster using <code class="language-plaintext highlighter-rouge">minikube</code> or <code class="language-plaintext highlighter-rouge">kind</code>
+and runs the <code class="language-plaintext highlighter-rouge">baremetal-operator</code> on that cluster.</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">04_verify.sh</code> - Runs a set of tests that verify that the deployment completed successfully.</p>
+  </li>
+</ul>
+
+<p>When the environment setup is completed, you should be able to see <code class="language-plaintext highlighter-rouge">BareMetalHost</code> (<code class="language-plaintext highlighter-rouge">bmh</code>) objects in Ready state.</p>
+
+<h3 id="13-tear-down">1.3. Tear Down</h3>
+
+<p>To tear down the environment, run</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>make clean
+</code></pre></div></div>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Note</p><p>When redeploying metal³-dev-env with a different release version of CAPM3, you
+must set the <code class="language-plaintext highlighter-rouge">FORCE_REPO_UPDATE</code> variable in <code class="language-plaintext highlighter-rouge">config_${user}.sh</code> to <em>true</em>.</p>
+
+
+</div></div>
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>If you see this error during the installation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="syntax"><code>error: failed to connect to the hypervisor \
+error: Failed to connect socket to '/var/run/libvirt/libvirt-sock':  Permission denied
+</code></pre></div></div>
+
+<p>You may need to log out then login again, and run <code class="language-plaintext highlighter-rouge">make clean</code> and <code class="language-plaintext highlighter-rouge">make</code> again.</p>
+
+
+</div></div>
+<h3 id="14-using-custom-image">1.4. Using Custom Image</h3>
+
+<p>Whether you want to run target cluster Nodes with your own image, you can override the three following variables: <code class="language-plaintext highlighter-rouge">IMAGE_NAME</code>,
+<code class="language-plaintext highlighter-rouge">IMAGE_LOCATION</code>, <code class="language-plaintext highlighter-rouge">IMAGE_USERNAME</code>. If the requested image with name <code class="language-plaintext highlighter-rouge">IMAGE_NAME</code> does not
+exist in the <code class="language-plaintext highlighter-rouge">IRONIC_IMAGE_DIR</code> (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
+downloaded from the <code class="language-plaintext highlighter-rouge">IMAGE_LOCATION</code> value configured.</p>
+
+<h3 id="15-setting-environment-variables">1.5. Setting environment variables</h3>
+
+<div class="premonition info"><div class="fa fa-info-circle"></div><div class="content"><p class="header">Environment variables</p><p>More information about the specific environment variables used to set up metal3-dev-env can be found <a href="https://github.com/metal3-io/metal3-dev-env/blob/master/vars.md">here</a>.</p>
+
+
+</div></div>
+<p>To set environment variables persistently, export them from the configuration file used by metal³-dev-env scripts:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">cp </span>config_example.sh config_<span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>.sh
+<span class="nv">$ </span>vim config_<span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>.sh
+</code></pre></div></div>
+
+<h2 id="2-working-with-environment">2. Working with Environment</h2>
+
+<h3 id="21-baremetalhosts">2.1. BareMetalHosts</h3>
+
+<p>This environment creates a set of VMs to manage as if they were bare metal
+hosts.</p>
+
+<p>There are two different host OSs that metal3-dev-env setup process is tested on.</p>
+
+<ol>
+  <li>Host VM/Server on CentOS, while target can be Ubuntu or CentOS, Cirros, FCOS.</li>
+  <li>Host VM/Server on Ubuntu, while target can be Ubuntu or CentOS, Cirros, FCOS.</li>
+</ol>
+
+<p>The way  k8s cluster is running in the above two scenarios is different. For CentOS <code class="language-plaintext highlighter-rouge">minikube</code> cluster is used as the source cluster, for Ubuntu a <code class="language-plaintext highlighter-rouge">kind</code> cluster is being created.
+As such, when the host (where the <code class="language-plaintext highlighter-rouge">make</code> command was issued) OS is CentOS, there should be three libvirt VMs and one of them should be a <code class="language-plaintext highlighter-rouge">minikube</code> VM.</p>
+
+<p>In case the host OS is Ubuntu, the k8s source cluster is created by using <code class="language-plaintext highlighter-rouge">kind</code>, so in this case the <code class="language-plaintext highlighter-rouge">minikube</code> VM won’t be present.</p>
+
+<p>To configure what tool should be used for creating source k8s cluster the <code class="language-plaintext highlighter-rouge">EPHEMERAL_CLUSTER</code> environment variable is responsible.
+The <code class="language-plaintext highlighter-rouge">EPHEMERAL_CLUSTER</code> is configured to build <code class="language-plaintext highlighter-rouge">minikube</code> cluster by default on a CentOS host and <code class="language-plaintext highlighter-rouge">kind</code> cluster on a Ubuntu host.</p>
+
+<p>VMs can be listed using <code class="language-plaintext highlighter-rouge">virsh</code> cli tool.</p>
+
+<p>In case the the <code class="language-plaintext highlighter-rouge">EPHEMERAL_CLUSTER</code> environment variable is set to <code class="language-plaintext highlighter-rouge">kind</code> the list of
+running virtual machines will look like this:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">sudo </span>virsh list
+ Id    Name       State
+<span class="nt">--------------------------</span>
+ 1     node_0     running
+ 2     node_1     running
+</code></pre></div></div>
+
+<p>In case the the <code class="language-plaintext highlighter-rouge">EPHEMERAL_CLUSTER</code> environment variable is set to <code class="language-plaintext highlighter-rouge">minikube</code> the list of
+running virtual machines will look like this:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span><span class="nb">sudo </span>virsh list
+ Id   Name       State
+<span class="nt">--------------------------</span>
+ 1    minikube   running
+ 2    node_0     running
+ 3    node_1     running
+</code></pre></div></div>
+
+<p>Each of the VMs (aside from the <code class="language-plaintext highlighter-rouge">minikube</code> management cluster VM) are
+represented by <code class="language-plaintext highlighter-rouge">BareMetalHost</code> objects in our management cluster. The yaml
+definition file used to create these host objects is in <code class="language-plaintext highlighter-rouge">bmhosts_crs.yaml</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3 <span class="nt">-o</span> wide
+NAME     STATUS   STATE   CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       ready              ipmi://192.168.111.1:6230                                                                   unknown            <span class="nb">true
+</span>node-1   OK       ready              redfish+http://192.168.111.1:8000/redfish/v1/Systems/a82b2800-e37a-4605-9ed2-ca5ee8bb7857   unknown            <span class="nb">true</span>
+</code></pre></div></div>
+
+<p>You can also look at the details of a host, including the hardware information
+gathered by doing pre-deployment introspection.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhost <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml node-0
+
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      <span class="o">{</span><span class="s2">"apiVersion"</span>:<span class="s2">"metal3.io/v1alpha1"</span>,<span class="s2">"kind"</span>:<span class="s2">"BareMetalHost"</span>,<span class="s2">"metadata"</span>:<span class="o">{</span><span class="s2">"annotations"</span>:<span class="o">{}</span>,<span class="s2">"name"</span>:<span class="s2">"node-0"</span>,<span class="s2">"namespace"</span>:<span class="s2">"metal3"</span><span class="o">}</span>,<span class="s2">"spec"</span>:<span class="o">{</span><span class="s2">"bmc"</span>:<span class="o">{</span><span class="s2">"address"</span>:<span class="s2">"ipmi://192.168.111.1:6230"</span>,<span class="s2">"credentialsName"</span>:<span class="s2">"node-0-bmc-secret"</span><span class="o">}</span>,<span class="s2">"bootMACAddress"</span>:<span class="s2">"00:ee:d0:b8:47:7d"</span>,<span class="s2">"bootMode"</span>:<span class="s2">"legacy"</span>,<span class="s2">"online"</span>:true<span class="o">}}</span>
+  creationTimestamp: <span class="s2">"2021-07-12T11:04:10Z"</span>
+  finalizers:
+  - baremetalhost.metal3.io
+  generation: 1
+  name: node-0
+  namespace: metal3
+  resourceVersion: <span class="s2">"3243"</span>
+  uid: 3bd8b945-a3e8-43b9-b899-2f869680d28c
+spec:
+  automatedCleaningMode: metadata
+  bmc:
+    address: ipmi://192.168.111.1:6230
+    credentialsName: node-0-bmc-secret
+  bootMACAddress: 00:ee:d0:b8:47:7d
+  bootMode: legacy
+  online: <span class="nb">true
+</span>status:
+  errorCount: 0
+  errorMessage: <span class="s2">""</span>
+  goodCredentials:
+    credentials:
+      name: node-0-bmc-secret
+      namespace: metal3
+    credentialsVersion: <span class="s2">"1789"</span>
+  hardware:
+    cpu:
+      <span class="nb">arch</span>: x86_64
+      clockMegahertz: 2694
+      count: 2
+      flags:
+       - aes
+       - apic
+       <span class="c"># There are many more flags but they are not listed in this example.</span>
+      model: Intel Xeon E3-12xx v2 <span class="o">(</span>Ivy Bridge<span class="o">)</span>
+    firmware:
+      bios:
+        <span class="nb">date</span>: 04/01/2014
+        vendor: SeaBIOS
+        version: 1.13.0-1ubuntu1.1
+    <span class="nb">hostname</span>: node-0
+    nics:
+    - ip: 172.22.0.20
+      mac: 00:ee:d0:b8:47:7d
+      model: 0x1af4 0x0001
+      name: enp1s0
+      pxe: <span class="nb">true</span>
+    - ip: fe80::1863:f385:feab:381c%enp1s0
+      mac: 00:ee:d0:b8:47:7d
+      model: 0x1af4 0x0001
+      name: enp1s0
+      pxe: <span class="nb">true</span>
+    - ip: 192.168.111.20
+      mac: 00:ee:d0:b8:47:7f
+      model: 0x1af4 0x0001
+      name: enp2s0
+    - ip: fe80::521c:6a5b:f79:9a75%enp2s0
+      mac: 00:ee:d0:b8:47:7f
+      model: 0x1af4 0x0001
+      name: enp2s0
+    ramMebibytes: 4096
+    storage:
+    - hctl: <span class="s2">"0:0:0:0"</span>
+      model: QEMU HARDDISK
+      name: /dev/sda
+      rotational: <span class="nb">true
+      </span>serialNumber: drive-scsi0-0-0-0
+      sizeBytes: 53687091200
+      <span class="nb">type</span>: HDD
+      vendor: QEMU
+    systemVendor:
+      manufacturer: QEMU
+      productName: Standard PC <span class="o">(</span>Q35 + ICH9, 2009<span class="o">)</span>
+  hardwareProfile: unknown
+  lastUpdated: <span class="s2">"2021-07-12T11:08:53Z"</span>
+  operationHistory:
+    deprovision:
+      end: null
+      start: null
+    inspect:
+      end: <span class="s2">"2021-07-12T11:08:23Z"</span>
+      start: <span class="s2">"2021-07-12T11:04:55Z"</span>
+    provision:
+      end: null
+      start: null
+    register:
+      end: <span class="s2">"2021-07-12T11:04:55Z"</span>
+      start: <span class="s2">"2021-07-12T11:04:44Z"</span>
+  operationalStatus: OK
+  poweredOn: <span class="nb">true
+  </span>provisioning:
+    ID: 8effe29b-62fe-4fb6-9327-a3663550e99d
+    bootMode: legacy
+    image:
+      url: <span class="s2">""</span>
+    rootDeviceHints:
+      deviceName: /dev/sda
+    state: ready
+  triedCredentials:
+    credentials:
+      name: node-0-bmc-secret
+      namespace: metal3
+    credentialsVersion: <span class="s2">"1789"</span>
+</code></pre></div></div>
+
+<h3 id="22-provision-cluster-and-machines">2.2. Provision Cluster and Machines</h3>
+
+<p>This section describes how to trigger provisioning of a cluster and hosts via
+<code class="language-plaintext highlighter-rouge">Machine</code> objects as part of the Cluster API integration. This uses Cluster API
+<a href="https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0">v1alpha4</a> and
+assumes that metal3-dev-env is deployed with the environment variable
+<strong>CAPM3_VERSION</strong> set to <strong>v1alpha4</strong>. This is the default behavior. The v1alpha4 deployment can be done with
+Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet <a href="#11-prerequisites">resource requirements</a> for successful deployment:</p>
+
+<p>The following scripts can be used to provision a cluster, controlplane node and worker node.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>./scripts/provision/cluster.sh
+<span class="nv">$ </span>./scripts/provision/controlplane.sh
+<span class="nv">$ </span>./scripts/provision/worker.sh
+</code></pre></div></div>
+
+<p>At this point, the <code class="language-plaintext highlighter-rouge">Machine</code> actuator will respond and try to claim a
+<code class="language-plaintext highlighter-rouge">BareMetalHost</code> for this <code class="language-plaintext highlighter-rouge">Metal3Machine</code>. You can check the logs of the actuator.</p>
+
+<p>First check the names of the pods running in the <code class="language-plaintext highlighter-rouge">capm3-system</code> namespace and the output should be something similar
+to this:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl <span class="nt">-n</span> capm3-system get pods
+NAME                                                           READY   STATUS    RESTARTS   AGE
+capm3-baremetal-operator-controller-manager-7fd6769dc5-2krhm   2/2     Running   0          10m
+capm3-controller-manager-5d968ffd9d-8f6jz                      2/2     Running   0          10m
+capm3-ipam-controller-manager-6b77b87b46-nrrmt                 2/2     Running   0          10m
+</code></pre></div></div>
+
+<p>In order to get the logs of the actuator the logs of the capm3-controller-manager instance has to be queried with
+the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl logs <span class="nt">-n</span> capm3-system pod/capm3-controller-manager-5d968ffd9d-8f6jz <span class="nt">-c</span> manager
+
+09:10:38.914458       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting Controller"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"metal3cluster"</span>
+09:10:38.926489       controller-runtime/controller <span class="s2">"msg"</span><span class="o">=</span><span class="s2">"Starting workers"</span>  <span class="s2">"controller"</span><span class="o">=</span><span class="s2">"metal3machine"</span> <span class="s2">"worker count"</span><span class="o">=</span>1
+10:54:16.943712       Host matched hostSelector <span class="k">for </span>Metal3Machine
+10:54:16.943772       2 hosts available <span class="k">while </span>choosing host <span class="k">for </span>bare metal machine
+10:54:16.944087       Associating machine with host
+10:54:17.516274       Finished creating machine
+10:54:17.518718       Provisioning BaremetalHost
+
+</code></pre></div></div>
+
+<p>Keep in mind that the suffix hashes e.g. <code class="language-plaintext highlighter-rouge">5d968ffd9d-8f6jz</code> are automatically generated and change in case of a different
+deployment.</p>
+
+<p>If you look at the yaml representation of the <code class="language-plaintext highlighter-rouge">Metal3Machine</code> object, you will see a
+new annotation that identifies which <code class="language-plaintext highlighter-rouge">BareMetalHost</code> was chosen to satisfy this
+<code class="language-plaintext highlighter-rouge">Metal3Machine</code> request.</p>
+
+<p>First list the <code class="language-plaintext highlighter-rouge">Metal3Machine</code> objects present in the <code class="language-plaintext highlighter-rouge">metal3</code> namespace:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get metal3machines <span class="nt">-n</span> metal3
+NAME                       PROVIDERID                                      READY   CLUSTER   PHASE
+test1-controlplane-ssd56   metal3://d4848820-55fd-410a-b902-5b2122dd206c   <span class="nb">true    </span>test1
+test1-workers-gjcts        metal3://ee337588-be96-4d5b-95b9-b7375969debd   <span class="nb">true    </span>test1
+</code></pre></div></div>
+
+<p>Based on the name of the <code class="language-plaintext highlighter-rouge">Metal3Machine</code> objects you can check the yaml representation of the object and
+see from its annotation which <code class="language-plaintext highlighter-rouge">BareMetalHost</code> was chosen.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get metal3machine test1-workers-gjcts <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml
+...
+  annotations:
+    metal3.io/BareMetalHost: metal3/node-1
+...
+</code></pre></div></div>
+
+<p>You can also see in the list of <code class="language-plaintext highlighter-rouge">BareMetalHosts</code> that one of the hosts is now
+provisioned and associated with a <code class="language-plaintext highlighter-rouge">Metal3Machines</code> by looking at the <code class="language-plaintext highlighter-rouge">CONSUMER</code> output column of the following command:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+NAME     STATUS   STATE         CONSUMER                   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       provisioned   test1-controlplane-ssd56   ipmi://192.168.111.1:6230                                                                   unknown            <span class="nb">true
+</span>node-1   OK       provisioned   test1-workers-gjcts        redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            <span class="nb">true</span>
+</code></pre></div></div>
+
+<p>It is also possible to check that which <code class="language-plaintext highlighter-rouge">Metal3Machine</code> serves as infrastructure for the ClusterAPI <code class="language-plaintext highlighter-rouge">Machine</code>
+objects.</p>
+
+<p>First list the <code class="language-plaintext highlighter-rouge">Machine</code> objects:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machine <span class="nt">-n</span> metal3
+NAME                     PROVIDERID                                      PHASE     VERSION
+test1-75678f6485-z928j   metal3://ee337588-be96-4d5b-95b9-b7375969debd   Running   v1.21.2
+test1-m77bn              metal3://d4848820-55fd-410a-b902-5b2122dd206c   Running   v1.21.2
+</code></pre></div></div>
+
+<p>As a next step you can check what serves as the infrastructure backend for e.g. <code class="language-plaintext highlighter-rouge">test1-75678f6485-z928j</code> <code class="language-plaintext highlighter-rouge">Machine</code>
+object:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get machine test1-75678f6485-z928j <span class="nt">-n</span> metal3 <span class="nt">-o</span> yaml
+...
+  infrastructureRef:
+    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+    kind: Metal3Machine
+    name: test1-workers-gjcts
+    namespace: metal3
+    uid: 9adaec5f-f72b-4674-9f8f-1dc6c9039755
+...
+</code></pre></div></div>
+
+<p>Based on the result of the query <code class="language-plaintext highlighter-rouge">test1-75678f6485-z928j</code> ClusterAPI <code class="language-plaintext highlighter-rouge">Machine</code> object is backed by
+<code class="language-plaintext highlighter-rouge">test1-workers-gjcts</code> <code class="language-plaintext highlighter-rouge">Metal3Machine</code> object.</p>
+
+<p>You should be able to ssh into your host once provisioning is completed.
+The default username for both CentOS &amp; Ubuntu image is <code class="language-plaintext highlighter-rouge">metal3</code>.
+For the IP address, you can either use API endpoint IP of the target cluster
+which is - <code class="language-plaintext highlighter-rouge">192.168.111.249</code> by default or use predictable IP address of the first
+master node - <code class="language-plaintext highlighter-rouge">192.168.111.100</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>ssh metal3@192.168.111.249
+</code></pre></div></div>
+
+<h3 id="23-deprovision-cluster-and-machines">2.3. Deprovision Cluster and Machines</h3>
+
+<p>Deprovisioning of the target cluster is done just by deleting <code class="language-plaintext highlighter-rouge">Cluster</code> and <code class="language-plaintext highlighter-rouge">Machine</code> objects or by executing the deprovisioning scripts in reverse order than provisioning:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>./scripts/deprovision/worker.sh
+<span class="nv">$ </span>./scripts/deprovision/controlplane.sh
+<span class="nv">$ </span>./scripts/deprovision/cluster.sh
+</code></pre></div></div>
+
+<p>Note that you can easily deprovision worker Nodes by decreasing the number of replicas in the <code class="language-plaintext highlighter-rouge">MachineDeployment</code> object created when executing the <code class="language-plaintext highlighter-rouge">provision_worker.sh</code> script:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl scale machinedeployment test1-md-0 <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div></div>
+
+<div class="premonition warning"><div class="fa fa-exclamation-circle"></div><div class="content"><p class="header">Warning</p><p>control-plane and cluster are very tied together. This means that you are not able to deprovision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to deprovision the control-plane you need to <strong>deprovision the cluster</strong> as well and provision both again.</p>
+
+
+</div></div>
+<p>Below, it is shown how the deprovisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR).</p>
+
+<p>The order of deletion is:</p>
+<ol>
+  <li>Machine objects of the workers</li>
+  <li>Metal3Machine objects of the workers</li>
+  <li>Machine objects of the control plane</li>
+  <li>Metal3Machine objects of the control plane</li>
+  <li>The cluster object</li>
+</ol>
+
+<p>An additional detail is that the <code class="language-plaintext highlighter-rouge">Machine</code> object <code class="language-plaintext highlighter-rouge">test1-workers-gjcts</code> is controlled by the the <code class="language-plaintext highlighter-rouge">test1</code> <code class="language-plaintext highlighter-rouge">MachineDeployment</code>
+object thus in order to avoid reprovisioning of the <code class="language-plaintext highlighter-rouge">Machine</code> object the  <code class="language-plaintext highlighter-rouge">MachineDeployment</code> has to be deleted instead of the <code class="language-plaintext highlighter-rouge">Machine</code> object in the case of <code class="language-plaintext highlighter-rouge">test1-workers-gjcts</code>.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># By deleting the Machine or MachineDeployment object the related Metal3Machine object(s) should be deleted automatically.</span>
+
+<span class="nv">$ </span>kubectl delete machinedeployment test1 <span class="nt">-n</span> metal3
+machinedeployment.cluster.x-k8s.io <span class="s2">"test1"</span> deleted
+
+<span class="c"># The "machinedeployment.cluster.x-k8s.io "test1" deleted" output will be visible almost instantly but that doesn't mean that the related Machine</span>
+<span class="c"># object(s) has been deleted right away, after the deletion command is issued the Machine object(s) will enter a "Deleting" state and they could stay in that state for minutes</span>
+<span class="c"># before they are fully deleted.</span>
+
+<span class="nv">$ </span>kubectl delete machine test1-m77bn <span class="nt">-n</span> metal3
+machine.cluster.x-k8s.io <span class="s2">"test1-m77bn"</span> deleted
+
+<span class="c"># When a Machine object is deleted directly and not by deleting a MachineDeployment the "machine.cluster.x-k8s.io "test1-m77bn" deleted" will be only visible when the Machine and the</span>
+<span class="c"># related Metal3Machine object has been fully removed from the cluster. The deletion process could take a few minutes thus the command line will be unresponsive (blocked) for the time being.</span>
+
+<span class="nv">$ </span>kubectl delete cluster test1 <span class="nt">-n</span> metal3
+cluster.cluster.x-k8s.io <span class="s2">"test1"</span> deleted
+</code></pre></div></div>
+
+<p>Once the deletion has finished, you can see that the <code class="language-plaintext highlighter-rouge">BareMetalHosts</code> are offline  and <code class="language-plaintext highlighter-rouge">Cluster</code> object is not present anymore</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl get baremetalhosts <span class="nt">-n</span> metal3
+NAME     STATUS   STATE   CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
+node-0   OK       ready              ipmi://192.168.111.1:6230                                                                   unknown            <span class="nb">false
+</span>node-1   OK       ready              redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            <span class="nb">false</span>
+
+<span class="nv">$ </span>kubectl get cluster <span class="nt">-n</span> metal3
+No resources found <span class="k">in </span>metal3 namespace.
+</code></pre></div></div>
+
+<h3 id="24-running-custom-baremetal-operator">2.4. Running Custom Baremetal-Operator</h3>
+
+<p>The <code class="language-plaintext highlighter-rouge">baremetal-operator</code> comes up running in the cluster by default, using an
+image built from the <a href="https://github.com/metal3-io/baremetal-operator">metal3-io/baremetal-operator</a> repository. If you’d like to test changes to the
+<code class="language-plaintext highlighter-rouge">baremetal-operator</code>, you can follow this process.</p>
+
+<p>First, you must scale down the deployment of the <code class="language-plaintext highlighter-rouge">baremetal-operator</code> running
+in the cluster.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubectl scale deployment capm3-baremetal-operator-controller-manager <span class="nt">-n</span> metal3 <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div></div>
+
+<p>To be able to run <code class="language-plaintext highlighter-rouge">baremetal-operator</code> locally, you need to install
+<a href="https://github.com/operator-framework">operator-sdk</a>. After that, you can run
+the <code class="language-plaintext highlighter-rouge">baremetal-operator</code> including any custom changes.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/baremetal-operator
+make run
+</code></pre></div></div>
+
+<h3 id="25-running-custom-cluster-api-provider-metal3">2.5. Running Custom Cluster API Provider Metal3</h3>
+
+<p>There are two Cluster API related managers running in the cluster. One
+includes set of generic controllers, and the other includes a custom Machine
+controller for Metal3. If you want to try changes to
+<code class="language-plaintext highlighter-rouge">cluster-api-provider-metal3</code>, you want to shut down the custom Machine
+controller manager first.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">$ </span>kubectl scale deployment capm3-controller-manager <span class="nt">-n</span> capm3-system <span class="nt">--replicas</span><span class="o">=</span>0
+</code></pre></div></div>
+
+<p>Then you can run the custom Machine controller manager out of your local git tree.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">cd</span> ~/go/src/github.com/metal3-io/cluster-api-provider-metal3
+make run
+</code></pre></div></div>
+
+<h3 id="26-accessing-ironic-api">2.6. Accessing Ironic API</h3>
+
+<p>Sometimes you may want to look directly at Ironic to debug something.
+The metal3-dev-env repository contains a clouds.yaml file with
+connection settings for Ironic.</p>
+
+<p>Metal3-dev-env will install the unified OpenStack and standalone
+OpenStack Ironic command-line clients on the provisioning host as
+part of setting up the cluster.</p>
+
+<p>Note that currently you can use either unified OpenStack client
+or Ironic client. In this example we are using Ironic client to interact
+with Ironic API.</p>
+
+<p>Please make sure to export
+<code class="language-plaintext highlighter-rouge">CONTAINER_RUNTIME</code> environment variable before you execute
+commands.</p>
+
+<p>Example:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span><span class="nb">export </span><span class="nv">CONTAINER_RUNTIME</span><span class="o">=</span>docker
+<span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span>baremetal node list
++--------------------------------------+--------+---------------+-------------+--------------------+-------------+
+| UUID                                 | Name   | Instance UUID | Power State | Provisioning State | Maintenance |
++--------------------------------------+--------+---------------+-------------+--------------------+-------------+
+| 882cf206-d688-43fa-bf4c-3282fcb00b12 | node-0 | None          | None        | enroll             | False       |
+| ac257479-d6c6-47c1-a649-64a88e6ff312 | node-1 | None          | None        | enroll             | False       |
++--------------------------------------+--------+---------------+-------------+--------------------+-------------+
+</code></pre></div></div>
+
+<p>To view a particular node’s details, run the below command. The
+<code class="language-plaintext highlighter-rouge">last_error</code>, <code class="language-plaintext highlighter-rouge">maintenance_reason</code>, and <code class="language-plaintext highlighter-rouge">provisioning_state</code> fields are
+useful for troubleshooting to find out why a node did not deploy.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">[</span>notstack@metal3 metal3-dev-env]<span class="nv">$ </span>baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
++------------------------+------------------------------------------------------------+
+| Field                  | Value                                                      |
++------------------------+------------------------------------------------------------+
+| allocation_uuid        | None                                                       |
+| automated_clean        | None                                                       |
+| bios_interface         | no-bios                                                    |
+| boot_interface         | ipxe                                                       |
+| chassis_uuid           | None                                                       |
+| clean_step             | <span class="o">{}</span>                                                         |
+| conductor              | localhost.localdomain                                      |
+| conductor_group        |                                                            |
+| console_enabled        | False                                                      |
+| console_interface      | no-console                                                 |
+| created_at             | 2019-10-07T19:37:36+00:00                                  |
+| deploy_interface       | direct                                                     |
+| deploy_step            | <span class="o">{}</span>                                                         |
+| description            | None                                                       |
+| driver                 | ipmi                                                       |
+| driver_info            | <span class="o">{</span>u<span class="s1">'ipmi_port'</span>: u<span class="s1">'6230'</span>, u<span class="s1">'ipmi_username'</span>: u<span class="s1">'admin'</span>, u<span class="s1">'deploy_kernel'</span>: u<span class="s1">'http://172.22.0.2/images/ironic-python-agent.kernel'</span>, u<span class="s1">'ipmi_address'</span>: u<span class="s1">'192.168.111.1'</span>, u<span class="s1">'deploy_ramdisk'</span>: u<span class="s1">'http://172.22.0.2/images/ironic-python-agent.initramfs'</span>, u<span class="s1">'ipmi_password'</span>: u<span class="s1">'******'</span><span class="o">}</span> |
+| driver_internal_info   | <span class="o">{</span>u<span class="s1">'agent_enable_ata_secure_erase'</span>: True, u<span class="s1">'agent_erase_devices_iterations'</span>: 1, u<span class="s1">'agent_erase_devices_zeroize'</span>: True, u<span class="s1">'disk_erasure_concurrency'</span>: 1, u<span class="s1">'agent_continue_if_ata_erase_failed'</span>: False<span class="o">}</span>                                                                          |
+| extra                  | <span class="o">{}</span>                                                         |
+| fault                  | clean failure                                              |
+| inspect_interface      | inspector                                                  |
+| inspection_finished_at | None                                                       |
+| inspection_started_at  | None                                                       |
+| instance_info          | <span class="o">{}</span>                                                         |
+| instance_uuid          | None                                                       |
+| last_error             | None                                                       |
+| maintenance            | True                                                       |
+| maintenance_reason     | Timeout reached <span class="k">while </span>cleaning the node. Please check <span class="k">if </span>the ramdisk responsible <span class="k">for </span>the cleaning is running on the node. Failed on step <span class="o">{}</span><span class="nb">.</span>                                                                                                                                |
+| management_interface   | ipmitool                                                   |
+| name                   | master-0                                                   |
+| network_interface      | noop                                                       |
+| owner                  | None                                                       |
+| power_interface        | ipmitool                                                   |
+| power_state            | power on                                                   |
+| properties             | <span class="o">{</span>u<span class="s1">'cpu_arch'</span>: u<span class="s1">'x86_64'</span>, u<span class="s1">'root_device'</span>: <span class="o">{</span>u<span class="s1">'name'</span>: u<span class="s1">'/dev/sda'</span><span class="o">}</span>, u<span class="s1">'local_gb'</span>: u<span class="s1">'50'</span><span class="o">}</span>                                                                                                                                                                                        |
+| protected              | False                                                      |
+| protected_reason       | None                                                       |
+| provision_state        | clean <span class="nb">wait</span>                                                 |
+| provision_updated_at   | 2019-10-07T20:09:13+00:00                                  |
+| raid_config            | <span class="o">{}</span>                                                         |
+| raid_interface         | no-raid                                                    |
+| rescue_interface       | no-rescue                                                  |
+| reservation            | None                                                       |
+| resource_class         | baremetal                                                  |
+| storage_interface      | noop                                                       |
+| target_power_state     | None                                                       |
+| target_provision_state | available                                                  |
+| target_raid_config     | <span class="o">{}</span>                                                         |
+| traits                 | <span class="o">[]</span>                                                         |
+| updated_at             | 2019-10-07T20:09:13+00:00                                  |
+| uuid                   | 882cf206-d688-43fa-bf4c-3282fcb00b12                       |
+| vendor_interface       | ipmitool                                                   |
++-------------------------------------------------------------------------------------+
+</code></pre></div></div>
+
+  </section>
+</main>
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2021 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2021 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+    <div class="mk-icons-footer">
+      <p>
+        <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+          <i class="fab fa-twitter fa-lg"></i>
+        </a>
+        <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+          <i class="fab fa-slack fa-lg"></i>
+        </a>
+        <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+          <i class="fab fa-github fa-lg"></i>
+        </a>
+        <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+          <i class="fas fa-envelope fa-lg"></i>
+        </a>
+        <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+          <i class="fab fa-youtube fa-lg"></i>
+        </a>
+      </p>
+    </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+
