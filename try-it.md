@@ -308,17 +308,16 @@ to this:
 
 ```sh
 $ kubectl -n capm3-system get pods
-NAME                                                           READY   STATUS    RESTARTS   AGE
-capm3-baremetal-operator-controller-manager-7fd6769dc5-2krhm   2/2     Running   0          10m
-capm3-controller-manager-5d968ffd9d-8f6jz                      2/2     Running   0          10m
-capm3-ipam-controller-manager-6b77b87b46-nrrmt                 2/2     Running   0          10m
+NAME                                            READY   STATUS    RESTARTS   AGE
+capm3-controller-manager-65d96d6b6-5t7qj        1/1     Running   0          47h
+capm3-ipam-controller-manager-f6b89ddf9-t4wxg   1/1     Running   0          47h
 ```
 
 In order to get the logs of the actuator the logs of the capm3-controller-manager instance has to be queried with
 the following command:
 
 ```sh
-$ kubectl logs -n capm3-system pod/capm3-controller-manager-5d968ffd9d-8f6jz -c manager
+$ kubectl logs -n capm3-system pod/capm3-controller-manager-65d96d6b6-5t7qj
 
 09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
 09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
@@ -330,7 +329,7 @@ $ kubectl logs -n capm3-system pod/capm3-controller-manager-5d968ffd9d-8f6jz -c 
 
 ```
 
-Keep in mind that the suffix hashes e.g. `5d968ffd9d-8f6jz` are automatically generated and change in case of a different
+Keep in mind that the suffix hashes e.g. `65d96d6b6-5t7qj` are automatically generated and change in case of a different
 deployment.
 
 If you look at the yaml representation of the `Metal3Machine` object, you will see a
