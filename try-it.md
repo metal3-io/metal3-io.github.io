@@ -32,10 +32,10 @@ permalink: /try-it.html
 
 ### 1.1. Prerequisites
 
-- System with CentOS 8 or Ubuntu 18.04
+- System with CentOS 8 Stream or Ubuntu 20.04
 - Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
 - Run as a user with passwordless sudo access
-- Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory.
+- Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory
 
 ### 1.2. Setup
 
@@ -51,7 +51,7 @@ This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu b
 The short version is: clone [metal³-dev-env](https://github.com/metal3-io/metal3-dev-env)
 and run
 
-```sh
+```console
 $ make
 ```
 
@@ -73,7 +73,7 @@ When the environment setup is completed, you should be able to see `BareMetalHos
 
 To tear down the environment, run
 
-```sh
+```console
 $ make clean
 ```
 
@@ -135,7 +135,7 @@ VMs can be listed using `virsh` cli tool.
 In case the the `EPHEMERAL_CLUSTER` environment variable is set to `kind` the list of
 running virtual machines will look like this:
 
-```sh
+```console
 $ sudo virsh list
  Id    Name       State
 --------------------------
@@ -146,7 +146,7 @@ $ sudo virsh list
 In case the the `EPHEMERAL_CLUSTER` environment variable is set to `minikube` the list of
 running virtual machines will look like this:
 
-```sh
+```console
 $ sudo virsh list
  Id   Name       State
 --------------------------
@@ -159,17 +159,17 @@ Each of the VMs (aside from the `minikube` management cluster VM) are
 represented by `BareMetalHost` objects in our management cluster. The yaml
 definition file used to create these host objects is in `bmhosts_crs.yaml`.
 
-```sh
+```console
 $ kubectl get baremetalhosts -n metal3 -o wide
-NAME     STATUS   STATE   CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
-node-0   OK       ready              ipmi://192.168.111.1:6230                                                                   unknown            true
-node-1   OK       ready              redfish+http://192.168.111.1:8000/redfish/v1/Systems/a82b2800-e37a-4605-9ed2-ca5ee8bb7857   unknown            true
+NAME     STATUS   STATE       CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR   AGE
+node-0   OK       available              ipmi://192.168.111.1:6230                                                                   unknown            true             58m
+node-1   OK       available              redfish+http://192.168.111.1:8000/redfish/v1/Systems/492fcbab-4a79-40d7-8fea-a7835a05ef4a   unknown            true             58m
 ```
 
 You can also look at the details of a host, including the hardware information
 gathered by doing pre-deployment introspection.
 
-```sh
+```console
 $ kubectl get baremetalhost -n metal3 -o yaml node-0
 
 apiVersion: metal3.io/v1alpha1
@@ -286,14 +286,15 @@ status:
 
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
-[v1alpha4](https://github.com/kubernetes-sigs/cluster-api/tree/v0.3.0) and
+[v1beta1](https://github.com/kubernetes-sigs/cluster-api/tree/v1.0.2) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPM3_VERSION** set to **v1alpha4**. This is the default behavior. The v1alpha4 deployment can be done with
-Ubuntu 18.04 or Centos 8 target host images. Please make sure to meet [resource requirements](#11-prerequisites) for successful deployment:
+**CAPM3_VERSION** set to **v1beta1**. This is the default behavior. The v1beta1 deployment can be done with
+Ubuntu 20.04 or Centos 8 Stream target host images. Please make sure to meet
+[resource requirements](#11-prerequisites) for successful deployment:
 
 The following scripts can be used to provision a cluster, controlplane node and worker node.
 
-```sh
+```console
 $ ./scripts/provision/cluster.sh
 $ ./scripts/provision/controlplane.sh
 $ ./scripts/provision/worker.sh
@@ -303,34 +304,26 @@ $ ./scripts/provision/worker.sh
 At this point, the `Machine` actuator will respond and try to claim a
 `BareMetalHost` for this `Metal3Machine`. You can check the logs of the actuator.
 
-First check the names of the pods running in the `capm3-system` namespace and the output should be something similar
+First check the names of the pods running in the `baremetal-operator-system` namespace and the output should be something similar
 to this:
 
-```sh
-$ kubectl -n capm3-system get pods
-NAME                                                           READY   STATUS    RESTARTS   AGE
-capm3-baremetal-operator-controller-manager-7fd6769dc5-2krhm   2/2     Running   0          10m
-capm3-controller-manager-5d968ffd9d-8f6jz                      2/2     Running   0          10m
-capm3-ipam-controller-manager-6b77b87b46-nrrmt                 2/2     Running   0          10m
+```console
+$ kubectl -n baremetal-operator-system get pods
+NAME                                                    READY   STATUS    RESTARTS   AGE
+baremetal-operator-controller-manager-5fd4fb6c8-c9prs   2/2     Running   0          71m
 ```
 
-In order to get the logs of the actuator the logs of the capm3-controller-manager instance has to be queried with
+In order to get the logs of the actuator the logs of the baremetal-operator-controller-manager instance has to be queried with
 the following command:
 
-```sh
-$ kubectl logs -n capm3-system pod/capm3-controller-manager-5d968ffd9d-8f6jz -c manager
-
-09:10:38.914458       controller-runtime/controller "msg"="Starting Controller"  "controller"="metal3cluster"
-09:10:38.926489       controller-runtime/controller "msg"="Starting workers"  "controller"="metal3machine" "worker count"=1
-10:54:16.943712       Host matched hostSelector for Metal3Machine
-10:54:16.943772       2 hosts available while choosing host for bare metal machine
-10:54:16.944087       Associating machine with host
-10:54:17.516274       Finished creating machine
-10:54:17.518718       Provisioning BaremetalHost
-
+```console
+$ kubectl logs -n baremetal-operator-system pod/baremetal-operator-controller-manager-5fd4fb6c8-c9prs -c manager
+...
+{"level":"info","ts":1642594214.3598707,"logger":"controllers.BareMetalHost","msg":"done","baremetalhost":"metal3/node-1", "provisioningState":"provisioning","requeue":true,"after":10}
+...
 ```
 
-Keep in mind that the suffix hashes e.g. `5d968ffd9d-8f6jz` are automatically generated and change in case of a different
+Keep in mind that the suffix hashes e.g. `5fd4fb6c8-c9prs` are automatically generated and change in case of a different
 deployment.
 
 If you look at the yaml representation of the `Metal3Machine` object, you will see a
@@ -339,18 +332,18 @@ new annotation that identifies which `BareMetalHost` was chosen to satisfy this
 
 First list the `Metal3Machine` objects present in the `metal3` namespace:
 
-```sh
+```console
 $ kubectl get metal3machines -n metal3
 NAME                       PROVIDERID                                      READY   CLUSTER   PHASE
-test1-controlplane-ssd56   metal3://d4848820-55fd-410a-b902-5b2122dd206c   true    test1
-test1-workers-gjcts        metal3://ee337588-be96-4d5b-95b9-b7375969debd   true    test1
+test1-controlplane-jjd9l   metal3://d4848820-55fd-410a-b902-5b2122dd206c   true    test1
+test1-workers-bx4wp        metal3://ee337588-be96-4d5b-95b9-b7375969debd   true    test1
 ```
 
 Based on the name of the `Metal3Machine` objects you can check the yaml representation of the object and
 see from its annotation which `BareMetalHost` was chosen.
 
-```sh
-$ kubectl get metal3machine test1-workers-gjcts -n metal3 -o yaml
+```console
+$ kubectl get metal3machine test1-workers-bx4wp -n metal3 -o yaml
 ...
   annotations:
     metal3.io/BareMetalHost: metal3/node-1
@@ -360,11 +353,11 @@ $ kubectl get metal3machine test1-workers-gjcts -n metal3 -o yaml
 You can also see in the list of `BareMetalHosts` that one of the hosts is now
 provisioned and associated with a `Metal3Machines` by looking at the `CONSUMER` output column of the following command:
 
-```sh
+```console
 $ kubectl get baremetalhosts -n metal3
-NAME     STATUS   STATE         CONSUMER                   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
-node-0   OK       provisioned   test1-controlplane-ssd56   ipmi://192.168.111.1:6230                                                                   unknown            true
-node-1   OK       provisioned   test1-workers-gjcts        redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            true
+NAME     STATE         CONSUMER                   ONLINE   ERROR   AGE
+node-0   provisioned   test1-controlplane-jjd9l   true             122m
+node-1   provisioned   test1-workers-bx4wp        true             122m
 ```
 
 It is also possible to check that which `Metal3Machine` serves as infrastructure for the ClusterAPI `Machine`
@@ -372,30 +365,30 @@ objects.
 
 First list the `Machine` objects:
 
-```sh
+```console
 $ kubectl get machine -n metal3
-NAME                     PROVIDERID                                      PHASE     VERSION
-test1-75678f6485-z928j   metal3://ee337588-be96-4d5b-95b9-b7375969debd   Running   v1.21.2
-test1-m77bn              metal3://d4848820-55fd-410a-b902-5b2122dd206c   Running   v1.21.2
+NAME                     CLUSTER   NODENAME                 PROVIDERID                                      PHASE     AGE   VERSION
+test1-6d8cc5965f-wvzms   test1     test1-6d8cc5965f-wvzms   metal3://7f51f14b-7701-436a-85ba-7dbc7315b3cb   Running   53m   v1.22.3
+test1-nphjx              test1     test1-nphjx              metal3://14fbcd25-4d09-4aca-9628-a789ba3e175c   Running   55m   v1.22.3
 ```
 
-As a next step you can check what serves as the infrastructure backend for e.g. `test1-75678f6485-z928j` `Machine`
+As a next step you can check what serves as the infrastructure backend for e.g. `test1-6d8cc5965f-wvzms` `Machine`
 object:
 
-```sh
-$ kubectl get machine test1-75678f6485-z928j -n metal3 -o yaml
+```console
+$ kubectl get machine test1-6d8cc5965f-wvzms -n metal3 -o yaml
 ...
   infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1alpha4
+    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: Metal3Machine
-    name: test1-workers-gjcts
+    name: test1-workers-bx4wp
     namespace: metal3
-    uid: 9adaec5f-f72b-4674-9f8f-1dc6c9039755
+    uid: 39362b32-ebb7-4117-9919-67510ceb177f
 ...
 ```
 
-Based on the result of the query `test1-75678f6485-z928j` ClusterAPI `Machine` object is backed by
-`test1-workers-gjcts` `Metal3Machine` object.
+Based on the result of the query `test1-6d8cc5965f-wvzms` ClusterAPI `Machine` object is backed by
+`test1-workers-bx4wp` `Metal3Machine` object.
 
 You should be able to ssh into your host once provisioning is completed.
 The default username for both CentOS & Ubuntu image is `metal3`.
@@ -403,7 +396,7 @@ For the IP address, you can either use API endpoint IP of the target cluster
 which is - `192.168.111.249` by default or use predictable IP address of the first
 master node - `192.168.111.100`.
 
-```sh
+```console
 $ ssh metal3@192.168.111.249
 ```
 
@@ -411,16 +404,16 @@ $ ssh metal3@192.168.111.249
 
 Deprovisioning of the target cluster is done just by deleting `Cluster` and `Machine` objects or by executing the deprovisioning scripts in reverse order than provisioning:
 
-```sh
+```console
 $ ./scripts/deprovision/worker.sh
 $ ./scripts/deprovision/controlplane.sh
 $ ./scripts/deprovision/cluster.sh
 ```
 
-Note that you can easily deprovision worker Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision_worker.sh` script:
+Note that you can easily deprovision worker Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision/worker.sh` script:
 
-```sh
-$ kubectl scale machinedeployment test1-md-0 --replicas=0
+```console
+$ kubectl scale machinedeployment test1 -n metal3 --replicas=0
 ```
 
 > warning "Warning"
@@ -435,24 +428,24 @@ The order of deletion is:
 4. Metal3Machine objects of the control plane
 5. The cluster object
 
-An additional detail is that the `Machine` object `test1-workers-gjcts` is controlled by the the `test1` `MachineDeployment`
-object thus in order to avoid reprovisioning of the `Machine` object the  `MachineDeployment` has to be deleted instead of the `Machine` object in the case of `test1-workers-gjcts`.
+An additional detail is that the `Machine` object `test1-workers-bx4wp` is controlled by the the `test1` `MachineDeployment`
+object thus in order to avoid reprovisioning of the `Machine` object the  `MachineDeployment` has to be deleted instead of the `Machine` object in the case of `test1-workers-bx4wp`.
 
-```sh
-# By deleting the Machine or MachineDeployment object the related Metal3Machine object(s) should be deleted automatically.
+```console
+$ # By deleting the Machine or MachineDeployment object the related Metal3Machine object(s) should be deleted automatically.
 
 $ kubectl delete machinedeployment test1 -n metal3
 machinedeployment.cluster.x-k8s.io "test1" deleted
 
-# The "machinedeployment.cluster.x-k8s.io "test1" deleted" output will be visible almost instantly but that doesn't mean that the related Machine
-# object(s) has been deleted right away, after the deletion command is issued the Machine object(s) will enter a "Deleting" state and they could stay in that state for minutes
-# before they are fully deleted.
+$ # The "machinedeployment.cluster.x-k8s.io "test1" deleted" output will be visible almost instantly but that doesn't mean that the related Machine
+$ # object(s) has been deleted right away, after the deletion command is issued the Machine object(s) will enter a "Deleting" state and they could stay in that state for minutes
+$ # before they are fully deleted.
 
 $ kubectl delete machine test1-m77bn -n metal3
 machine.cluster.x-k8s.io "test1-m77bn" deleted
 
-# When a Machine object is deleted directly and not by deleting a MachineDeployment the "machine.cluster.x-k8s.io "test1-m77bn" deleted" will be only visible when the Machine and the
-# related Metal3Machine object has been fully removed from the cluster. The deletion process could take a few minutes thus the command line will be unresponsive (blocked) for the time being.
+$ # When a Machine object is deleted directly and not by deleting a MachineDeployment the "machine.cluster.x-k8s.io "test1-m77bn" deleted" will be only visible when the Machine and the
+$ # related Metal3Machine object has been fully removed from the cluster. The deletion process could take a few minutes thus the command line will be unresponsive (blocked) for the time being.
 
 $ kubectl delete cluster test1 -n metal3
 cluster.cluster.x-k8s.io "test1" deleted
@@ -460,11 +453,11 @@ cluster.cluster.x-k8s.io "test1" deleted
 
 Once the deletion has finished, you can see that the `BareMetalHosts` are offline  and `Cluster` object is not present anymore
 
-```sh
+```console
 $ kubectl get baremetalhosts -n metal3
-NAME     STATUS   STATE   CONSUMER   BMC                                                                                         HARDWARE_PROFILE   ONLINE   ERROR
-node-0   OK       ready              ipmi://192.168.111.1:6230                                                                   unknown            false
-node-1   OK       ready              redfish+http://192.168.111.1:8000/redfish/v1/Systems/a1cd44ba-c6db-49ac-bb07-56d4fbc5380f   unknown            false
+NAME     STATE       CONSUMER   ONLINE   ERROR   AGE
+node-0   available              false            160m
+node-1   available              false            160m
 
 $ kubectl get cluster -n metal3
 No resources found in metal3 namespace.
@@ -479,37 +472,36 @@ image built from the [metal3-io/baremetal-operator](https://github.com/metal3-io
 First, you must scale down the deployment of the `baremetal-operator` running
 in the cluster.
 
-```sh
-kubectl scale deployment capm3-baremetal-operator-controller-manager -n metal3 --replicas=0
+```console
+$ kubectl scale deployment baremetal-operator-controller-manager -n baremetal-operator-system --replicas=0
 ```
 
 To be able to run `baremetal-operator` locally, you need to install
 [operator-sdk](https://github.com/operator-framework). After that, you can run
 the `baremetal-operator` including any custom changes.
 
-```sh
-cd ~/go/src/github.com/metal3-io/baremetal-operator
-make run
+```console
+$ cd ~/go/src/github.com/metal3-io/baremetal-operator
+$ make run
 ```
 
 ### 2.5. Running Custom Cluster API Provider Metal3
 
 There are two Cluster API related managers running in the cluster. One
 includes set of generic controllers, and the other includes a custom Machine
-controller for Metal3. If you want to try changes to
-`cluster-api-provider-metal3`, you want to shut down the custom Machine
-controller manager first.
+controller for Metal3.
 
-```sh
-$ kubectl scale deployment capm3-controller-manager -n capm3-system --replicas=0
-```
+#### Tilt development environment
 
-Then you can run the custom Machine controller manager out of your local git tree.
-
-```sh
-cd ~/go/src/github.com/metal3-io/cluster-api-provider-metal3
-make run
-```
+[Tilt](https://tilt.dev) setup can deploy CAPM3 in a local kind cluster. Since
+Tilt is applied in the metal3-dev-env deployment, you can make changes inside
+the `cluster-api-provider-metal3` folder and Tilt will deploy the changes
+automatically.
+If you deployed CAMP3 separately and want to make changes in CAPM3, then
+follow [CAPM3 instructions](#tilt-for-dev-in-capm3). This will save you from
+having to build all of the images for CAPI, which can take a while. If the
+scope of your development will span both CAPM3 and CAPI, then follow the
+[CAPI and CAPM3 instructions](#tilt-for-dev-in-both-capm3-and-capi).
 
 ### 2.6. Accessing Ironic API
 
@@ -531,76 +523,80 @@ commands.
 
 Example:
 
-```sh
+```console
 [notstack@metal3 metal3-dev-env]$ export CONTAINER_RUNTIME=docker
 [notstack@metal3 metal3-dev-env]$ baremetal node list
-+--------------------------------------+--------+---------------+-------------+--------------------+-------------+
-| UUID                                 | Name   | Instance UUID | Power State | Provisioning State | Maintenance |
-+--------------------------------------+--------+---------------+-------------+--------------------+-------------+
-| 882cf206-d688-43fa-bf4c-3282fcb00b12 | node-0 | None          | None        | enroll             | False       |
-| ac257479-d6c6-47c1-a649-64a88e6ff312 | node-1 | None          | None        | enroll             | False       |
-+--------------------------------------+--------+---------------+-------------+--------------------+-------------+
++--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
+| UUID                                 | Name          | Instance UUID                        | Power State | Provisioning State | Maintenance |
++--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
+| b423ee9c-66d8-48dd-bd6f-656b93140504 | metal3~node-1 | 7f51f14b-7701-436a-85ba-7dbc7315b3cb | power off   | available          | False       |
+| 882533c5-2f14-49f6-aa44-517e1e404fd8 | metal3~node-0 | 14fbcd25-4d09-4aca-9628-a789ba3e175c | power off   | available          | False       |
++--------------------------------------+---------------+--------------------------------------+-------------+--------------------+-------------+
 ```
 
 To view a particular node's details, run the below command. The
 `last_error`, `maintenance_reason`, and `provisioning_state` fields are
 useful for troubleshooting to find out why a node did not deploy.
 
-```sh
-[notstack@metal3 metal3-dev-env]$ baremetal node show 882cf206-d688-43fa-bf4c-3282fcb00b12
+```console
+[notstack@metal3 metal3-dev-env]$ baremetal node show b423ee9c-66d8-48dd-bd6f-656b93140504
 +------------------------+------------------------------------------------------------+
 | Field                  | Value                                                      |
 +------------------------+------------------------------------------------------------+
 | allocation_uuid        | None                                                       |
-| automated_clean        | None                                                       |
-| bios_interface         | no-bios                                                    |
+| automated_clean        | True                                                       |
+| bios_interface         | redfish                                                    |
 | boot_interface         | ipxe                                                       |
 | chassis_uuid           | None                                                       |
 | clean_step             | {}                                                         |
-| conductor              | localhost.localdomain                                      |
+| conductor              | 172.22.0.2                                                 |
 | conductor_group        |                                                            |
 | console_enabled        | False                                                      |
 | console_interface      | no-console                                                 |
-| created_at             | 2019-10-07T19:37:36+00:00                                  |
+| created_at             | 2022-01-19T10:56:06+00:00                                  |
 | deploy_interface       | direct                                                     |
 | deploy_step            | {}                                                         |
 | description            | None                                                       |
-| driver                 | ipmi                                                       |
-| driver_info            | {u'ipmi_port': u'6230', u'ipmi_username': u'admin', u'deploy_kernel': u'http://172.22.0.2/images/ironic-python-agent.kernel', u'ipmi_address': u'192.168.111.1', u'deploy_ramdisk': u'http://172.22.0.2/images/ironic-python-agent.initramfs', u'ipmi_password': u'******'} |
-| driver_internal_info   | {u'agent_enable_ata_secure_erase': True, u'agent_erase_devices_iterations': 1, u'agent_erase_devices_zeroize': True, u'disk_erasure_concurrency': 1, u'agent_continue_if_ata_erase_failed': False}                                                                          |
+| driver                 | redfish                                                    |
+| driver_info            | {u'deploy_kernel': u'http://172.22.0.2:6180/images/ironic-python-agent.kernel', u'deploy_ramdisk': u'http://172.22.0.2:6180/images/ironic-python-agent.initramfs', u'redfish_address': u'http://192.168.111.1:8000', u'redfish_password': u'******', u'redfish_system_id': u'/redfish/v1/Systems/492fcbab-4a79-40d7-8fea-a7835a05ef4a', u'redfish_username': u'admin', u'force_persistent_boot_device': u'Default'} |
+| driver_internal_info   | {u'last_power_state_change': u'2022-01-19T13:04:01.981882', u'agent_version': u'8.3.1.dev2', u'agent_last_heartbeat': u'2022-01-19T13:03:51.874842', u'clean_steps': None, u'agent_erase_devices_iterations': 1, u'agent_erase_devices_zeroize': True, u'agent_continue_if_secure_erase_failed': False, u'agent_continue_if_ata_erase_failed': False, u'agent_enable_nvme_secure_erase': True, u'disk_erasure_concurrency': 1, u'agent_erase_skip_read_only': False, u'hardware_manager_version': {u'generic_hardware_manager': u'1.1'}, u'agent_cached_clean_steps_refreshed': u'2022-01-19 13:03:47.558697', u'deploy_steps': None, u'agent_cached_deploy_steps_refreshed': u'2022-01-19 12:09:34.731244'} |
 | extra                  | {}                                                         |
-| fault                  | clean failure                                              |
+| fault                  | None                                                       |
 | inspect_interface      | inspector                                                  |
 | inspection_finished_at | None                                                       |
-| inspection_started_at  | None                                                       |
-| instance_info          | {}                                                         |
+| inspection_started_at  | 2022-01-19T10:56:17+00:00                                  |
+| instance_info          | {u'capabilities': {}, u'image_source': u'http://172.22.0.1/images/CENTOS_8_NODE_IMAGE_K8S_v1.22.3-raw.img', u'image_os_hash_algo': u'md5', u'image_os_hash_value': u'http://172.22.0.1/images/CENTOS_8_NODE_IMAGE_K8S_v1.22.3-raw.img.md5sum', u'image_checksum': u'http://172.22.0.1/images/CENTOS_8_NODE_IMAGE_K8S_v1.22.3-raw.img.md5sum', u'image_disk_format': u'raw'} |
 | instance_uuid          | None                                                       |
 | last_error             | None                                                       |
-| maintenance            | True                                                       |
-| maintenance_reason     | Timeout reached while cleaning the node. Please check if the ramdisk responsible for the cleaning is running on the node. Failed on step {}.                                                                                                                                |
-| management_interface   | ipmitool                                                   |
-| name                   | master-0                                                   |
+| lessee                 | None                                                       |
+| maintenance            | False                                                      |
+| maintenance_reason     | None                                                       |
+| management_interface   | redfish                                                    |
+| name                   | metal3~node-1                                              |
+| network_data           | {}                                                         |
 | network_interface      | noop                                                       |
 | owner                  | None                                                       |
-| power_interface        | ipmitool                                                   |
-| power_state            | power on                                                   |
-| properties             | {u'cpu_arch': u'x86_64', u'root_device': {u'name': u'/dev/sda'}, u'local_gb': u'50'}                                                                                                                                                                                        |
+| power_interface        | redfish                                                    |
+| power_state            | power off                                                  |
+| properties             | {u'capabilities': u'cpu_vt:true,cpu_aes:true,cpu_hugepages:true,boot_mode:bios', u'vendor': u'Sushy Emulator', u'local_gb': u'50', u'cpus': u'2', u'cpu_arch': u'x86_64', u'memory_mb': u'4096', u'root_device': {u'name': u's== /dev/sda'}}                                                                                                                                                                                        |
 | protected              | False                                                      |
 | protected_reason       | None                                                       |
-| provision_state        | clean wait                                                 |
-| provision_updated_at   | 2019-10-07T20:09:13+00:00                                  |
+| provision_state        | available                                                  |
+| provision_updated_at   | 2022-01-19T13:03:52+00:00                                  |
 | raid_config            | {}                                                         |
 | raid_interface         | no-raid                                                    |
 | rescue_interface       | no-rescue                                                  |
 | reservation            | None                                                       |
-| resource_class         | baremetal                                                  |
+| resource_class         | None                                                       |
+| retired                | False                                                      |
+| retired_reason         | None                                                       |
 | storage_interface      | noop                                                       |
 | target_power_state     | None                                                       |
-| target_provision_state | available                                                  |
+| target_provision_state | None                                                       |
 | target_raid_config     | {}                                                         |
 | traits                 | []                                                         |
-| updated_at             | 2019-10-07T20:09:13+00:00                                  |
-| uuid                   | 882cf206-d688-43fa-bf4c-3282fcb00b12                       |
-| vendor_interface       | ipmitool                                                   |
+| updated_at             | 2022-01-19T13:04:03+00:00                                  |
+| uuid                   | b423ee9c-66d8-48dd-bd6f-656b93140504                       |
+| vendor_interface       | redfish                                                    |
 +-------------------------------------------------------------------------------------+
 ```
