@@ -5,22 +5,24 @@ filters:
       - hardys
       - hroyrh
       - knowncitizen
-      - russellb
-    
+
     reviewers:
       - fmuyassarov
 
     emeritus_approvers:
-      - codificat       # 2021-03-03
+      - codificat
+      - russellb
 
   "^_posts/.*":
     labels:
       - kind/blog
     approvers:
       - hardys
+      - stbenjam
+
+    emeritus_approvers:
       - maelk
       - russellb
-      - stbenjam
 
   "^_(data|layouts|sass|css|js)/.*":
     labels:
