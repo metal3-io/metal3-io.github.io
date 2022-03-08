@@ -497,7 +497,7 @@ controller for Metal3.
 Tilt is applied in the metal3-dev-env deployment, you can make changes inside
 the `cluster-api-provider-metal3` folder and Tilt will deploy the changes
 automatically.
-If you deployed CAMP3 separately and want to make changes in CAPM3, then
+If you deployed CAPM3 separately and want to make changes to it, then
 follow [CAPM3 instructions](#tilt-for-dev-in-capm3). This will save you from
 having to build all of the images for CAPI, which can take a while. If the
 scope of your development will span both CAPM3 and CAPI, then follow the
