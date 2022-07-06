@@ -57,7 +57,7 @@ repos:
         types:
         - shell
 -   repo: https://github.com/asottile/blacken-docs
-    rev: v1.10.0
+    rev: v1.12.1
     hooks:
     -   id: blacken-docs
 -   repo: https://github.com/hcodes/yaspeller.git

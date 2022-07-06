@@ -39,3 +39,5 @@ gem "rouge"
 
 # Allow running 'rake', e.g. for local link checks
 gem "rake"
+
+gem "webrick", "~> 1.7", :group => :development
