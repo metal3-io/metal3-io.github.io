@@ -2,7 +2,6 @@
 filters:
   ".*":
     approvers:
-      - hardys
       - hroyrh
       - knowncitizen
 
@@ -11,16 +10,17 @@ filters:
 
     emeritus_approvers:
       - codificat
+      - hardys
       - russellb
 
   "^_posts/.*":
     labels:
       - kind/blog
     approvers:
-      - hardys
       - stbenjam
 
     emeritus_approvers:
+      - hardys
       - maelk
       - russellb
 
