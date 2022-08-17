@@ -23,7 +23,6 @@ twitter_username: metal3_io
 github_username:  metal3-io
 type: website
 image: /assets/images/metal3logo.png
-highlighter: rouge
 
 # Build settings
 markdown: kramdown

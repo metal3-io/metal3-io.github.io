@@ -1,6 +1,6 @@
 # metal3.io Website
 
-[![Build Status](https://travis-ci.org/metal3-io/metal3-io.github.io.svg?branch=master)](https://travis-ci.org/metal3-io/metal3-io.github.io)
+[![Deploy via Jekyll on GitHub pages](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml/badge.svg?branch=source)](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml)
 
 ## Contributing contents
 
@@ -8,7 +8,7 @@ We more than welcome contributions in the form of blog posts, pages and/or labs,
 
 ## Test your changes in a local container
 
-### Run a jekyll container
+### Run a Jekyll container
 
 - On a SELinux enabled OS:
 
@@ -18,7 +18,7 @@ We more than welcome contributions in the form of blog posts, pages and/or labs,
   podman run -d --name metal3io -p 4000:4000 -v $(pwd):/srv/jekyll:Z jekyll/jekyll jekyll serve --future --watch
   ```
 
-  **NOTE**: Be sure to cd into the _metal3-io.github.io_ directory before running the above command as the Z at the end of the volume (-v) will relabel its contents so it can be written from within the container, like running `chcon -Rt svirt_sandbox_file_t -l s0:c1,c2` yourself.
+  **NOTE**: Make sure you are in the _metal3-io.github.io_ directory before running the above command as the Z at the end of the volume (-v) will relabel its contents so it can be written from within the container, like running `chcon -Rt svirt_sandbox_file_t -l s0:c1,c2` yourself.
 
 - On an OS without SELinux:
 
