@@ -7,11 +7,13 @@ filters:
       - knowncitizen
 
     reviewers:
-      - fmuyassarov
 
     emeritus_approvers:
       - codificat
       - russellb
+    
+    emeritus_reviewers:
+      - fmuyassarov
 
   "^_posts/.*":
     labels:
