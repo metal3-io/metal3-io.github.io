@@ -2,30 +2,45 @@
 filters:
   ".*":
     approvers:
-      - hardys
       - hroyrh
-      - knowncitizen
+      - iranzo
+      - lentzi90
 
     reviewers:
-      - fmuyassarov
+      - Rozzii
 
     emeritus_approvers:
       - codificat
       - russellb
+      - hardys
+      - knowncitizen
+      - fmuyassarov
 
   "^_posts/.*":
     labels:
       - kind/blog
     approvers:
-      - hardys
-      - stbenjam
+      - hroyrh
+      - lentzi90
+    
+    reviewers:
+      - Rozzii
 
     emeritus_approvers:
       - maelk
       - russellb
+      - hardys
+      - stbenjam
 
   "^_(data|layouts|sass|css|js)/.*":
     labels:
       - kind/website
     approvers:
+      - hroyrh
+      - lentzi90
+      - iranzo
       - matthewcarleton
+
+    reviewers:
+      - Rozzii
+   
