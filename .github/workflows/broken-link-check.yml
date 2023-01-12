@@ -6,11 +6,16 @@ on:
   # push:
   # ...
 
+permissions:
+  contents: read
+
 name: Broken Link Check
 jobs:
   check:
+    permissions:
+      issues: write
     name: Broken Link Check
     runs-on: ubuntu-latest
     steps:
       - name: Broken Link Check
-        uses: technote-space/broken-link-checker-action@v2
+        uses: technote-space/broken-link-checker-action@7820497a025fb09ff736ee11bb8bb12ca715b4fe # v2.3.1
