@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@dc323e67f16fb5f7663d20ff7941f27f5809e9b6 # v2.6.0
 
     # Use GitHub Actions' cache to shorten build times and decrease load on servers
-    - uses: actions/cache@1a9e2138d905efd099035b49d8b7a3888c653ca8 # v2.1.5
+    - uses: actions/cache@627f0f41f6904a5b1efbaed9f96d9eb58e92e920 # v3.2.4
       with:
         path: vendor/bundle
         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
