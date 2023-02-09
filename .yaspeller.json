@@ -41,6 +41,8 @@
     "BMH",
     "BMHs",
     "BMO",
+    "BareMetalCluster",
+    "BareMetalMachine",
     "BareMetalOperator",
     "BMOBRANCH",
     "BMOREPO",
