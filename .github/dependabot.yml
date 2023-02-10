@@ -5,17 +5,16 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "daily"
-
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
     commit-message:
-        prefix: build
-        prefix-development: chore
-        include: scope
+      prefix: build
+      prefix-development: chore
+      include: scope
+    reviewers:
+      - "kashifest"
+      - "Rozzii"
+      - "tuminoid"
