@@ -18,6 +18,7 @@ permalink: /try-it.html
   - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
   - [2.4. Running Custom Baremetal-Operator](#24-running-custom-baremetal-operator)
   - [2.5. Running Custom Cluster API Provider Metal3](#25-running-custom-cluster-api-provider-metal3)
+    - [Tilt development environment](#tilt-development-environment)
   - [2.6. Accessing Ironic API](#26-accessing-ironic-api)
 
 <!-- /TOC -->
@@ -132,7 +133,7 @@ The `EPHEMERAL_CLUSTER` is configured to build `minikube` cluster by default on 
 
 VMs can be listed using `virsh` cli tool.
 
-In case the the `EPHEMERAL_CLUSTER` environment variable is set to `kind` the list of
+In case the `EPHEMERAL_CLUSTER` environment variable is set to `kind` the list of
 running virtual machines will look like this:
 
 ```console
@@ -143,7 +144,7 @@ $ sudo virsh list
  2     node_1     running
 ```
 
-In case the the `EPHEMERAL_CLUSTER` environment variable is set to `minikube` the list of
+In case the `EPHEMERAL_CLUSTER` environment variable is set to `minikube` the list of
 running virtual machines will look like this:
 
 ```console
@@ -287,7 +288,7 @@ status:
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1beta1](https://github.com/kubernetes-sigs/cluster-api/tree/v1.0.2) and
-assumes that metal3-dev-env is deployed with the environment variable
+assumes that metal3-dev-env is deployed with the environment variable.
 **CAPM3_VERSION** set to **v1beta1**. This is the default behavior. The v1beta1 deployment can be done with
 Ubuntu 20.04 or Centos 8 Stream target host images. Please make sure to meet
 [resource requirements](#11-prerequisites) for successful deployment:
