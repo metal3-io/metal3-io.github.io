@@ -3,11 +3,12 @@ layout: default
 title: Documentation
 permalink: /documentation.html
 ---
-<div class="mk-masthead__content--sub">
-        <h1 class="mk-masthead__content--sub__title">Documentation</h1>
-        <p class="mk-masthead__content--sub__text">The Metal³ project (pronounced: Metal Kubed) exists to provide components that allow you to do bare metal host management for Kubernetes. Metal³ works as a Kubernetes application, meaning it runs on Kubernetes and is managed through Kubernetes interfaces.</p>
-        <p class="mk-masthead__content--sub__text">If you are looking for documentation about how to use Metal³, please check the <a href="https://book.metal3.io/introduction.html">user-guide</a>.</p>
-</div>
+<section>
+  <div class="mk-masthead__content--sub">
+          <h1 class="mk-masthead__content--sub__title">Documentation</h1>
+          <p class="mk-masthead__content--sub__text">The Metal³ project (pronounced: Metal Kubed) exists to provide components that allow you to do bare metal host management for Kubernetes. Metal³ works as a Kubernetes application, meaning it runs on Kubernetes and is managed through Kubernetes interfaces.</p>
+          <p class="mk-masthead__content--sub__text">If you are looking for documentation about how to use Metal³, please check the <a href="https://book.metal3.io/introduction.html">user-guide</a>.</p>
+  </div>
 </section>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -79,6 +80,5 @@ document.addEventListener("DOMContentLoaded", function() {
     <section class="mk-main__section mk-main__section__content">
             {% capture docs %}{% include docs.md %}{% endcapture %}
             {{ docs | markdownify }}
-
     </section>
 </main>
