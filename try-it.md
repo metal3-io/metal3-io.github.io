@@ -288,7 +288,7 @@ status:
 This section describes how to trigger provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1beta1](https://github.com/kubernetes-sigs/cluster-api/tree/v1.0.2) and
-assumes that metal3-dev-env is deployed with the environment variable.
+assumes that metal3-dev-env is deployed with the environment variable
 **CAPM3_VERSION** set to **v1beta1**. This is the default behavior. The v1beta1 deployment can be done with
 Ubuntu 20.04 or Centos 8 Stream target host images. Please make sure to meet
 [resource requirements](#11-prerequisites) for successful deployment:
