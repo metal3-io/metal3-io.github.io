@@ -10,8 +10,8 @@ updates:
     schedule:
       interval: "daily"
     reviewers:
+      - "lentzi90"
       - "Rozzii"
-      - "kashifest"
       - "tuminoid"
 
   # Maintain dependencies for GitHub Actions
@@ -24,6 +24,6 @@ updates:
       prefix-development: chore
       include: scope
     reviewers:
-      - "kashifest"
+      - "lentzi90"
       - "Rozzii"
       - "tuminoid"
