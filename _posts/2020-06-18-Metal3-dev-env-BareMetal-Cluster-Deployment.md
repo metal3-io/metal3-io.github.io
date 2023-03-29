@@ -9,7 +9,7 @@ author: Himanshu Roy
 
 This blog post describes how to deploy a bare metal cluster, a virtual one for simplicity, using [Metal³/metal3-dev-env](https://github.com/metal3-io/metal3-dev-env). We will briefly discuss the steps involved in setting up the cluster as well as some of the customization available. If you want to know more about the architecture of Metal³, this [blogpost]({%post_url 2020-02-27-talk-kubernetes-finland-metal3 %}) can be helpful.
 
-This post builds upon the [detailed metal3-dev-env walkthrough blogpost]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}) which describes in detail the steps involved in the environment set up and management cluster configuration. Here we will use that environment to deploy a new Kubernetes cluster using Metal³.
+This post builds upon the [detailed metal3-dev-env walkthrough blogpost]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}) which describes in detail the steps involved in the environment set-up and management cluster configuration. Here we will use that environment to deploy a new Kubernetes cluster using Metal³.
 
 Before we get started, there are a couple of requirements we are expecting to be fulfilled.
 
@@ -23,8 +23,8 @@ Before we get started, there are a couple of requirements we are expecting to be
 
 ## Overview of Config and Resource types
 
-In this section we give a brief overview of the important config files and resources used as part of the bare metal cluster deployment.
-The following sub-sections show the config files and resources that are created and give a brief description about some of them. This will help you understand the technical details of the cluster deployment. You can also choose to skip this section, visit the next section about _provisioning_ first and then revisit this.
+In this section, we give a brief overview of the important config files and resources used as part of the bare metal cluster deployment.
+The following sub-sections show the config files and resources that are created and give a brief description of some of them. This will help you understand the technical details of the cluster deployment. You can also choose to skip this section, visit the next section about _provisioning_ first and then revisit this.
 
 ### Config Files and Resources Types
 
@@ -35,7 +35,7 @@ The following sub-sections show the config files and resources that are created 
 
 <br/>
 
-A description of some of the files part of provisioning a cluster, in a centos based environment :
+A description of some of the files part of provisioning a cluster, in a centos-based environment :
 
 | Name                                                                                                                                            | Description                                                                       | Path                                                                                  |
 | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
@@ -81,18 +81,18 @@ The deployment scripts primarily use ansible and the existing Kubernetes managem
 
 ### Steps Involved
 
-All the scripts for cluster provisioning or deprovisioning are located at - [`${metal3-dev-env}/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts). The scripts call a common playbook which handles all the tasks that are available.
+All the scripts for cluster provisioning or de-provisioning are located at - [`${metal3-dev-env}/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts). The scripts call a common playbook which handles all the tasks that are available.
 
 The steps involved in the process are :
 
-- The script calls an ansible playbook with necessary parameter ( from env variables and defaults )
+- The script calls an ansible playbook with necessary parameters ( from env variables and defaults )
 - The playbook executes the role -, [`${metal3-dev-env}/vm-setup/roles/v1aX_integration_test`](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test), which runs the main [task_file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/main.yml) for provisioning/deprovisioning the cluster, control plane or a worker
 - There are [templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates) in the role, which are used to render configurations in the `Manifest` directory. These configurations use kubeadm and are supplied to the Kubernetes module of ansible to create the cluster.
 - During provisioning, first the `clusterctl` env file is generated, then the cluster, control plane and worker definition templates for `clusterctl` are generated at `${HOME}/.cluster-api/overrides/infrastructure-metal3/${CAPM3RELEASE}`.
-- Using the templates generated in previous step, the definitions for resources related to cluster, control plane and worker are rendered using `clusterctl`.
+- Using the templates generated in the previous step, the definitions for resources related to cluster, control plane and worker are rendered using `clusterctl`.
 - Centos or Ubuntu image [is downloaded](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/v1aX_integration_test/tasks/download_image.yml) in the next step.
 - Finally using the above definitions, which are passed to the `K8s` module in ansible, the corresponding resource( cluster/control plane/worker ) is provisioned.
-- These same definitions are reused at the time of deprovisioning the corresponding resource, again using the `K8s` module in ansible
+- These same definitions are reused at the time of de-provisioning the corresponding resource, again using the `K8s` module in ansible
   > note "Note"
   > The manifest directory is created when provisioning is triggered for the first time and is subsequently used to store the config files that are rendered for deploying the bare metal cluster.
 
@@ -158,7 +158,7 @@ status:
 
 ### Provision Controlplane
 
-This script, located at the path - `${metal3-dev-env}/scripts/provision/controlplane.sh`, provisions the control plane member of the cluster using the rendered definition of control plane explained in the **Steps Involved** section. The `KubeadmControlPlane` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the control plane node, and it is then provisioned by the Bare Metal Operator. A `Metal3MachineTemplate` resource is also created as part of the provisioning process.
+This script, located at the path - `${metal3-dev-env}/scripts/provision/controlplane.sh`, provisions the control plane member of the cluster using the rendered definition of the control plane explained in the **Steps Involved** section. The `KubeadmControlPlane` creates a `Machine` which picks up a BareMetalHost satisfying its requirements as the control plane node, and it is then provisioned by the Bare Metal Operator. A `Metal3MachineTemplate` resource is also created as part of the provisioning process.
 
 > note "Note"
 > It takes some time for the provisioning of the control plane, you can watch the process using some steps shared a bit later
@@ -224,7 +224,7 @@ kubectl get BareMetalHosts -n metal3 -w
 kubectl get Machine -n metal3 -w
 ```
 
-> This shows the status of Machine associated with control plane and we can watch the status of provisioning under PHASE
+> This shows the status of the Machine associated with the control plane and we can watch the status of provisioning under PHASE
 
 <br/>
 Once the provisioning is finished, let's get the host-ip :
@@ -237,7 +237,7 @@ sudo virsh net-dhcp-leases baremetal
 > `baremetal` is one of the 2 networks that were created at the time of Metal3 deployment, the other being “provisioning” which is used - as you have guessed - for provisioning the bare metal cluster. More details about networking setup in the metal3-dev-env environment are described in the - [detailed metal3-dev-env walkthrough blogpost]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
 <br/>
-You can login to the control plane node if you want, and can check the deployment status using two methods.
+You can log in to the control plane node if you want, and can check the deployment status using two methods.
 
 ```console
 ssh metal3@{control-plane-node-ip}
@@ -252,7 +252,7 @@ ssh metal3@192.168.111.249
 The script is located at `${metal3-dev-env-path}/scripts/provision/worker.sh` and it provisions a node to be added as a worker to the bare metal cluster. It selects one of the remaining nodes and provisions it and adds it to the bare metal cluster ( which only has a control plane node at this point ). The resources created for workers are - `MachineDeployment` which can be scaled up to add more workers to the cluster and `MachineSet` which then creates a `Machine` managing the node.
 
 > info "Information"
-> Similar to a control plane provisioning, a worker provisioning also takes some time, and you can watch the process using steps shared a bit later. This will also apply when you scale Up/Down workers at a later point in time.
+> Similar to control plane provisioning, worker provisioning also takes some time, and you can watch the process using steps shared a bit later. This will also apply when you scale Up/Down workers at a later point in time.
 
 <br/>
 This is what a `MachineDeployment` looks like
@@ -322,7 +322,7 @@ To check the status we can follow steps similar to Controlplane case :
 kubectl get bmh -n metal3 -w
 ```
 
-> We can see the live status of the node being provisioned. As mentioned before `bmh` is short representation for `BareMetalHosts`.
+> We can see the live status of the node being provisioned. As mentioned before `bmh` is the short representation of `BareMetalHosts`.
 
 ```console
 kubectl get Machine -n metal3 -w
@@ -334,37 +334,37 @@ kubectl get Machine -n metal3 -w
 sudo virsh net-dhcp-leases baremetal
 ```
 
-> To get the nodes IP
+> To get the node's IP
 
 ```console
 ssh metal3@{control-plane-node-ip}
 kubectl get nodes
 ```
 
-> To check if its added to the cluster
+> To check if it's added to the cluster
 
 ```console
 ssh metal3@{node-ip}
 ```
 
-> If you want to login to the node
+> If you want to log in to the node
 
 ```console
 kubectl scale --replicas=3 MachineDeployment ${CLUSTER_NAME} -n metal3
 ```
 
-> We can add or remove workers to the cluster, we can scale up the MachineDeployment up or down, in this example we are adding 2 more worker nodes, making the total nodes = 3
+> We can add or remove workers to the cluster, and we can scale up the MachineDeployment up or down, in this example we are adding 2 more worker nodes, making the total nodes = 3
 
 <br/>
 <br/>
 
 ### Deprovisioning
 
-All of the previous components have corresponding deprovisioning scripts which use config files, in the previously mentioned manifest directory, and use them to clean up worker, control plane and cluster.
+All of the previous components have corresponding de-provisioning scripts which use config files, in the previously mentioned manifest directory, and use them to clean up the worker, control plane and cluster.
 
-This step will use the already generated cluster/control plane/worker definition file, and supply it to **Kubernetes** ansible module to remove/deprovision the resource. You can find it, under the `Manifest` directory, in the Snapshot shared at the beginning of this blogpost where we show the file structure.
+This step will use the already generated cluster/control plane/worker definition file, and supply it to **Kubernetes** ansible module to remove/de-provision the resource. You can find it, under the `Manifest` directory, in the Snapshot shared at the beginning of this blogpost where we show the file structure.
 
-For example if you wish to deprovision the cluster, you would do :
+For example, if you wish to de-provision the cluster, you would do :
 
 ```console
 sh ${metal3-dev-env-path}/scripts/deprovision/worker.sh
@@ -373,7 +373,7 @@ sh ${metal3-dev-env-path}/scripts/deprovision/cluster.sh
 ```
 
 > note "Note"
-> The reason for running the `deprovision/worker.sh` and `deprovision/controlplane.sh` scripts is that not all objects are cleared when we just run the `deprovision/cluster.sh` script. Following this, if you want to deprovision control plane it is recommended to deprovision the cluster itself since we can't provision a new control plane with the same cluster. For worker deprovisioning, we only need to run the worker script.
+> The reason for running the `deprovision/worker.sh` and `deprovision/controlplane.sh` scripts is that not all objects are cleared when we just run the `deprovision/cluster.sh` script. Following this, if you want to de-provision the control plane it is recommended to de-provision the cluster itself since we can't provision a new control plane with the same cluster. For worker de-provisioning, we only need to run the worker script.
 
 The following video demonstrates all the steps to provision and de-provision a Kubernetes cluster explained above.
 
@@ -383,9 +383,9 @@ The following video demonstrates all the steps to provision and de-provision a K
 
 In this blogpost we saw how to deploy a bare metal cluster once we have a Metal³(metal3-dev-env repo) deployed and by that point we will already have the nodes ready to be used for a bare metal cluster deployment.
 
-In the first section we show the various configuration files, templates, resource types and their meanings.Then we see the common steps involved in the provisioning process. After that we see a general overview of how all resources are related and at what point are they created - provision cluster/control plane/worker.
+In the first section, we show the various configuration files, templates, resource types and their meanings. Then we see the common steps involved in the provisioning process. After that, we see a general overview of how all resources are related and at what point are they created - provision cluster/control plane/worker.
 
-In each of the provisioning sections we see the steps to monitor the provisioning and how to confirm if its successful or not, with brief explanations wherever required. Finally we see the deprovisioning section which uses the resource definitions generated at the time of provisioning to deprovision cluster, control plane or worker.
+In each of the provisioning sections, we see the steps to monitor the provisioning and how to confirm if it's successful or not, with brief explanations wherever required. Finally, we see the de-provisioning section which uses the resource definitions generated at the time of provisioning to de-provision cluster, control plane or worker.
 
 Here are a few resources which you might find useful if you want to explore further, some of them have already been shared earlier.
 

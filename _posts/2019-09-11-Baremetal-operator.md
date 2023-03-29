@@ -19,7 +19,7 @@ Quoting from the project:
 
 ## A bit more in deep approach
 
-The Baremetal Operator (BMO) keeps a mapping of each host and its management interfaces (vendor based like `iLO`, `iDrac`, `iRMC`, etc) and controlled via `IPMI`.
+The Baremetal Operator (BMO) keeps a mapping of each host and its management interfaces (vendor-based like `iLO`, `iDrac`, `iRMC`, etc) and is controlled via `IPMI`.
 
 All of this is defined in a `CRD`, for example:
 
@@ -51,7 +51,7 @@ spec:
 
 With above values (described in [API](https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md)), we're telling the operator:
 
-- MAC: Defines the mac address of the NIC connected to the network that will be used for provision the host
+- MAC: Defines the mac address of the NIC connected to the network that will be used for the provisioning of the host
 - bmc: defines the management controller address and the secret used
 - credentialsName: Defines the name of the secret containing username/password for accessing the IPMI service
 
@@ -67,7 +67,7 @@ metal3-node01   OK       inspecting                       ipmi://172.22.0.1:6230
 
 Once the inspection has finished, the status will change to _ready_ and made available for provisioning.
 
-When we define a machine, we refer the images that will be used for the actual provisioning in the CRD (`image`):
+When we define a machine, we refer to the images that will be used for the actual provisioning in the CRD (`image`):
 
 ```yaml
 apiVersion: v1

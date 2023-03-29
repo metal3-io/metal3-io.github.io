@@ -19,7 +19,7 @@ author: Pedro Ibáñez Requena
 ## The Register; Raise some horns: Red Hat's Metal³ aims to make Kubernetes on bare machines simple
 
 [Max Smolaks](https://www.theregister.co.uk/Author/Max-Smolaks) talks in this article about the OpenInfra Days in the UK, 2019: where Metal³ was revealed earlier last week by Steve Hardy, Red Hat's senior principal software engineer. The Open Infrastructure Days in the UK is an event organised by the local Open Infrastructure community and supported by the OpenStack Foundation.
-The Open-source software developers at Red Hat are working on a tool that would simplify deployment and management of Kubernetes clusters on bare-metal servers.
+The Open-source software developers at Red Hat are working on a tool that would simplify the deployment and management of Kubernetes clusters on bare-metal servers.
 
 Steve told The Register:
 

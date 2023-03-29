@@ -9,28 +9,28 @@ author: Alberto Losada
 
 ## **Introduction to metal3-dev-env**
 
-The [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) is a collection of scripts in a Github repository inside the [Metal³](https://github.com/metal3-io?type=source) project that aims to allow contributors and other interested users to run a fully functional Metal³ environment for testing and have a first contact with the project. Actually, `metal3-dev-env` sets up an **emulated environment** which creates a set of virtual machines (VMs) to manage as if they were bare metal hosts.
+The [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) is a collection of scripts in a GitHub repository inside the [Metal³](https://github.com/metal3-io?type=source) project that aims to allow contributors and other interested users to run a fully functional Metal³ environment for testing and have a first contact with the project. Actually, `metal3-dev-env` sets up an **emulated environment** which creates a set of virtual machines (VMs) to manage as if they were bare metal hosts.
 
 > warning "Warning"
 > This is not an installation that is supposed to be run in production. Instead, it is focused on providing a development environment to test and validate new features.
 
 The `metal3-dev-env` repository includes a set of scripts, libraries and resources used to set up a Metal³ development environment. On the [Metal³ website](https://metal3.io/try-it.html) there is already a documented process on how to use the `metal3-dev-env` scripts to set up a fully functional cluster to test the functionality of the Metal³ components.
 
-This procedure at 10,000 foot view is composed by 3 bash scripts plus a verification one:
+This procedure at a 10,000-foot view is composed of 3 bash scripts plus a verification one:
 
 - **01_prepare_host.sh** - Mainly installs all needed packages.
 - **02_configure_host.sh** - Basically create a set of VMs that will be managed as if they were bare metal hosts. It also downloads some images needed for Ironic.
 - **03_launch_mgmt_cluster.sh** - Launches a management cluster using minikube and runs the baremetal-operator on that cluster.
-- **04_verify.sh** - Finally runs a set of tests that verify that the deployment completed successfully
+- **04_verify.sh** - Finally runs a set of tests that verify that the deployment was completed successfully
 
-In this blog post we are going to expand the information and provide some hints and recommendations.
+In this blog post, we are going to expand the information and provide some hints and recommendations.
 
 > warning "Warning"
-> Metal³ project is changing rapidly, so probably this information is valuable in the short term. In any case, it is encouraged to double check that the information provided is still valid.
+> Metal³ project is changing rapidly, so probably this information is valuable in the short term. In any case, it is encouraged to double-check that the information provided is still valid.
 
-Before get down to it, it is worth defining the nomenclature used along the blog post:
+Before getting down to it, it is worth defining the nomenclature used in the blog post:
 
-- **Host.** It is the server where the virtual environment is running. In this case it is a physical PowerEdge M520 with 2 x Intel(R) Xeon(R) CPU E5-2450 v2 @ 2.50GHz, 96GB RAM and a 140GB drive running CentOS 7 latest. Do not panic, lab environment should work with lower resources as well.
+- **Host.** It is the server where the virtual environment is running. In this case, it is a physical PowerEdge M520 with 2 x Intel(R) Xeon(R) CPU E5-2450 v2 @ 2.50GHz, 96GB RAM and a 140GB drive running CentOS 7 latest. Do not panic, lab environment should work with lower resources as well.
 - **Virtual bare metal hosts.** These are the virtual machines (KVM based) that are running on the host which are emulating physical hosts in our lab. They are also called bare metal hosts even if they are not physical servers.
 - **Management or bootstrap cluster.** It is a fully functional Kubernetes cluster in charge of running all the necessary Metal³ operators and controllers to manage the infrastructure. In this case it is the minikube virtual machine.
 - **Target cluster.** It is the Kubernetes cluster created from the management one. It is provisioned and configured using a native Kubernetes API for that purpose.
@@ -40,7 +40,7 @@ Before get down to it, it is worth defining the nomenclature used along the blog
 > info "Information"
 > A non-root user must exist in the host with password-less sudo access. This user is in charge of running the `metal3-dev-env` scripts.
 
-First thing that needs to be done is, obviously, cloning the `metal3-dev-env` repository:
+The first thing that needs to be done is, obviously, cloning the `metal3-dev-env` repository:
 
 ```sh
 [alosadag@eko1: ~]$ git clone https://github.com/metal3-io/metal3-dev-env.git
@@ -69,17 +69,17 @@ Although there are several scripts placed inside the lib folder that are sourced
 
 #### **common.sh**
 
-First time this library is run, a new configuration file is created with several variables along with their default values. They will be used during the installation process. On the other hand, if the file already exists, then it just sources the values configured. The configuration file is created inside the cloned folder with `config_$USER` as file name.
+The first time this library is run, a new configuration file is created with several variables along with their default values. They will be used during the installation process. On the other hand, if the file already exists, then it just sources the values configured. The configuration file is created inside the cloned folder with `config_$USER` as the file name.
 
 ```sh
 [alosadag@eko1 metal3-dev-env]$  ls config_*
 config_alosadag.sh
 ```
 
-The configuration file contains multiple variables that will be used during the set up. Some of them are detailed [in the setup section of the Metal³ try-it web page](https://metal3.io/try-it.html#setup). In case you need to add or change global variables it should be done in this config file.
+The configuration file contains multiple variables that will be used during the set-up. Some of them are detailed [in the setup section of the Metal³ try-it web page](https://metal3.io/try-it.html#setup). In case you need to add or change global variables it should be done in this config file.
 
 > note "Note"
-> I personally recommend modify or add variables in this config file instead of exporting them in the shell. By doing that, it is assured that they are persisted
+> I personally recommend modifying or adding variables in this config file instead of exporting them in the shell. By doing that, it is assured that they are persisted
 
 ```sh
 [alosadag@eko1 metal3-dev-env]$ cat ~/metal3-dev-env/config_alosadag.sh
@@ -101,9 +101,9 @@ The configuration file contains multiple variables that will be used during the 
 ...
 ```
 
-This `common.sh` library also makes sure there is a ssh public key available in the user's ssh folder. This key will be injected by `cloud-init` in all the virtual bare metal machines that will be configured later. Then, the user that executed the `metal3-dev-env` scripts is able to access the target cluster through ssh.
+This `common.sh` library also makes sure there is an ssh public key available in the user's ssh folder. This key will be injected by `cloud-init` in all the virtual bare metal machines that will be configured later. Then, the user that executed the `metal3-dev-env` scripts is able to access the target cluster through ssh.
 
-Also, `common.sh` library also sets more global variables apart from the those in the config file. Note that these variables can be added to the config file along with the proper values for your environment.
+Also, `common.sh` library also sets more global variables apart from those in the config file. Note that these variables can be added to the config file along with the proper values for your environment.
 
 | **Name of the variable** | **Default value**                                         |
 | ------------------------ | --------------------------------------------------------- |
@@ -157,9 +157,9 @@ As stated previously, `CentOS 7` is the operating system chosen to run in both, 
 > Notice that _SELinux_ is set to _permissive_ and an OS update is triggered, which will cause several packages to be upgraded since there are newer packages in the tripleo repositories (mostly python related) than in the rest of enabled repositories.
 > At this point, the container runtime is also installed. Note that by setting the variable `CONTAINER_RUNTIME` defined in [common.sh](#commonsh) is possible to choose between docker and podman, which is the default for CentOS. Remember that this behaviour can be overwritten in your config file.
 
-Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually _minikube_, _kubectl_ and _kustomize_ are downloaded from the internet. Notice that the version of Kustomize and Kubernetes are defined by `KUSTOMIZE_VERSION` and `KUBERNETES_VERSION` variables inside [common.sh](#commonsh), but minikube is always downloading the latest version available.
+Once the specific requirements for the elected operating system are accomplished, the download of several external artifacts is executed. Actually _minikube_, _kubectl_ and _kustomize_ are downloaded from the internet. Notice that the version of Kustomize and Kubernetes is defined by `KUSTOMIZE_VERSION` and `KUBERNETES_VERSION` variables inside [common.sh](#commonsh), but minikube is always downloading the latest version available.
 
-Next step deals with cleaning ironic containers and **pods** that could be running in the host from failed deployments. This will ensure that there will be no issues when creating `ironic-pod` and `infra-pod` a little bit later in this first step.
+The next step deals with cleaning ironic containers and **pods** that could be running in the host from failed deployments. This will ensure that there will be no issues when creating `ironic-pod` and `infra-pod` a little bit later in this first step.
 
 > - **network.sh.**
 
@@ -209,7 +209,7 @@ total 920324
 -rw-rw-r--. 1 alosadag alosadag        33 Feb  3 12:39 CentOS-7-x86_64-GenericCloud-1907.qcow2.md5sum
 ```
 
-Once the shared script `images.sh` is sourced, the following container images are pre-cached locally to the host in order to speed up things later. Below it is shown the code snippet in charge of that task:
+Once the shared script `images.sh` is sourced, the following container images are pre-cached locally to the host in order to speed up things later. Below is shown the code snippet in charge of that task:
 
 ```sh
 + for IMAGE_VAR in IRONIC_IMAGE IPA_DOWNLOADER_IMAGE VBMC_IMAGE SUSHY_TOOLS_IMAGE DOCKER_REGISTRY_IMAGE
@@ -242,20 +242,20 @@ ansible-playbook \
   -b -vvv vm-setup/install-package-playbook.yml
 ```
 
-This playbook imports two roles. One called `packages_installation`, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables [in the vm-setup role inside the metal3-dev-env repository](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml). The other role is based on the [fubarhouse.golang](https://galaxy.ansible.com/fubarhouse/golang) Ansible Galaxy role. It is in charge of installing and configuring the exact `golang` version `1.12.12` defined in an Ansible variable in the [install-package-playbook.yml playbook](https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12)
+This playbook imports two roles. One is called `packages_installation`, which is in charge of installing a few more packages. The list of packages installed are listed as default Ansible variables [in the vm-setup role inside the metal3-dev-env repository](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml). The other role is based on the [fubarhouse.golang](https://galaxy.ansible.com/fubarhouse/golang) Ansible Galaxy role. It is in charge of installing and configuring the exact `golang` version `1.12.12` defined in an Ansible variable in the [install-package-playbook.yml playbook](https://github.com/metal3-io/metal3-dev-env/blob/9fa752b90ed58fdadcd52c246d3023766dfcb2dc/vm-setup/install-package-playbook.yml#L12)
 
 Once the playbook is finished, a pod called `ironic-pod` is created. Inside that pod, a _privileged_ `ironic-ipa-downloader` container is started and attached to the host network. This container is in charge of downloading the [Ironic Python Agent](https://docs.openstack.org/ironic-python-agent/latest/) (IPA) files to a shared volume defined by `IRONIC_IMAGE_DIR`. This folder is exposed by the `ironic` container through HTTP.
 
 > info "Information"
 > The [Ironic Python Agent](https://docs.openstack.org/ironic-python-agent/latest/) is an agent for controlling and deploying Ironic controlled baremetal nodes. Typically run in a ramdisk, the agent exposes a REST API for provisioning servers.
 
-See below the code snippet that fulfills the task:
+See below the code snippet that fulfils the task:
 
 ```sh
 sudo podman run -d --net host --privileged --name ipa-downloader --pod ironic-pod -e IPA_BASEURI= -v /opt/metal3-dev-env/ironic:/shared quay.io/metal3-io/ironic-ipa-downloader /usr/local/bin/get-resource.sh
 ```
 
-Below, it is shown the status of the pods and containers at this point:
+Below is shown the status of the pods and containers at this point:
 
 ```sh
 [root@eko1 metal3-dev-env]# podman pod list --ctr-names
@@ -276,7 +276,7 @@ lrwxrwxrwx. 1 root     root            69 Feb  3 12:41 ironic-python-agent.kerne
 lrwxrwxrwx. 1 root     root            74 Feb  3 12:41 ironic-python-agent.tar.headers -> ironic-python-agent-1862d000-59d9fdc6304b1/ironic-python-agent.tar.headers
 ```
 
-Afterwards, the script makes sure that libvirt is running successfully on the host and the non-privilege user has permissions to interact with it. Libvirt daemon should be running so that minikube can be installed successfully. See the following script snippet starting the minikube VM:
+Afterwards, the script makes sure that libvirt is running successfully on the host and that the non-privileged user has permission to interact with it. Libvirt daemon should be running so that minikube can be installed successfully. See the following script snippet starting the minikube VM:
 
 ```sh
 + sudo su -l -c 'minikube start --insecure-registry 192.168.111.1:5000'
@@ -284,7 +284,7 @@ Afterwards, the script makes sure that libvirt is running successfully on the ho
 * Selecting 'kvm2' driver from user configuration (alternates: [none])
 ```
 
-In the same way as with the host, container images are pre-cached but in this case inside minikube local image repository. Notice that in this case the [Bare Metal operator](https://github.com/metal3-io/baremetal-operator/) (BMO) is also downloaded since it will run on minikube. The container location is defined by `BAREMETAL_OPERATOR_IMAGE`. In case you want to test new features or new fixes to the BMO, just change the value of the variable to match the location of the modified image:
+In the same way, as with the host, container images are pre-cached but in this case inside minikube local image repository. Notice that in this case the [Bare Metal operator](https://github.com/metal3-io/baremetal-operator/) (BMO) is also downloaded since it will run on minikube. The container location is defined by `BAREMETAL_OPERATOR_IMAGE`. In case you want to test new features or new fixes to the BMO, just change the value of the variable to match the location of the modified image:
 
 | **Name of the variable** | **Default value** |
 | BAREMETAL_OPERATOR_IMAGE | quay.io/metal3-io/baremetal-operator |
@@ -292,7 +292,7 @@ In the same way as with the host, container images are pre-cached but in this ca
 > note "Note"
 > Remember that minikube is the management cluster in our environment. So it must run all the operators and controllers needed for Metal³.
 
-Below it is shown the output of the script once all the container images have been pulled to minikube:
+Below is shown the output of the script once all the container images have been pulled to minikube:
 
 ```sh
 + sudo su -l -c 'minikube ssh sudo docker image ls' alosadag
@@ -314,7 +314,7 @@ k8s.gcr.io/pause                          3.1                 da86e6ba6ca1      
 gcr.io/k8s-minikube/storage-provisioner   v1.8.1              4689081edb10        2 years ago         80.8MB
 ```
 
-Once the container images are stored, minikube can be stopped. In that moment, the virtual networks shown in the previous picture are attached to the minikube VM as it can be verified by the following command:
+Once the container images are stored, minikube can be stopped. At that moment, the virtual networks shown in the previous picture are attached to the minikube VM as can be verified by the following command:
 
 ```sh
 [alosadag@smc-master metal3-dev-env]$ sudo virsh domiflist minikube
@@ -329,7 +329,7 @@ Interface  Type       Source     Model       MAC
 > info "Information"
 > At this point the host is ready to create the virtual infrastructure.
 
-In the video below it is exhibited all the configuration explained and executed during this _first_ step.
+The video below exhibits all the configurations explained and executed during this _first_ step.
 
 <iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/VFbIHc3NbJo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -344,12 +344,12 @@ In this step, the script `02_configure_host.sh` basically configures the libvirt
 > info "Information"
 > A baseboard management controller (BMC) is a specialized service processor that monitors the physical state of a computer, network server or other hardware device using sensors and communicating with the system administrator through an independent connection. The BMC is part of the Intelligent Platform Management Interface (IPMI) and is usually contained in the motherboard or main circuit board of the device to be monitored.
 
-First, a ssh-key in charge of communicating to libvirt is created if it does not exist previously. This key is called `id_rsa_virt_power`. It is added to the root authorized_keys and is used by `vbmc` and `sushy tools` to contact libvirt.
+First, an ssh-key in charge of communicating to libvirt is created if it does not exist previously. This key is called `id_rsa_virt_power`. It is added to the root authorized_keys and is used by `vbmc` and `sushy tools` to contact libvirt.
 
 > info "Information"
 > `sushy-tools` is a set of simple simulation tools aiming at supporting the development and testing of the Redfish protocol implementations.
 
-Next, another Ansible playbook called [setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml) is run against the host. It is focused on set up the virtual infrastructure around `metal3-dev-env`. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the [common.sh](#commonsh) or the configuration file.
+Next, another Ansible playbook called [setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml) is run against the host. It is focused on setting up the virtual infrastructure around `metal3-dev-env`. Below it is shown the Ansible variables that are passed to the playbook, which actually are obtaining the values from the global variables defined in the [common.sh](#commonsh) or the configuration file.
 
 ```sh
 ANSIBLE_FORCE_COLOR=true ansible-playbook \
@@ -448,6 +448,7 @@ The `setup-playbook.yml` is composed by 3 roles, which are detailed below:
       }
     },
 
+
 ```
 
 > info "Information"
@@ -473,7 +474,9 @@ The `setup-playbook.yml` is composed by 3 roles, which are detailed below:
 
 ````
 
+
 Next, both host provisioning and baremetal interfaces are configured. The provisioning interface, as the name suggests, will be used to provision the virtual bare metal hosts by means of the `Bare Metal Operator`. This interface is configured with an static IP (172.22.0.1):
+
 
 ```sh
 [alosadag@smc-master metal3-dev-env]$ ifconfig provisioning
@@ -492,12 +495,13 @@ baremetal: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
     ether 52:54:00:db:85:29  txqueuelen 1000  (Ethernet)
 ```
 
-Next, an Ansible role called [firewall](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml) will be executed targetting the host to be sure that the proper ports are opened. In case your host is running `Red Hat Enterprise Linux` or `CentOS 8`, firewalld module will be used. In any other case, iptables module is the choice.
+Next, an Ansible role called [firewall](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml) will be executed targetting the host to be sure that the proper ports are opened. In case your host is running `Red Hat Enterprise Linux` or `CentOS 8`, firewall module will be used. In any other case, iptables module is the choice.
 
-Below, the code snippet where `firewalld` or `iptables` is assigned:
+Below is the code snippet where `firewalld` or `iptables` is assigned:
 
 ```sh
 # Use firewalld on CentOS/RHEL, iptables everywhere else
+
 
 export USE_FIREWALLD=False
 if [[ ($OS == "rhel" || $OS = "centos") && ${OS_VERSION} == 8 ]]
@@ -509,14 +513,14 @@ fi
 > note "Note"
 > This behaviour can be changed by replacing the value of the `USE_FIREWALLD` variable
 
-The ports managed by this role are all associated to the services that take part of the provisioning process: `ironic`, `vbmc`, `httpd`, `pxe`, `container registry`..
+The ports managed by this role are all associated with the services that take part in the provisioning process: `ironic`, `vbmc`, `httpd`, `pxe`, `container registry`..
 
 > note "Note"
 > Services like ironic, pxe, keepalived, httpd and the container registry are running in the host as containers attached to the host network on the host's provisioning interface. On the other hand, the vbmc service is also running as a privileged container and it is listening in the host's baremetal interface.
 
-Once the network is configured, a local `container registry` is started. It will be needed in the case of using local built images. In that case, the container images can be modified locally and pushed to the local registry. At that point, the specific image location variable must be changed so it must point out the local registry. This process makes easy to verify and test changes to the code locally.
+Once the network is configured, a local `container registry` is started. It will be needed in the case of using locally built images. In that case, the container images can be modified locally and pushed to the local registry. At that point, the specific image location variable must be changed so it must point out the local registry. This process makes it easy to verify and test changes to the code locally.
 
-At this point the following containers are running inside two pods on the host: _infra-pod_ and _ironic-pod_.
+At this point, the following containers are running inside two pods on the host: _infra-pod_ and _ironic-pod_.
 
 ```sh
 [root@eko1 metal3-dev-env]# podman pod list --ctr-names
@@ -538,12 +542,15 @@ Below are detailed the containers inside the _infra-pod_ pod which are running a
 
 ````
 
+
 > This folder also contains the `inspector.ipxe` file which contains the information needed to be able to run the `ironic-python-agent` kernel and initramfs. Below, httpd-infra container is accessed and it has been verified that host's `/opt/metal3-dev-env/ironic/` (`IRONIC_DATA_DIR`) is mounted inside the *shared* folder of the container:
+
 
 ```sh
 [alosadag@eko1 metal3-dev-env]$ sudo podman exec -it httpd-infra bash
 [root@infra-pod shared]# cat html/inspector.ipxe
 #!ipxe
+
 
 :retry_boot
 echo In inspector.ipxe
@@ -582,6 +589,7 @@ boot
  -     node_1                         shut off
  -     node_2                         shut off
 
+
 [alosadag@smc-master metal3-dev-env]$ sudo virsh net-list --all
  Name                 State      Autostart     Persistent
 ----------------------------------------------------------
@@ -601,7 +609,7 @@ The third script called `03_launch_mgmt_cluster.sh` basically configures minikub
 
 In a more detailed way, the script clones the `Bare Metal Operator` ([BMO](https://github.com/metal3-io/baremetal-operator)) and `Cluster API Provider for Managed Bare Metal Hardware operator` ([CAPBM](https://github.com/metal3-io/cluster-api-provider-baremetal)) git repositories, creates the cloud.yaml file and starts the minikube virtual machine. Once minikube is up and running, the `BMO` is built and executed in minikube's Kubernetes cluster.
 
-In case of the `Bare Metal Operator`, the branch by default to clone is master, however this and other variables shown in the following table can be replaced in the config file:
+In the case of the `Bare Metal Operator`, the branch by default to clone is master, however, this and other variables shown in the following table can be replaced in the config file:
 
 ```sh
 + BMOREPO=https://github.com/metal3-io/baremetal-operator.git
@@ -704,6 +712,7 @@ Below the objects are created through the `generate.sh` script:
 ++ mktemp -d capbm-XXXXXXXXXX
 + kustomize_overlay_path=capbm-eJPOjCPASD
 
+
 + ./examples/generate.sh -f
 Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/cluster.yaml
 Generated /home/alosadag/go/src/github.com/metal3-io/cluster-api-provider-baremetal/examples/_out/controlplane.yaml
@@ -770,7 +779,7 @@ In the video below it is exhibited all the configuration explained and executed 
 The last script `04_verify.sh` is in charge of verifying that the deployment has been successful by checking several things:
 
 - Custom resources (CR) and custom resource definition (CRD) were applied and exist in the cluster.
-- Verify that the virtual bare metal hosts matches the information detailed in the`BareMetalHost` object.
+- Verify that the virtual bare metal hosts matche the information detailed in the`BareMetalHost` object.
 - All containers are in running status.
 - Verify virtual network configuration and status.
 - Verify operators and controllers are running.

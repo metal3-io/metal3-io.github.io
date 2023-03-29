@@ -7,25 +7,25 @@ author: Maël Kimmerlin
 ---
 
 As a part of developing the Cluster API Provider Metal3 (CAPM3) v1alpha4
-release, the Metal3 crew introduced a new project : its own IP Address Manager.
+release, the Metal3 crew introduced a new project: its own IP Address Manager.
 This blog post will go through the motivations behind such a project, the
-features that it brings, its use in Metal3 and the future work.
+features that it brings, its use in Metal3 and future work.
 
-## What is the IP Address Manager ?
+## What is the IP Address Manager?
 
 The IP Address Manager (IPAM) is a controller that provides IP addresses and
 manages the allocations of IP subnets. It is not a DHCP server in that it only
-reconciles Kubernetes objects and does not answer to any DHCP queries. It
-allocates IP addresses on request, but does not handle any use of those
+reconciles Kubernetes objects and does not answer any DHCP queries. It
+allocates IP addresses on request but does not handle any use of those
 addresses.
 
-This sounds like the description of any IPAM system, no ? Well the twist
+This sounds like the description of any IPAM system, no? Well, the twist
 is that this manager is based on Kubernetes to specifically handle some
 constraints from Metal3. We will go through the different issues that this
 project tackles.
 
-When deploying nodes in bare metal environment, there are a lot of possible
-variations. This project specifically aims to solve the cases where static
+When deploying nodes in a bare metal environment, there are a lot of possible
+variations. This project specifically aims to solve cases where static
 IP address configurations are needed. It is designed to specifically address
 this in the [Cluster API (CAPI) context](https://cluster-api.sigs.k8s.io/).
 
@@ -49,15 +49,15 @@ In a nutshell, the manager provides an IP Address allocation service, based
 on Kubernetes API and fulfilling the needs of Metal3, specifically the
 requirements of CAPI.
 
-## How does it work ?
+## How does it work?
 
 The manager follows the same logic as the volume allocation in Kubernetes,
-with a claim and an object created for that claim. There are three type of
+with a claim and an object created for that claim. There are three types of
 objects defined, the `IPPool`, the `IPClaim` and the `IPAddress` objects.
 
 The `IPPool` objects contain the definition of the IP subnets from which the
 Addresses are allocated. It supports both IPv4 and IPv6. The subnets can either
-be defined as such or given as a start and end IP addresses with a prefix.
+be defined as such or given as start and end IP addresses with a prefix.
 It also supports pre-allocating IP addresses.
 
 The following is an example `IPPool` definition :
@@ -142,7 +142,7 @@ spec:
   gateway: 192.168.0.1
 ```
 
-After this allocation, the `IPPool` will be looking like :
+After this allocation, the `IPPool` will be looking like this:
 
 ```yaml
 apiVersion: ipam.metal3.io/v1alpha1
@@ -172,7 +172,7 @@ status:
 
 The IP Address Manager is used in Metal3 together with the metadata and network
 data templates feature. Each Metal3Machine (M3M) and Metal3MachineTemplate
-(M3MT) is associated with a Metal3DataTemplate that contains a metadata and /
+(M3MT) is associated with a Metal3DataTemplate that contains metadata and /
 or a network data template that will be rendered for each Metal3Machine. The
 rendered data will then be provided to Ironic. Those templates reference
 `IPPool` objects. For each Metal3Machine, an `IPClaim` is created for each
@@ -185,14 +185,14 @@ Control Plane objects from CAPI in hardware labs where DHCP is not supported.
 Since each `IPAddress` has an owner reference set to its `IPClaim` object, and
 `IPClaim` objects have an owner reference set to the Metal3Data object created
 from the Metal3DataTemplate, the owner reference chain links a Metal3Machine to
-all the `IPClaim` and `IPAddress` objects created for it, allowing for CAPI
+all the `IPClaim` and `IPAddress` objects were created for it, allowing for CAPI
 pivoting.
 
-## What now ?
+## What now?
 
 The project is fulfilling its basic requirements, but we are looking into
-extending it and covering more use-cases. For example we are looking at
-adding an integration with Infoblox and other external IPAM services. Do not
+extending it and covering more use cases. For example, we are looking at
+adding integration with Infoblox and other external IPAM services. Do not
 hesitate to open an issue if you have some ideas for new features!
 
 The project can be found

@@ -2,15 +2,15 @@
 
 [![Deploy via Jekyll on GitHub pages](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml/badge.svg?branch=source)](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml)
 
-## Contributing contents
+## Contributing content
 
-We more than welcome contributions in the form of blog posts, pages and/or labs, reach out if you happen to have an idea or find an issue with our contents! [Here's our guidelines for contents](GUIDELINES.md).
+We more than welcome contributions in the form of blog posts, pages and/or labs, reach out if you happen to have an idea or find an issue with our content! [Here's our guideline for content](GUIDELINES.md).
 
 ## Test your changes in a local container
 
 ### Run a Jekyll container
 
-- On a SELinux enabled OS:
+- On an SELinux-enabled OS:
 
   ```console
   cd metal3-io.github.io

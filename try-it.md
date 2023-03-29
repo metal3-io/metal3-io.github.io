@@ -18,6 +18,7 @@ permalink: /try-it.html
   - [2.3. Deprovision Cluster and Machines](#23-deprovision-cluster-and-machines)
   - [2.4. Running Custom Baremetal-Operator](#24-running-custom-baremetal-operator)
   - [2.5. Running Custom Cluster API Provider Metal3](#25-running-custom-cluster-api-provider-metal3)
+    - [Tilt development environment](#tilt-development-environment)
   - [2.6. Accessing Ironic API](#26-accessing-ironic-api)
 
 <!-- /TOC -->
@@ -42,7 +43,7 @@ permalink: /try-it.html
 > info "Information"
 > If you need detailed information regarding the process of creating a Metal³ emulated environment using metal3-dev-env, it is worth taking a look at the blog post ["A detailed walkthrough of the Metal³ development environment"]({% post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
-This is a high-level architecture of the Metal³-dev-env. Note that for Ubuntu based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for CentOS based setup only Minikube is currently supported. Ephemeral cluster creation tool can be manipulated with EPHEMERAL_CLUSTER environment variable.
+This is a high-level architecture of the Metal³-dev-env. Note that for an Ubuntu-based setup, either Kind or Minikube can be used to instantiate an ephemeral cluster, while for a CentOS-based setup, only Minikube is currently supported. The ephemeral cluster creation tool can be manipulated with the EPHEMERAL_CLUSTER environment variable.
 
 <p style="text-align: center">
   <img src="assets/images/metal3-dev-env.svg">
@@ -65,9 +66,9 @@ The `Makefile` runs a series of scripts, described here:
 - `03_launch_mgmt_cluster.sh` - Launches a management cluster using `minikube` or `kind`
   and runs the `baremetal-operator` on that cluster.
 
-- `04_verify.sh` - Runs a set of tests that verify that the deployment completed successfully.
+- `04_verify.sh` - Runs a set of tests that verify that the deployment was completed successfully.
 
-When the environment setup is completed, you should be able to see `BareMetalHost` (`bmh`) objects in Ready state.
+When the environment setup is completed, you should be able to see the `BareMetalHost` (`bmh`) objects in the Ready state.
 
 ### 1.3. Tear Down
 
@@ -89,12 +90,12 @@ $ make clean
 > error: Failed to connect socket to '/var/run/libvirt/libvirt-sock':  Permission denied
 > ```
 >
-> You may need to log out then login again, and run `make clean` and `make` again.
+> You may need to log out then log in again, and run `make clean` and `make` again.
 
 ### 1.4. Using Custom Image
 
 Whether you want to run target cluster Nodes with your own image, you can override the three following variables: `IMAGE_NAME`,
-`IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with name `IMAGE_NAME` does not
+`IMAGE_LOCATION`, `IMAGE_USERNAME`. If the requested image with the name `IMAGE_NAME` does not
 exist in the `IRONIC_IMAGE_DIR` (/opt/metal3-dev-env/ironic/html/images) folder, then it will be automatically
 downloaded from the `IMAGE_LOCATION` value configured.
 
@@ -117,12 +118,12 @@ $ vim config_$(whoami).sh
 This environment creates a set of VMs to manage as if they were bare metal
 hosts.
 
-There are two different host OSs that metal3-dev-env setup process is tested on.
+There are two different host OSs that the metal3-dev-env setup process is tested on.
 
-  1. Host VM/Server on CentOS, while target can be Ubuntu or CentOS, Cirros, FCOS.
-  2. Host VM/Server on Ubuntu, while target can be Ubuntu or CentOS, Cirros, FCOS.
+1. Host VM/Server on CentOS, while the target can be Ubuntu or CentOS, Cirros, or FCOS.
+2. Host VM/Server on Ubuntu, while the target can be Ubuntu or CentOS, Cirros, or FCOS.
 
-The way  k8s cluster is running in the above two scenarios is different. For CentOS `minikube` cluster is used as the source cluster, for Ubuntu a `kind` cluster is being created.
+The way the k8s cluster is running in the above two scenarios is different. For CentOS `minikube` cluster is used as the source cluster, for Ubuntu, a `kind` cluster is being created.
 As such, when the host (where the `make` command was issued) OS is CentOS, there should be three libvirt VMs and one of them should be a `minikube` VM.
 
 In case the host OS is Ubuntu, the k8s source cluster is created by using `kind`, so in this case the `minikube` VM won't be present.
@@ -132,7 +133,7 @@ The `EPHEMERAL_CLUSTER` is configured to build `minikube` cluster by default on 
 
 VMs can be listed using `virsh` cli tool.
 
-In case the the `EPHEMERAL_CLUSTER` environment variable is set to `kind` the list of
+In case the `EPHEMERAL_CLUSTER` environment variable is set to `kind` the list of
 running virtual machines will look like this:
 
 ```console
@@ -143,7 +144,7 @@ $ sudo virsh list
  2     node_1     running
 ```
 
-In case the the `EPHEMERAL_CLUSTER` environment variable is set to `minikube` the list of
+In case the `EPHEMERAL_CLUSTER` environment variable is set to `minikube` the list of
 running virtual machines will look like this:
 
 ```console
@@ -155,7 +156,7 @@ $ sudo virsh list
  3    node_1     running
 ```
 
-Each of the VMs (aside from the `minikube` management cluster VM) are
+Each of the VMs (aside from the `minikube` management cluster VM) is
 represented by `BareMetalHost` objects in our management cluster. The yaml
 definition file used to create these host objects is in `bmhosts_crs.yaml`.
 
@@ -171,6 +172,7 @@ gathered by doing pre-deployment introspection.
 
 ```console
 $ kubectl get baremetalhost -n metal3 -o yaml node-0
+
 
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
@@ -284,11 +286,11 @@ status:
 
 ### 2.2. Provision Cluster and Machines
 
-This section describes how to trigger provisioning of a cluster and hosts via
+This section describes how to trigger the provisioning of a cluster and hosts via
 `Machine` objects as part of the Cluster API integration. This uses Cluster API
 [v1beta1](https://github.com/kubernetes-sigs/cluster-api/tree/v1.0.2) and
 assumes that metal3-dev-env is deployed with the environment variable
-**CAPM3_VERSION** set to **v1beta1**. This is the default behavior. The v1beta1 deployment can be done with
+**CAPM3_VERSION** set to **v1beta1**. This is the default behaviour. The v1beta1 deployment can be done with
 Ubuntu 20.04 or Centos 8 Stream target host images. Please make sure to meet
 [resource requirements](#11-prerequisites) for successful deployment:
 
@@ -300,11 +302,10 @@ $ ./scripts/provision/controlplane.sh
 $ ./scripts/provision/worker.sh
 ```
 
-
 At this point, the `Machine` actuator will respond and try to claim a
 `BareMetalHost` for this `Metal3Machine`. You can check the logs of the actuator.
 
-First check the names of the pods running in the `baremetal-operator-system` namespace and the output should be something similar
+First, check the names of the pods running in the `baremetal-operator-system` namespace and the output should be something similar
 to this:
 
 ```console
@@ -313,7 +314,7 @@ NAME                                                    READY   STATUS    RESTAR
 baremetal-operator-controller-manager-5fd4fb6c8-c9prs   2/2     Running   0          71m
 ```
 
-In order to get the logs of the actuator the logs of the baremetal-operator-controller-manager instance has to be queried with
+In order to get the logs of the actuator the logs of the baremetal-operator-controller-manager instance have to be queried with
 the following command:
 
 ```console
@@ -360,7 +361,7 @@ node-0   provisioned   test1-controlplane-jjd9l   true             122m
 node-1   provisioned   test1-workers-bx4wp        true             122m
 ```
 
-It is also possible to check that which `Metal3Machine` serves as infrastructure for the ClusterAPI `Machine`
+It is also possible to check which `Metal3Machine` serves as the infrastructure for the ClusterAPI `Machine`
 objects.
 
 First list the `Machine` objects:
@@ -391,9 +392,9 @@ Based on the result of the query `test1-6d8cc5965f-wvzms` ClusterAPI `Machine` o
 `test1-workers-bx4wp` `Metal3Machine` object.
 
 You should be able to ssh into your host once provisioning is completed.
-The default username for both CentOS & Ubuntu image is `metal3`.
-For the IP address, you can either use API endpoint IP of the target cluster
-which is - `192.168.111.249` by default or use predictable IP address of the first
+The default username for both CentOS & Ubuntu images is `metal3`.
+For the IP address, you can either use the API endpoint IP of the target cluster
+which is - `192.168.111.249` by default or use the predictable IP address of the first
 master node - `192.168.111.100`.
 
 ```console
@@ -402,7 +403,7 @@ $ ssh metal3@192.168.111.249
 
 ### 2.3. Deprovision Cluster and Machines
 
-Deprovisioning of the target cluster is done just by deleting `Cluster` and `Machine` objects or by executing the deprovisioning scripts in reverse order than provisioning:
+Deprovisioning of the target cluster is done just by deleting `Cluster` and `Machine` objects or by executing the de-provisioning scripts in reverse order than provisioning:
 
 ```console
 $ ./scripts/deprovision/worker.sh
@@ -410,54 +411,61 @@ $ ./scripts/deprovision/controlplane.sh
 $ ./scripts/deprovision/cluster.sh
 ```
 
-Note that you can easily deprovision worker Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision/worker.sh` script:
+Note that you can easily de-provision worker Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision/worker.sh` script:
 
 ```console
 $ kubectl scale machinedeployment test1 -n metal3 --replicas=0
 ```
 
 > warning "Warning"
-> control-plane and cluster are very tied together. This means that you are not able to deprovision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to deprovision the control-plane you need to **deprovision the cluster** as well and provision both again.
+> control-plane and cluster are very tied together. This means that you are not able to de-provision the control-plane of a cluster and then provision a new one within the same cluster. Therefore, in case you want to de-provision the control-plane you need to **de-provision the cluster** as well and provision both again.
 
-Below, it is shown how the deprovisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR).
+Below, it is shown how the de-provisioning can be executed in a more manual way by just deleting the proper Custom Resources (CR).
 
 The order of deletion is:
+
 1. Machine objects of the workers
 2. Metal3Machine objects of the workers
 3. Machine objects of the control plane
 4. Metal3Machine objects of the control plane
 5. The cluster object
 
-An additional detail is that the `Machine` object `test1-workers-bx4wp` is controlled by the the `test1` `MachineDeployment`
-object thus in order to avoid reprovisioning of the `Machine` object the  `MachineDeployment` has to be deleted instead of the `Machine` object in the case of `test1-workers-bx4wp`.
+An additional detail is that the `Machine` object `test1-workers-bx4wp` is controlled by the `test1` `MachineDeployment`
+the object thus in order to avoid reprovisioning of the `Machine` object the `MachineDeployment` has to be deleted instead of the `Machine` object in the case of `test1-workers-bx4wp`.
 
 ```console
 $ # By deleting the Machine or MachineDeployment object the related Metal3Machine object(s) should be deleted automatically.
 
+
 $ kubectl delete machinedeployment test1 -n metal3
 machinedeployment.cluster.x-k8s.io "test1" deleted
+
 
 $ # The "machinedeployment.cluster.x-k8s.io "test1" deleted" output will be visible almost instantly but that doesn't mean that the related Machine
 $ # object(s) has been deleted right away, after the deletion command is issued the Machine object(s) will enter a "Deleting" state and they could stay in that state for minutes
 $ # before they are fully deleted.
 
+
 $ kubectl delete machine test1-m77bn -n metal3
 machine.cluster.x-k8s.io "test1-m77bn" deleted
 
+
 $ # When a Machine object is deleted directly and not by deleting a MachineDeployment the "machine.cluster.x-k8s.io "test1-m77bn" deleted" will be only visible when the Machine and the
 $ # related Metal3Machine object has been fully removed from the cluster. The deletion process could take a few minutes thus the command line will be unresponsive (blocked) for the time being.
+
 
 $ kubectl delete cluster test1 -n metal3
 cluster.cluster.x-k8s.io "test1" deleted
 ```
 
-Once the deletion has finished, you can see that the `BareMetalHosts` are offline  and `Cluster` object is not present anymore
+Once the deletion has finished, you can see that the `BareMetalHosts` are offline and `Cluster` object is not present anymore
 
 ```console
 $ kubectl get baremetalhosts -n metal3
 NAME     STATE       CONSUMER   ONLINE   ERROR   AGE
 node-0   available              false            160m
 node-1   available              false            160m
+
 
 $ kubectl get cluster -n metal3
 No resources found in metal3 namespace.
@@ -487,8 +495,8 @@ $ make run
 
 ### 2.5. Running Custom Cluster API Provider Metal3
 
-There are two Cluster API related managers running in the cluster. One
-includes set of generic controllers, and the other includes a custom Machine
+There are two Cluster API-related managers running in the cluster. One
+includes a set of generic controllers, and the other includes a custom Machine
 controller for Metal3.
 
 #### Tilt development environment
@@ -506,16 +514,16 @@ scope of your development will span both CAPM3 and CAPI, then follow the
 ### 2.6. Accessing Ironic API
 
 Sometimes you may want to look directly at Ironic to debug something.
-The metal3-dev-env repository contains a clouds.yaml file with
+The metal3-dev-env repository contains clouds.yaml file with
 connection settings for Ironic.
 
 Metal3-dev-env will install the unified OpenStack and standalone
 OpenStack Ironic command-line clients on the provisioning host as
 part of setting up the cluster.
 
-Note that currently you can use either unified OpenStack client
-or Ironic client. In this example we are using Ironic client to interact
-with Ironic API.
+Note that currently, you can use either a unified OpenStack client
+or an Ironic client. In this example, we are using an Ironic client to interact
+with the Ironic API.
 
 Please make sure to export
 `CONTAINER_RUNTIME` environment variable before you execute

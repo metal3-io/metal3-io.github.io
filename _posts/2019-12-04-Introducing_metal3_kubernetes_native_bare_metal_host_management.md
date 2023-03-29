@@ -8,7 +8,7 @@ author: Pedro Ibáñez Requena
 
 ## Conference talk: Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat
 
-Metal³ (`metal cubed/Kube`) is a new open source bare metal host provisioning tool created to enable Kubernetes-native infrastructure management. Metal³ enables the management of bare metal hosts via custom resources managed through the Kubernetes API as well as the monitoring of bare metal host metrics to Prometheus. This presentation will explain the motivations behind creating the project and what has been accomplished so far. This will be followed by an architectural overview and description of the Custom Resource Definitions (CRDs) for describing bare metal hosts, leading to a demonstration of using Metal³ in a Kubernetes cluster.
+Metal³ (`metal cubed/Kube`) is a new open-source bare metal host provisioning tool created to enable Kubernetes-native infrastructure management. Metal³ enables the management of bare metal hosts via custom resources managed through the Kubernetes API as well as the monitoring of bare metal host metrics to Prometheus. This presentation will explain the motivations behind creating the project and what has been accomplished so far. This will be followed by an architectural overview and description of the Custom Resource Definitions (CRDs) for describing bare metal hosts, leading to a demonstration of using Metal³ in a Kubernetes cluster.
 
 In this video, Russell Bryant and Doug Hellmann speak about the what's and how's of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
 
@@ -16,9 +16,9 @@ In this video, Russell Bryant and Doug Hellmann speak about the what's and how's
 
 ## Speakers
 
-[Russell Bryant](http://www.russellbryant.net/) Russell Bryant is a Distinguished Engineer at Red Hat, where he works on infrastructure management to support Kubernetes clusters. Prior to working on the Metal³ project, Russell has worked on other open infrastructure projects. Russell worked in Software Defined Networking with Open vSwitch (OVS) and Open Virtual Network (OVN) and worked on various parts of OpenStack. Russell also worked in open source telephony via the Asterisk project.
+[Russell Bryant](http://www.russellbryant.net/) Russell Bryant is a Distinguished Engineer at Red Hat, where he works on infrastructure management to support Kubernetes clusters. Prior to working on the Metal³ project, Russell worked on other open infrastructure projects. Russell worked in Software Defined Networking with Open vSwitch (OVS) and Open Virtual Network (OVN) and worked on various parts of OpenStack. Russell also worked in open source telephony via the Asterisk project.
 
-[Doug Hellmann](http://twitter.com/doughellmann) Doug Hellmann is a Senior Principal Software Engineer at Red Hat. He has been a professional developer since the mid 1990s and has worked on a variety of projects in fields such as mapping, medical news publishing, banking, data center automation, and hardware provisioning. He has been contributing to open source projects for most of his career and for the past 7 years he has been focusing on open source cloud computing technologies, including OpenStack and Kubernetes.
+[Doug Hellmann](http://twitter.com/doughellmann) Doug Hellmann is a Senior Principal Software Engineer at Red Hat. He has been a professional developer since the mid-1990s and has worked on a variety of projects in fields such as mapping, medical news publishing, banking, data centre automation, and hardware provisioning. He has been contributing to open-source projects for most of his career and for the past 7 years he has been focusing on open-source cloud computing technologies, including OpenStack and Kubernetes.
 
 ## References
 

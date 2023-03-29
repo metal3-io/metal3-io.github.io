@@ -10,12 +10,12 @@ Running on bare metal has both benefits and drawbacks.
 You can get the best performance possible out of the hardware, but it can also be quite expensive and maybe not necessary for _all_ workloads.
 Perhaps a hybrid cluster could give you the best of both?
 Raw power for the workload that needs it, and cheap virtualized commodity for the rest.
-This blog post will show how to setup a cluster like this using the Cluster API backed by the Metal3 and BYOH providers.
+This blog post will show how to set up a cluster like this using the Cluster API backed by the Metal3 and BYOH providers.
 
 ## The problem
 
 Imagine that you have some bare metal servers that you want to use for some specific workload.
-Maybe the workload benefits from the specific hardware or there are some requirements that makes it necessary to run it there.
+Maybe the workload benefits from the specific hardware or there are some requirements that make it necessary to run it there.
 The rest of the organization already uses Kubernetes and the cluster API everywhere so of course you want the same for this as well.
 Perfect, grab Metal³ and start working!
 
@@ -50,7 +50,7 @@ clusterctl init --infrastructure byoh
 
 For the ByoHost we will use Vagrant.
 You can install it with `sudo apt install vagrant`.
-Then copy the Vagrantfile below to new folder and run `vagrant up`.
+Then copy the Vagrantfile below to a new folder and run `vagrant up`.
 
 ```Vagrantfile
 # -*- mode: ruby -*-
@@ -60,6 +60,7 @@ hosts = {
     # "control-plane3" => { "memory" => 2048, "ip" => "192.168.10.12"},
 }
 
+
 Vagrant.configure("2") do |config|
     # Choose which box you want below
     config.vm.box = "generic/ubuntu2004"
@@ -68,6 +69,7 @@ Vagrant.configure("2") do |config|
       # QEMU system connection is required for private network configuration
       libvirt.qemu_use_session = false
     end
+
 
     # Loop over all machine names
     hosts.each_key do |host|
@@ -113,13 +115,14 @@ chmod +x byoh-hostagent
 sudo ./byoh-hostagent --namespace metal3 --kubeconfig management-cluster.conf
 ```
 
-You should now have a management cluster with both the Metal³ and BYOH provider installed, as well as two BareMetalHosts and one ByoHost.
+You should now have a management cluster with both the Metal³ and BYOH providers installed, as well as two BareMetalHosts and one ByoHost.
 
 ```console
 $ kubectl -n metal3 get baremetalhosts,byohosts
 NAME                             STATE       CONSUMER   ONLINE   ERROR   AGE
 baremetalhost.metal3.io/node-0   available              true             18m
 baremetalhost.metal3.io/node-1   available              true             18m
+
 
 NAME                                                     AGE
 byohost.infrastructure.cluster.x-k8s.io/control-plane1   73s
@@ -466,6 +469,7 @@ spec:
             [registries.search]
             registries = ['docker.io']
 
+
             [registries.insecure]
             registries = ['192.168.111.1:5000']
           path: /etc/containers/registries.conf
@@ -494,7 +498,7 @@ spec:
   </div>
 </details>
 
-The result of all this is be a Cluster with two Machines, one from the Metal³ provider and one from the BYOH provider.
+The result of all this is a Cluster with two Machines, one from the Metal³ provider and one from the BYOH provider.
 
 ```console
 $ k -n metal3 get machine
@@ -544,20 +548,20 @@ Furthermore, the use case is not addressed by MachineDeployments since they woul
 
 There is some room for development and improvement though.
 The most obvious thing is perhaps that Clusters only have one `infrastructureRef`.
-Which means that the cluster API controllers are not aware of the "secondary" infrastructure provider(s).
+This means that the cluster API controllers are not aware of the "secondary" infrastructure provider(s).
 
 Another thing that may be less obvious is the reliance on Nodes and Machines in the Kubeadm control plane provider.
 It is not an issue in the example we have seen here since both Metal³ and BYOH creates Nodes.
 However, there are some projects where Nodes are unnecessary.
 See for example [Kamaji](https://github.com/clastix/kamaji), which aims to integrate with the cluster API.
-The idea there is to run the control plane components in the management cluster as Pods.
+The idea here is to run the control plane components in the management cluster as Pods.
 Naturally, there would not be any control plane Nodes or Machines in this case.
 (A second provider would be used to add workers.)
 But the Kubeadm control plane provider expects there to be both Machines and Nodes for the control plane, so a new provider is likely needed to make this work as desired.
 
 This issue can already be seen in the [vcluster](https://github.com/loft-sh/cluster-api-provider-vcluster) provider, where the Cluster stays in `Provisioning` state because it is "Waiting for the first control plane machine to have its `status.nodeRef` set".
 The idea with vcluster is to reuse the Nodes of the management cluster but provide a separate control plane.
-This gives users a better isolation than just namespaces without the need for another "real" cluster.
+This gives users better isolation than just namespaces without the need for another "real" cluster.
 It is for example possible to have different custom resource definitions in each vcluster.
 But since vcluster runs all the pods (including the control plane) in the management cluster, there will never be a control plane Machine or `nodeRef`.
 
@@ -567,7 +571,7 @@ One implementation for each specific case.
 It would be nice if it was possible to do it in a more generic way though, similar to how the Kubeadm control plane provider is used by almost all infrastructure providers.
 
 To summarize, there is already some support for mixed clusters with multiple providers.
-However, there are some issues that makes it unnecessarily awkward.
+However, there are some issues that make it unnecessarily awkward.
 Two things that could be improved in the cluster API would be the following:
 
 1. Make the `cluster.infrastructureRef` into a list to allow multiple infrastructure providers to be registered.
