@@ -22,11 +22,11 @@ From v1alpha3 onwards, the Cluster API provider will be developed in
 [cluster-api-provider-metal3](https://github.com/metal3-io/cluster-api-provider-metal3).
 The v1alpha1 and v1alpha2 content will remain in
 [cluster-api-provider-baremetal](https://github.com/metal3-io/cluster-api-provider-baremetal).
-This repository will be archived, but kept for the integration in metal3-dev-env.
+This repository will be archived but kept for the integration in metal3-dev-env.
 
 ### Custom Resource Definition modifications
 
-The kind of the Custom Resource Definition (CRD) has been modified for the
+The kind of Custom Resource Definition (CRD) has been modified for the
 following objects:
 
 - `BareMetalCluster` -> `Metal3Cluster`

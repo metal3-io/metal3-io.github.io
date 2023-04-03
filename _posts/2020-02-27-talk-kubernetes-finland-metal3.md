@@ -14,16 +14,16 @@ On the 20th of January at the [Kubernetes and CNCF Finland Meetup](https://www.m
 In this presentation, Maël starts giving a short introduction of the [Cluster API project](https://github.com/kubernetes-sigs/cluster-api) which provides a solid foundation to develop the Metal³ Bare Metal Operator (BMO). The talk basically focuses on the **v1alpha2** infrastructure provider features from the Cluster API.
 
 > info "Information"
-> The video recording from the “Kubernetes and CNCF Finland Meetup” is composed by three talks. The video embedded starts with Maël's talk.
+> The video recording from the “Kubernetes and CNCF Finland Meetup” is composed of three talks. The video embedded starts with Maël's talk.
 
 > warning "Warning"
-> Playback of the video has been disabled by the author. Click on play button and then on "Watch this video on Youtube" link once it appears.
+> Playback of the video has been disabled by the author. Click on the play button and then on the "Watch this video on Youtube" link once it appears.
 
 <iframe width="1110" height="720" style="height: 500px" src="https://www.youtube.com/embed/3k5EfIQpw-E?t=4167" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <br>
 
-During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown and also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:
+During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown as also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:
 
 ![crd v1alpha2](/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-crds-controllers.resized.png)
 
@@ -39,9 +39,9 @@ The second part of the process is the **provisioning**. In this step, Maël expl
 <br>
 Next, Maël deeply explains each Custom Resource (CR) used during the provisioning of target Kubernetes clusters in bare metal servers. He refers to objects such as `Cluster`, `BareMetalCluster`, `Machine`, `BareMetalMachine`, `BareMetalHost` and so on. Each one is clarified with a YAML file definition of a real case and a workflow diagram that shows the reconciliation procedure.
 
-Last part of the talk is dedicated to execute a demo where Maël creates a _target Kubernetes cluster_ from a running minikube VM (also called _bootstrap cluster_) where Metal³ is deployed. As it is pointed out in the video, the demo is running in _emulated hardware_. Actually, something similar to the [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) project which can be used to reproduce the demo. More information of the Metal³ development environment (metal3-dev-env) can be found in the [Metal³ try-it section](https://metal3.io/try-it.html). In case you want to go deeper, take a look at the blog post [A detailed walkthrough of the Metal³ development environment]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
+The last part of the talk is dedicated to executing a demo where Maël creates a _target Kubernetes cluster_ from a running minikube VM (also called _bootstrap cluster_) where Metal³ is deployed. As it is pointed out in the video, the demo is running in _emulated hardware_. Actually, something similar to the [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) project can be used to reproduce the demo. More information on the Metal³ development environment (metal3-dev-env) can be found in the [Metal³ try-it section](https://metal3.io/try-it.html). In case you want to go deeper, take a look at the blog post [A detailed walkthrough of the Metal³ development environment]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).
 
-At the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.
+In the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.
 
 > info "Information"
 > The slides of the talk can be downloaded from [here](https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl)

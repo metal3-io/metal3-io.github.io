@@ -1,26 +1,26 @@
 # Contents Guidelines
 
-This document describes a set of guidelines for generating contents for [metal3.io](https://metal3.io), exceptions can be made if and when it makes sense, but please try to follow this guide as much as possible.
+This document describes a set of guidelines for generating content for [metal3.io](https://metal3.io), exceptions can be made if and when it makes sense, but please try to follow this guide as much as possible.
 
 ## General contents guidelines
 
-Please use the following as general guidelines on any kind of contents generated for this site:
+Please use the following as general guidelines on any kind of content generated for this site:
 
 ### Technical setup
 
-- Install `pre-commit` in your system and from the repositry folder run `pre-commit install` so that git hook is in place.
-  - It will avoid commits to `source` and `master` branch
-  - It will spell check articles before commit can be performed
+- Install `pre-commit` in your system and from the repository folder run `pre-commit install` so that the git hook is in place.
+  - It will avoid commits to the `source` and `master` branch
+  - It will spell-check articles before the commit can be performed
   - Adjust some formatting in markdown like tables, spaces before and after headings, etc (via prettifier)
-  - If you're using `npm` you can also add pre-commit as dependency for development so that it incorporates the `pre-commit` hook and it also spellchecks before you submit to CI and risk to get a failure in build. To do so, use: `npm install --save-dev pre-commit`
-- For each spellcheck failure or duplicate word, adjust `.yaspellerrc`, try to sort the wordfile and check for duplicates reported by yaspeller on run.
+  - If you're using `npm` you can also add pre-commit as a dependency for development so that it incorporates the `pre-commit` hook and it also spellchecks before you submit to CI and risk getting a failure in build. To do so, use: `npm install --save-dev pre-commit`
+- For each spellcheck failure or duplicate word, adjust `.yaspellerrc`, try to sort the word file and check for duplicates reported by yaspeller on run.
 
 ### Content
 
 - Follow [Kramdown Quick Reference](https://kramdown.gettalong.org/quickref.html) for syntax reference
-- Split the contents in sections using the different levels of headers that Markdown offers
+- Split the contents into sections using the different levels of headers that Markdown offers
   - Keep in mind that once rendered, the title you set in the Front Matter data will use _H1_, so start your sections from _H2_
-- Closing section, the same way we can add a brief opening section describing what the contents is about, it's very important to add a closing section with thoughts, upcoming work on the topic discussed, encourage readers to test something and share their findings/thoughts, joining the community, ... keep in mind that this will probably be the last thing the reader will read
+- Closing section, the same way we can add a brief opening section describing what the contents are about, it's very important to add a closing section with thoughts, upcoming work on the topic discussed, encourage readers to test something and share their findings/thoughts, joining the community, ... keep in mind that this will probably be the last thing the reader will read
 - [Code blocks](https://kramdown.gettalong.org/syntax.html#code-blocks), use them for:
   - code snippets
   - file contents
@@ -70,7 +70,6 @@ All Blog posts are located in the [blog/\_posts](blog/_posts/) directory, and al
   category: news
   comments: true
   ---
-
   ```
 
   - **layout**: Defines style settings for different types of contents. All blog posts use the _posts_ layout
@@ -136,7 +135,6 @@ _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the [pages](/pages/) 
   permalink: /docs/
   navbar_active: Docs
   ---
-
   ```
 
 - The fields have the same function as for blog posts, but some values are different, as we're producing different contents.
@@ -165,7 +163,6 @@ order: 1
 permalink: labs/metal3101.html
 navbar_active: Labs
 ---
-
 ```
 
 - Modify **title** and **permalink**, and leave the rest as shown in the example

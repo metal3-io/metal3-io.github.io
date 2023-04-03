@@ -8,7 +8,7 @@ author: Pedro Ibáñez Requena
 
 ## Conference talk: Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla, Red Hat
 
-Some of the most influential minds in the developer industry were landing in the gorgeous ancient city of Split, Croatia, to talk in the [Shift Dev 2019 - Developer Conference](https://dev.shiftconf.co) about the most cutting edge technologies, techniques and biggest trends in the developer space.
+Some of the most influential minds in the developer industry were landing in the gorgeous ancient city of Split, Croatia, to talk at the [Shift Dev 2019 - Developer Conference](https://dev.shiftconf.co) about the most cutting-edge technologies, techniques and biggest trends in the developer space.
 
 In this video, Yolanda Robla speaks about the deployment of Kubernetes on Bare Metal with the help of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
 

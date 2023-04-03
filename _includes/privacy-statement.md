@@ -4,7 +4,7 @@ As Metal3.io and most of the infrastructure of the Metal³ Project are currently
 
 ### How to Contact Us
 
-If you have any questions about any of these practices or Metal³'s use of your personal information, please feel free to [contact us](mailto:privacy@metal3.io) or [file an Issue](https://github.com/metal3-io/metal3-io.github.io/issues){:target="\_blank"} in our Github repo.
+If you have any questions about any of these practices or Metal³'s use of your personal information, please feel free to [contact us](mailto:privacy@metal3.io) or [file an Issue](https://github.com/metal3-io/metal3-io.github.io/issues){:target="\_blank"} in our GitHub repo.
 
 Metal³ will work with you to resolve any concerns you may have about this Statement.
 

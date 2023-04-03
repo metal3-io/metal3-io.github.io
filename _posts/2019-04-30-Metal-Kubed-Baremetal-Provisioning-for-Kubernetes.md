@@ -10,7 +10,7 @@ Originally posted at <https://blog.russellbryant.net/2019/04/30/metal%c2%b3-meta
 
 ## Project Introduction
 
-There are a number of great open source tools for bare metal host provisioning, including [Ironic](https://docs.openstack.org/ironic/latest/install/refarch/common.html). Metal³ aims to build on these technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next step in the evolution of infrastructure management.
+There are a number of great open-source tools for bare metal host provisioning, including [Ironic](https://docs.openstack.org/ironic/latest/install/refarch/common.html). Metal³ aims to build on these technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next step in the evolution of infrastructure management.
 
 The Metal³ project is also building integration with the Kubernetes [cluster-api](https://github.com/kubernetes-sigs/cluster-api) project, allowing Metal³ to be used as an infrastructure backend for Machine objects from the Cluster API.
 
@@ -24,9 +24,9 @@ Finally, the [cluster-api-provider-baremetal](https://github.com/metal3-io/clust
 
 ## Demo
 
-The project has been going for a few months now, and there’s enough now to show some working code.
+The project has been going on for a few months now, and there’s enough now to show some working code.
 
-For this demonstration, I’ve started with a 3 node Kubernetes cluster installed using [OpenShift](https://www.openshift.com/).
+For this demonstration, I’ve started with a 3-node Kubernetes cluster installed using [OpenShift](https://www.openshift.com/).
 
 ```sh
 $ kubectl get nodes
@@ -58,7 +58,7 @@ openshift-master-1   OK       externally provisioned   ostest-master-1   ipmi://
 openshift-master-2   OK       externally provisioned   ostest-master-2   ipmi://192.168.111.1:6232                      true
 ```
 
-Now suppose we’d like to expand this cluster by adding another bare metal host to serve as a worker node. First we need to create a new BareMetalHost object that adds this new host to the inventory of hosts managed by the baremetal-operator. Here’s the YAML for the new BareMetalHost:
+Now suppose we’d like to expand this cluster by adding another bare metal host to serve as a worker node. First, we need to create a new BareMetalHost object that adds this new host to the inventory of hosts managed by the baremetal-operator. Here’s the YAML for the new BareMetalHost:
 
 ```yaml
 ---
@@ -135,6 +135,7 @@ openshift-master-0   OK       externally provisioned   ostest-master-0         i
 openshift-master-1   OK       externally provisioned   ostest-master-1         ipmi://192.168.111.1:6231                      true
 openshift-master-2   OK       externally provisioned   ostest-master-2         ipmi://192.168.111.1:6232                      true
 openshift-worker-0   OK       provisioned              ostest-worker-0-jmhtc   ipmi://192.168.111.1:6233   unknown            true
+
 
 $ kubectl get nodes
 NAME       STATUS   ROLES    AGE   VERSION
