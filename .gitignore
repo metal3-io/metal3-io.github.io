@@ -10,3 +10,7 @@ node_modules
 .vscode
 .sass-cache
 .jekyll-metadata
+.venv
+
+# Development containers (https://containers.dev/)
+.devcontainer
