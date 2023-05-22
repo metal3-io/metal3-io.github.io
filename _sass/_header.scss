@@ -182,13 +182,14 @@
     color: var(--mk--Color--200);
     font-size: var(--mk--FontSize--md);
     margin-top: var(--mk--spacer--md);
+    margin-bottom: var(--mk--spacer--md);
 
     &:hover, &:focus, &:active, .active & {
       color: var(--mk--Color--300);
       text-decoration: none;
     }
     @media (min-width: $mk--breakpoint--lg){
-      margin:0 0 0 var(--mk--spacer--lg);
+      margin:0 var(--mk--spacer--sm) 0 var(--mk--spacer--lg);
     }
   }
 }
