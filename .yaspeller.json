@@ -138,6 +138,7 @@
     "etcd",
     "EXTRADISKS",
     "F5",
+    "failovers",
     "filesystem",
     "firewalld",
     "foo",
