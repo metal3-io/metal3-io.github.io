@@ -20,6 +20,7 @@ filters:
   "^_posts/.*":
     labels:
       - kind/blog
+
     approvers:
       - hroyrh
       - lentzi90
@@ -33,9 +34,10 @@ filters:
       - hardys
       - stbenjam
 
-  "^_(data|layouts|sass|css|js)/.*":
+  "^_(data|layouts|scss|css|js)/.*":
     labels:
       - kind/website
+
     approvers:
       - hroyrh
       - lentzi90
