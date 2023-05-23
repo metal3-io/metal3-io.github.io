@@ -779,7 +779,7 @@ In the video below it is exhibited all the configuration explained and executed 
 The last script `04_verify.sh` is in charge of verifying that the deployment has been successful by checking several things:
 
 - Custom resources (CR) and custom resource definition (CRD) were applied and exist in the cluster.
-- Verify that the virtual bare metal hosts matche the information detailed in the`BareMetalHost` object.
+- Verify that the virtual bare metal hosts matches the information detailed in the`BareMetalHost` object.
 - All containers are in running status.
 - Verify virtual network configuration and status.
 - Verify operators and controllers are running.
