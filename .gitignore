@@ -11,6 +11,7 @@ node_modules
 .sass-cache
 .jekyll-metadata
 .venv
+.css
 
 # Development containers (https://containers.dev/)
 .devcontainer

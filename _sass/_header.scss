@@ -1,36 +1,47 @@
+
+
+// function for flexbox
+@mixin flexCenter($j-content: center, $direction: row, $a-items: center) {
+  display: flex;
+  align-items: $a-items;
+  justify-content: $j-content;
+  flex-direction: $direction;
+}
+
 .mk-masthead {
-  &.mk-masthead--home, &.mk-masthead--sub {
+  &.mk-masthead--home,
+  &.mk-masthead--sub {
     background-size: cover;
     background-position: 0vw center;
     background-image: url("/assets/images/hero.svg");
     background-repeat: no-repeat;
   }
   &.mk-masthead--home {
-    background-color: var(--mk--BackgroundColor--500);
+    background-color: var(--mk--BackgroundColor--300);
     border-bottom: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
   }
 
   &.mk-masthead--sub {
     background-color: var(--mk--BackgroundColor--200);
     box-shadow: var(--mk--BoxShadow--sm);
-
   }
 
-  @media (min-width: $mk--breakpoint--lg){
-    &.mk-masthead--home, &.mk-masthead--sub {
+  @media (min-width: $mk--breakpoint--lg) {
+    &.mk-masthead--home,
+    &.mk-masthead--sub {
       background-position: 30vw center;
     }
   }
   &__content {
     padding: var(--mk--spacer--lg) var(--mk--spacer--sm);
 
-    @media (min-width: $mk--breakpoint--md){
+    @media (min-width: $mk--breakpoint--md) {
       padding: var(--mk--spacer--2xl) var(--mk--spacer--lg);
     }
 
     &__title {
       color: var(--mk--Color--300);
-      font-weight: var(--mk--FontWeight--100);
+      font-weight: 700; //increased fontWeight for titles on headers
       font-size: var(--mk--FontSize--3xl);
       sup {
         margin-left: var(--mk--spacer--xs);
@@ -40,32 +51,35 @@
       }
     }
     &__sub-title {
-      color: var(--mk--Color--100);
+      color: var(--mk--color-black--100);
       margin-top: var(--mk--spacer--xs);
-      font-size: var(--mk--FontSize--lg);
+      font-size: var(--mk--FontSize--2lg);
+      width: 50%; //gave subtitles width so they dont fill the whole width of the screen
+      @media (max-width: $mk--breakpoint--md) {
+        width: 100%;
+      }
     }
     .mk-button {
       margin-top: var(--mk--spacer--md);
-      @media (min-width: $mk--breakpoint--md){
+      @media (min-width: $mk--breakpoint--md) {
         margin-top: var(--mk--spacer--lg);
       }
     }
-  }/* content */
+  } /* content */
   &__content--sub {
     padding: var(--mk--spacer--md) var(--mk--spacer--sm);
-    @media (min-width: $mk--breakpoint--md){
+    @media (min-width: $mk--breakpoint--md) {
       padding: var(--mk--spacer--xl) var(--mk--spacer--lg);
     }
     &__title {
       font-size: var(--mk--FontSize--2xl);
     }
     &__text {
-
       max-width: 915px;
       font-size: var(--mk--FontSize--md);
       &:not(:last-child) {
         margin-bottom: var(--mk--spacer--md);
-        @media (min-width: $mk--breakpoint--md){
+        @media (min-width: $mk--breakpoint--md) {
           margin-bottom: var(--mk--spacer--lg);
         }
       }
@@ -76,32 +90,63 @@
   }
 }
 
+//new search input
+.mk-search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.docs-search--input {
+  outline: none;
+}
+.mk-search-form button {
+  background: transparent !important;
+  border: none;
+}
+.mk-mobile-inputs {
+  display: none;
+  @media (max-width: $mk--breakpoint--md) {
+    display: block;
+  }
+}
 .mk-main-header {
-  display: grid;
+  @include flexCenter($j-content: space-between);
   width: 100%;
+  position: fixed; //made navbar fixed
+  z-index: 1;
   grid-template-rows: auto auto;
-  grid-template-areas: "brand"
-  "nav";
+  grid-template-areas:
+    "brand"
+    "nav";
   background: var(--mk--color-transparent-background--100);
-  padding-top: var(--mk--spacer--md);
-  @media (min-width: $mk--breakpoint--lg){
+  padding-top: var(--mk--spacer--xs);
+
+  @media (min-width: $mk--breakpoint--lg) {
     grid-template-areas: "brand nav";
-    padding-bottom: var(--mk--spacer--md);
+    padding-bottom: var(--mk--spacer--xs);
+  }
+  @media (max-width: $mk--breakpoint--md) {
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 }
 
 .mk-main-header__brand {
   grid-area: brand;
+  height: 50px; //gave navbar logo a specific height and width
+  width: 20%;
   margin: 0 0 var(--mk--spacer--md) var(--mk--spacer--sm);
   svg {
     max-height: rem(60);
     max-width: rem(60);
   }
-  @media (min-width: $mk--breakpoint--lg){
-    margin:0 0 0 var(--mk--spacer--lg);
+  @media (max-width: $mk--breakpoint--md) {
+    margin: 0 0 var(--mk--spacer--sm) var(--mk--spacer--sm);
+  }
+  @media (min-width: $mk--breakpoint--lg) {
+    margin: 0 0 0 var(--mk--spacer--lg);
   }
 }
-
 
 .mk-main-header__toggle {
   background: none;
@@ -109,6 +154,9 @@
   align-self: flex-end;
   margin-right: var(--mk--spacer--sm);
   margin-top: -90px;
+  @media (max-width: $mk--breakpoint--md) {
+    margin-top: 0px;
+  }
   svg {
     max-width: rem(40);
     width: 100%;
@@ -116,20 +164,32 @@
       fill: var(--mk--BackgroundColor--300);
     }
   }
-  &:hover, &:active, &:focus {
-    opacity: .5;
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.5;
   }
-  @media (min-width: $mk--breakpoint--lg){
+  @media (min-width: $mk--breakpoint--lg) {
     display: none;
   }
   &-text {
-  position: absolute;
-  clip: rect(1px, 1px, 1px, 1px);
-  padding: 0;
-  border: 0;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
+}
+
+//flexed the navbar inputs (search and user guide)
+.mk-main-header__inputs {
+  @include flexCenter($j-content: end);
+  width: 30%;
+  margin-right: var(--mk--spacer--md);
+  @media (max-width: $mk--breakpoint--md) {
+    display: none;
   }
 }
 
@@ -137,14 +197,18 @@
   grid-area: nav;
   display: flex;
   flex-direction: column;
-  @media (min-width: $mk--breakpoint--lg){
+  @media (min-width: $mk--breakpoint--lg) {
     justify-content: center;
+  }
+  @media (max-width: $mk--breakpoint--md) {
+    flex-direction: column;
+    padding-top: var(--mk--spacer--xs);
   }
   &.mx-m-toggle {
     margin-bottom: var(--mk--spacer--md);
     .mk-main-nav {
       display: none;
-      @media (min-width: $mk--breakpoint--lg){
+      @media (min-width: $mk--breakpoint--lg) {
         display: flex;
       }
     }
@@ -160,18 +224,21 @@
   transition: var(--mk--animation);
   border-bottom: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--100);
 
-  @media (min-width: $mk--breakpoint--md){
+  @media (min-width: $mk--breakpoint--md) {
     flex-direction: row;
     justify-content: space-evenly;
   }
-  @media (min-width: $mk--breakpoint--lg){
+  @media (max-width: $mk--breakpoint--md) {
+    width: 100%;
+  }
+
+  @media (min-width: $mk--breakpoint--lg) {
     justify-content: flex-end;
     align-items: center;
     border: none;
-    margin-right: var(--mk--spacer--lg);
+    gap: var(--mk--spacer--md);
     padding: 0;
     display: flex;
-
   }
   &.is-active {
     display: flex;
@@ -184,12 +251,15 @@
     margin-top: var(--mk--spacer--md);
     margin-bottom: var(--mk--spacer--md);
 
-    &:hover, &:focus, &:active, .active & {
+    &:hover,
+    &:focus,
+    &:active,
+    .active & {
       color: var(--mk--Color--300);
       text-decoration: none;
     }
-    @media (min-width: $mk--breakpoint--lg){
-      margin:0 var(--mk--spacer--sm) 0 var(--mk--spacer--lg);
+    @media (min-width: $mk--breakpoint--lg) {
+      margin: 0 var(--mk--spacer--sm) 0 var(--mk--spacer--sm);
     }
   }
 }
