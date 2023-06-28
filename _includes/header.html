@@ -1,8 +1,9 @@
+
 <div class="mk-wrapper">
     <section class="mk-masthead{% if page.url == "/" %} mk-masthead--home{% else %} mk-masthead--sub{% endif %}">
 <header class="mk-main-header">
     <a href="/" class="mk-main-header__brand">
-        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg" style="height: 100%;">
           <g fill="none" fill-rule="evenodd">
             <g transform="translate(-1)" fill-rule="nonzero">
             <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
@@ -16,6 +17,7 @@
           </g>
         </svg>
       </a>
+      <!-- centered nav-menu and created a new button for userguide -->
       <nav role="navigation" class="mk-main-header__nav-wrapper">
         <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
           <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
@@ -30,19 +32,25 @@
           <li {% if page.url == "/community-resources.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/community-resources.html">Community Resources</a></li>
           <li {% if page.url == "/documentation.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/documentation.html">Documentation</a></li>
           <li {% if page.url == "/try-it.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/try-it.html">Try It!</a></li>
-          <li {% if page.url == "/search.html" %} class="active" {% endif %}>
-            <form action="/search.html" method="get" autocomplete="off">
-              <div class="autocomplete" style="width:150px;">
-                <input type="text" id="search-input" class="docs-search--input" placeholder="search term" name="query">
-              </div>
-              <input id="search-button" type="submit" value="🔍" disabled='true'>
-            </form>
-          </li>
-      </li>
-
-
         </ul>
       </nav>
+      <!-- Created a new ul/div for search input and button -->
+    <ul class="mk-main-header__inputs">
+      <li><a href="https://book.metal3.io/introduction.html" class="mk-main-nav__item mk-button mk-button--secondary">User Guide</a></li>
+      <li {% if page.url == "/search.html" %} class="active" {% endif %}>
+        <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+          <div class="autocomplete" style="width:150px;">
+            <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+          </div>
+          <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+            <img src="../assets//images/search.png" style="height: 20px;" alt="">
+
+          </button>
+          <!-- <input id="search-button" class="search-button" type="submit" disabled='true' /> -->
+        </form>
+      </li>
+
+    </ul>
   </header>
   {% if page.url == "/blog" %}
   <div class="mk-masthead__content--sub">
