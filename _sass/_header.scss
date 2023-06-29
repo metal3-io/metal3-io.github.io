@@ -1,3 +1,9 @@
+@mixin flexCenter($j-content: center, $direction: row, $a-items: center) {
+  display: flex;
+  align-items: $a-items;
+  justify-content: $j-content;
+  flex-direction: $direction;
+}
 .mk-masthead {
   &.mk-masthead--home, &.mk-masthead--sub {
     background-size: cover;
@@ -76,17 +82,41 @@
   }
 }
 
+.mk-search-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.docs-search--input {
+  outline: none;
+}
+.mk-search-form button {
+  background: transparent !important;
+  border: none;
+}
+.mk-mobile-inputs {
+  display: none;
+  @media (max-width: $mk--breakpoint--md) {
+    display: block;
+  }
+}
 .mk-main-header {
-  display: grid;
+  // @include flexCenter($j-content: space-between);
+  position: fixed;
   width: 100%;
+  z-index: 1;
   grid-template-rows: auto auto;
   grid-template-areas: "brand"
   "nav";
   background: var(--mk--color-transparent-background--100);
-  padding-top: var(--mk--spacer--md);
+  padding-top: var(--mk--spacer--xs);
   @media (min-width: $mk--breakpoint--lg){
     grid-template-areas: "brand nav";
-    padding-bottom: var(--mk--spacer--md);
+    padding-bottom: var(--mk--spacer--xs);
+  }
+  @media (max-width: $mk--breakpoint--md) {
+    align-items: flex-start;
+    flex-wrap: wrap;
   }
 }
 
@@ -101,8 +131,6 @@
     margin:0 0 0 var(--mk--spacer--lg);
   }
 }
-
-
 .mk-main-header__toggle {
   background: none;
   border: none;
@@ -132,9 +160,16 @@
   overflow: hidden;
   }
 }
-
+.mk-main-header__inputs {
+  @include flexCenter($j-content: end);
+  width: 100%;
+  margin-right: var(--mk--spacer--md);
+  @media (max-width: $mk--breakpoint--md) {
+    display: none;
+  }
+}
 .mk-main-header__nav-wrapper {
-  grid-area: nav;
+  // grid-area: nav;
   display: flex;
   flex-direction: column;
   @media (min-width: $mk--breakpoint--lg){
@@ -156,7 +191,7 @@
   display: none;
   flex-direction: column;
   grid-area: nav-list;
-  padding-bottom: var(--mk--spacer--md);
+  padding-top: var(--mk--spacer--md);
   transition: var(--mk--animation);
   border-bottom: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--100);
 
