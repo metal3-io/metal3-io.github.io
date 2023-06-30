@@ -48,7 +48,11 @@
     &__sub-title {
       color: var(--mk--Color--100);
       margin-top: var(--mk--spacer--xs);
-      font-size: var(--mk--FontSize--lg);
+      font-size: var(--mk--FontSize--xl);
+      width: 50%;
+      @media(max-width: $mk--breakpoint--md){
+      width: 100%;
+     }
     }
     .mk-button {
       margin-top: var(--mk--spacer--md);
@@ -169,7 +173,7 @@
   }
 }
 .mk-main-header__nav-wrapper {
-  // grid-area: nav;
+  grid-area: nav;
   display: flex;
   flex-direction: column;
   @media (min-width: $mk--breakpoint--lg){
