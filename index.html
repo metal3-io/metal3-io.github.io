@@ -3,35 +3,69 @@ layout: default
 ---
 <div class="mk-masthead__content">
     <h1 class="mk-masthead__content__title">Metal<sup>3</sup></h1>
-    <h3 class="mk-masthead__content__sub-title">Bare metal host provisioning for Kubernetes</h3>
-    <a href="{{ site.baseurl }}/try-it.html" class="mk-button mk-button--primary">Get Started</a>
-    <a href="https://book.metal3.io/introduction.html" class="mk-button mk-button--primary">User guide</a>
+    <h3 class="mk-masthead__content__sub-title">
+        The Metal<sup>3</sup> (pronounced “Metal-kube”) project is an open-source project that provides a set of tools for managing bare-metal infrastructure using Kubernetes. 
+    </h3>   
+     <a href="{{ site.baseurl }}/try-it.html" class="mk-button mk-button--primary">Get Started</a>
+    <!-- <a href="https://book.metal3.io/introduction.html" class="mk-button mk-button--primary">User guide</a> -->
   </div>
 </section>
-<section class="mk-community-callout">
-        <div class="mk-community-callout__images">
-          <img src="/assets/images/home-left-image.svg" alt="">
-          <img src="/assets/images/home-right-image.svg" alt="">
-        </div>
-        <p class="mk-community-callout__content">
-          Connect with the Metal3.io community to learn more, contribute ideas, and help build the future of Metal3.io.
-          Learn more about how to make the most of the Metal3io features in your work.
-        </p>
-        <a href="{{ site.baseurl }}/community-resources.html" class="mk-button mk-button--secondary">Join the Conversation</a>
-</section>
+
 <main class="mk-main mk-main__homepage">
     <div class="mk-main__content--home">
 <section class="mk-why-metalkubed mk-main__section">
    <header class="mk-main__header">
-   <h2 class="mk-heading mk-heading--xl mk-m-border">Why Metal3.io?</h2>
+   <h2 class="mk-heading mk-heading--xl mk-m-border">Why Metal<sup>3</sup></h2>
    </header>
           <p>There are a number of great open source tools for bare metal host provisioning, including Ironic.
           Metal3.io aims to build on these technologies to provide a Kubernetes native API for managing bare
           metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes
           Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next
           step in the evolution of infrastructure management.</p>
-          <p>The Metal3.io project is also building integration with the Kubernetes cluster-api project, allowing
-          Metal3.io to be used as an infrastructure backend for Machine objects from the Cluster API.</p>
+          <p>
+            The Metal3.io project is also building integration with the Kubernetes
+            cluster-api project, allowing Metal3.io to be used as an infrastructure
+            backend for Machine objects from the Cluster API. <br> These components integrate
+            seamlessly to leverage the Kubernetes ecosystem and automate the provisioning 
+            and management of bare-metal infrastructure.
+          </p>
+</section>
+<section class="mk-blog-baremetal mk-main__section">
+    <header class="mk-main__header">
+      <h2 class="mk-heading mk-heading--xl mk-m-border">What's new?</h2>
+    </header>
+    <div class="mk-blog-meta__preview__scroll-wrapper">
+      {% for post in site.posts limit:3 %}
+      <a href="{{ post.url }}" class="mk-blog-meta__card">
+        <h3 class="mk-heading--lg mk-blog-meta__title">{{ post.title }}</h3>
+        <time
+          datetime="1999-12-23"
+          class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--dark"
+          >{{ post.date | date: "%a, %-d/%m/%y" }}</time
+        >
+      </a>
+      {% endfor %}
+    </div>
+    <a
+      href="{{ site.baseurl }}/blog/index.html"
+      class="mk-button mk-button--link"
+      >More Blogs</a
+    >
+  </section>
+<section class="mk-community mk-main__section">
+    <header class="mk-main__header mk-community__header">
+    <!-- <div class="mk-community-callout__images">
+      <img src="/assets/images/home-left-image.svg" alt="">
+      <img src="/assets/images/home-right-image.svg" alt="">
+    </div> -->
+    <h2 class="mk-heading mk-heading--xl mk-m-border">Still have more questions?</h2>
+    <h3 class="mk-heading mk-heading--lg"><a href="community-resources.html">Connect </a> with the Metal3.io community to learn more, contribute ideas, and help build the future of Metal3.io. Learn more about how to make the most of the Metal3io features in your work.
+    </h3>
+    <a href="{{ site.baseurl }}/community-resources.html" class="mk-button mk-button--secondary">Join the Conversation</a>
+</header>
+<div class="mk-community__image">
+    <img src="./assets/images/community-image.jpg" alt="">
+  </div>
 </section>
 <section class="mk-faqs mk-main__section">
 <header class="mk-main__header">
@@ -51,7 +85,7 @@ layout: default
 </div>
 </section>
 </div>
-<aside class="mk-blog-meta mk-blog-meta__preview mk-main__aside">
+<!-- <aside class="mk-blog-meta mk-blog-meta__preview mk-main__aside">
 <header class="mk-main__header">
     <h2 class="mk-heading mk-heading--xl mk-m-border">What's new?</h2>
     <a href="{{ site.baseurl }}/blog/index.html" class="mk-button mk-button--link">Blog</a>
@@ -64,7 +98,7 @@ layout: default
 </a>
 {% endfor %}
 </div>
-</aside>
+</aside> -->
 <script>
 
 ! function(t, e, a) {

@@ -67,10 +67,7 @@
         grid-area: content;
         // overflow-x: scroll;
     }
-    &__aside {
-        grid-area: aside;
-    }
-    &__section, &__aside {
+    &__section{
         background: var(--mk--BackgroundColor--250);
         padding: var(--mk--spacer--sm);
         border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);
