@@ -6,7 +6,7 @@
     background-repeat: no-repeat;
   }
   &.mk-masthead--home {
-    background-color: var(--mk--BackgroundColor--500);
+    background-color: var(--mk--BackgroundColor--300);
     border-bottom: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
   }
 
@@ -30,7 +30,7 @@
 
     &__title {
       color: var(--mk--Color--300);
-      font-weight: var(--mk--FontWeight--100);
+      font-weight: var(--mk--FontWeight--300);
       font-size: var(--mk--FontSize--3xl);
       sup {
         margin-left: var(--mk--spacer--xs);
@@ -40,9 +40,10 @@
       }
     }
     &__sub-title {
-      color: var(--mk--Color--100);
+      color: var(--mk--color-black--100);
+      width: 50%;
       margin-top: var(--mk--spacer--xs);
-      font-size: var(--mk--FontSize--lg);
+      font-size: var(--mk--FontSize--xl);
     }
     .mk-button {
       margin-top: var(--mk--spacer--md);
