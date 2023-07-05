@@ -37,8 +37,7 @@
             width: 15px;
             height: 15px;
             display: inline-block;
-            position:relative;
-            left: var(--mk--spacer--sm);
+            margin-left: var(--mk--spacer--sm);
         }
         &:hover, &:active, &:focus {
             color: var(--mk--Color--400);
@@ -62,6 +61,9 @@
         grid-template-columns: 3fr minmax(350px, 1fr);
         grid-template-areas:
         "content aside"
+    }
+    @media(max-width: $mk--breakpoint--md) {
+        display: block;
     }
     &__content {
         grid-area: content;

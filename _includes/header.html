@@ -16,7 +16,7 @@
           </g>
         </svg>
       </a>
-      <nav role="navigation" class="mk-main-header__nav-wrapper">
+      <div role="navigation" class="mk-main-header__nav-wrapper">
         <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
           <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
           <g>
@@ -25,24 +25,42 @@
           </svg>
           <span class="mk-main-header__toggle-text">menu</span>
         </button>
+        </div>
         <ul id="main_nav" class="mk-main-nav">
           <li {% if page.url == "/blog/index.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/blog/index.html">Blog</a></li>
           <li {% if page.url == "/community-resources.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/community-resources.html">Community Resources</a></li>
           <li {% if page.url == "/documentation.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/documentation.html">Documentation</a></li>
           <li {% if page.url == "/try-it.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/try-it.html">Try It!</a></li>
+        <ul class = 'mk-mobile-inputs' >
+          <li><a href="https://book.metal3.io/introduction.html" class="mk-main-nav__item mk-button mk-button--secondary">User Guide</a></li>
           <li {% if page.url == "/search.html" %} class="active" {% endif %}>
-            <form action="/search.html" method="get" autocomplete="off">
+         <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
               <div class="autocomplete" style="width:150px;">
-                <input type="text" id="search-input" class="docs-search--input" placeholder="search term" name="query">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
               </div>
-              <input id="search-button" type="submit" value="🔍" disabled='true'>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="../assets//images/search.png" style="height: 20px;" alt="">
+    
+              </button>            
             </form>
           </li>
-      </li>
-
-
+          </ul>
         </ul>
-      </nav>
+        <ul class="mk-main-header__inputs">
+          <li><a href="https://book.metal3.io/introduction.html" class="mk-main-nav__item mk-button mk-button--secondary">User Guide</a></li>
+          <li {% if page.url == "/search.html" %} class="active" {% endif %}>
+            <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+              </div>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="../assets//images/search.png" style="height: 20px;" alt="">
+    
+              </button>
+            </form>
+          </li>
+    
+        </ul>
   </header>
   {% if page.url == "/blog" %}
   <div class="mk-masthead__content--sub">
