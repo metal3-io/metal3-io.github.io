@@ -58,21 +58,18 @@
     "content";
 
     @media (min-width: $mk--breakpoint--lg){
-        grid-template-columns: 3fr minmax(350px, 1fr);
         grid-template-areas:
         "content aside"
     }
-    @media(max-width: $mk--breakpoint--md) {
+
+    @media (max-width: $mk--breakpoint--lg) {
         display: block;
     }
     &__content {
         grid-area: content;
         // overflow-x: scroll;
     }
-    &__aside {
-        grid-area: aside;
-    }
-    &__section, &__aside {
+    &__section {
         background: var(--mk--BackgroundColor--250);
         padding: var(--mk--spacer--sm);
         border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);

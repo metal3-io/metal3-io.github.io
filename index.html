@@ -32,6 +32,28 @@ layout: default
           <p>The Metal3.io project is also building integration with the Kubernetes cluster-api project, allowing
           Metal3.io to be used as an infrastructure backend for Machine objects from the Cluster API.</p>
 </section>
+<section class="mk-blog-baremetal mk-main__section">
+    <header class="mk-main__header">
+      <h2 class="mk-heading mk-heading--xl mk-m-border">What's new?</h2>
+    </header>
+    <div class="mk-blog-meta__preview__scroll-wrapper">
+      {% for post in site.posts limit:3 %}
+      <a href="{{ post.url }}" class="mk-blog-meta__card">
+        <h3 class="mk-heading--lg mk-blog-meta__title">{{ post.title }}</h3>
+        <time
+          datetime="1999-12-23"
+          class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--dark"
+          >{{ post.date | date: "%a, %-d/%m/%y" }}</time
+        >
+      </a>
+      {% endfor %}
+    </div>
+    <a
+      href="{{ site.baseurl }}/blog/index.html"
+      class="mk-button mk-button--link"
+      >More Blogs</a
+    >
+  </section>
 <section class="mk-faqs mk-main__section">
 <header class="mk-main__header">
     <h2 class="mk-heading mk-heading--xl mk-m-border">FAQ</h2>
@@ -50,20 +72,6 @@ layout: default
 </div>
 </section>
 </div>
-<aside class="mk-blog-meta mk-blog-meta__preview mk-main__aside">
-<header class="mk-main__header">
-    <h2 class="mk-heading mk-heading--xl mk-m-border">What's new?</h2>
-    <a href="{{ site.baseurl }}/blog/index.html" class="mk-button mk-button--link">Blog</a>
-</header>
-<div class="mk-blog-meta__preview__scroll-wrapper">
-{% for post in site.posts limit:3 %}
-<a href="{{ post.url }}" class="mk-blog-meta__snippet">
-    <h3 class="mk-heading--lg mk-blog-meta__title">{{ post.title }}</h3>
-    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--dark">{{ post.date | date: "%a, %-d/%m/%y" }}</time>
-</a>
-{% endfor %}
-</div>
-</aside>
 <script>
 
 ! function(t, e, a) {
