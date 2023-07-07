@@ -1,4 +1,43 @@
-
+.mk-community {
+    @include flexCenter($j-content: space-between);
+    @media (max-width: $mk--breakpoint--md) {
+      flex-direction: column;
+    }
+    &__header {
+      gap: var(--mk--spacer--lg);
+      width: 50% !important;
+      @include flexCenter(
+        $j-content: space-between,
+        $direction: column,
+        $a-items: start
+      );
+  
+      @media (max-width: $mk--breakpoint--md) {
+        width: 100% !important;
+      }
+    }
+  
+    &__image {
+      width: 50%;
+      display: flex;
+      justify-content: end;
+      @media (max-width: $mk--breakpoint--md) {
+        width: 100%;
+        justify-content: center;
+      }
+      img {
+        width: 80%;
+        border-radius: var(--mk--BorderRadius--md);
+        @media (max-width: $mk--breakpoint--md) {
+          width: 100%;
+        }
+      }
+    }
+    &__button {
+      background-color: var(--mk--Color--500) !important;
+      color: var(--mk--Color--100) !important;
+    }
+  }
 .mk-community-callout {
     padding: var(--mk--spacer--md) var(--mk--spacer--sm);
     margin: 0 auto;
