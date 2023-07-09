@@ -105,6 +105,7 @@
 .mk-main-header {
   @include flexCenter($j-content: space-between);
   position: fixed;
+  z-index: 2;
   width: 100%;
   grid-template-rows: auto auto;
   grid-template-areas: "brand"
@@ -121,7 +122,9 @@
     flex-wrap: wrap;
   }
 }
-
+.space-between {
+  margin-top: var(--mk--spacer--xs);
+}
 .mk-main-header__brand {
   grid-area: brand;
   height: 50px;
