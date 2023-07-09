@@ -1,36 +1,36 @@
 :root {
   //type
-  --mk--font-family: "Nunito Sans", sans-serif;
-  --mk--FontSize--xs: 0.875rem; //14
-  --mk--FontSize--sm: 1rem; //16
-  --mk--FontSize--md: 1.125rem; //18
-  --mk--FontSize--lg: 1.25rem; //20
-  --mk--FontSize--xl: 1.75rem; //28
+  --mk--font-family: 'Nunito Sans', sans-serif;
+  --mk--FontSize--xs:  .875rem; //14
+  --mk--FontSize--sm:  1rem; //16
+  --mk--FontSize--md:  1.125rem; //18
+  --mk--FontSize--lg:  1.25rem; //20
+  --mk--FontSize--xl:  1.75rem;//28
   --mk--FontSize--2xl: 2.625rem; //42
   --mk--FontSize--3xl: 3.875rem; //62
 
   //spacers
-  --mk--spacer--xs: 0.5rem; //8  purple
-  --mk--spacer--sm: 1rem; //16  light blue
-  --mk--spacer--md: 2rem; //32  green
-  --mk--spacer--lg: 4rem; //64  yellow
-  --mk--spacer--xl: 5rem; //80  pink
+  --mk--spacer--xs:  .5rem; //8  purple
+  --mk--spacer--sm:  1rem; //16  light blue
+  --mk--spacer--md:  2rem; //32  green
+  --mk--spacer--lg:  4rem; //64  yellow
+  --mk--spacer--xl:  5rem; //80  pink
   --mk--spacer--2xl: 7rem; //112 blue
 
   //color
-  --mk--color-brand--100: #01eec4;
-  --mk--color-brand--200: #00d6b0;
-  --mk--color-brand--300: #00a9a9;
+  --mk--color-brand--100: #01EEC4;
+  --mk--color-brand--200: #00D6B0;
+  --mk--color-brand--300: #00A9A9;
   --mk--color-brand--400: #008585;
-  --mk--color-white--100: #fff;
-  --mk--color-white--150: #fafafa;
-  --mk--color-white--200: #f6f6f6;
-  --mk--color-white--250: #ededed;
+  --mk--color-white--100: #FFF;
+  --mk--color-white--150: #FAFAFA;
+  --mk--color-white--200: #F6F6F6;
+  --mk--color-white--250: #EDEDED;
   --mk--color-black--100: #454545;
   --mk--color-black--200: #202020;
 
   //transparencies
-  --mk--color-transparent-background--100: rgba(32, 32, 32, 0.9);
+  --mk--color-transparent-background--100: rgba(32,32,32,.90);
 
   //borders
   --mk--BorderWidth--sm: 2px;
@@ -41,8 +41,8 @@
   --mk--BorderRadius--lg: 30rem;
   --mk--BorderColor--100: var(--mk--color-brand--100); //#01EEC4
   --mk--BorderColor--150: var(--mk--color-brand--300); //#00A9A9
-  --mk--BorderColor--200: var(--mk--color-brand--400); //#008585
-  --mk--BorderColor--250: var(--mk--color-white--100); //#FFF
+  --mk--BorderColor--200: var( --mk--color-brand--400); //#008585
+  --mk--BorderColor--250: var( --mk--color-white--100); //#FFF
   --mk--BorderColor--300: var(--mk--color-white--200); //#f6f6f6
 
   //background colors
@@ -64,24 +64,24 @@
   --mk--Color--500: var(--mk--color-brand--400);
   --mk--Color--600: var(--mk--color-brand--300);
 
+
   --mk--LineHeight--sm: 1.3;
   --mk--LineHeight--lg: 1.5;
 
   --mk--FontWeight--100: 200;
   --mk--FontWeight--200: 400;
-  --mk--FontWeight--300: 600;
 
   //animation
-  --mk--animation: all 0.15s linear;
+  --mk--animation: all .15s linear;
 
   //shadows
-  --mk--BoxShadow--sm: 1px 1px 6px rgba(0, 0, 0, 0.1);
-  --mk--BoxShadow--top: 0 -5px 5px -5px rgba(0, 0, 0, 0.1);
+  --mk--BoxShadow--sm: 1px 1px 6px rgba(0,0,0,0.1);
+  --mk--BoxShadow--top:0 -5px 5px -5px rgba(0,0,0,0.1);
 }
-//media queries (no custom properties as MQs :(
-$mk--breakpoint--xs: 0;
-$mk--breakpoint--sm: 576px;
-$mk--breakpoint--md: 768px;
-$mk--breakpoint--lg: 992px;
-$mk--breakpoint--xl: 1200px;
-$mk--breakpoint--2xl: 1450px;
+  //media queries (no custom properties as MQs :(
+    $mk--breakpoint--xs: 0;
+    $mk--breakpoint--sm: 576px;
+    $mk--breakpoint--md: 768px;
+    $mk--breakpoint--lg: 992px;
+    $mk--breakpoint--xl: 1200px;
+    $mk--breakpoint--2xl: 1450px;
