@@ -61,8 +61,7 @@
         grid-template-areas:
         "content aside"
     }
-
-    @media (max-width: $mk--breakpoint--lg) {
+    @media (max-width: $mk--breakpoint--md){
         display: block;
     }
     &__content {
