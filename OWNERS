@@ -5,6 +5,7 @@ filters:
       - hroyrh
       - iranzo
       - lentzi90
+      - elfosardo
 
     reviewers:
       - Rozzii
@@ -24,6 +25,7 @@ filters:
     approvers:
       - hroyrh
       - lentzi90
+      - elfosardo
     
     reviewers:
       - Rozzii
@@ -43,6 +45,7 @@ filters:
       - lentzi90
       - iranzo
       - matthewcarleton
+      - elfosardo
 
     reviewers:
       - Rozzii

@@ -28,7 +28,7 @@
         }
     }
     &--read-more {
-        font-size: var(--mk--FontSize--xl);
+        font-size: var(--mk--FontSize--md);
         border: none;
         background: transparent;
         color: var(--mk--Color--500);
@@ -71,8 +71,7 @@
         grid-template-areas:
         "content aside"
     }
-
-    @media (max-width: $mk--breakpoint--lg) {
+    @media (max-width: $mk--breakpoint--md){
         display: block;
     }
     &__content {

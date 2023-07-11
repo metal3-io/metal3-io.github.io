@@ -3,40 +3,37 @@ layout: default
 ---
 <div class="mk-masthead__content">
     <h1 class="mk-masthead__content__title">Metal<sup>3</sup></h1>
-    <h3 class="mk-masthead__content__sub-title">Bare metal host provisioning for Kubernetes</h3>
+    <h3 class="mk-masthead__content__sub-title">The Metal3 (pronounced “Metal-kube”) project is an open-source project that provides a set of tools for managing bare-metal infrastructure using Kubernetes. 
+    </h3>
     <a href="{{ site.baseurl }}/try-it.html" class="mk-button mk-button--primary">Get Started</a>
   </div>
-</section>
-<section class="mk-community-callout">
-        <div class="mk-community-callout__images">
-          <img src="/assets/images/home-left-image.svg" alt="">
-          <img src="/assets/images/home-right-image.svg" alt="">
-        </div>
-        <p class="mk-community-callout__content">
-          Connect with the Metal3.io community to learn more, contribute ideas, and help build the future of Metal3.io.
-          Learn more about how to make the most of the Metal3io features in your work.
-        </p>
-        <a href="{{ site.baseurl }}/community-resources.html" class="mk-button mk-button--secondary">Join the Conversation</a>
 </section>
 <main class="mk-main mk-main__homepage">
     <div class="mk-main__content--home">
 <section class="mk-why-baremetal mk-main__section">
-   <header class="mk-main__header">
-   <h2 class="mk-heading mk-heading--xl mk-m-border">Why Metal<sup>3</sup></h2>
-   </header>
-   <p class="mk-heading--md">There are a number of great open source tools for bare metal host provisioning,
-    including Ironic.
-    Metal<sup>3</sup> aims to build on these technologies to provide a Kubernetes native API for managing bare
-    metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes
-    Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next
-    step in the evolution of infrastructure management.</p>
-  <p class=" mk-heading--md space-between">
-    The Metal<sup>3</sup> project is also building integration with the Kubernetes
-    cluster-api project, allowing Metal3.io to be used as an infrastructure
-    backend for Machine objects from the Cluster API. <br> These components integrate
-    seamlessly to leverage the Kubernetes ecosystem and automate the provisioning
-    and management of bare-metal infrastructure.
-  </p>
+      <div>
+        <header class="mk-main__header">
+        <h2 class="mk-heading mk-heading--xl mk-m-border">Why Metal<sup>3</sup></h2>
+        </header>
+        <p class="mk-heading--md">There are a number of great open source tools for bare metal host provisioning,
+         including Ironic.
+         Metal<sup>3</sup> aims to build on these technologies to provide a Kubernetes native API for managing bare
+         metal hosts via a provisioning stack that is also running on Kubernetes. We believe that Kubernetes
+         Native Infrastructure, or managing your infrastructure just like your applications, is a powerful next
+         step in the evolution of infrastructure management.</p>
+       <p class=" mk-heading--md">
+         The Metal<sup>3</sup> project is also building integration with the Kubernetes
+         cluster-api project, allowing Metal<sup>3</sup> to be used as an infrastructure
+         backend for Machine objects from the Cluster API. <br> These components integrate
+         seamlessly to leverage the Kubernetes ecosystem and automate the provisioning
+         and management of bare-metal infrastructure.
+       </p>
+     </div>
+     </section>
+<section class="mk-why-baremetal mk-main__section">
+  <header class="mk-main__header">
+    <h2 class="mk-heading mk-heading--xl mk-m-border">Metal<sup>3</sup> Components</h2>
+    </header>
   <div class="mk-why-baremetal__cards">
     <div class="mk-why-baremetal__card">
       <div class="mk-why-baremetal__header">
@@ -48,10 +45,8 @@ layout: default
       <div class="mk-why-baremetal__body">
         <p>
           Enables the creation and management of
-          physical servers using the Kubernetes Cluster API. It
-          provides a way to provision and manage bare-metal infrastructure
-          using Kubernetes APIs.
-        </p>
+          physical servers using the Kubernetes Cluster API.
+        </p><br>
       </div>
     </div>
     <div class="mk-why-baremetal__card">
@@ -65,25 +60,6 @@ layout: default
         <p>
           Automates the provisioning of
           bare-metal servers using the open-source Ironic project.
-          Provides an automated way to deploy and manage
-          bare-metal infrastructure using the Ironic project.
-        </p>
-      </div>
-    </div>
-    <div class="mk-why-baremetal__card">
-      <div class="mk-why-baremetal__header">
-        <div class="icon">
-          <img src="./assets/images/public-service.png" alt="" />
-        </div>
-        <h3>IP Manager</h3>
-      </div>
-      <div class="mk-why-baremetal__body">
-        <p>
-          Provides a way to manage the networking resources of bare-metal
-          servers by managing the IP address allocation and networking
-          configuration of bare-metal servers, enabling the automatic
-          configuration of network interfaces and VLANs
-
         </p>
       </div>
     </div>
@@ -96,19 +72,18 @@ layout: default
       </div>
       <div class="mk-why-baremetal__body">
         <p>
-            Ironic is the core component in Metal3 responsible 
+           The core component in Metal<sup>3</sup> responsible 
             for the provisioning and management of bare metal servers. 
-            It provides the primary interface and orchestrates the 
-            lifecycle of the servers.Ironic acts as the parent component 
-            that coordinates the overall provisioning process.
         </p><br>
         <div id="mk-why-baremetal__dropdown-content" class="mk-why-baremetal__dropdown-content" style="display: none">
+          <h3>Hardware Manager</h3>
             <p>
-                The hardware manager acts as a child component of Ironic, it extends Ironic's capabilities by providing 
-                the hardware-specific integration, allowing Ironic to support different 
-                hardware platforms and leverage the respective management systems or interfaces. 
-                It acts as a plugin or driver within Ironic to communicate with the underlying 
+                Acts as a plugin or driver within Ironic to communicate with the underlying 
                 hardware resources effectively.
+            </p><br>
+          <h3>Ironic Image</h3>
+            <p>
+              The container image used to run OpenStack Ironic as part of Metal<sup>3</sup>
             </p>
         </div>
         <div class="mk-why-baremetal__button-container" >
@@ -116,7 +91,22 @@ layout: default
             </div>
       </div>
     </div>
+    <div id="mk-why-baremetal__ipam-card" class="mk-why-baremetal__card" style="display: none; gap: var(--mk--spacer--md);">
+      <div class="mk-why-baremetal__header">
+        <div class="icon">
+          <img src="./assets/images/public-service.png" alt="" />
+        </div>
+        <h3>IP Address Manager</h3>
+      </div>
+      <div class="mk-why-baremetal__body">
+        <p>
+          Enables Metal<sup>3</sup> to provision bare metal servers with the necessary network configurations
+        </p>
+      </div>
+    </div>
   </div>
+  <button id="mk-why-baremetal__more-button" class="mk-button mk-button--read-more">More +</button>
+
 </section>
 <section class="mk-blog-baremetal mk-main__section">
     <header class="mk-main__header">
@@ -139,6 +129,20 @@ layout: default
       class="mk-button mk-button--link"
       >More Blogs</a
     >
+<section class="mk-community mk-main__section">
+
+    <header class="mk-main__header mk-community__header">
+      <h2 class="mk-heading mk-heading--xl mk-m-border">Still have more questions?</h2>
+      <h3 class="mk-heading mk-heading--md">Connect with the Metal3.io community to learn more, contribute ideas, and help build the future of Metal3.io. Learn more about how to make the most of the Metal3io features in your work.
+      </h3>
+      <a href="{{ site.baseurl }}/community-resources.html" class="mk-button mk-button--primary mk-community__button">Join the Conversation</a>
+
+      
+    </header>
+    <div class="mk-community__image">
+      <img src="./assets/images/community-image.jpg" alt="">
+    </div>
+
   </section>
 <section class="mk-faqs mk-main__section">
 <header class="mk-main__header">
@@ -225,18 +229,31 @@ layout: default
 }(window, document);
 </script>
 <script>
+
     let dropDownBtn = document.querySelector("#mk-why-baremetal__dropdown-button")
     let dropDownCnt = document.querySelector("#mk-why-baremetal__dropdown-content")
     let cardDropDown = document.querySelector("#mk-why-baremetal__card-dropdown")
+    let dropDownIpam = document.querySelector("#mk-why-baremetal__ipam-card")
+    let moreBtn = document.querySelector("#mk-why-baremetal__more-button")
+
 
     dropDownBtn.addEventListener("click",() => {
         if(dropDownCnt.style.display == "none"){
-            cardDropDown.style.height = "fit-content" 
-            dropDownCnt.style.display = "block"
+          cardDropDown.style.height = "auto" 
+          dropDownCnt.style.display = "block"
         }else{
-            cardDropDown.style.height = "17rem" 
+            cardDropDown.style.height = "15rem" 
             dropDownCnt.style.display = "none"
         }
     })
-
+    moreBtn.addEventListener("click", () => {
+      console.log("clicked")
+      if(dropDownIpam.style.display == "none"){
+        dropDownIpam.style.display = "block"
+        moreBtn.textContent = "Less -"
+      }else {
+        dropDownIpam.style.display = "none"
+        moreBtn.textContent = "More +"
+      }
+    })
 </script>
