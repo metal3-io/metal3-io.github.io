@@ -50,6 +50,9 @@
       width: 50%;
       margin-top: var(--mk--spacer--xs);
       font-size: var(--mk--FontSize--xl);
+      @media(max-width: $mk--breakpoint--md){
+        width: 100px;
+      }
     }
     .mk-button {
       margin-top: var(--mk--spacer--md);
@@ -150,8 +153,8 @@
   align-self: flex-end;
   margin-right: var(--mk--spacer--sm);
   margin-top: -90px;
-  @media (max-width: $mk--breakpoint--md) {
-    margin-top: 10px;
+  @media (max-width: $mk--breakpoint--lg) {
+    margin-top: 0px;
   }
   svg {
     max-width: rem(40);
@@ -180,7 +183,7 @@
   @include flexCenter($j-content: end);
   width: 30%;
   margin-right: var(--mk--spacer--md);
-  @media (max-width: $mk--breakpoint--md) {
+  @media (max-width: $mk--breakpoint--lg) {
     display: none;
   }
 }
@@ -190,6 +193,10 @@
   flex-direction: column;
   @media (min-width: $mk--breakpoint--lg){
     justify-content: center;
+  }
+  @media(max-width: $mk--breakpoint--md){
+    flex-direction: column;
+    padding-top: var(--mk--spacer--xs);
   }
   &.mx-m-toggle {
     margin-bottom: var(--mk--spacer--md);
