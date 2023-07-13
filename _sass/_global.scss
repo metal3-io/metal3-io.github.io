@@ -27,6 +27,16 @@
             box-shadow: 0px 0px 0px var(--mk--BorderWidth--md) var(--mk--BorderColor--150);
         }
     }
+    &--read-more {
+        font-size: var(--mk--FontSize--md);
+        border: none;
+        background: transparent;
+        color: var(--mk--Color--500);
+        &:hover, &:active, &:focus {
+            color: var(--mk--Color--600);
+            box-shadow: none;
+        }
+    }
     &--link {
         color: var(--mk--Color--500);
         margin-top: var(--mk--spacer--sm);
