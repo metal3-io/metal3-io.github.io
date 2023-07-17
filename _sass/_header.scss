@@ -50,8 +50,8 @@
       width: 50%;
       margin-top: var(--mk--spacer--xs);
       font-size: var(--mk--FontSize--xl);
-      @media(max-width: $mk--breakpoint--md){
-        width: 100px;
+      @media(max-width: $mk--breakpoint--lg){
+        width: 100%;
       }
     }
     .mk-button {

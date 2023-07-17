@@ -6,6 +6,9 @@
         border-left: var(--mk--BorderWidth--lg) solid var(--mk--BorderColor--100);
         padding-left: var(--mk--spacer--sm);
     }
+   &.mk-border {
+    border-bottom: var(--mk--BorderWidth--md) solid var(--mk--BorderColor--100);
+   }
 }
 
 .mk-heading--xs {
