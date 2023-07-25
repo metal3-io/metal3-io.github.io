@@ -9,6 +9,10 @@ permalink: /community-resources.html
 </div>
 </section>
 <main>
+    <section class="mk-main__section mk-main__section__content">
+        {% capture docs %}{% include docs.md %}{% endcapture %}
+        {{ docs | markdownify }}
+</section>
         <section class="mk-main__section">
            <header class="mk-main__header">
            <h2 class="mk-heading mk-heading--xl mk-m-border">Get Connected</h2>
