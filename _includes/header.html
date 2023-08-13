@@ -32,22 +32,7 @@
           <li {% if page.url == "/documentation.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="https://book.metal3.io">Documentation</a></li>         
           <li {% if page.url == "/contribute.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/contribute.html">Contribute</a></li>
           <li {% if page.url == "/try-it.html" %} class="active" {% endif %}><a class="mk-main-nav__item" href="{{ site.baseurl }}/try-it.html">Try It!</a></li>
-        <ul class = 'mk-mobile-inputs' >
-          <li {% if page.url == "/search.html" %} class="active" {% endif %}>
-         <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
-              <div class="autocomplete" style="width:150px;">
-                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
-              </div>
-              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
-                <img src="../assets//images/search.png" style="height: 20px;" alt="">
-    
-              </button>            
-            </form>
-          </li>
-          </ul>
-        </ul>
-        <ul class="mk-main-header__inputs">
-          <li {% if page.url == "/search.html" %} class="active" {% endif %}>
+          <li {% if page.url == "/search.html" %} class="active" {% endif %} id="mk-main-nav__search">
             <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
               <div class="autocomplete" style="width:150px;">
                 <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
