@@ -36,7 +36,7 @@ permalink: /try-it.html
 - System with CentOS 8 Stream or Ubuntu 20.04
 - Bare metal preferred, as we will be creating VMs to emulate bare metal hosts
 - Run as a user with passwordless sudo access
-- Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory
+- Minimum resource requirements for the host machine: 4C CPUs, 16 GB RAM memory, 100GB of free disk space
 
 ### 1.2. Setup
 
@@ -294,12 +294,13 @@ assumes that metal3-dev-env is deployed with the environment variable
 Ubuntu 20.04 or Centos 8 Stream target host images. Please make sure to meet
 [resource requirements](#11-prerequisites) for successful deployment:
 
-The following scripts can be used to provision a cluster, controlplane node and worker node.
+The following scripts can be used to provision a cluster, controlplane node and worker node. Note that the nodes might need some time to get ready even after the script has finished.
+
 
 ```console
-$ ./scripts/provision/cluster.sh
-$ ./scripts/provision/controlplane.sh
-$ ./scripts/provision/worker.sh
+$ ./tests/scripts/provision/cluster.sh
+$ ./tests/scripts/provision/controlplane.sh
+$ ./tests/scripts/provision/worker.sh
 ```
 
 At this point, the `Machine` actuator will respond and try to claim a
@@ -406,9 +407,9 @@ $ ssh metal3@192.168.111.249
 Deprovisioning of the target cluster is done just by deleting `Cluster` and `Machine` objects or by executing the de-provisioning scripts in reverse order than provisioning:
 
 ```console
-$ ./scripts/deprovision/worker.sh
-$ ./scripts/deprovision/controlplane.sh
-$ ./scripts/deprovision/cluster.sh
+$ ./tests/scripts/deprovision/worker.sh
+$ ./tests/scripts/deprovision/controlplane.sh
+$ ./tests/scripts/deprovision/cluster.sh
 ```
 
 Note that you can easily de-provision worker Nodes by decreasing the number of replicas in the `MachineDeployment` object created when executing the `provision/worker.sh` script:
@@ -506,10 +507,10 @@ Tilt is applied in the metal3-dev-env deployment, you can make changes inside
 the `cluster-api-provider-metal3` folder and Tilt will deploy the changes
 automatically.
 If you deployed CAPM3 separately and want to make changes to it, then
-follow [CAPM3 instructions](#tilt-for-dev-in-capm3). This will save you from
+follow [CAPM3 instructions](https://github.com/metal3-io/cluster-api-provider-metal3/blob/main/docs/dev-setup.md#tilt-for-dev-in-capm3). This will save you from
 having to build all of the images for CAPI, which can take a while. If the
 scope of your development will span both CAPM3 and CAPI, then follow the
-[CAPI and CAPM3 instructions](#tilt-for-dev-in-both-capm3-and-capi).
+[CAPI and CAPM3 instructions](https://github.com/metal3-io/cluster-api-provider-metal3/blob/main/docs/dev-setup.md#tilt-for-dev-in-both-capm3-and-capi).
 
 ### 2.6. Accessing Ironic API
 
