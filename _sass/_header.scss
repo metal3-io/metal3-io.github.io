@@ -241,5 +241,8 @@
   }
 }
 #mk-main-nav__search{
-  margin: 0 var(--mk--spacer--lg) 0 var(--mk--spacer--2xl)
+  margin: 0 var(--mk--spacer--lg) 0 var(--mk--spacer--2xl);
+  border: 2px solid white;
+  padding: 0 20px 0 10px;
+  border-radius: 20px;
 }
