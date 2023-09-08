@@ -17,6 +17,6 @@
 
 - [Metal³ Blog posts](/blog/)
 
-### Community Meetups 
+### Community Meetups
 
-- Join (P)TG meetups to engage in discussion with members and help with a deeper understanding of the project as well as the future discussion
+- Join Metal³ Team Meetups to engage in discussion with members and help with a deeper understanding of the project as well as the future discussion
