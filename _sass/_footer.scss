@@ -7,6 +7,9 @@
 .mk-cncf-footer {
     width: 80%;
     float: left ;
+    @media(max-width: $mk--breakpoint--md){
+    width: 100%;
+    }
 }
 
 .mk-icons-footer {
@@ -14,6 +17,10 @@
     float: right;
     text-align: right;
     top: 50%;
+    @media(max-width: $mk--breakpoint--md){
+        display: flex;
+        width: 100%;
+    }
 }
 
 .fa-lg {
