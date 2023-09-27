@@ -79,7 +79,7 @@
         // overflow-x: scroll;
     }
     &__section {
-        background: var(--mk--BackgroundColor--250);
+        // background: var(--mk--BackgroundColor--250);
         padding: var(--mk--spacer--sm);
         border: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);
         @media (min-width: $mk--breakpoint--lg){
@@ -199,7 +199,7 @@
 }
 
 p > code {
-    background: var(--mk--BackgroundColor--350);
+    // background: var(--mk--BackgroundColor--350);
     padding:1px var(--mk--spacer--xs);
 }
 

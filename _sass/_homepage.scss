@@ -86,7 +86,7 @@
     margin: var(--mk--spacer--sm) 0;
     padding: var(--mk--spacer--sm);
     border-radius: var(--mk--BorderRadius--md);
-    background-color: #f0f0f0d0;
+    // background-color: #f0f0f0d0;
     scale: 1;
     transition: all ease-in-out 0.4s;
     &:hover {
@@ -132,6 +132,7 @@
   h3 {
     font-size: var(--mk--FontSize--md);
     font-weight: 700;
+    color: var(--mk--Color--300)
   }
   p {
     font-size: var(--mk--FontSize--md);
