@@ -11,12 +11,12 @@
         $direction: column,
         $a-items: start
       );
-  
+
       @media (max-width: $mk--breakpoint--md) {
         width: 100% !important;
       }
     }
-  
+
     &__image {
       width: 50%;
       display: flex;
@@ -105,7 +105,7 @@
   &__header {
     @include flexCenter($j-content: start);
     gap: 1rem;
-  } 
+  }
   &__dropdown-content {
     // display: none;
 
@@ -163,7 +163,7 @@
         border: none;
         border-top: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--300);
         background: none;
-        
+
         &:after {
             content:'';
             width: 0;

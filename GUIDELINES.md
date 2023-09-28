@@ -70,6 +70,7 @@ All Blog posts are located in the [blog/\_posts](blog/_posts/) directory, and al
   category: news
   comments: true
   ---
+
   ```
 
   - **layout**: Defines style settings for different types of contents. All blog posts use the _posts_ layout
@@ -123,7 +124,7 @@ All Blog posts are located in the [blog/\_posts](blog/_posts/) directory, and al
 
 ### Pages
 
-_[Pages](https://jekyllrb.com/docs/pages/)_ are located at the [pages](/pages/) directory, to create one follow these steps:
+The _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the [pages](/pages/) directory, to create one follow these steps:
 
 - Create the markdown file, _filename.md_, in [pages](/pages/) directory
 - _Pages_ also use [Front Matter](https://jekyllrb.com/docs/front-matter/), here's an example:
@@ -135,6 +136,7 @@ _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the [pages](/pages/) 
   permalink: /docs/
   navbar_active: Docs
   ---
+
   ```
 
 - The fields have the same function as for blog posts, but some values are different, as we're producing different contents.
@@ -147,7 +149,7 @@ _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the [pages](/pages/) 
 
 ### Labs
 
-Labs are usually a set of directed excercises with the objective of teaching something by practising it, e.g. metal3 101, which would introduce metal3 to new and potential users through a series of easy (101!) exercises. Labs are composed of a [Landing page](https://en.wikipedia.org/wiki/Landing_page) and the actual exercises.
+The Labs are usually a set of directed exercises with the objective of teaching something by practising it, e.g. metal3 101, which would introduce metal3 to new and potential users through a series of easy (101!) exercises. They are composed of a [Landing page](https://en.wikipedia.org/wiki/Landing_page) and the actual exercises.
 
 #### Lab landing page
 
@@ -163,10 +165,11 @@ order: 1
 permalink: labs/metal3101.html
 navbar_active: Labs
 ---
+
 ```
 
 - Modify **title** and **permalink**, and leave the rest as shown in the example
-- For the contents, some recomendations:
+- For the contents, some recommendations:
   - Describe the lab objectives clearly.
   - Clearly state the requirements if any, e.g. laptop, cloud account, ...
   - Describe what anyone would learn when taking the lab.
