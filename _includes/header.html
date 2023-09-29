@@ -39,8 +39,10 @@
               </div>
               <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
                 <img src="../assets//images/search.png" style="height: 20px;" alt="">
-
               </button>
+                <div id="mode-toggle">
+                  <img src="../assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                </div>
             </form>
           </li>
 
@@ -156,6 +158,114 @@ document.addEventListener("click", function (e) {
     closeAllLists(e.target);
 });
 }
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  let iconMode = document.getElementById("mode-icon")
+  let toggleMode = document.getElementById("mode-toggle")
+  let cncfImage = document.getElementById("cncf-image")
+let isToggled = localStorage.getItem("currentMode") === "true";
+updateMode();
+toggleMode.addEventListener("click", () => {
+  isToggled = !isToggled;
+  localStorage.setItem("currentMode", isToggled);
+  updateMode();
+});
+function updateMode() {
+  let mastHead = document.querySelector(".mk-masthead");
+  let h1 = document.querySelectorAll("h1")
+  let h2 = document.querySelectorAll("h2")
+  let h3 = document.querySelectorAll("h3")
+  let li = document.querySelectorAll("li")
+  let sections = document.querySelectorAll(".mk-main__section")
+  let body = document.querySelector("body")
+  let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let blogCards = document.querySelectorAll(".mk-blog-meta__card")
+  let questions = document.querySelectorAll(".mk-faqs__question")
+  let subHeadings = document.querySelectorAll(".mk-sub-heading")
+  let p = document.querySelectorAll("p")
+  if (isToggled) {
+
+    iconMode.src = "../assets/images/moon-outline.png";
+    cncfImage.src = "../assets/images/cncf-white.svg";
+    mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.color = "var(--mk--Color--200)";
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = "var(--mk--Color--200)"
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = "var(--mk--Color--200)"
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = "var(--mk--Color--200)"
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = "var(--mk--Color--200)"
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = "var(--mk--Color--200)"
+    })
+    whyCards.forEach((whyCard)=>{
+    whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
+      whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
+    })
+    questions.forEach((question)=>{
+      question.style.color = "var(--mk--Color--200)"
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+  } else {
+    iconMode.src = "../../assets/images/moon.png";
+    cncfImage.src = "../assets/images/cncf-color.svg";
+    mastHead.style.backgroundColor = "";
+    body.style.backgroundColor = "";
+    body.style.color = "var(--mk--Color--400)";
+
+
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = ""
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = ""
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = ""
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--250)";
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = ""
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = ""
+    })
+    whyCards.forEach((whyCard)=>{
+      whyCard.querySelector("h3").style.color = ""
+      whyCard.style.backgroundColor = "white"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = ""
+    })
+    questions.forEach((question)=>{
+      question.style.color = ""
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+
+
+  }
+}
+})
 </script>
 <script>
 var mykeywords = [{% for tag in site.categories %}"{{ tag[0] }}", {% endfor %}]
