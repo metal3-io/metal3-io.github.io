@@ -162,14 +162,19 @@ layout: default
 </header>
 
 <div data-aria-faq data-multi data-transition data-default="none" id="accGen">
-	{% for faq in site.faqs %}
-	<h3 class="mk-heading--md" data-aria-faq-heading>
-		{{ faq.question }}
-	</h3>
-	<div data-aria-faq-panel>
-      {{ faq.content }}
-  </div>
-	{% endfor %}
+  {% for faq in site.faqs %}
+    {% if forloop.index <= 4 %} <!-- Limit to the first 4 FAQs -->
+      <h3 class="mk-heading--md" data-aria-faq-heading>
+        {{ faq.question }}
+      </h3>
+      <div data-aria-faq-panel>
+        {{ faq.content }}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+<div>
+  <a href="{{ site.baseurl }}/faqs.html" class="mk-button mk-button--link">View more</a>
 </div>
 </section>
 </div>
@@ -238,6 +243,11 @@ layout: default
         };
     r.init()
 }(window, document);
+
+var homeFAQs = document.querySelector("#accGen").children;
+console.log(homeFAQs)
+  for (var i = 0; i < 8; i++) {
+  }
 </script>
 <script>
 
