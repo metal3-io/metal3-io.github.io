@@ -203,7 +203,6 @@
   padding-bottom: var(--mk--spacer--md);
   transition: var(--mk--animation);
   border-bottom: var(--mk--BorderWidth--sm) solid var(--mk--BorderColor--100);
-
   @media (min-width: $mk--breakpoint--md){
     flex-direction: row;
     justify-content: space-evenly;
@@ -215,7 +214,7 @@
     justify-content: flex-end;
     align-items: center;
     border: none;
-    gap: var(--mk--spacer--md);
+    gap: var(--mk--spacer--sm);
     padding: 0;
     display: flex;
 
