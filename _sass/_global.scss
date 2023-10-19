@@ -199,7 +199,7 @@
 }
 
 p > code {
-    background: var(--mk--BackgroundColor--350);
+    // background: var(--mk--BackgroundColor--350);
     padding:1px var(--mk--spacer--xs);
 }
 
@@ -209,6 +209,7 @@ pre{
     margin: var(--mk--spacer--sm) 0;
     display: inline-block;
     min-width: 100%;
+    color:var(--mk--Color--400)
 }
 
 
