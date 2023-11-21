@@ -3,7 +3,6 @@ filters:
   ".*":
     approvers:
       - hroyrh
-      - iranzo
       - lentzi90
       - elfosardo
 
@@ -17,6 +16,7 @@ filters:
       - hardys
       - knowncitizen
       - fmuyassarov
+      - iranzo
 
   "^_posts/.*":
     labels:
@@ -43,9 +43,11 @@ filters:
     approvers:
       - hroyrh
       - lentzi90
-      - iranzo
       - matthewcarleton
       - elfosardo
 
     reviewers:
       - Rozzii
+
+    emeritus_approvers:
+      - iranzo
