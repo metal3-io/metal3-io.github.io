@@ -61,7 +61,7 @@ repos:
     hooks:
     -   id: blacken-docs
 -   repo: https://github.com/hcodes/yaspeller.git
-    rev: v7.0.0
+    rev: v10.0.1
     hooks:
     -   id: yaspeller
         types:
