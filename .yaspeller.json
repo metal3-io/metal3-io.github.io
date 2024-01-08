@@ -3,7 +3,8 @@
   "findRepeatWords": true,
   "maxRequests": 5,
   "ignoreDigits": true,
-  "ignoreText": [["^layout:.*$", "m"]],
+  "ignoreText": ["^layout:.*$", "m"],
+  "ignoreTags": ["**", "__"],
   "lang": "en",
   "dictionary": [
     "a VM",
