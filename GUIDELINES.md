@@ -10,10 +10,9 @@ Please use the following as general guidelines on any kind of content generated 
 
 - Install `pre-commit` in your system and from the repository folder run `pre-commit install` so that the git hook is in place.
   - It will avoid commits to the `source` and `master` branch
-  - It will spell-check articles before the commit can be performed
+  - It will spell-check articles before the commit can be performed (TODO: re-add some spellcheck tool)
   - Adjust some formatting in markdown like tables, spaces before and after headings, etc (via prettifier)
   - If you're using `npm` you can also add pre-commit as a dependency for development so that it incorporates the `pre-commit` hook and it also spellchecks before you submit to CI and risk getting a failure in build. To do so, use: `npm install --save-dev pre-commit`
-- For each spellcheck failure or duplicate word, adjust `.yaspellerrc`, try to sort the word file and check for duplicates reported by yaspeller on run.
 
 ### Content
 
