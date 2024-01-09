@@ -2,6 +2,8 @@
 
 [![Deploy via Jekyll on GitHub pages](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml/badge.svg?branch=source)](https://github.com/metal3-io/metal3-io.github.io/actions/workflows/jekyll.yml)
 
+lorem ipsum this shhould be detectted by yaspelller
+
 ## Contributing content
 
 We more than welcome contributions in the form of blog posts, pages and/or labs, reach out if you happen to have an idea or find an issue with our content! [Here's our guideline for content](GUIDELINES.md).

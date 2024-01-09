@@ -1,6 +1,6 @@
 # Contents Guidelines
 
-This document describes a set of guidelines for generating content for [metal3.io](https://metal3.io), exceptions can be made if and when it makes sense, but please try to follow this guide as much as possible.
+This document desribes a set of guidelines for generating content for [metal3.io](https://metal3.io), exceptions can be made if and when it makes sense, but please try to follow this guide as much as possible.
 
 ## General contents guidelines
 
