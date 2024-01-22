@@ -21,9 +21,9 @@ Before we begin, make sure you have the following prerequisites installed on you
 - Ruby: Jekyll, the static site generator used by Metal3, is built with Ruby. Install Ruby
   and its development tools by running the following command in your terminal:
 
-   ```bash
-   sudo apt install ruby-full
-   ```
+    ```bash
+    sudo apt install ruby-full
+    ```
 
 ## Setting up Metal3’s Website
 
@@ -32,9 +32,9 @@ Follow these steps:
 
 - Clone the Metal3 website repository from GitHub. Open your terminal and navigate to the directory where you want to clone the repository, then run the following command:
 
-   ```bash
-   git clone https://github.com/metal3-io/metal3-io.github.io.git
-   ```
+    ```bash
+    git clone https://github.com/metal3-io/metal3-io.github.io.git
+    ```
 
 - Change to the cloned directory:
 
@@ -45,8 +45,8 @@ Follow these steps:
 - Install the required gems and dependencies using Bundler. Run the following command:
 
    ```bash
-   bundle install
-   ```
+    bundle install
+    ```
 
 ## Running the Metal3 Website Locally
 
