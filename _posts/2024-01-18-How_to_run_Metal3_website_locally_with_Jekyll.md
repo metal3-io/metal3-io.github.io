@@ -38,15 +38,15 @@ Follow these steps:
 
 - Change to the cloned directory:
 
-   ```bash
-   cd metal3-io.github.io
-   ```
+    ```bash
+    cd metal3-io.github.io
+    ```
 
 - Install the required gems and dependencies using Bundler. Run the following command:
 
-   ```bash
-    bundle install
-    ```
+     ```bash
+     bundle install
+     ```
 
 ## Running the Metal3 Website Locally
 
