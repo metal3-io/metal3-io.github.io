@@ -15,13 +15,15 @@ In this presentation, Maël starts giving a short introduction of the [Cluster A
 
 > info "Information"
 > The video recording from the “Kubernetes and CNCF Finland Meetup” is composed of three talks. The video embedded starts with Maël's talk.
-
+>
 > warning "Warning"
 > Playback of the video has been disabled by the author. Click on the play button and then on the "Watch this video on Youtube" link once it appears.
 
+<!-- markdownlint-disable no-inline-html -->
+
 <iframe width="1110" height="720" style="height: 500px" src="https://www.youtube.com/embed/3k5EfIQpw-E?t=4167" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<br>
+<!-- markdownlint-enable no-inline-html -->
 
 During the first part of the presentation, a detailed explanation of the different Kubernetes Custom Resource Definitions (CRDs) inside Metal³ is shown as also how they are linked with the Cluster API project. As an example, the image below shows the interaction between objects and controllers from both projects:
 
@@ -31,12 +33,10 @@ Once finished the introductory part, Maël focuses on the main components of the
 
 ![metal3 introspection](/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-instrospection.resized.png)
 
-<br>
 The second part of the process is the **provisioning**. In this step, Maël explains how the Bare Metal Operator (BMO) is in charge along with Ironic to present the Operating System image to the physical server and complete its installation.
 
 ![metal3 provisioning](/assets/2020-02-27-talk-kubernetes-finland-metal3/metal3-provisioning.resized.png)
 
-<br>
 Next, Maël deeply explains each Custom Resource (CR) used during the provisioning of target Kubernetes clusters in bare metal servers. He refers to objects such as `Cluster`, `BareMetalCluster`, `Machine`, `BareMetalMachine`, `BareMetalHost` and so on. Each one is clarified with a YAML file definition of a real case and a workflow diagram that shows the reconciliation procedure.
 
 The last part of the talk is dedicated to executing a demo where Maël creates a _target Kubernetes cluster_ from a running minikube VM (also called _bootstrap cluster_) where Metal³ is deployed. As it is pointed out in the video, the demo is running in _emulated hardware_. Actually, something similar to the [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) project can be used to reproduce the demo. More information on the Metal³ development environment (metal3-dev-env) can be found in the [Metal³ try-it section](https://metal3.io/try-it.html). In case you want to go deeper, take a look at the blog post [A detailed walkthrough of the Metal³ development environment]({%post_url 2020-02-18-metal3-dev-env-install-deep-dive %}).

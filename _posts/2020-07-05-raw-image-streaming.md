@@ -47,7 +47,8 @@ download the image in memory. However, with raw images, the only constraint
 on memory is to run IPA (so 4GB). For example, in order to deploy an Ubuntu
 image (around 700MB, QCOW2), the requirement is 8GB when in QCOW2 format, while
 it is only 4GB (as for any other image) when streamed as raw. This allows
-the deployment of images that are bigger than the available memory on constrained nodes.
+the deployment of images that are bigger than the available memory on
+constrained nodes.
 
 However, this shifts the load on the network, since the raw images are usually
 much bigger than other formats. Using this feature in network constrained

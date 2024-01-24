@@ -1,0 +1,4 @@
+# Reference: https://github.com/DavidAnson/markdownlint-cli2#markdownlint-cli2yaml
+
+config:
+  first-line-h1: false
