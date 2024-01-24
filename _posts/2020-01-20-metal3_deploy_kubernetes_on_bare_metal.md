@@ -12,7 +12,11 @@ Some of the most influential minds in the developer industry were landing in the
 
 In this video, Yolanda Robla speaks about the deployment of Kubernetes on Bare Metal with the help of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
 
+<!-- markdownlint-disable no-inline-html -->
+
 <iframe width="560" height="315" style="height: 315px" src="https://www.youtube.com/embed/iHlaimz48vg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!-- markdownlint-enable no-inline-html -->
 
 ## Speakers
 

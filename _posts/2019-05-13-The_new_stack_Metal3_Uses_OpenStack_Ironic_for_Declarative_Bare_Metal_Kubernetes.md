@@ -28,7 +28,7 @@ the new project that provides “bare metal host provisioning integration for Ku
 Some words from Kreger in an interview with The New Stack:
 
 > “I think the bigger trend that we’re starting to see is a recognition that common tooling and substrate helps everyone succeed faster with more efficiency.”
-
+>
 > “This is combined with a shift in the way operators are choosing to solve their problems at scale, specifically in regards to isolation, cost, or performance.”
 
 For further detail, check out the [video of the keynote]({% post_url 2019-10-31-OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere %}), which includes a demonstration of Metal3 being used to quickly provision three bare metal servers with Kubernetes

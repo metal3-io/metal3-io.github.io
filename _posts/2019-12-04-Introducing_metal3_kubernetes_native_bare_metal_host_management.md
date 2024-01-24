@@ -12,7 +12,11 @@ Metal³ (`metal cubed/Kube`) is a new open-source bare metal host provisioning t
 
 In this video, Russell Bryant and Doug Hellmann speak about the what's and how's of Metal³, a new tool that enables the management of bare metal hosts via custom resources managed through the Kubernetes API.
 
+<!-- markdownlint-disable no-inline-html -->
+
 <iframe width="560" height="315" style="height: 315px" src="https://www.youtube.com/embed/KIIkVD7gujY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!-- markdownlint-enable no-inline-html -->
 
 ## Speakers
 

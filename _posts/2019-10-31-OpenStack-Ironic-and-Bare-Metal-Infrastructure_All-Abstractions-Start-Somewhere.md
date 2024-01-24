@@ -12,7 +12,11 @@ The history of cloud computing has rapidly layered abstractions on abstractions 
 
 In this video, Chris and Julia show how OpenStack Ironic is a solution to the problem of managing bare-metal infrastructure.
 
+<!-- markdownlint-disable no-inline-html -->
+
 <iframe width="560" height="315" style="height: 315px" src="https://www.youtube.com/embed/Nzq2S53nk9U" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<!-- markdownlint-enable no-inline-html -->
 
 ## Speakers
 

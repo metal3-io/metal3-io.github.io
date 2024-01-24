@@ -6,41 +6,60 @@ categories: ["metal3", "cluster API", "provider", "hybrid", "edge"]
 author: Lennart Jern
 ---
 
-Running on bare metal has both benefits and drawbacks.
-You can get the best performance possible out of the hardware, but it can also be quite expensive and maybe not necessary for _all_ workloads.
-Perhaps a hybrid cluster could give you the best of both?
-Raw power for the workload that needs it, and cheap virtualized commodity for the rest.
-This blog post will show how to set up a cluster like this using the Cluster API backed by the Metal3 and BYOH providers.
+Running on bare metal has both benefits and drawbacks. You can get the
+best performance possible out of the hardware, but it can also be quite
+expensive and maybe not necessary for _all_ workloads. Perhaps a hybrid
+cluster could give you the best of both? Raw power for the workload that
+needs it, and cheap virtualized commodity for the rest. This blog post
+will show how to set up a cluster like this using the Cluster API backed
+by the Metal3 and BYOH providers.
 
 ## The problem
 
-Imagine that you have some bare metal servers that you want to use for some specific workload.
-Maybe the workload benefits from the specific hardware or there are some requirements that make it necessary to run it there.
-The rest of the organization already uses Kubernetes and the cluster API everywhere so of course you want the same for this as well.
+Imagine that you have some bare metal servers that you want to use for
+some specific workload. Maybe the workload benefits from the specific
+hardware or there are some requirements that make it necessary to run it
+there. The rest of the organization already uses Kubernetes and the
+cluster API everywhere so of course you want the same for this as well.
 Perfect, grab Metal³ and start working!
 
-But hold on, this would mean that you use some of the servers for running the Kubernetes control plane and possibly all the cluster API controllers.
-If there are enough servers this is probably not an issue, but do you really want to "waste" these servers on such generic workloads that could be running anywhere?
-This can become especially painful if you need multiple control plane nodes.
-Each server is probably powerful enough to run all the control planes and controllers, but it would be a single point of failure...
+But hold on, this would mean that you use some of the servers for
+running the Kubernetes control plane and possibly all the cluster API
+controllers. If there are enough servers this is probably not an issue,
+but do you really want to "waste" these servers on such generic
+workloads that could be running anywhere? This can become especially
+painful if you need multiple control plane nodes. Each server is
+probably powerful enough to run all the control planes and controllers,
+but it would be a single point of failure...
 
-What if there was a way to use a different cluster API infrastructure provider for some nodes?
-For example, use the Openstack infrastructure provider for the control plane and Metal³ for the workers.
-Let's do an experiment!
+What if there was a way to use a different cluster API infrastructure
+provider for some nodes? For example, use the Openstack infrastructure
+provider for the control plane and Metal³ for the workers. Let's do an
+experiment!
 
 ## Setting up the experiment environment
 
-This blog post will use the [Bring your own host](https://github.com/vmware-tanzu/cluster-api-provider-bringyourownhost) (BYOH) provider together with Metal³ as a proof of concept to show what is currently possible.
+This blog post will use the [Bring your own
+host](https://github.com/vmware-tanzu/cluster-api-provider-bringyourownhost)
+(BYOH) provider together with Metal³ as a proof of concept to show what
+is currently possible.
 
 The BYOH provider was chosen as the second provider for two reasons:
 
-1. Due to its design (you provision the host yourself), it is very easy to adapt it to the test (e.g. use a VM in the same network that the metal3-dev-env uses).
-2. It is one of the providers that is known to work when combining multiple providers for a single cluster.
+1. Due to its design (you provision the host yourself), it is very easy
+   to adapt it to the test (e.g. use a VM in the same network that the
+   metal3-dev-env uses).
+2. It is one of the providers that is known to work when combining
+   multiple providers for a single cluster.
 
-We will be using the [metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) on Ubuntu as a starting point for this experiment.
-Note that it makes substantial changes to the machine where it is running, so you may want to use a dedicated lab machine instead of your laptop for this.
-If you have not done so already, clone it and run `make`.
-This should give you a management cluster with the Metal³ provider installed and two BareMetalHosts ready for provisioning.
+We will be using the
+[metal3-dev-env](https://github.com/metal3-io/metal3-dev-env) on Ubuntu
+as a starting point for this experiment. Note that it makes substantial
+changes to the machine where it is running, so you may want to use a
+dedicated lab machine instead of your laptop for this. If you have not
+done so already, clone it and run `make`. This should give you a
+management cluster with the Metal³ provider installed and two
+BareMetalHosts ready for provisioning.
 
 The next step is to add the BYOH provider and a ByoHost.
 
@@ -86,9 +105,12 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-Vagrant should now have created a new VM to use as a ByoHost.
-Now we just need to run the BYOH agent in the VM to make it register as a ByoHost in the management cluster.
-The BYOH agent needs a kubeconfig file to do this, so we start by copying it to the VM:
+Vagrant should now have created a new VM to use as a ByoHost. Now we
+just need to run the BYOH agent in the VM to make it register as a
+ByoHost in the management cluster. The BYOH agent needs a kubeconfig
+file to do this, so we start by copying it to the VM:
+
+<!-- markdownlint-disable MD013 -->
 
 ```bash
 {%- comment -%}
@@ -104,7 +126,11 @@ scp -i .vagrant/machines/control-plane1/libvirt/private_key \
 {% endraw %}
 ```
 
+<!-- markdownlint-enable MD013 -->
+
 Next, install the prerequisites and host agent in the VM and run it.
+
+<!-- markdownlint-enable MD013 -->
 
 ```bash
 vagrant ssh
@@ -115,7 +141,10 @@ chmod +x byoh-hostagent
 sudo ./byoh-hostagent --namespace metal3 --kubeconfig management-cluster.conf
 ```
 
-You should now have a management cluster with both the Metal³ and BYOH providers installed, as well as two BareMetalHosts and one ByoHost.
+<!-- markdownlint-disable MD013 -->
+
+You should now have a management cluster with both the Metal³ and BYOH
+providers installed, as well as two BareMetalHosts and one ByoHost.
 
 ```console
 $ kubectl -n metal3 get baremetalhosts,byohosts
@@ -130,9 +159,9 @@ byohost.infrastructure.cluster.x-k8s.io/control-plane1   73s
 
 ## Creating a multi-provider cluster
 
-The trick is to create both a Metal3Cluster and a ByoCluster that are owned by one common Cluster.
-We will use the ByoCluster for the control plane in this case.
-First the Cluster:
+The trick is to create both a Metal3Cluster and a ByoCluster that are
+owned by one common Cluster. We will use the ByoCluster for the control
+plane in this case. First the Cluster:
 
 ```yaml
 apiVersion: cluster.x-k8s.io/v1beta1
@@ -165,10 +194,14 @@ Add the rest of the BYOH manifests to get a control plane.
 The code is collapsed here for easier reading.
 Please click on the line below to expand it.
 
+<!-- markdownlint-disable MD033 -->
+
 <details>
   <summary>KubeadmControlPlane, ByoCluster and ByoMachineTemplate</summary>
   <!-- Enable markdown parsing of the content. -->
   <div markdown="1">
+
+<!-- markdownlint-enable MD033 -->
 
 ```yaml
 {%- raw %}
@@ -284,10 +317,12 @@ spec:
   </div>
 </details>
 
-So far this is a "normal" Cluster backed by the BYOH provider.
-But now it is time to do something different.
-Instead of adding more ByoHosts as workers, we will add a Metal3Cluster and MachineDeployment backed by BareMetalHosts!
-Note that the `controlPlaneEndpoint` of the Metal3Cluster must point to the same endpoint that the ByoCluster is using.
+So far this is a "normal" Cluster backed by the BYOH provider. But now
+it is time to do something different. Instead of adding more ByoHosts as
+workers, we will add a Metal3Cluster and MachineDeployment backed by
+BareMetalHosts! Note that the `controlPlaneEndpoint` of the
+Metal3Cluster must point to the same endpoint that the ByoCluster is
+using.
 
 ```yaml
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -301,9 +336,13 @@ spec:
   noCloudProvider: true
 ```
 
+<!-- markdownlint-disable MD033 -->
+
 <details>
   <summary>IPPools</summary>
   <div markdown="1">
+
+<!-- markdownlint-enable MD033 -->
 
 ```yaml
 apiVersion: ipam.metal3.io/v1alpha1
@@ -335,9 +374,10 @@ spec:
   </div>
 </details>
 
-These manifests are quite large but they are just the same as would be used by the metal3-dev-env with some name changes here and there.
-The key thing to note is that all references to a Cluster are to the one we defined above.
-Here is the MachineDeployment:
+These manifests are quite large but they are just the same as would be
+used by the metal3-dev-env with some name changes here and there. The
+key thing to note is that all references to a Cluster are to the one we
+defined above. Here is the MachineDeployment:
 
 ```yaml
 apiVersion: cluster.x-k8s.io/v1beta1
@@ -374,13 +414,18 @@ spec:
       version: v1.23.5
 ```
 
-Finally, we add the Metal3MachineTemplate, Metal3DataTemplate and KubeadmConfigTemplate.
-Here you may want to add your public ssh key in the KubeadmConfigTemplate (the last few lines).
+Finally, we add the Metal3MachineTemplate, Metal3DataTemplate and
+KubeadmConfigTemplate. Here you may want to add your public ssh key in
+the KubeadmConfigTemplate (the last few lines).
+
+<!-- markdownlint-disable MD033 -->
 
 <details>
   <summary>Metal3MachineTemplate, Metal3DataTemplate and KubeadmConfigTemplate</summary>
   <!-- Enable markdown parsing of the content. -->
   <div markdown="1">
+
+<!-- markdownlint-enable MD033 -->
 
 ```yaml
 {%- raw %}
@@ -498,7 +543,8 @@ spec:
   </div>
 </details>
 
-The result of all this is a Cluster with two Machines, one from the Metal³ provider and one from the BYOH provider.
+The result of all this is a Cluster with two Machines, one from the
+Metal³ provider and one from the BYOH provider.
 
 ```console
 $ k -n metal3 get machine
@@ -525,7 +571,8 @@ control-plane1          Ready    control-plane,master   88m   v1.23.5
 test1-8767dbccd-24cl5   Ready    <none>                 82m   v1.23.5
 ```
 
-Going back to the management cluster, we can inspect the state of the cluster API resources.
+Going back to the management cluster, we can inspect the state of the
+cluster API resources.
 
 ```console
 $ clusterctl -n metal3 describe cluster mixed-cluster
@@ -542,37 +589,55 @@ Cluster/mixed-cluster                                                       True
 
 ## Conclusion
 
-As we have seen in this post, it is possible to combine at least some infrastructure providers when creating a single cluster.
-This can be useful for example if a provider has a high cost or limited resources.
-Furthermore, the use case is not addressed by MachineDeployments since they would all be from the same provider (even though they can have different properties).
+As we have seen in this post, it is possible to combine at least some
+infrastructure providers when creating a single cluster. This can be
+useful for example if a provider has a high cost or limited resources.
+Furthermore, the use case is not addressed by MachineDeployments since
+they would all be from the same provider (even though they can have
+different properties).
 
-There is some room for development and improvement though.
-The most obvious thing is perhaps that Clusters only have one `infrastructureRef`.
-This means that the cluster API controllers are not aware of the "secondary" infrastructure provider(s).
+There is some room for development and improvement though. The most
+obvious thing is perhaps that Clusters only have one
+`infrastructureRef`. This means that the cluster API controllers are not
+aware of the "secondary" infrastructure provider(s).
 
-Another thing that may be less obvious is the reliance on Nodes and Machines in the Kubeadm control plane provider.
-It is not an issue in the example we have seen here since both Metal³ and BYOH creates Nodes.
-However, there are some projects where Nodes are unnecessary.
-See for example [Kamaji](https://github.com/clastix/kamaji), which aims to integrate with the cluster API.
-The idea here is to run the control plane components in the management cluster as Pods.
-Naturally, there would not be any control plane Nodes or Machines in this case.
-(A second provider would be used to add workers.)
-But the Kubeadm control plane provider expects there to be both Machines and Nodes for the control plane, so a new provider is likely needed to make this work as desired.
+Another thing that may be less obvious is the reliance on Nodes and
+Machines in the Kubeadm control plane provider. It is not an issue in
+the example we have seen here since both Metal³ and BYOH creates Nodes.
+However, there are some projects where Nodes are unnecessary. See for
+example [Kamaji](https://github.com/clastix/kamaji), which aims to
+integrate with the cluster API. The idea here is to run the control
+plane components in the management cluster as Pods. Naturally, there
+would not be any control plane Nodes or Machines in this case. (A second
+provider would be used to add workers.) But the Kubeadm control plane
+provider expects there to be both Machines and Nodes for the control
+plane, so a new provider is likely needed to make this work as desired.
 
-This issue can already be seen in the [vcluster](https://github.com/loft-sh/cluster-api-provider-vcluster) provider, where the Cluster stays in `Provisioning` state because it is "Waiting for the first control plane machine to have its `status.nodeRef` set".
-The idea with vcluster is to reuse the Nodes of the management cluster but provide a separate control plane.
-This gives users better isolation than just namespaces without the need for another "real" cluster.
-It is for example possible to have different custom resource definitions in each vcluster.
-But since vcluster runs all the pods (including the control plane) in the management cluster, there will never be a control plane Machine or `nodeRef`.
+This issue can already be seen in the
+[vcluster](https://github.com/loft-sh/cluster-api-provider-vcluster)
+provider, where the Cluster stays in `Provisioning` state because it is
+"Waiting for the first control plane machine to have its
+`status.nodeRef` set". The idea with vcluster is to reuse the Nodes of
+the management cluster but provide a separate control plane. This gives
+users better isolation than just namespaces without the need for another
+"real" cluster. It is for example possible to have different custom
+resource definitions in each vcluster. But since vcluster runs all the
+pods (including the control plane) in the management cluster, there will
+never be a control plane Machine or `nodeRef`.
 
-There is already one implementation of a control plane provider without Nodes, i.e. the EKS provider.
-Perhaps this is the way forward.
-One implementation for each specific case.
-It would be nice if it was possible to do it in a more generic way though, similar to how the Kubeadm control plane provider is used by almost all infrastructure providers.
+There is already one implementation of a control plane provider without
+Nodes, i.e. the EKS provider. Perhaps this is the way forward. One
+implementation for each specific case. It would be nice if it was
+possible to do it in a more generic way though, similar to how the
+Kubeadm control plane provider is used by almost all infrastructure
+providers.
 
-To summarize, there is already some support for mixed clusters with multiple providers.
-However, there are some issues that make it unnecessarily awkward.
-Two things that could be improved in the cluster API would be the following:
+To summarize, there is already some support for mixed clusters with
+multiple providers. However, there are some issues that make it
+unnecessarily awkward. Two things that could be improved in the cluster
+API would be the following:
 
-1. Make the `cluster.infrastructureRef` into a list to allow multiple infrastructure providers to be registered.
-2. Drop the assumption that there will always be control plane Machines and Nodes (e.g. by implementing a new control plane provider).
+1. Make the `cluster.infrastructureRef` into a list to allow multiple
+   infrastructure providers to be registered.
+2. Drop the assumption that there will always be control plane Machines
+   and Nodes (e.g. by implementing a new control plane provider).
