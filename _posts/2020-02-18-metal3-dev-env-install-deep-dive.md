@@ -33,6 +33,7 @@ components.
 This procedure at a 10,000-foot view is composed of 3 bash scripts plus
 a verification one:
 
+<!-- cSpell:ignore mgmt -->
 - **01_prepare_host.sh** - Mainly installs all needed packages.
 - **02_configure_host.sh** - Basically create a set of VMs that will be
   managed as if they were bare metal hosts. It also downloads some
@@ -232,7 +233,7 @@ the operating system are applied in the following script:
 > container runtime is also installed. Note that by setting the variable
 > `CONTAINER_RUNTIME` defined in [common.sh](#commonsh) is possible to
 > choose between docker and podman, which is the default for CentOS.
-> Remember that this behaviour can be overwritten in your config file.
+> Remember that this behavior can be overwritten in your config file.
 
 Once the specific requirements for the elected operating system are
 accomplished, the download of several external artifacts is executed.
@@ -507,8 +508,8 @@ will be consumed by the virtual bare metal machines:
 
 First, an ssh-key in charge of communicating to libvirt is created if it
 does not exist previously. This key is called `id_rsa_virt_power`. It is
-added to the root authorized_keys and is used by `vbmc` and `sushy
-tools` to contact libvirt.
+added to the root authorized_keys and is used by `vbmc` and `sushy tools`
+to contact libvirt.
 
 > info "Information"
 > `sushy-tools` is a set of simple simulation tools aiming at supporting
@@ -703,7 +704,7 @@ baremetal: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 
 Next, an Ansible role called
 [firewall](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml)
-will be executed targetting the host to be sure that the proper ports
+will be executed targeting the host to be sure that the proper ports
 are opened. In case your host is running `Red Hat Enterprise Linux` or
 `CentOS 8`, firewall module will be used. In any other case, iptables
 module is the choice.
@@ -722,7 +723,7 @@ fi
 ```
 
 > note "Note"
-> This behaviour can be changed by replacing the value of the
+> This behavior can be changed by replacing the value of the
 > `USE_FIREWALLD` variable
 
 The ports managed by this role are all associated with the services that
@@ -785,7 +786,7 @@ imgfree
 kernel --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.kernel ipa-inspection-callback-url=http://172.22.0.1:5050/v1/continue ipa-inspection-collectors=default,extra-hardware,logs systemd.journald.forward_to_console=yes BOOTIF=${mac} ipa-debug=1 ipa-inspection-dhcp-all-interfaces=1 ipa-collect-lldp=1 initrd=ironic-python-agent.initramfs || goto retry_boot
 initrd --timeout 60000 http://172.22.0.1:80/images/ironic-python-agent.initramfs || goto retry_boot
 boot
-````
+```
 
 > - **The vbmc container.**
 >
@@ -801,9 +802,9 @@ boot
 >
 > - **The sushy-tools container.**
 >
-> This container mounts the `/opt/metal3-dev-env/virtualbmc/sushy-tools
-> config folder and the`/root/.ssh`local folder as well. The
-> functionality is similar as the`vbmc`, however this use redfish
+> This container mounts the `/opt/metal3-dev-env/virtualbmc/sushy-tools`
+> config folder and the `/root/.ssh` local folder as well. The
+> functionality is similar as the `vbmc`, however this use redfish
 > instead of ipmi to connect to the BMC.
 >
 > ```sh
