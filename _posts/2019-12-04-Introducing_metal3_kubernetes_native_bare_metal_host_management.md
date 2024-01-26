@@ -31,6 +31,8 @@ In this video, Russell Bryant and Doug Hellmann speak about the what's and how's
 
 ## Demos
 
+<!-- cSpell:ignore asciicast -->
+
 - [First demo (Inspection)](https://asciinema.org/a/uOCLoCiOlMLMBLuHOcV2ZvZxb)
 
 [![asciicast](https://asciinema.org/a/283704.svg)](https://asciinema.org/a/283704)
