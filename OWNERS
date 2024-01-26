@@ -1,53 +1,20 @@
 # See the OWNERS docs at https://go.k8s.io/owners
-filters:
-  ".*":
-    approvers:
-      - hroyrh
-      - lentzi90
-      - elfosardo
 
-    reviewers:
-      - Rozzii
-      - tuminoid
+approvers:
+- elfosardo
+- hroyrh
+- lentzi90
 
-    emeritus_approvers:
-      - codificat
-      - russellb
-      - hardys
-      - knowncitizen
-      - fmuyassarov
-      - iranzo
+reviewers:
+- kashifest
+- Rozzii
+- tuminoid
 
-  "^_posts/.*":
-    labels:
-      - kind/blog
-
-    approvers:
-      - hroyrh
-      - lentzi90
-      - elfosardo
-
-    reviewers:
-      - Rozzii
-
-    emeritus_approvers:
-      - maelk
-      - russellb
-      - hardys
-      - stbenjam
-
-  "^_(data|layouts|scss|css|js)/.*":
-    labels:
-      - kind/website
-
-    approvers:
-      - hroyrh
-      - lentzi90
-      - matthewcarleton
-      - elfosardo
-
-    reviewers:
-      - Rozzii
-
-    emeritus_approvers:
-      - iranzo
+emeritus_approvers:
+- codificat
+- fmuyassarov
+- hardys
+- iranzo
+- knowncitizen
+- matthewcarleton
+- russellb
