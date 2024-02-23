@@ -38,7 +38,7 @@ title: Blog
               {% if page == paginator.page %}
                 <em class="mk-pagination__num mk-pagination__num--current" aria-label="current page">{{ page }}</em>
               {% elsif page == 1 %}
-                <a class="mk-pagination__link mk-pagination__num" href="{{ paginator.previous_page_path | relative_url }}">{{ page }}</a>
+                <a class="mk-pagination__link mk-pagination__num" href="{{ '/blog' | relative_url }}">{{ page }}</a>
               {% else %}
                 <a class="mk-pagination__link mk-pagination__num" href="{{ site.paginate_path | relative_url | replace: ':num', page }}" aria-label="page {{ page }}">{{ page }}</a>
               {% endif %}
