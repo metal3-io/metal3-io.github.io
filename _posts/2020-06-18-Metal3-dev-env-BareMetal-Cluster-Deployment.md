@@ -490,7 +490,7 @@ Here are a few resources which you might find useful if you want to
 explore further, some of them have already been shared earlier.
 
 - [Metal3-Documentation](https://metal3.io/)
-   - [Metal3-Try-it](https://metal3.io/try-it.html)
+   - [Metal3-Try-it](https://book.metal3.io/developer_environment/tryit.html)
 - [Metal³/metal3-dev-env](https://github.com/metal3-io/metal3-dev-env)
 - [Detailed metal3-dev-env walkthrough blogpost]({%post_url
   2020-02-18-metal3-dev-env-install-deep-dive %})

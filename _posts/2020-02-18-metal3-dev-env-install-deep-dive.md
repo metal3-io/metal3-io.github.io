@@ -25,10 +25,10 @@ bare metal hosts.
 
 The `metal3-dev-env` repository includes a set of scripts, libraries and
 resources used to set up a Metal³ development environment. On the
-[Metal³ website](https://metal3.io/try-it.html) there is already a
-documented process on how to use the `metal3-dev-env` scripts to set up
-a fully functional cluster to test the functionality of the Metal³
-components.
+[Metal³ website](https://book.metal3.io/developer_environment/tryit.html)
+there is already a documented process on how to use the `metal3-dev-env`
+scripts to set up a fully functional cluster to test the functionality
+of the Metal³ components.
 
 This procedure at a 10,000-foot view is composed of 3 bash scripts plus
 a verification one:
@@ -126,8 +126,8 @@ config_alosadag.sh
 
 The configuration file contains multiple variables that will be used
 during the set-up. Some of them are detailed [in the setup section of
-the Metal³ try-it web page](https://metal3.io/try-it.html#setup). In
-case you need to add or change global variables it should be done in
+the Metal³ try-it web page](https://book.metal3.io/developer_environment/tryit#15-setting-environment-variables).
+In case you need to add or change global variables it should be done in
 this config file.
 
 > note "Note"
@@ -1165,5 +1165,5 @@ locally.
 ## **References**
 
 - [Video playlist: A detailed walkthrough the installation of the metal3-dev-env on Youtube](https://www.youtube.com/playlist?list=PL2y-qnqBbesZZQKyKbuI6vIVkPrCPuK9T)
-- [Getting started with Metal3.io](https://metal3.io/try-it.html)
+- [Getting started with Metal3.io](https://book.metal3.io/developer_environment/tryit.html)
 - [Metal³ code repositories](https://github.com/metal3-io?type=source)
