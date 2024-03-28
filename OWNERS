@@ -1,0 +1,20 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- elfosardo
+- hroyrh
+- lentzi90
+
+reviewers:
+- kashifest
+- Rozzii
+- tuminoid
+
+emeritus_approvers:
+- codificat
+- fmuyassarov
+- hardys
+- iranzo
+- knowncitizen
+- matthewcarleton
+- russellb
