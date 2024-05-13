@@ -39,10 +39,10 @@
                 <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
               </div>
               <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
-                <img src="../assets//images/search.png" style="height: 20px;" alt="">
+                <img src="/assets/images/search.png" style="height: 20px;" alt="">
               </button>
                 <div id="mode-toggle">
-                  <img src="../assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                  <img src="/assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
                 </div>
             </form>
           </li>
@@ -187,8 +187,8 @@ function updateMode() {
   let p = document.querySelectorAll("p")
   if (isToggled) {
 
-    iconMode.src = "../assets/images/moon-outline.png";
-    cncfImage.src = "../assets/images/cncf-white.svg";
+    iconMode.src = "/assets/images/moon-outline.png";
+    cncfImage.src = "/assets/images/cncf-white.svg";
     mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
     body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
     body.style.color = "var(--mk--Color--200)";
@@ -224,8 +224,8 @@ function updateMode() {
       subHeading.style.color = "var(--mk--Color--500)"
     })
   } else {
-    iconMode.src = "../../assets/images/moon.png";
-    cncfImage.src = "../assets/images/cncf-color.svg";
+    iconMode.src = "/assets/images/moon.png";
+    cncfImage.src = "/assets/images/cncf-color.svg";
     mastHead.style.backgroundColor = "";
     body.style.backgroundColor = "";
     body.style.color = "var(--mk--Color--400)";
