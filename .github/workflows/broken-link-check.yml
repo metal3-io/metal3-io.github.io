@@ -1,21 +1,22 @@
 on:
   schedule:
-    - cron: "0 0 * * *" # daily
+  - cron: "0 0 * * *"
   repository_dispatch: # run manually
     types: [check-link]
-  # push:
-  # ...
 
-permissions:
-  contents: read
+permissions: {}
 
 name: Broken Link Check
 jobs:
   check:
-    permissions:
-      issues: write
     name: Broken Link Check
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      issues: write
+
+    if: github.repository == 'metal3-io/metal3-io.github.io'
     steps:
-      - name: Broken Link Check
-        uses: technote-space/broken-link-checker-action@b8332d945b97f8b52eb8d7d889a1e0e37106c1a9 # v2.3.2
+    - name: Broken Link Check
+      uses: technote-space/broken-link-checker-action@b8332d945b97f8b52eb8d7d889a1e0e37106c1a9 # v2.3.2
