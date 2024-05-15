@@ -1,19 +1,22 @@
-name: Deploy via Jekyll on GitHub  pages
+name: Deploy via Jekyll on GitHub pages
 
 on:
   push:
     branches:
-      - source
+    - source
   schedule:
-    - cron:  '0 0 * * *'
+  - cron: '0 0 * * *'
+
+# TODO: permissions defined
 
 jobs:
   jekyll:
     runs-on: ubuntu-latest
+
+    if: github.repository == 'metal3-io/metal3-io.github.io'
     steps:
     - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
 
-    # Use GitHub Actions' cache to shorten build times and decrease load on servers
     - uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: vendor/bundle
