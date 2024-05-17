@@ -1,0 +1,12 @@
+# See the OWNERS docs: https://git.k8s.io/community/contributors/guide/owners.md
+
+aliases:
+  metal3-io-github-io-maintainers:
+  - elfosardo
+  - hroyrh
+  - lentzi90
+
+  metal3-io-github-io-reviewers:
+  - kashifest
+  - Rozzii
+  - tuminoid

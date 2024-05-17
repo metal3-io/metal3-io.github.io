@@ -1,14 +1,11 @@
 # See the OWNERS docs at https://go.k8s.io/owners
 
 approvers:
-- elfosardo
-- hroyrh
-- lentzi90
+- metal3-io-github-io-maintainers
 
 reviewers:
-- kashifest
-- Rozzii
-- tuminoid
+- metal3-io-github-io-maintainers
+- metal3-io-github-io-reviewers
 
 emeritus_approvers:
 - codificat
