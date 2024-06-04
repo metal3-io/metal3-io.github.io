@@ -12,29 +12,16 @@ with our content! [Here's our guideline for content](GUIDELINES.md).
 
 ### Run a Jekyll container
 
-- On an SELinux-enabled OS:
+You can run a local container with the Metal3.io website using Docker or
+Podman.
 
-  ```console
-  cd metal3-io.github.io
-  mkdir .jekyll-cache
-  podman run -d --name metal3io -p 4000:4000 \
-    -v $(pwd):/srv/jekyll:Z jekyll/jekyll jekyll serve --future --watch
-  ```
-
-  **NOTE**: Make sure you are in the _metal3-io.github.io_ directory
-  before running the above command as the Z at the end of the volume
-  (-v) will relabel its contents so it can be written from within the
-  container, like running `chcon -Rt svirt_sandbox_file_t -l s0:c1,c2`
-  yourself.
-
-- On an OS without SELinux:
-
-  ```console
-  cd metal3-io.github.io
-  mkdir .jekyll-cache
-  sudo docker run -d --name metal3io -p 4000:4000 \
-    -v $(pwd):/srv/jekyll jekyll/jekyll jekyll serve --future --watch
-  ```
+```bash
+cd metal3-io.github.io
+# For Podman:
+make serve
+# alternatively, if you want to use Docker:
+CONTAINER_RUNTIME=docker make serve
+```
 
 ### View the site
 
