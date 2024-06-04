@@ -2,11 +2,17 @@
 
 aliases:
   metal3-io-github-io-maintainers:
+  - dtantsur
   - elfosardo
   - hroyrh
+  - kashifest
   - lentzi90
+  - Rozzii
+  - zaneb
 
   metal3-io-github-io-reviewers:
-  - kashifest
-  - Rozzii
+  - adilGhaffarDev
+  - mboukhalfa
+  - mquhuy
+  - smoshiur1237
   - tuminoid
