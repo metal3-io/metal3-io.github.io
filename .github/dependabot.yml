@@ -5,25 +5,18 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-    reviewers:
-      - "lentzi90"
-      - "Rozzii"
-      - "tuminoid"
+- package-ecosystem: "npm" # See documentation for possible values
+  directory: "/" # Location of package manifests
+  schedule:
+    interval: "weekly"
 
-  # Maintain dependencies for GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    commit-message:
-      prefix: build
-      prefix-development: chore
-      include: scope
-    reviewers:
-      - "lentzi90"
-      - "Rozzii"
-      - "tuminoid"
+# Maintain dependencies for GitHub Actions
+- package-ecosystem: "github-actions"
+  directory: "/" # Location of package manifests
+  schedule:
+    interval: "monthly"
+  target-branch: source
+  commit-message:
+    prefix: ":seedling:"
+  labels:
+  - "ok-to-test"
