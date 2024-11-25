@@ -6,7 +6,7 @@ author: Russell Bryant
 categories: ["openshift", "kubernetes", "metal3"]
 ---
 
-Originally posted at <https://blog.russellbryant.net/2019/04/30/metal%c2%b3-metal-kubed-bare-metal-provisioning-for-kubernetes/>
+Originally posted at <https://blog.russellbryant.net/post/2019/04/2019-04-30-metal-metal-kubed-bare-metal-provisioning-for-kubernetes/>
 
 ## Project Introduction
 
