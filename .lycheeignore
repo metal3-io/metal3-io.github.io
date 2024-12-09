@@ -6,8 +6,9 @@ http://0.0.0.0
 # https://github.com/issues based urls give error 404 if user is not logged in.
 https://github.com/issues
 
-# Linkedin has very rigorous bot detection in general
-https://linkedin.com
+# Pages with rigorous bot detection
+https://www.linkedin.com/
+https://www.intel.com/
 
 # This gives error 410. Article is permanently moved to archive.
 https://dzone.com/articles/introducing-the-kubernetes-cluster-api-project-2
