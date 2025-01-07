@@ -1,8 +1,9 @@
 on:
   workflow_dispatch:
   schedule:
-  - cron: "0 0 * * 0"
-  repository_dispatch: # run manually
+  - cron: "0 0 1 * *"
+  repository_dispatch:
+    # run manually
     types: [check-link]
 
 permissions: {}
@@ -18,25 +19,25 @@ jobs:
       issues: write
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+    - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-      - name: Read URLs From Sitemap
-        id: extract
-        run: echo "urls=$(curl -sL https://metal3.io/sitemap.xml |  grep -o "<loc>[^<]*" | sed -e 's/<[^>]*>//g' | tr '\n' ' ')" >> $GITHUB_OUTPUT
+    - name: Read URLs From Sitemap
+      id: extract
+      run: echo "urls=$(curl -sL https://metal3.io/sitemap.xml |  grep -o "<loc>[^<]*" | sed -e 's/<[^>]*>//g' | tr '\n' ' ')" >> $GITHUB_OUTPUT
 
-      - name: Link Checker Metal3.io Web Page
-        id: lycheemetal3io
-        uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374 # v2.2.0
-        with:
-          args: --user-agent "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0" ${{ steps.extract.outputs.urls }}
-          output: /tmp/lychee_output.md
-          fail: false
+    - name: Link Checker Metal3.io Web Page
+      id: lycheemetal3io
+      uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374 # v2.2.0
+      with:
+        args: --user-agent "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0" ${{ steps.extract.outputs.urls }}
+        output: /tmp/lychee_output.md
+        fail: false
 
-      - name: Create Issue From File Metal3.io
-        if: steps.lycheemetal3io.outputs.exit_code != 0
-        uses: peter-evans/create-issue-from-file@e8ef132d6df98ed982188e460ebb3b5d4ef3a9cd # v5.0.1
-        with:
-          title: Link Checker Report
-          content-filepath: /tmp/lychee_output.md
-          labels: |
-            kind/bug
+    - name: Create Issue From File Metal3.io
+      if: steps.lycheemetal3io.outputs.exit_code != 0
+      uses: peter-evans/create-issue-from-file@e8ef132d6df98ed982188e460ebb3b5d4ef3a9cd # v5.0.1
+      with:
+        title: Link Checker Report
+        content-filepath: /tmp/lychee_output.md
+        labels: |
+          kind/bug
