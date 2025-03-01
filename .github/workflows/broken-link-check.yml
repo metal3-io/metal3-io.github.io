@@ -27,7 +27,7 @@ jobs:
 
     - name: Link Checker Metal3.io Web Page
       id: lycheemetal3io
-      uses: lycheeverse/lychee-action@f796c8b7d468feb9b8c0a46da3fac0af6874d374 # v2.2.0
+      uses: lycheeverse/lychee-action@f613c4a64e50d792e0b31ec34bbcbba12263c6a6 # v2.3.0
       with:
         args: --user-agent "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:59.0) Gecko/20100101 Firefox/59.0" ${{ steps.extract.outputs.urls }}
         output: /tmp/lychee_output.md
