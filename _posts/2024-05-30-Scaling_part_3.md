@@ -69,8 +69,8 @@ resource usage. The Kubeadm control plane controller was [unreasonably CPU
 hungry](https://github.com/kubernetes-sigs/cluster-api/issues/8602)!
 
 Luckily, Cluster API has excellent [debugging and monitoring tools
-available](https://cluster-api.sigs.k8s.io/developer/tilt) so it was easy to
-collect data and profile the controllers. A quick look at the dashboard
+available](https://cluster-api.sigs.k8s.io/developer/core/tilt) so it was easy
+to collect data and profile the controllers. A quick look at the dashboard
 confirmed that the Kubeadm control plane controller was indeed the culprit, with
 a CPU usage far higher than the other controllers.
 
