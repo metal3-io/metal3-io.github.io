@@ -64,10 +64,10 @@ centos-based environment:
 | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | provisioning scripts                                                                                                                            | Scripts to trigger provisioning of cluster, control plane or worker               | `${metal3-dev-env}/scripts/provision/`                                                |
 | deprovisioning scripts                                                                                                                          | Scripts to trigger deprovisioning of cluster, control plane or worker             | `${metal3-dev-env}/scripts/deprovision/`                                              |
-| [templates directory](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates)                   | Templates for cluster, control plane, worker definitions                          | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/templates`                    |
+| [templates directory](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/roles/run_tests/templates)                   | Templates for cluster, control plane, worker definitions                          | `${metal3-dev-env}/tests/roles/run_tests/templates`                    |
 | clusterctl env file                                                                                                                             | Cluster parameters and details                                                    | `${Manifests}/clusterctl_env_centos.rc`                                               |
-| [generate templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml) | Renders cluster, control plane and worker definitions in the `Manifest` directory | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/tasks/generate_templates.yml` |
-| [main vars file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/vars/main.yml)                    | Variable file that assigns all the defaults used during deployment                | `${metal3-dev-env}/vm-setup/roles/v1aX_integration_test/vars/main.yml`                |
+| [generate templates](https://github.com/metal3-io/metal3-dev-env/blob/main/tests/roles/run_tests/tasks/generate_templates.yml) | Renders cluster, control plane and worker definitions in the `Manifest` directory | `${metal3-dev-env}/tests/roles/run_tests/tasks/generate_templates.yml` |
+| [main vars file](https://github.com/metal3-io/metal3-dev-env/blob/main/tests/roles/run_tests/vars/main.yml)                    | Variable file that assigns all the defaults used during deployment                | `${metal3-dev-env}/tests/roles/run_tests/vars/main.yml`                |
 
 Here are some of the resources that are created as part of provisioning :
 
@@ -109,7 +109,7 @@ setting the environment variables.
 
 All the scripts for cluster provisioning or de-provisioning are located
 at -
-[`${metal3-dev-env}/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/master/scripts).
+[`${metal3-dev-env}/tests/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/scripts).
 The scripts call a common playbook which handles all the tasks that are
 available.
 
@@ -118,12 +118,12 @@ The steps involved in the process are:
 - The script calls an ansible playbook with necessary parameters ( from
   env variables and defaults )
 - The playbook executes the role -,
-  [`${metal3-dev-env}/vm-setup/roles/v1aX_integration_test`](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test),
+  [`${metal3-dev-env}/tests/roles/run_tests`](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/roles/run_tests),
   which runs the main
-  [task_file](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/tasks/main.yml)
+  [task_file](https://github.com/metal3-io/metal3-dev-env/blob/main/tests/roles/run_tests/tasks/main.yml)
   for provisioning/deprovisioning the cluster, control plane or a worker
 - There are
-  [templates](https://github.com/metal3-io/metal3-dev-env/tree/master/vm-setup/roles/v1aX_integration_test/templates)
+  [templates](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/roles/run_tests/templates)
   in the role, which are used to render configurations in the `Manifest`
   directory. These configurations use kubeadm and are supplied to the
   Kubernetes module of ansible to create the cluster.
@@ -135,7 +135,7 @@ The steps involved in the process are:
   for resources related to cluster, control plane and worker are
   rendered using `clusterctl`.
 - Centos or Ubuntu image [is
-  downloaded](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/v1aX_integration_test/tasks/download_image.yml)
+  downloaded](https://github.com/metal3-io/metal3-dev-env/blob/main/tests/roles/run_tests/tasks/download_image.yml)
   in the next step.
 - Finally using the above definitions, which are passed to the `K8s`
   module in ansible, the corresponding resource( cluster/control
