@@ -87,8 +87,8 @@ generated for this site:
 
 ### Blog Posts
 
-All Blog posts are located in the [blog/\_posts](blog/_posts/)
-directory, and all FAQ posts in the [faqs/\_posts](faqs_posts), on them,
+All Blog posts are located in the [_posts](_posts/)
+directory, and all FAQ posts in the [_faqs](_faqs/) directory, on them,
 each entry is a Markdown file with extension _.md_ or _.markdown_. For
 creating a blog post for [metal3.io](https://metal3.io), you need to
 complete the following steps.
@@ -191,9 +191,9 @@ complete the following steps.
 ### Pages
 
 The _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the
-[pages](/pages/) directory, to create one follow these steps:
+[root](.) of the repository, to create one follow these steps:
 
-- Create the markdown file, _filename.md_, in [pages](/pages/) directory
+- Create the markdown file, _filename.md_, in the [root](.) directory
 - _Pages_ also use [Front
   Matter](https://jekyllrb.com/docs/front-matter/), here's an example:
 
