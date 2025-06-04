@@ -191,9 +191,9 @@ complete the following steps.
 ### Pages
 
 The _[Pages](https://jekyllrb.com/docs/pages/)_ are located at the
-[pages](/) directory, to create one follow these steps:
+[pages](.) directory, to create one follow these steps:
 
-- Create the markdown file, _filename.md_, in [pages](/) directory
+- Create the markdown file, _filename.md_, in [pages](.) directory
 - _Pages_ also use [Front
   Matter](https://jekyllrb.com/docs/front-matter/), here's an example:
 
