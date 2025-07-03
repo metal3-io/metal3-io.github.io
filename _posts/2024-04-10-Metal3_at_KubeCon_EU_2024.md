@@ -26,7 +26,7 @@ talk](https://www.youtube.com/watch?v=6QsOQsQZQS8) on Tuesday!
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6QsOQsQZQS8?si=bH5w9svPxM1NE8Le" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <!-- markdownlint-enable no-inline-html -->
 
-On Wednesday we continued with a [contribfest session](https://sched.co/1YheY)
+On Wednesday we continued with a [contribfest session](https://kccnceu2024.sched.com/event/1YheY)
 where we gave an introduction to the project for potential new contributors. We
 had prepared a number of good-first-issue's that people could choose from if
 they wanted. Perhaps more important though, was that we had time to answer
