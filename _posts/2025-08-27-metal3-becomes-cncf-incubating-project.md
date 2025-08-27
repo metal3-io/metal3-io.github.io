@@ -1,6 +1,6 @@
 ---
 title: "Metal3.io Becomes a CNCF Incubating Project"
-date: 2025-08-27
+date: 2025-08-28
 draft: false
 categories: ["metal3", "cncf", "community", "announcement"]
 author: Honza Pokorný
