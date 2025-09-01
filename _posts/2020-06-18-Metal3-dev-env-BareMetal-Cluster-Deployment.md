@@ -109,7 +109,7 @@ setting the environment variables.
 
 All the scripts for cluster provisioning or de-provisioning are located
 at -
-[`${metal3-dev-env}/tests/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/scripts).
+[`${metal3-dev-env}/scripts/`](https://github.com/metal3-io/metal3-dev-env/tree/main/tests/scripts).
 The scripts call a common playbook which handles all the tasks that are
 available.
 
