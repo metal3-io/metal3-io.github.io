@@ -175,7 +175,7 @@ kubectl describe Cluster ${CLUSTER_NAME} -n metal3
 ```yaml
 apiVersion: cluster.x-k8s.io/v1alpha3
 kind: Cluster
-metadata: [......]
+metadata: #[....]
 spec:
   clusterNetwork:
     pods:
@@ -225,8 +225,7 @@ kubectl describe KubeadmControlPlane ${CLUSTER_NAME} -n metal3
 ```yaml
 apiVersion: controlplane.cluster.x-k8s.io/v1alpha3
 kind: KubeadmControlPlane
-metadata:
-  [....]
+metadata: #[....]
   ownerReferences:
   - apiVersion: cluster.x-k8s.io/v1alpha3
     blockOwnerDeletion: true
@@ -245,8 +244,7 @@ spec:
     namespace: metal3
   kubeadmConfigSpec:
     files:
-    - content: |
-        [....]
+    - content: #[....]
   replicas: 1
   version: v1.18.0
 status:
@@ -334,8 +332,7 @@ kubectl describe MachineDeployment ${CLUSTER_NAME} -n metal3
 ```yaml
 apiVersion: cluster.x-k8s.io/v1alpha3
 kind: MachineDeployment
-metadata:
-  [....]
+metadata: #[....]
   ownerReferences:
   - apiVersion: cluster.x-k8s.io/v1alpha3
     kind: Cluster
