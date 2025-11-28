@@ -70,12 +70,12 @@ metadata:
 spec:
   clusterName: cluster1
   pools:
-    - start: 192.168.0.10
-      end: 192.168.0.30
-      prefix: 25
-      gateway: 192.168.0.1
-    - subnet: 192.168.1.1/26
-    - subnet: 192.168.1.128/25
+  - start: 192.168.0.10
+    end: 192.168.0.30
+    prefix: 25
+    gateway: 192.168.0.1
+  - subnet: 192.168.1.1/26
+  - subnet: 192.168.1.128/25
   prefix: 24
   gateway: 192.168.1.1
   preAllocations:
@@ -92,11 +92,11 @@ metadata:
 spec:
   clusterName: cluster1
   pools:
-    - start: 2001:0db8:85a3:0000:0000:8a2e::10
-      end: 2001:0db8:85a3:0000:0000:8a2e:ffff:fff0
-      prefix: 96
-      gateway: 12001:0db8:85a3:0000:0000:8a2e::1
-    - subnet: 2001:0db8:85a3:0000:0000:8a2d::/96
+  - start: 2001:0db8:85a3:0000:0000:8a2e::10
+    end: 2001:0db8:85a3:0000:0000:8a2e:ffff:fff0
+    prefix: 96
+    gateway: 12001:0db8:85a3:0000:0000:8a2e::1
+  - subnet: 2001:0db8:85a3:0000:0000:8a2d::/96
   prefix: 96
   gateway: 2001:0db8:85a3:0000:0000:8a2d::1
 ```
@@ -152,12 +152,12 @@ metadata:
 spec:
   clusterName: cluster1
   pools:
-    - start: 192.168.0.10
-      end: 192.168.0.30
-      prefix: 25
-      gateway: 192.168.0.1
-    - subnet: 192.168.1.1/26
-    - subnet: 192.168.1.128/25
+  - start: 192.168.0.10
+    end: 192.168.0.30
+    prefix: 25
+    gateway: 192.168.0.1
+  - subnet: 192.168.1.1/26
+  - subnet: 192.168.1.128/25
   prefix: 24
   gateway: 192.168.1.1
   preAllocations:
