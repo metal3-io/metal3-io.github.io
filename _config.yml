@@ -16,11 +16,11 @@
 title: Metal³ - Metal Kubed
 email: non@none.com
 description: >- # this means to ignore newlines until "baseurl:"
-   Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.
+  Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://metal3.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: metal3_io
-github_username:  metal3-io
+github_username: metal3-io
 type: website
 image: /assets/images/metal3logo.png
 
@@ -39,11 +39,11 @@ kramdown:
       start_line: 1
 theme: minima
 plugins:
-  - premonition
-  - jekyll-feed
-  - jekyll-paginate
-  - jekyll-redirect-from
-  - jekyll-sitemap
+- premonition
+- jekyll-feed
+- jekyll-paginate
+- jekyll-redirect-from
+- jekyll-sitemap
 
 paginate: 5
 paginate_path: "/blog/page:num"
@@ -55,11 +55,9 @@ collections:
     output: true
     permalink: /:collection/:path
 
-
 sass:
   sass_dir: _sass
   style: compressed
-
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
@@ -74,8 +72,8 @@ sass:
 #   - vendor/ruby/
 
 exclude:
-  - GUIDELINES.md
-  - README.md
-  - node_modules
+- GUIDELINES.md
+- README.md
+- node_modules
 
 permalink: /blog/:year/:month/:day/:title:output_ext
