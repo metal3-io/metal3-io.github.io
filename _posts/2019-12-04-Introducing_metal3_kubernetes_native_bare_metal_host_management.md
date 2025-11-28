@@ -20,7 +20,7 @@ In this video, Russell Bryant and Doug Hellmann speak about the what's and how's
 
 ## Speakers
 
-[Russell Bryant](http://www.russellbryant.net/) Russell Bryant is a Distinguished Engineer at Red Hat, where he works on infrastructure management to support Kubernetes clusters. Prior to working on the Metal³ project, Russell worked on other open infrastructure projects. Russell worked in Software Defined Networking with Open vSwitch (OVS) and Open Virtual Network (OVN) and worked on various parts of OpenStack. Russell also worked in open source telephony via the Asterisk project.
+[Russell Bryant](http://russellbryant.net/) Russell Bryant is a Distinguished Engineer at Red Hat, where he works on infrastructure management to support Kubernetes clusters. Prior to working on the Metal³ project, Russell worked on other open infrastructure projects. Russell worked in Software Defined Networking with Open vSwitch (OVS) and Open Virtual Network (OVN) and worked on various parts of OpenStack. Russell also worked in open source telephony via the Asterisk project.
 
 [Doug Hellmann](http://twitter.com/doughellmann) Doug Hellmann is a Senior Principal Software Engineer at Red Hat. He has been a professional developer since the mid-1990s and has worked on a variety of projects in fields such as mapping, medical news publishing, banking, data centre automation, and hardware provisioning. He has been contributing to open-source projects for most of his career and for the past 7 years he has been focusing on open-source cloud computing technologies, including OpenStack and Kubernetes.
 
@@ -33,18 +33,18 @@ In this video, Russell Bryant and Doug Hellmann speak about the what's and how's
 
 <!-- cSpell:ignore asciicast -->
 
-- [First demo (Inspection)](https://asciinema.org/a/uOCLoCiOlMLMBLuHOcV2ZvZxb)
+- [First demo (Inspection)](https://asciinema.org/a/283704)
 
 [![asciicast](https://asciinema.org/a/283704.svg)](https://asciinema.org/a/283704)
 
-- [Second demo (Provisioning)](https://asciinema.org/a/Z4a4MhXd7DStprfyiiworS2Id)
+- [Second demo (Provisioning)](https://asciinema.org/a/283705)
 
 [![asciicast](https://asciinema.org/a/283705.svg)](https://asciinema.org/a/283705)
 
-- [Third demo (Scale up)](https://asciinema.org/a/Xs5BPe62kF1PyIkNvMkcC9lyt)
+- [Third demo (Scale up)](https://asciinema.org/a/283706)
 
 [![asciicast](https://asciinema.org/a/283706.svg)](https://asciinema.org/a/283706)
 
-- [Fourth demo (v1alpha2)](https://asciinema.org/a/c5BUvn2iK1J076dI3xLNe4H9C)
+- [Fourth demo (v1alpha2)](https://asciinema.org/a/283707)
 
 [![asciicast](https://asciinema.org/a/283707.svg)](https://asciinema.org/a/283707)

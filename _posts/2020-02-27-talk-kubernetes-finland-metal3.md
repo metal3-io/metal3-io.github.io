@@ -9,7 +9,7 @@ author: Alberto Losada
 
 ## Conference talk: Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin
 
-On the 20th of January at the [Kubernetes and CNCF Finland Meetup](https://www.meetup.com/Kubernetes-Finland/), Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.
+On the 20th of January at the [Kubernetes and CNCF Finland Meetup](https://www.meetup.com/kubernetes-finland/), Maël Kimmerlin gave a brilliant presentation about the status of the Metal³ project.
 
 In this presentation, Maël starts giving a short introduction of the [Cluster API project](https://github.com/kubernetes-sigs/cluster-api) which provides a solid foundation to develop the Metal³ Bare Metal Operator (BMO). The talk basically focuses on the **v1alpha2** infrastructure provider features from the Cluster API.
 
@@ -44,7 +44,7 @@ The last part of the talk is dedicated to executing a demo where Maël creates a
 In the end, the result is a new Kubernetes cluster up and running. The cluster is deployed on two emulated physical servers: one runs as the control-plane node and the other as a worker node.
 
 > info "Information"
-> The slides of the talk can be downloaded from [here](https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl)
+> The slides of the talk can be downloaded from [here](https://drive.google.com/file/d/1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl/view?usp=drive_open)
 
 ## Speakers
 
@@ -55,4 +55,4 @@ _I am an open-source enthusiast, focusing in Ericsson on Life Cycle Management o
 ## References
 
 - [Video: Metal³: Kubernetes Native Bare Metal Cluster Management](https://youtu.be/3k5EfIQpw-E?t=4167)
-- [Slides](https://drive.google.com/open?id=1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl)
+- [Slides](https://drive.google.com/file/d/1mdofzqIpH7XpFYkjB0ZC7EWU_RGW6aOl/view?usp=drive_open)

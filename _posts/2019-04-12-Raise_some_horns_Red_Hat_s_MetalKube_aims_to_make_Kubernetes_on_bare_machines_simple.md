@@ -22,7 +22,7 @@ author: Pedro Ibáñez Requena
 
 <!-- markdownlint-enable MD013 -->
 
-[Max Smolaks](https://www.theregister.co.uk/Author/Max-Smolaks) talks in
+[Max Smolaks](https://www.theregister.com/Author/Max-Smolaks) talks in
 this article about the OpenInfra Days in the UK, 2019: where Metal³ was
 revealed earlier last week by Steve Hardy, Red Hat's senior principal
 software engineer. The Open Infrastructure Days in the UK is an event
@@ -64,7 +64,7 @@ Hardy also commented:
 
 For further detail, check out the full article at
 [The Register: Raise some horns: Red Hat's MetalKube aims to make Kubernetes on
-bare machines simple](https://www.theregister.co.uk/2019/04/05/red_hat_metalkubel/)
+bare machines simple](https://www.theregister.com/2019/04/05/red_hat_metalkubel/)
 .
 
 ## References
@@ -73,4 +73,4 @@ bare machines simple](https://www.theregister.co.uk/2019/04/05/red_hat_metalkube
   principal software engineer.
 - [Thierry Carrez](https://ttx.re/): veep of engineering at the
   OpenStack Foundation.
-- [The Register: Raise some horns: Red Hat's MetalKube aims to make Kubernetes on bare machines simple](https://www.theregister.co.uk/2019/04/05/red_hat_metalkubel/)
+- [The Register: Raise some horns: Red Hat's MetalKube aims to make Kubernetes on bare machines simple](https://www.theregister.com/2019/04/05/red_hat_metalkubel/)

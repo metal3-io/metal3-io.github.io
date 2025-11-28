@@ -8,7 +8,7 @@ author: Pablo Iranzo Gómez
 
 ## Introduction
 
-The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), documented at <https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md>, it's the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.
+The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), documented at <https://github.com/metal3-io/baremetal-operator/blob/main/docs/api.md>, it's the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.
 
 Quoting from the project:
 
@@ -49,7 +49,7 @@ spec:
   online: false
 ```
 
-With above values (described in [API](https://github.com/metal3-io/baremetal-operator/blob/master/docs/api.md)), we're telling the operator:
+With above values (described in [API](https://github.com/metal3-io/baremetal-operator/blob/main/docs/api.md)), we're telling the operator:
 
 - MAC: Defines the mac address of the NIC connected to the network that will be used for the provisioning of the host
 - bmc: defines the management controller address and the secret used
@@ -57,7 +57,7 @@ With above values (described in [API](https://github.com/metal3-io/baremetal-ope
 
 Once the server is 'defined' via the CRD, the underlying service (provided by `ironic`[^1] as of this writing) is inspected:
 
-[^1]: Ironic was chosen as the initial provider for baremetal provisioning, check [Ironic documentation](https://github.com/metal3-io/metal3-docs/blob/master/design/use-ironic.md) for more details about Ironic usage in Metal³
+[^1]: Ironic was chosen as the initial provider for baremetal provisioning, check [Ironic documentation](https://github.com/metal3-io/metal3-docs/blob/main/design/use-ironic.md) for more details about Ironic usage in Metal³
 
 ```console
 [root@metal3-kubernetes ~]# kubectl get baremetalhost -n metal3
