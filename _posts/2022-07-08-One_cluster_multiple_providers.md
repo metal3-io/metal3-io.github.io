@@ -175,11 +175,11 @@ spec:
   clusterNetwork:
     pods:
       cidrBlocks:
-        - 192.168.0.0/16
+      - 192.168.0.0/16
     serviceDomain: cluster.local
     services:
       cidrBlocks:
-        - 10.128.0.0/12
+      - 10.128.0.0/12
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: KubeadmControlPlane
@@ -203,8 +203,10 @@ Please click on the line below to expand it.
 
 <!-- markdownlint-enable MD033 -->
 
-```yaml
 {%- raw %}
+
+```yaml
+#{% raw %}
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: KubeadmControlPlane
 metadata:
@@ -216,75 +218,75 @@ spec:
     clusterConfiguration:
       apiServer:
         certSANs:
-          - localhost
-          - 127.0.0.1
-          - 0.0.0.0
-          - host.docker.internal
+        - localhost
+        - 127.0.0.1
+        - 0.0.0.0
+        - host.docker.internal
       controllerManager:
         extraArgs:
           enable-hostpath-provisioner: "true"
     files:
-      - content: |
-          apiVersion: v1
-          kind: Pod
-          metadata:
-            creationTimestamp: null
+    - content: |
+        apiVersion: v1
+        kind: Pod
+        metadata:
+          creationTimestamp: null
+          name: kube-vip
+          namespace: kube-system
+        spec:
+          containers:
+          - args:
+            - start
+            env:
+            - name: vip_arp
+              value: "true"
+            - name: vip_leaderelection
+              value: "true"
+            - name: vip_address
+              value: 192.168.10.20
+            - name: vip_interface
+              value: {{ .DefaultNetworkInterfaceName }}
+            - name: vip_leaseduration
+              value: "15"
+            - name: vip_renewdeadline
+              value: "10"
+            - name: vip_retryperiod
+              value: "2"
+            image: ghcr.io/kube-vip/kube-vip:v0.3.5
+            imagePullPolicy: IfNotPresent
             name: kube-vip
-            namespace: kube-system
-          spec:
-            containers:
-            - args:
-              - start
-              env:
-              - name: vip_arp
-                value: "true"
-              - name: vip_leaderelection
-                value: "true"
-              - name: vip_address
-                value: 192.168.10.20
-              - name: vip_interface
-                value: {{ .DefaultNetworkInterfaceName }}
-              - name: vip_leaseduration
-                value: "15"
-              - name: vip_renewdeadline
-                value: "10"
-              - name: vip_retryperiod
-                value: "2"
-              image: ghcr.io/kube-vip/kube-vip:v0.3.5
-              imagePullPolicy: IfNotPresent
-              name: kube-vip
-              resources: {}
-              securityContext:
-                capabilities:
-                  add:
-                  - NET_ADMIN
-                  - SYS_TIME
-              volumeMounts:
-              - mountPath: /etc/kubernetes/admin.conf
-                name: kubeconfig
-            hostNetwork: true
-            volumes:
-            - hostPath:
-                path: /etc/kubernetes/admin.conf
-                type: FileOrCreate
+            resources: {}
+            securityContext:
+              capabilities:
+                add:
+                - NET_ADMIN
+                - SYS_TIME
+            volumeMounts:
+            - mountPath: /etc/kubernetes/admin.conf
               name: kubeconfig
-          status: {}
+          hostNetwork: true
+          volumes:
+          - hostPath:
+              path: /etc/kubernetes/admin.conf
+              type: FileOrCreate
+            name: kubeconfig
+        status: {}
         owner: root:root
         path: /etc/kubernetes/manifests/kube-vip.yaml
     initConfiguration:
       nodeRegistration:
         criSocket: /var/run/containerd/containerd.sock
         ignorePreflightErrors:
-          - Swap
-          - DirAvailable--etc-kubernetes-manifests
-          - FileAvailable--etc-kubernetes-kubelet.conf
+        - Swap
+        - DirAvailable--etc-kubernetes-manifests
+        - FileAvailable--etc-kubernetes-kubelet.conf
     joinConfiguration:
       nodeRegistration:
         criSocket: /var/run/containerd/containerd.sock
         ignorePreflightErrors:
-          - Swap
-          - DirAvailable--etc-kubernetes-manifests
-          - FileAvailable--etc-kubernetes-kubelet.conf
+        - Swap
+        - DirAvailable--etc-kubernetes-manifests
+        - FileAvailable--etc-kubernetes-kubelet.conf
   machineTemplate:
     infrastructureRef:
       apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -311,7 +313,7 @@ metadata:
 spec:
   template:
     spec: {}
-{% endraw %}
+#{% endraw %}
 ```
 
   </div>
@@ -353,8 +355,8 @@ spec:
   clusterName: mixed-cluster
   namePrefix: test1-prov
   pools:
-    - end: 172.22.0.200
-      start: 172.22.0.100
+  - end: 172.22.0.200
+    start: 172.22.0.100
   prefix: 24
 ---
 apiVersion: ipam.metal3.io/v1alpha1
@@ -366,8 +368,8 @@ spec:
   gateway: 192.168.111.1
   namePrefix: test1-bmv4
   pools:
-    - end: 192.168.111.200
-      start: 192.168.111.100
+  - end: 192.168.111.200
+    start: 192.168.111.100
   prefix: 24
 ```
 
@@ -428,7 +430,7 @@ the KubeadmConfigTemplate (the last few lines).
 <!-- markdownlint-enable MD033 -->
 
 ```yaml
-{%- raw %}
+#{% raw %}
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: Metal3MachineTemplate
 metadata:
@@ -453,42 +455,42 @@ spec:
   clusterName: mixed-cluster
   metaData:
     ipAddressesFromIPPool:
-      - key: provisioningIP
-        name: provisioning-pool
+    - key: provisioningIP
+      name: provisioning-pool
     objectNames:
-      - key: name
-        object: machine
-      - key: local-hostname
-        object: machine
-      - key: local_hostname
-        object: machine
+    - key: name
+      object: machine
+    - key: local-hostname
+      object: machine
+    - key: local_hostname
+      object: machine
     prefixesFromIPPool:
-      - key: provisioningCIDR
-        name: provisioning-pool
+    - key: provisioningCIDR
+      name: provisioning-pool
   networkData:
     links:
       ethernets:
-        - id: enp1s0
-          macAddress:
-            fromHostInterface: enp1s0
-          type: phy
-        - id: enp2s0
-          macAddress:
-            fromHostInterface: enp2s0
-          type: phy
+      - id: enp1s0
+        macAddress:
+          fromHostInterface: enp1s0
+        type: phy
+      - id: enp2s0
+        macAddress:
+          fromHostInterface: enp2s0
+        type: phy
     networks:
       ipv4:
-        - id: baremetalv4
-          ipAddressFromIPPool: baremetalv4-pool
-          link: enp2s0
-          routes:
-            - gateway:
-                fromIPPool: baremetalv4-pool
-              network: 0.0.0.0
-              prefix: 0
+      - id: baremetalv4
+        ipAddressFromIPPool: baremetalv4-pool
+        link: enp2s0
+        routes:
+        - gateway:
+            fromIPPool: baremetalv4-pool
+          network: 0.0.0.0
+          prefix: 0
     services:
       dns:
-        - 8.8.8.8
+      - 8.8.8.8
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: KubeadmConfigTemplate
@@ -498,26 +500,24 @@ spec:
   template:
     spec:
       files:
-        - content: |
-            network:
-              version: 2
-              renderer: networkd
-              bridges:
-                ironicendpoint:
-                  interfaces: [enp1s0]
-                  addresses:
-                  - {{ ds.meta_data.provisioningIP }}/{{ ds.meta_data.provisioningCIDR }}
-          owner: root:root
-          path: /etc/netplan/52-ironicendpoint.yaml
-          permissions: "0644"
-        - content: |
-            [registries.search]
-            registries = ['docker.io']
-
-
-            [registries.insecure]
-            registries = ['192.168.111.1:5000']
-          path: /etc/containers/registries.conf
+      - content: |
+          network:
+            version: 2
+            renderer: networkd
+            bridges:
+              ironicendpoint:
+                interfaces: [enp1s0]
+                addresses:
+                - {{ ds.meta_data.provisioningIP }}/{{ ds.meta_data.provisioningCIDR }}
+        owner: root:root
+        path: /etc/netplan/52-ironicendpoint.yaml
+        permissions: "0644"
+      - content: |
+          [registries.search]
+          registries = ['docker.io']
+          [registries.insecure]
+          registries = ['192.168.111.1:5000']
+        path: /etc/containers/registries.conf
       joinConfiguration:
         nodeRegistration:
           kubeletExtraArgs:
@@ -530,14 +530,14 @@ spec:
             runtime-request-timeout: 5m
           name: "{{ ds.meta_data.name }}"
       preKubeadmCommands:
-        - netplan apply
-        - systemctl enable --now crio kubelet
+      - netplan apply
+      - systemctl enable --now crio kubelet
       users:
-        - name: metal3
-          # sshAuthorizedKeys:
-          # - add your public key here for debugging
-          sudo: ALL=(ALL) NOPASSWD:ALL
-{% endraw %}
+      - name: metal3
+        # sshAuthorizedKeys:
+        # - add your public key here for debugging
+        sudo: ALL=(ALL) NOPASSWD:ALL
+#{% endraw %}
 ```
 
   </div>

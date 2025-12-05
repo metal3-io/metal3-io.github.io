@@ -326,9 +326,9 @@ BMH object will look like this
 apiVersion: v1
 kind: Secret
 metadata:
-  name: {name}-bmc-secret
+  name: name-bmc-secret
   labels:
-      environment.metal3.io: baremetal
+    environment.metal3.io: baremetal
 type: Opaque
 data:
   username: YWRtaW4=
@@ -337,13 +337,13 @@ data:
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
 metadata:
-  name: {name}
+  name: name
 spec:
   online: true
   bmc:
     address: redfish+http://192.168.222.1:{port}/redfish/v1/Systems/{uuid}
-    credentialsName: {name}-bmc-secret
-  bootMACAddress: {random_mac}
+    credentialsName: name-bmc-secret
+  bootMACAddress: random_mac
   bootMode: legacy
 ```
 

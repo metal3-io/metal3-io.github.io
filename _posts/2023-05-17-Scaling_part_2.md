@@ -76,15 +76,15 @@ apiVersion: kubeadm.k8s.io/v1beta3
 kind: ClusterConfiguration
 apiServer:
   certSANs:
-    - 127.0.0.1
+  - 127.0.0.1
 clusterName: test
 controlPlaneEndpoint: 127.0.0.1:6443
 etcd:
   local:
     serverCertSANs:
-      - etcd-server.etcd-system.svc.cluster.local
+    - etcd-server.etcd-system.svc.cluster.local
     peerCertSANs:
-      - etcd-0.etcd.etcd-system.svc.cluster.local
+    - etcd-0.etcd.etcd-system.svc.cluster.local
 kubernetesVersion: v1.25.3
 certificatesDir: /tmp/test/pki
 ```
