@@ -26,7 +26,7 @@ Finally, the [cluster-api-provider-baremetal](https://github.com/metal3-io/clust
 
 The project has been going on for a few months now, and there’s enough now to show some working code.
 
-For this demonstration, I’ve started with a 3-node Kubernetes cluster installed using [OpenShift](https://www.openshift.com/).
+For this demonstration, I’ve started with a 3-node Kubernetes cluster installed using [OpenShift](https://www.redhat.com/en/technologies/cloud-computing/openshift).
 
 ```sh
 $ kubectl get nodes
@@ -46,7 +46,7 @@ ostest-master-1                                             24h
 ostest-master-2                                             24h
 ```
 
-For this cluster-api provider, a Machine has a corresponding BareMetalHost object, which corresponds to the piece of hardware we are managing. There is a design document that covers [the relationship between Nodes, Machines, and BareMetalHosts](https://github.com/metal3-io/metal3-docs/blob/master/design/nodes-machines-and-hosts.md).
+For this cluster-api provider, a Machine has a corresponding BareMetalHost object, which corresponds to the piece of hardware we are managing. There is a design document that covers [the relationship between Nodes, Machines, and BareMetalHosts](https://github.com/metal3-io/metal3-docs/blob/main/design/nodes-machines-and-hosts.md).
 
 Since these hosts were provisioned earlier, they are in a special `externally provisioned` state, indicating that we enrolled them in management while they were already running in a desired state. If changes are needed going forward, the baremetal-operator will be able to automate them.
 
@@ -177,4 +177,4 @@ openshift-worker-0   OK       ready                                      ipmi://
 
 ## Getting Involved
 
-All development is happening on [github](https://github.com/metal3-io). We have a [metal3-dev mailing list](https://groups.google.com/forum/#!forum/metal3-dev) and use #cluster-api-baremetal on [Kubernetes Slack](https://slack.k8s.io/) to chat. Occasional project updates are posted to [@metal3_io on Twitter](https://twitter.com/metal3_io).
+All development is happening on [github](https://github.com/metal3-io). We have a [metal3-dev mailing list](https://groups.google.com/forum/#!forum/metal3-dev) and use #cluster-api-baremetal on [Kubernetes Slack](https://communityinviter.com/apps/kubernetes/community) to chat. Occasional project updates are posted to [@metal3_io on Twitter](https://twitter.com/metal3_io).

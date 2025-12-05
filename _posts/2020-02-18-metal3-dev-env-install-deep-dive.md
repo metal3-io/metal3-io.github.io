@@ -284,7 +284,7 @@ a little bit later in this first step.
 > | **Name of the variable** | **Default value**                       |
 > | ------------------------ | --------------------------------------- |
 > | IMAGE_NAME               | CentOS-7-x86_64-GenericCloud-1907.qcow2 |
-> | IMAGE_LOCATION           | [http://cloud.centos.org/centos/7/images](http://cloud.centos.org/centos/7/images) |
+> | IMAGE_LOCATION           | [https://cloud.centos.org/centos/7/images/](https://cloud.centos.org/centos/7/images/) |
 > | IMAGE USERNAME           | centos                                  |
 >
 > info "Information"
@@ -354,7 +354,7 @@ This playbook imports two roles. One is called `packages_installation`,
 which is in charge of installing a few more packages. The list of
 packages installed are listed as default Ansible variables [in the
 vm-setup role inside the metal3-dev-env
-repository](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/packages_installation/defaults/main.yml).
+repository](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/roles/packages_installation/defaults/main.yml).
 The other role is based on the
 [fubarhouse.golang](https://galaxy.ansible.com/fubarhouse/golang)
 Ansible Galaxy role. It is in charge of installing and configuring the
@@ -516,7 +516,7 @@ to contact libvirt.
 > the development and testing of the Redfish protocol implementations.
 
 Next, another Ansible playbook called
-[setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/setup-playbook.yml)
+[setup-playbook.yml](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/setup-playbook.yml)
 is run against the host. It is focused on setting up the virtual
 infrastructure around `metal3-dev-env`. Below it is shown the Ansible
 variables that are passed to the playbook, which actually are obtaining
@@ -556,9 +556,9 @@ ANSIBLE_FORCE_COLOR=true ansible-playbook \
 > In case you would like to change properties not defined globally in
 > the `metal3-dev-env` take a look at the default variables specified in
 > role:
-> [common](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/common/defaults/main.yml)
+> [common](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/roles/common/defaults/main.yml)
 > and
-> [libvirt](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/defaults/main.yml)
+> [libvirt](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/roles/libvirt/defaults/main.yml)
 
 The `setup-playbook.yml` is composed by 3 roles, which are detailed below:
 
@@ -566,7 +566,7 @@ The `setup-playbook.yml` is composed by 3 roles, which are detailed below:
 >
 > This role sets up the virtual hardware and network configuration of
 > the VMs. Actually it is a
-> [dependency](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/roles/libvirt/meta/main.yml)
+> [dependency](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/roles/libvirt/meta/main.yml)
 > of the `libvirt` and `virtbmc` Ansible roles. This means that the
 > `common` role must always be executed before the roles that depend on
 > them. Also, they are only executed once. If two roles state the same
@@ -703,7 +703,7 @@ baremetal: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
 ```
 
 Next, an Ansible role called
-[firewall](https://github.com/metal3-io/metal3-dev-env/blob/master/vm-setup/firewall.yml)
+[firewall](https://github.com/metal3-io/metal3-dev-env/blob/main/vm-setup/firewall.yml)
 will be executed targeting the host to be sure that the proper ports
 are opened. In case your host is running `Red Hat Enterprise Linux` or
 `CentOS 8`, firewall module will be used. In any other case, iptables
@@ -866,15 +866,15 @@ is master, however, this and other variables shown in the following
 table can be replaced in the config file:
 
 ```sh
-+ BMOREPO=https://github.com/metal3-io/baremetal-operator.git
++ BMOREPO=https://github.com/metal3-io/baremetal-operator
 + BMOBRANCH=master
 ```
 
 | **Name of the variable** | **Default value**                                               | **Options**          |
 | ------------------------ | --------------------------------------------------------------- | -------------------- |
-| BMOREPO                  | <https://github.com/metal3-io/baremetal-operator.git>             | |
+| BMOREPO                  | <https://github.com/metal3-io/baremetal-operator>             | |
 | BMOBRANCH                | master                                                          | |
-| CAPBMREPO                | <https://github.com/metal3-io/cluster-api-provider-baremetal.git> | |
+| CAPBMREPO                | <https://github.com/metal3-io/cluster-api-provider-baremetal> | |
 | CAPM3_VERSION            | v1alpha3                                                        | v1alpha4 or v1alpha3 |
 | FORCE_REPO_UPDATE        | false                                                           | |
 | BMO_RUN_LOCAL            | false                                                           | |
@@ -973,7 +973,7 @@ the files into the management cluster.
 > Note that installing `CAPBM` includes installing the components of the
 > [Cluster API](https://github.com/kubernetes-sigs/cluster-api) and the
 > components of the [Cluster API bootstrap provider
-> kubeadm](https://github.com/kubernetes-sigs/cluster-api/tree/master/bootstrap/kubeadm)
+> kubeadm](https://github.com/kubernetes-sigs/cluster-api/tree/main/bootstrap/kubeadm)
 > (CABPK)
 
 Below the objects are created through the `generate.sh` script:
