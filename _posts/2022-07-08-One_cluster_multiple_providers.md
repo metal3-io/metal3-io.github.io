@@ -110,8 +110,6 @@ just need to run the BYOH agent in the VM to make it register as a
 ByoHost in the management cluster. The BYOH agent needs a kubeconfig
 file to do this, so we start by copying it to the VM:
 
-<!-- markdownlint-disable MD013 -->
-
 ```bash
 {%- comment -%}
 Raw is needed to escape the double curly braces.
@@ -126,11 +124,7 @@ scp -i .vagrant/machines/control-plane1/libvirt/private_key \
 {% endraw %}
 ```
 
-<!-- markdownlint-enable MD013 -->
-
 Next, install the prerequisites and host agent in the VM and run it.
-
-<!-- markdownlint-enable MD013 -->
 
 ```bash
 vagrant ssh
@@ -140,8 +134,6 @@ mv byoh-hostagent-linux-amd64 byoh-hostagent
 chmod +x byoh-hostagent
 sudo ./byoh-hostagent --namespace metal3 --kubeconfig management-cluster.conf
 ```
-
-<!-- markdownlint-disable MD013 -->
 
 You should now have a management cluster with both the Metal³ and BYOH
 providers installed, as well as two BareMetalHosts and one ByoHost.
