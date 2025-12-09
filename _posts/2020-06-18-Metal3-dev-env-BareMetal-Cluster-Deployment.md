@@ -58,8 +58,6 @@ first and then revisit this.
 A description of some of the files part of provisioning a cluster, in a
 centos-based environment:
 
-<!-- markdownlint-disable MD013 -->
-
 | Name                                                                                                                                            | Description                                                                       | Path                                                                                  |
 | ----------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | provisioning scripts                                                                                                                            | Scripts to trigger provisioning of cluster, control plane or worker               | `${metal3-dev-env}/scripts/provision/`                                                |
@@ -82,8 +80,6 @@ Here are some of the resources that are created as part of provisioning :
 | Metal3Machine         | Corresponding Metal3 resource for managing bare metal nodes, it's managed by a `Machine` resource                                                                                              |
 | Metal3MachineTemplate | Metal3 resource which acts as a template when creating a control plane or a worker node                                                                                                        |
 | KubeadmConfigTemplate | A template of `KubeadmConfig`, for Workers, used to generate KubeadmConfig when a new worker node is provisioned                                                                               |
-
-<!-- markdownlint-enable MD013 -->
 
 > note "Note"
 > The corresponding `KubeadmConfig` is copied to the control
@@ -459,11 +455,11 @@ sh ${metal3-dev-env-path}/scripts/deprovision/cluster.sh
 The following video demonstrates all the steps to provision and
 de-provision a Kubernetes cluster explained above.
 
-<!-- markdownlint-disable MD033 MD013 -->
+<!-- markdownlint-disable MD033 -->
 
 <iframe width="1110" height="625" style="height: 625px" src="https://www.youtube.com/embed/FzDQs_9XvtU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<!-- markdownlint-enable MD033 MD013 -->
+<!-- markdownlint-enable MD033 -->
 
 ## Summary
 

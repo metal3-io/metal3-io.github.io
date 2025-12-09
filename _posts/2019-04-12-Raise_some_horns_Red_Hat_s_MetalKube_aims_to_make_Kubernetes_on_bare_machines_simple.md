@@ -16,11 +16,7 @@ categories:
 author: Pedro Ibáñez Requena
 ---
 
-<!-- markdownlint-disable MD013 -->
-
 ## The Register; Raise some horns: Red Hat's Metal³ aims to make Kubernetes on bare machines simple
-
-<!-- markdownlint-enable MD013 -->
 
 [Max Smolaks](https://www.theregister.com/Author/Max-Smolaks) talks in
 this article about the OpenInfra Days in the UK, 2019: where Metal³ was
