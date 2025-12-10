@@ -14,3 +14,4 @@ node_modules
 
 # Development containers (https://containers.dev/)
 .devcontainer
+.claude
