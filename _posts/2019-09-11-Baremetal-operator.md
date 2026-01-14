@@ -8,7 +8,7 @@ author: Pablo Iranzo Gómez
 
 ## Introduction
 
-The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), documented at <https://github.com/metal3-io/baremetal-operator/blob/main/docs/api.md>, it's the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.
+The [baremetal operator](https://github.com/metal3-io/baremetal-operator/), documented [here](https://github.com/metal3-io/baremetal-operator/blob/main/docs/api.md), it's the Operator in charge of definitions of physical hosts, containing information about how to reach the Out of Band management controller, URL with the desired image to provision, plus other properties related with hosts being used for provisioning instances.
 
 Quoting from the project:
 
