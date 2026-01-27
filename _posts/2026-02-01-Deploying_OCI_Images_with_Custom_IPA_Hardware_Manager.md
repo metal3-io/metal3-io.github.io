@@ -36,7 +36,7 @@ allows you to:
 
 - Use standard container images from any registry
 - Avoid maintaining custom disk images
-- Easily switch between OS versions by changing an annotation
+- Easily switch between OS versions by updating `spec.image.url`
 - Get RAID1 redundancy with minimal configuration
 
 ## Introducing the deb_oci_efi_lvm Hardware Manager
@@ -61,9 +61,19 @@ provides:
 ## How It Works
 
 The deployment process extracts an OCI image using Google's `crane` tool,
-then installs the necessary boot infrastructure on top. The default image
-is `ubuntu:24.04`, but any Debian-based image can be specified via an
-annotation on the BareMetalHost object.
+then installs the necessary boot infrastructure on top. The hardware
+manager supports three methods for specifying the OCI image (in priority
+order):
+
+1. `spec.image.url` with `oci://` prefix (e.g., `oci://debian:12`)
+2. Configdrive metadata annotation `bmh.metal3.io/oci_image`
+3. Default fallback: `ubuntu:24.04`
+
+Root device hints can be specified using either standard BareMetalHost
+`rootDeviceHints` fields or a simplified format via the
+`bmh.metal3.io/root_device_hints` annotation (e.g., `serial=ABC123` or
+`wwn=0x123456`). For RAID1 configurations, provide two space-separated
+values (e.g., `serial=ABC123 DEF456`).
 
 > **Note:** Alternatively, `podman` can be used instead of `crane` for OCI
 > image extraction, as it is readily available in CentOS Stream 9 and also
@@ -72,15 +82,17 @@ annotation on the BareMetalHost object.
 
 The hardware manager performs these steps during deployment:
 
-1. **Resolve target disks** from root device hints (serial number or WWN)
-2. **Clean existing data** - Remove old partitions, RAID arrays, and LVM
-3. **Partition disks** - Create 2GB EFI partition and LVM partition
-   (with RAID1 if two disks are specified via root device hints)
-4. **Create filesystems** - FAT32 for EFI, ext4 for root LV
-5. **Extract OCI image** - Use `crane export` piped to `tar` for rootfs
-6. **Install packages** - Add cloud-init, GRUB, kernel, mdadm, lvm2
-7. **Configure boot** - Set up GRUB, initramfs, and fstab
-8. **Install bootloader** - GRUB to both EFI partitions for RAID1
+1. **Resolve OCI image** - Check `image_source`, configdrive, or use default
+2. **Resolve target disks** - Parse root device hints (serial or WWN)
+3. **Clean existing data** - Wipe partitions, RAID arrays, and LVM based on
+   disk wipe mode (`all` for RAID1, `target` for single disk by default)
+4. **Partition disks** - Create 2GB EFI partition and LVM partition
+   (with RAID1 if two disks are specified)
+5. **Create filesystems** - FAT32 for EFI, ext4 for root LV
+6. **Extract OCI image** - Use `crane export` piped to `tar` for rootfs
+7. **Install packages** - Add cloud-init, GRUB, kernel, mdadm, lvm2
+8. **Configure boot** - Set up GRUB, initramfs, and fstab
+9. **Install bootloader** - GRUB to both EFI partitions for RAID1
 
 ### Disk Layout
 
@@ -116,26 +128,43 @@ kind: BareMetalHost
 metadata:
   name: my-server
   namespace: metal3
-  annotations:
-    # Optional: only needed to override the default ubuntu:24.04 image
-    bmh.metal3.io/oci_image: "debian:12"
 spec:
   online: true
   bootMode: UEFI
+  # Preferred method: Use spec.image.url with oci:// prefix
+  image:
+    url: "oci://debian:12"
   rootDeviceHints:
     serialNumber: "DISK_SERIAL_NUMBER"
 ```
 
-> **Note:** With newer versions of the BareMetalOperator, you can also pass
-> the OCI image reference via `spec.image.url` instead of using annotations.
-> This approach requires modifications to the hardware manager code to read
-> data from `spec.image` instead of the annotation. See
-> [metal3-io/baremetal-operator@0d9fc3a](https://github.com/metal3-io/baremetal-operator/commit/0d9fc3a)
-> for details.
->
-> **Tip:** Alternatively, you can pass the OCI image reference via
-> Metal3DataTemplate's `metaData` section instead of using BareMetalHost
-> annotations.
+Alternatively, you can use annotations or simplified hint formats:
+
+```yaml
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  name: my-server-alt
+  namespace: metal3
+  annotations:
+    # Alternative: Override default ubuntu:24.04 via annotation
+    bmh.metal3.io/oci_image: "debian:12"
+    # Alternative: Use simplified hint format
+    bmh.metal3.io/root_device_hints: "serial=DISK_SERIAL_NUMBER"
+spec:
+  online: true
+  bootMode: UEFI
+```
+
+The hardware manager supports three methods for specifying the OCI image
+(in priority order):
+
+1. **spec.image.url** with `oci://` prefix (highest priority, recommended)
+2. **Annotation** `bmh.metal3.io/oci_image` passed via Metal3DataTemplate
+3. **Default** `ubuntu:24.04` (fallback)
+
+Root device hints support both standard format (`serialNumber: "ABC123"`)
+and simplified format via annotation (`bmh.metal3.io/root_device_hints: "serial=ABC123"`).
 
 ```yaml
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -155,7 +184,9 @@ spec:
 ### RAID1 Configuration
 
 For production deployments requiring disk redundancy, specify two disk
-serial numbers separated by a space:
+serial numbers. The hardware manager supports multiple formats:
+
+#### Method 1: Standard format with space-separated values
 
 ```yaml
 apiVersion: metal3.io/v1alpha1
@@ -163,15 +194,31 @@ kind: BareMetalHost
 metadata:
   name: my-ha-server
   namespace: metal3
-  annotations:
-    # Optional: only needed to override the default ubuntu:24.04 image
-    bmh.metal3.io/oci_image: "debian:13"
 spec:
   online: true
   bootMode: UEFI
+  image:
+    url: "oci://debian:13"
   rootDeviceHints:
     # Two space-separated serial numbers enable RAID1
     serialNumber: "DISK1_SERIAL DISK2_SERIAL"
+```
+
+#### Method 2: Simplified format via annotation
+
+```yaml
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  name: my-ha-server-alt
+  namespace: metal3
+  annotations:
+    bmh.metal3.io/oci_image: "debian:13"
+    # Simplified RAID1 hint format
+    bmh.metal3.io/root_device_hints: "serial=DISK1_SERIAL DISK2_SERIAL"
+spec:
+  online: true
+  bootMode: UEFI
 ```
 
 With RAID1 enabled, the hardware manager will:
@@ -182,10 +229,42 @@ With RAID1 enabled, the hardware manager will:
 - Install GRUB to both EFI partitions
 - Configure a GRUB update hook to sync EFI partitions via rsync
 
+### Disk Wipe Mode Configuration
+
+By default, the hardware manager wipes all block devices for RAID1
+configurations (to prevent stray RAID/LVM metadata issues) and only target
+disks for single-disk setups. You can override this behavior:
+
+```yaml
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  name: my-server
+  namespace: metal3
+  annotations:
+    # Control disk cleaning behavior
+    # "all" - Wipe all block devices (recommended for RAID1)
+    # "target" - Wipe only target disk(s) from root device hints
+    bmh.metal3.io/disk_wipe_mode: "all"
+spec:
+  online: true
+  bootMode: UEFI
+  image:
+    url: "oci://ubuntu:24.04"
+  rootDeviceHints:
+    serialNumber: "DISK_SERIAL_NUMBER"
+```
+
+The `disk_wipe_mode` annotation is useful when:
+
+- You have multiple disks and want to ensure clean RAID/LVM state (`all`)
+- You want to preserve data on non-target disks (`target`)
+- You're migrating from a previous RAID configuration
+
 ### Metal3DataTemplate Configuration
 
-To pass the OCI image annotation to the configdrive, configure your
-Metal3DataTemplate:
+When using annotations (instead of `spec.image.url`), configure your
+Metal3DataTemplate to pass them to the configdrive:
 
 ```yaml
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
@@ -197,9 +276,18 @@ spec:
   clusterName: my-cluster
   metaData:
     fromAnnotations:
+    # Optional: Pass OCI image annotation (only if not using spec.image.url)
     - key: oci_image
       object: baremetalhost
       annotation: "bmh.metal3.io/oci_image"
+    # Optional: Pass simplified root device hint
+    - key: root_device_hints
+      object: baremetalhost
+      annotation: "bmh.metal3.io/root_device_hints"
+    # Optional: Pass disk wipe mode
+    - key: disk_wipe_mode
+      object: baremetalhost
+      annotation: "bmh.metal3.io/disk_wipe_mode"
     objectNames:
     - key: name
       object: machine
@@ -232,6 +320,11 @@ spec:
       dns:
       - 8.8.8.8
 ```
+
+> **Note:** When using `spec.image.url` with the `oci://` prefix, you don't
+> need to pass the `oci_image` annotation through Metal3DataTemplate. The
+> hardware manager reads directly from `instance_info.image_source`. This is
+> the recommended approach for newer deployments.
 
 ## Building an IPA Image with the Hardware Manager
 
@@ -702,17 +795,86 @@ def get_configdrive_data(node):
 </details>
 
 <details>
-<summary>get_root_device_hints</summary>
+<summary>parse_prefixed_hint_string</summary>
 
-Extracts root device hints from node's `instance_info`.
+Parses simplified hint format like `serial=ABC123` or `wwn=0x123456` into
+IPA hint dictionary format. Supports RAID1 with space-separated values.
 
 ```python
-def get_root_device_hints(node):
-    """Extract root_device hints from node instance_info.
+def parse_prefixed_hint_string(hint_string):
+    """Parse a prefixed hint string into a hints dictionary.
+
+    Supports simplified format for cloud-init/annotation use cases:
+    - 'serial=ABC123' -> {'serial': 's== ABC123'}
+    - 'wwn=0x123456' -> {'wwn': 's== 0x123456'}
+    - 'serial=ABC123 DEF456' -> {'serial': 's== ABC123 DEF456'} (RAID1)
+    - 'wwn=0x123 0x456' -> {'wwn': 's== 0x123 0x456'} (RAID1)
+
+    :param hint_string: String with format 'hint_type=value1 [value2]'
+    :returns: Dictionary containing root_device hints
+    :raises: ValueError if format is invalid
+    """
+    if not hint_string or not isinstance(hint_string, str):
+        raise ValueError("Hint string must be a non-empty string")
+
+    hint_string = hint_string.strip()
+    if "=" not in hint_string:
+        raise ValueError(
+            'Hint string must contain "=" separator. '
+            'Expected format: "serial=VALUE" or "wwn=VALUE"'
+        )
+
+    # Split on first equals only
+    parts = hint_string.split("=", 1)
+    if len(parts) != 2:
+        raise ValueError("Invalid hint string format")
+
+    hint_type = parts[0].strip().lower()
+    hint_values = parts[1].strip()
+
+    if hint_type not in ("serial", "wwn"):
+        raise ValueError(
+            f'Unsupported hint type "{hint_type}". '
+            'Only "serial" and "wwn" are supported.'
+        )
+
+    if not hint_values:
+        raise ValueError(f"No value provided for {hint_type} hint")
+
+    # Add s== operator prefix (string equality)
+    hint_with_operator = f"s== {hint_values}"
+
+    LOG.info(
+        'Parsed prefixed hint string "%s" -> {"%s": "%s"}',
+        hint_string,
+        hint_type,
+        hint_with_operator,
+    )
+
+    return {hint_type: hint_with_operator}
+```
+
+</details>
+
+<details>
+<summary>get_root_device_hints</summary>
+
+Extracts root device hints from configdrive annotation or node's
+`instance_info`. Supports both simplified string format
+(`serial=ABC123`) and standard dictionary format.
+
+```python
+def get_root_device_hints(node, configdrive_data):
+    """Extract root_device hints from node instance_info or annotation.
+
+    Priority order:
+    1. configdrive meta_data.root_device_hints (prefixed string format)
+    2. node.instance_info.root_device (dict format with operators)
 
     :param node: Node dictionary containing instance_info
+    :param configdrive_data: Configdrive dictionary
     :returns: Dictionary containing root_device hints
-    :raises: ValueError if node is invalid or root_device is missing
+    :raises: ValueError if node is invalid or root_device not found anywhere
     """
     if node is None:
         raise ValueError("Node cannot be None")
@@ -723,15 +885,32 @@ def get_root_device_hints(node):
     if not isinstance(instance_info, dict):
         raise ValueError("instance_info must be a dictionary")
 
+    # Check annotation first (via configdrive metadata)
+    meta_data = configdrive_data.get("meta_data", {})
+    annotation_hints = meta_data.get("root_device_hints")
+
+    if annotation_hints is not None:
+        # Annotations use prefixed string format only
+        if not isinstance(annotation_hints, str):
+            raise ValueError(
+                "root_device_hints from annotation must be a string "
+                'in format "serial=VALUE" or "wwn=VALUE"'
+            )
+
+        parsed_hints = parse_prefixed_hint_string(annotation_hints)
+        LOG.info("Using root_device hints from annotation: %s", parsed_hints)
+        return parsed_hints
+
+    # Fall back to instance_info
     root_device = instance_info.get("root_device")
-    if root_device is None:
-        raise ValueError("root_device not found in instance_info")
+    if root_device is not None:
+        if not isinstance(root_device, dict):
+            raise ValueError("root_device must be a dictionary")
+        LOG.info("Using root_device hints from instance_info: %s", root_device)
+        return root_device
 
-    if not isinstance(root_device, dict):
-        raise ValueError("root_device must be a dictionary")
-
-    LOG.info("Extracted root_device hints: %s", root_device)
-    return root_device
+    # Neither source provided root_device hints
+    raise ValueError("root_device hints not found in instance_info or annotation")
 ```
 
 </details>
@@ -890,21 +1069,96 @@ def resolve_root_devices(root_device_hints):
 <details>
 <summary>get_oci_image</summary>
 
-Gets OCI image reference from configdrive metadata, defaults to
-`ubuntu:24.04`.
+Gets OCI image reference with priority: `spec.image.url` (with `oci://`
+prefix) > configdrive annotation > default `ubuntu:24.04`.
 
 ```python
-def get_oci_image(configdrive_data):
-    """Get OCI image from metadata or use default.
+def get_oci_image(node, configdrive_data):
+    """Get OCI image from instance_info, metadata, or use default.
+
+    Priority order:
+    1. node.instance_info.image_source with oci:// prefix
+    2. configdrive meta_data.oci_image (from annotation)
+    3. DEFAULT_OCI_IMAGE
+
+    :param node: Node dictionary containing instance_info
+    :param configdrive_data: Configdrive dictionary
+    :returns: OCI image reference string (without oci:// prefix)
+    """
+    oci_image = None
+
+    # Check instance_info first
+    instance_info = node.get("instance_info", {})
+    image_source = instance_info.get("image_source", "").strip()
+
+    if image_source.startswith("oci://"):
+        oci_image = image_source.removeprefix("oci://").strip()
+        if not oci_image:
+            LOG.warning(
+                "Empty OCI image after stripping oci:// prefix, "
+                "falling back to annotation/default"
+            )
+            oci_image = None
+        else:
+            LOG.info("Using OCI image from instance_info: %s", oci_image)
+    else:
+        # Fall back to annotation (via configdrive metadata)
+        meta_data = configdrive_data.get("meta_data", {})
+        annotation_image = (meta_data.get("oci_image") or "").strip()
+
+        if annotation_image:
+            oci_image = annotation_image
+            LOG.info("Using OCI image from annotation: %s", oci_image)
+        else:
+            # Fall back to default
+            oci_image = DEFAULT_OCI_IMAGE
+            LOG.info("Using default OCI image: %s", oci_image)
+
+    return oci_image
+```
+
+</details>
+
+<details>
+<summary>get_disk_wipe_mode</summary>
+
+Determines disk cleaning behavior based on annotation or setup type. Returns
+`all` to wipe all block devices (default for RAID1) or `target` to wipe only
+specified disks (default for single disk).
+
+```python
+def get_disk_wipe_mode(configdrive_data, is_raid):
+    """Get disk wipe mode from configdrive or use default based on setup.
+
+    Priority order:
+    1. configdrive meta_data.disk_wipe_mode (from annotation)
+    2. Default: "all" for RAID1, "target" for single disk
 
     :param configdrive_data: Configdrive dictionary
-    :returns: OCI image reference string
+    :param is_raid: Boolean indicating if this is a RAID setup
+    :returns: String "all" or "target"
+    :raises: ValueError if disk_wipe_mode has invalid value
     """
     meta_data = configdrive_data.get("meta_data", {})
-    oci_image = (meta_data.get("oci_image") or "").strip() or DEFAULT_OCI_IMAGE
+    wipe_mode = (meta_data.get("disk_wipe_mode") or "").strip().lower()
 
-    LOG.info("Using OCI image: %s", oci_image)
-    return oci_image
+    if wipe_mode:
+        if wipe_mode not in ("all", "target"):
+            raise ValueError(
+                f'Invalid disk_wipe_mode "{wipe_mode}". '
+                'Valid values are: "all", "target"'
+            )
+        LOG.info("Using disk wipe mode from annotation: %s", wipe_mode)
+        return wipe_mode
+
+    # Use default based on setup type
+    default_mode = "all" if is_raid else "target"
+    LOG.info(
+        "Using default disk wipe mode for %s setup: %s",
+        "RAID1" if is_raid else "single disk",
+        default_mode,
+    )
+    return default_mode
 ```
 
 </details>
@@ -1115,10 +1369,68 @@ def clean_device(device):
 </details>
 
 <details>
+<summary>clean_all_devices</summary>
+
+Cleans all block devices on the system to remove stray RAID/LVM metadata.
+Useful when `disk_wipe_mode` is set to `all` (default for RAID1 setups).
+
+```python
+def clean_all_devices():
+    """Clean all block devices to remove stray RAID/LVM metadata.
+
+    Useful for nodes that may have multiple disks with old metadata
+    from previous deployments.
+    """
+    LOG.info("Cleaning all block devices on the system")
+
+    try:
+        devices = hardware.list_all_block_devices()
+        LOG.info("Found %d block devices to clean", len(devices))
+
+        for device_obj in devices:
+            device = device_obj.name
+            try:
+                clean_device(device)
+            except Exception as e:
+                LOG.warning("Error cleaning device %s: %s", device, e)
+
+        LOG.info("Finished cleaning all block devices")
+    except Exception as e:
+        LOG.error("Error listing block devices: %s", e)
+```
+
+</details>
+
+<details>
+<summary>clean_partition_signatures</summary>
+
+Cleans RAID, LVM, and filesystem signatures from a partition without
+removing the partition itself. Used internally by `partition_disk()` to
+clean partitions before creating RAID arrays, ensuring no stray metadata
+causes issues.
+
+```python
+def clean_partition_signatures(partition):
+    """Clean RAID, LVM, and filesystem signatures from a partition.
+
+    Does not remove the partition itself, only metadata/signatures.
+
+    :param partition: Partition path to clean
+    """
+    LOG.debug("Cleaning signatures from partition: %s", partition)
+    run_command(["pvremove", "-ff", "-y", partition], check=False)
+    run_command(["wipefs", "--all", "--force", partition], check=False)
+    run_command(["mdadm", "--zero-superblock", "--force", partition], check=False)
+```
+
+</details>
+
+<details>
 <summary>partition_disk</summary>
 
 Creates GPT partition table with EFI and LVM partitions. Sets up RAID1
-array if second device is provided.
+array if second device is provided. Calls `clean_partition_signatures()`
+before RAID creation to ensure clean metadata.
 
 ```python
 def partition_disk(
@@ -1222,6 +1534,11 @@ def partition_disk(
 
         if not homehost:
             raise RuntimeError("homehost required for RAID configuration")
+
+        # Clean new partitions before creating RAID
+        LOG.info("Cleaning partition signatures before RAID creation")
+        clean_partition_signatures(data_partition)
+        clean_partition_signatures(second_data_partition)
 
         # Create RAID array
         run_command(
@@ -1947,7 +2264,7 @@ class DebOCIEFILVMHardwareManager(hardware.HardwareManager):
         try:
             # Extract configuration from node
             configdrive_data = get_configdrive_data(node)
-            root_device_hints = get_root_device_hints(node)
+            root_device_hints = get_root_device_hints(node, configdrive_data)
             resolved_devices = resolve_root_devices(root_device_hints)
             meta_data = configdrive_data.get("meta_data", {})
             metal3_name = meta_data.get("metal3-name")
@@ -1965,19 +2282,30 @@ class DebOCIEFILVMHardwareManager(hardware.HardwareManager):
                 )
 
             # Get OCI image and architecture-specific configuration
-            oci_image = get_oci_image(configdrive_data)
+            oci_image = get_oci_image(node, configdrive_data)
             arch_config = get_architecture_config(oci_image)
             LOG.info(
                 "DebOCIEFILVMHardwareManager: " "architecture config: %s", arch_config
             )
 
-            # Clean devices
-            wait_for_device(root_device_path)
-            clean_device(root_device_path)
+            # Get disk wipe mode
+            is_raid_setup = second_device is not None
+            wipe_mode = get_disk_wipe_mode(configdrive_data, is_raid_setup)
 
-            if second_device:
-                wait_for_device(second_device)
-                clean_device(second_device)
+            # Clean devices based on wipe mode
+            if wipe_mode == "all":
+                LOG.info("Cleaning all block devices (wipe_mode: all)")
+                clean_all_devices()
+                wait_for_device(root_device_path)
+                if second_device:
+                    wait_for_device(second_device)
+            else:  # wipe_mode == 'target'
+                LOG.info("Cleaning only target device(s) (wipe_mode: target)")
+                wait_for_device(root_device_path)
+                clean_device(root_device_path)
+                if second_device:
+                    wait_for_device(second_device)
+                    clean_device(second_device)
 
             # Partition disk
             is_raid, pv_device = partition_disk(
@@ -2221,6 +2549,12 @@ steps can extend Ironic's capabilities beyond traditional image-based
 deployments. The source code and GitHub Actions for building custom IPA
 images are available at
 [s3rj1k/ironic-python-agent](https://github.com/s3rj1k/ironic-python-agent/tree/custom_deploy).
+
+## Future Improvements
+
+A potential enhancement could add native support for converting OpenStack
+`network_data.json` format to cloud-init v1 network configuration during
+deployment.
 
 ## References
 
