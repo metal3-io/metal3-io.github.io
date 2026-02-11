@@ -26,7 +26,7 @@ and configurations. This approach has some drawbacks:
 
 1. **Image building complexity** - Building and maintaining OS disk
    images is not as trivial as creating container images
-2. **Software RAID limitations** - Image-based deployments with mdadm
+1. **Software RAID limitations** - Image-based deployments with mdadm
    RAID and EFI boot require workarounds
 
 What if we could leverage the container ecosystem instead? Container
@@ -66,8 +66,8 @@ manager supports three methods for specifying the OCI image (in priority
 order):
 
 1. `spec.image.url` with `oci://` prefix (e.g., `oci://debian:12`)
-2. Configdrive metadata annotation `bmh.metal3.io/oci_image`
-3. Default fallback: `ubuntu:24.04`
+1. Configdrive metadata annotation `bmh.metal3.io/oci_image`
+1. Default fallback: `ubuntu:24.04`
 
 Root device hints can be specified using either standard BareMetalHost
 `rootDeviceHints` fields or a simplified format via the
@@ -83,16 +83,16 @@ values (e.g., `serial=ABC123 DEF456`).
 The hardware manager performs these steps during deployment:
 
 1. **Resolve OCI image** - Check `image_source`, configdrive, or use default
-2. **Resolve target disks** - Parse root device hints (serial or WWN)
-3. **Clean existing data** - Wipe partitions, RAID arrays, and LVM based on
+1. **Resolve target disks** - Parse root device hints (serial or WWN)
+1. **Clean existing data** - Wipe partitions, RAID arrays, and LVM based on
    disk wipe mode (`all` for RAID1, `target` for single disk by default)
-4. **Partition disks** - Create 2GB EFI partition and LVM partition
+1. **Partition disks** - Create 2GB EFI partition and LVM partition
    (with RAID1 if two disks are specified)
-5. **Create filesystems** - FAT32 for EFI, ext4 for root LV
-6. **Extract OCI image** - Use `crane export` piped to `tar` for rootfs
-7. **Install packages** - Add cloud-init, GRUB, kernel, mdadm, lvm2
-8. **Configure boot** - Set up GRUB, initramfs, and fstab
-9. **Install bootloader** - GRUB to both EFI partitions for RAID1
+1. **Create filesystems** - FAT32 for EFI, ext4 for root LV
+1. **Extract OCI image** - Use `crane export` piped to `tar` for rootfs
+1. **Install packages** - Add cloud-init, GRUB, kernel, mdadm, lvm2
+1. **Configure boot** - Set up GRUB, initramfs, and fstab
+1. **Install bootloader** - GRUB to both EFI partitions for RAID1
 
 ### Disk Layout
 
@@ -160,8 +160,8 @@ The hardware manager supports three methods for specifying the OCI image
 (in priority order):
 
 1. **spec.image.url** with `oci://` prefix (highest priority, recommended)
-2. **Annotation** `bmh.metal3.io/oci_image` passed via Metal3DataTemplate
-3. **Default** `ubuntu:24.04` (fallback)
+1. **Annotation** `bmh.metal3.io/oci_image` passed via Metal3DataTemplate
+1. **Default** `ubuntu:24.04` (fallback)
 
 Root device hints support both standard format (`serialNumber: "ABC123"`)
 and simplified format via annotation (`bmh.metal3.io/root_device_hints: "serial=ABC123"`).
@@ -869,7 +869,7 @@ def get_root_device_hints(node, configdrive_data):
 
     Priority order:
     1. configdrive meta_data.root_device_hints (prefixed string format)
-    2. node.instance_info.root_device (dict format with operators)
+    1. node.instance_info.root_device (dict format with operators)
 
     :param node: Node dictionary containing instance_info
     :param configdrive_data: Configdrive dictionary
@@ -1078,8 +1078,8 @@ def get_oci_image(node, configdrive_data):
 
     Priority order:
     1. node.instance_info.image_source with oci:// prefix
-    2. configdrive meta_data.oci_image (from annotation)
-    3. DEFAULT_OCI_IMAGE
+    1. configdrive meta_data.oci_image (from annotation)
+    1. DEFAULT_OCI_IMAGE
 
     :param node: Node dictionary containing instance_info
     :param configdrive_data: Configdrive dictionary
@@ -1132,7 +1132,7 @@ def get_disk_wipe_mode(configdrive_data, is_raid):
 
     Priority order:
     1. configdrive meta_data.disk_wipe_mode (from annotation)
-    2. Default: "all" for RAID1, "target" for single disk
+    1. Default: "all" for RAID1, "target" for single disk
 
     :param configdrive_data: Configdrive dictionary
     :param is_raid: Boolean indicating if this is a RAID setup
@@ -2535,11 +2535,11 @@ custom deploy framework is flexible and allows implementing alternative
 hardware managers with different capabilities.
 
 1. **EFI only** - This implementation requires UEFI boot mode
-2. **Debian-based only** - The package installation assumes `apt` is
+1. **Debian-based only** - The package installation assumes `apt` is
    available
-3. **Network required** - The IPA needs network access to pull OCI
+1. **Network required** - The IPA needs network access to pull OCI
    images from registries and install packages in target system
-4. **Root device hints** - Only `serial` and `wwn` hints are supported
+1. **Root device hints** - Only `serial` and `wwn` hints are supported
    for disk selection
 
 ## Conclusion
