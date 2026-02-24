@@ -49,7 +49,7 @@ The BYOH provider was chosen as the second provider for two reasons:
 1. Due to its design (you provision the host yourself), it is very easy
    to adapt it to the test (e.g. use a VM in the same network that the
    metal3-dev-env uses).
-2. It is one of the providers that is known to work when combining
+1. It is one of the providers that is known to work when combining
    multiple providers for a single cluster.
 
 We will be using the
@@ -631,5 +631,5 @@ API would be the following:
 
 1. Make the `cluster.infrastructureRef` into a list to allow multiple
    infrastructure providers to be registered.
-2. Drop the assumption that there will always be control plane Machines
+1. Drop the assumption that there will always be control plane Machines
    and Nodes (e.g. by implementing a new control plane provider).
