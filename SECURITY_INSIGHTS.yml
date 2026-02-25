@@ -1,0 +1,40 @@
+header:
+  schema-version: 2.2.0
+  last-updated: '2026-02-24'
+  last-reviewed: '2026-02-24'
+  url: https://raw.githubusercontent.com/metal3-io/metal3-io.github.io/main/SECURITY_INSIGHTS.yml
+  project-si-source: https://raw.githubusercontent.com/metal3-io/community/main/SECURITY_INSIGHTS.yml
+repository:
+  url: https://github.com/metal3-io/metal3-io.github.io
+  status: active
+  accepts-change-request: true
+  accepts-automated-change-request: true
+  core-team:
+  - name: dtantsur
+    primary: false
+  - name: elfosardo
+    primary: false
+  - name: hroyrh
+    primary: false
+  - name: kashifest
+    primary: false
+  - name: lentzi90
+    primary: true
+  - name: Rozzii
+    primary: false
+  - name: zaneb
+    primary: false
+  documentation:
+    contributing-guide: https://github.com/metal3-io/community/blob/main/CONTRIBUTING.md
+    security-policy: https://github.com/metal3-io/.github/blob/main/SECURITY.md
+    governance: https://github.com/metal3-io/community/blob/main/GOVERNANCE.md
+  license:
+    url: https://github.com/metal3-io/metal3-io.github.io/blob/main/LICENSE
+    expression: MIT
+  security:
+    assessments:
+      self:
+        name: Metal3 Security Self-Assessment
+        date: '2024-11-19'
+        evidence: https://github.com/metal3-io/metal3-docs/blob/main/security/self-assessment.md
+        comment: Project-wide self-assessment covering all Metal3 components.
