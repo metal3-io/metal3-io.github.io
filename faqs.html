@@ -1,0 +1,681 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>FAQs | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="The Metal³ - Metal Kubed website team, " >
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, openstack, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, cluster-api, provider, raw-image, image-streaming, ipam, ip-address-manager, pivoting, move, scaling, cncf, community, announcement, ipa, oci, deployment, bare-metal, " >
+    <meta property="og:title" content="FAQs | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/faqs.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
+    <meta property="og:article:published_time" content="2026-02-27 18:29:37 -0600" >
+    <meta name="twitter:title" content="FAQs | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <div role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        </div>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io">Documentation</a></li>
+          <li ><a class="mk-main-nav__item" href="/contribute.html">Contribute</a></li>
+          <li ><a class="mk-main-nav__item" href="/faqs.html">FAQs</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io/developer_environment/tryit">Try It!</a></li>
+          <li  id="mk-main-nav__search">
+            <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+              </div>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="/assets/images/search.png" style="height: 20px;" alt="">
+              </button>
+                <div id="mode-toggle">
+                  <img src="/assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                </div>
+            </form>
+          </li>
+
+        </ul>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  let iconMode = document.getElementById("mode-icon")
+  let toggleMode = document.getElementById("mode-toggle")
+  let cncfImage = document.getElementById("cncf-image")
+let isToggled = localStorage.getItem("currentMode") === "true";
+updateMode();
+toggleMode.addEventListener("click", () => {
+  isToggled = !isToggled;
+  localStorage.setItem("currentMode", isToggled);
+  updateMode();
+});
+function updateMode() {
+  let mastHead = document.querySelector(".mk-masthead");
+  let h1 = document.querySelectorAll("h1")
+  let h2 = document.querySelectorAll("h2")
+  let h3 = document.querySelectorAll("h3")
+  let li = document.querySelectorAll("li")
+  let sections = document.querySelectorAll(".mk-main__section")
+  let body = document.querySelector("body")
+  let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let blogCards = document.querySelectorAll(".mk-blog-meta__card")
+  let questions = document.querySelectorAll(".mk-faqs__question")
+  let subHeadings = document.querySelectorAll(".mk-sub-heading")
+  let p = document.querySelectorAll("p")
+  if (isToggled) {
+
+    iconMode.src = "/assets/images/moon-outline.png";
+    cncfImage.src = "/assets/images/cncf-white.svg";
+    mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.color = "var(--mk--Color--200)";
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = "var(--mk--Color--200)"
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = "var(--mk--Color--200)"
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = "var(--mk--Color--200)"
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = "var(--mk--Color--200)"
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = "var(--mk--Color--200)"
+    })
+    whyCards.forEach((whyCard)=>{
+    whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
+      whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
+    })
+    questions.forEach((question)=>{
+      question.style.color = "var(--mk--Color--200)"
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+  } else {
+    iconMode.src = "/assets/images/moon.png";
+    cncfImage.src = "/assets/images/cncf-color.svg";
+    mastHead.style.backgroundColor = "";
+    body.style.backgroundColor = "";
+    body.style.color = "var(--mk--Color--400)";
+
+
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = ""
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = ""
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = ""
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--250)";
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = ""
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = ""
+    })
+    whyCards.forEach((whyCard)=>{
+      whyCard.querySelector("h3").style.color = ""
+      whyCard.style.backgroundColor = "white"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = ""
+    })
+    questions.forEach((question)=>{
+      question.style.color = ""
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+
+
+  }
+}
+})
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", "scaling", "cncf", "community", "announcement", "IPA", "OCI", "deployment", "bare metal", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+    <h1 class="mk-masthead__content--sub__title">Frequently Asked Questions</h1>
+    <p>Here are some answers to common questions, discover more about Metal<sup>3</sup></p>
+    </div>
+<section class="mk-faqs mk-main__section">
+    <div data-aria-faq data-multi data-transition data-default="none" id="accGen">
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is the baremetal operator?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Baremetal Operator is a Kubernetes controller providing support for
+several custom resources, most importantly - BareMetalHosts.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What kind of boot processes can be paired with specific BMC protocols?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Drivers with “virtual media” in their name can use the virtual media
+technology to boot an ISO remotely. The other drivers require network
+boot, more specifically - iPXE.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is Cluster API provider Metal3 (CAPM3)?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>CAPM3 is an
+<a href="https://cluster-api.sigs.k8s.io/user/concepts#infrastructure-provider">infrastructure provider</a>
+for the Cluster API that uses Metal3 and Ironic to provision machines
+for your cluster.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            How does Metal3 relate to Cluster API (CAPI)?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>The Metal3 project includes the Cluster API Provider Metal3 (CAPM3) - an
+infrastructure provider for Cluster API.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What CPU architectures are supported?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Both x86_64 (Intel) and AARCH64 (Arm) are supported. Mixed architectures
+(e.g. some hosts x86_64, some - aarch64) are not supported yet.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is IPMI?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>IPMI is the acronym for <code class="language-plaintext highlighter-rouge">Intelligent Platform Management Interface</code>
+which is used to monitor hardware health (fans, voltage, temperature,
+etc). The specification is available at
+<a href="https://www.intel.com/content/www/us/en/products/docs/servers/ipmi/ipmi-home.html">here</a>
+and was created by a joint effort by several manufacturers. It allows us
+to also define the boot order and power status of the hardware.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What kinds of operating systems can be installed?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>You can use any operating system that is available in a cloud format
+(e.g. qcow2). If you need first boot configuration, the image has to
+contain cloud-init or a similar first-boot tool.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            Does Metal3 support provisioners other than Ironic?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>While it’s technically possible to add more provisioners, only Ironic is
+supported now, and supporting other provisioners is not on the current
+roadmap.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            How can one supply network configuration during provisioning?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>You can put it to the BareMetalHost’s network Data field in the
+<a href="https://docs.openstack.org/nova/latest/_downloads/9119ca7ac90aa2990e762c08baea3a36/network_data.json">OpenStack network data format</a>.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            Ironic is developed as part of OpenStack, does Metal3 require OpenStack?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Ironic can be used as a stand-alone service without any other OpenStack
+services. In fact, Baremetal Operator does not support any other
+OpenStack services.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            Can I use my own operating system installer with Metal3?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>You can use the <a href="https://book.metal3.io/bmo/live-iso">live ISO workflow</a>
+to attach a bootable ISO to the machine using virtual media. Note that
+Baremetal Operator will not track the installation process in this case
+and will consider the host active once the ISO is booted.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is an out-of-band management controller?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Enterprise hardware usually has an integrated or optional controller
+that allows reaching the server even if it’s powered down, either via
+dedicated or shared nic. This controller allows some checks on the
+server hardware and also perform some settings like changing power
+status, changing Boot Order, etc. The Baremetal Operator uses it to
+power on, reboot and provision the physical servers to be used for
+running workloads on top. Commercial names include <code class="language-plaintext highlighter-rouge">iDrac</code>, <code class="language-plaintext highlighter-rouge">iLO</code>,
+<code class="language-plaintext highlighter-rouge">iRMC</code>, etc and most of them should support <code class="language-plaintext highlighter-rouge">IPMI</code>.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            Do I need to use the Metal3 with Cluster API or can I use Metal3 independently?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>It is completely optional to use Cluster API. You can use only the
+Baremetal Operator and skip CAPM3 completely if all you need is
+bare-metal provisioning via Kubernetes API.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is Ironic and how does Metal3 relate to it?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Ironic is a bare metal provisioner, it handles provisioning of physical
+machines. Metal3 exposes a part of the Ironic functionality as a
+Kubernetes native API via the Baremetal Operator. Ironic is not part of
+Metal3 but Metal3 relies on Ironic to provision the bare metal hosts.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is an operator?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>An Operator is a method of packaging, deploying and managing a
+Kubernetes application. A Kubernetes application is an application that
+is both deployed on Kubernetes and managed using the Kubernetes APIs and
+kubectl tooling. You can think of Operators as the runtime that manages
+this type of application on Kubernetes. If you want to learn more about
+Operators you can check the Operator framework website
+<a href="https://operatorframework.io/what/">https://operatorframework.io/what/</a></p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is cleaning? Can I disable it?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Cleaning removes partitioning information from the disks to avoid
+conflicts with the new operating system. See
+<a href="https://book.metal3.io/bmo/automated_cleaning">automated cleaning</a> for details.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is inspection? Can I disable it?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Inspection is used to populate hardware information in the BareMetalHost
+objects. You can <a href="https://book.metal3.io/bmo/external_inspection">disable it</a>,
+but you may need to populate this information yourself. Do not blindly
+disable inspection if it fails - chances are high the subsequent
+operations fail the same way.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is iPXE?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>The iPXE project develops firmware for booting machines over the
+network. It’s a more feature-rich alternative to the well known PXE and
+can be used as an add-on on top of PXE.</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            What is virtual media?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Virtual media is a technology that allows booting an ISO on a remote
+machine without resorting to network boot (e.g. PXE).</p>
+
+      </div>
+        
+        <h3 class="mk-heading--md" data-aria-faq-heading>
+            Why use Ironic?
+        </h3>
+        <div data-aria-faq-panel>
+          <p>Ironic is an established service with a long history of production usage
+and good support for industry standards. By using it, Metal3 can
+concentrate on providing the best integration with Kubernetes.</p>
+
+      </div>
+        
+    </div>
+    </section>
+
+
+
+    <script>
+
+        ! function(t, e, a) {
+            "use strict";
+            var r = {};
+            var i = "mk-faqs",
+                l = i + "__question",
+                n = i + "__answer",
+                o = "[data-aria-faq-heading]",
+                d = "[data-aria-faq-panel]",
+                c = 0;
+            r.create = function() {
+                var t, a, s, u, A, g, h = "none",
+                    b = e.querySelectorAll("[data-aria-faq]");
+                for (c += 1, g = 0; g < b.length; g++) {
+                    var f;
+                    if ((t = b[g]).hasAttribute("id") || (t.id = "acc_" + c + "-" + g), t.classList.add(i), e.querySelectorAll("#" + t.id + "> li").length ? (a = e.querySelectorAll("#" + t.id + " li > " + d), s = e.querySelectorAll("#" + t.id + " li > " + o)) : (a = e.querySelectorAll("#" + t.id + " > " + d), s = e.querySelectorAll("#" + t.id + " > " + o)), t.hasAttribute("data-default") && (h = t.getAttribute("data-default")), A = t.hasAttribute("data-constant"), t.hasAttribute("data-multi"), t.hasAttribute("data-transition")) {
+                        var y = t.querySelectorAll(d);
+                        for (f = 0; f < y.length; f++) y[f].classList.add(n + "--transition")
+                    }
+                    for (r.setupPanels(t.id, a, h, A), r.setupHeadingButton(s, A), u = e.querySelectorAll("#" + t.id + "> li").length ? e.querySelectorAll("#" + t.id + " li > " + o + " ." + l) : e.querySelectorAll("#" + t.id + " > " + o + " ." + l), f = 0; f < u.length; f++) u[f].addEventListener("click", r.actions), u[f].addEventListener("keydown", r.keytrolls)
+                }
+            }, r.setupPanels = function(t, e, a, r) {
+                var i, l, o, d, c;
+                for (i = 0; i < e.length; i++) o = t + "_panel_" + (i + 1), d = a, c = r, (l = e[i]).setAttribute("id", o), s(e[0], !0), l.classList.add(n), "none" !== d && NaN !== parseInt(d) && (d <= 1 ? s(e[0], !1) : d - 1 >= e.length ? s(e[e.length - 1], !1) : s(e[d - 1], !1)), (c && "none" === d || NaN === parseInt(d)) && s(e[0], !1)
+            }, r.setupHeadingButton = function(t, a) {
+                var r, i, n, o, d, c;
+                for (c = 0; c < t.length; c++) i = (r = t[c]).nextElementSibling.id, n = e.getElementById(i).getAttribute("aria-hidden"), o = e.createElement("button"), d = r.textContent, r.innerHTML = "", o.setAttribute("type", "button"), o.setAttribute("aria-controls", i), o.setAttribute("id", i + "_question"), o.classList.add(l), "false" === n ? (u(o, !0), g(o, !0), a && o.setAttribute("aria-disabled", "true")) : (u(o, !1), g(o, !1)), r.appendChild(o), o.appendChild(e.createTextNode(d))
+            }, r.actions = function(t) {
+                var a, i = this.id.replace(/_panel.*$/g, ""),
+                    n = e.getElementById(this.getAttribute("aria-controls"));
+                a = e.querySelectorAll("#" + i + "> li").length ? e.querySelectorAll("#" + i + " li > " + o + " ." + l) : e.querySelectorAll("#" + i + " > " + o + " ." + l), t.preventDefault(), r.togglePanel(t, i, n, a)
+            }, r.togglePanel = function(t, a, r, i) {
+                var l, n, o = t.target;
+                if ("true" !== o.getAttribute("aria-disabled") && (l = o.getAttribute("aria-controls"), g(o, "true"), "true" === o.getAttribute("aria-expanded") ? (u(o, "false"), s(r, "true")) : (u(o, "true"), s(r, "false"), e.getElementById(a).hasAttribute("data-constant") && A(o, "true")), e.getElementById(a).hasAttribute("data-constant") || !e.getElementById(a).hasAttribute("data-multi")))
+                    for (n = 0; n < i.length; n++) o !== i[n] && (g(i[n], "false"), l = i[n].getAttribute("aria-controls"), A(i[n], "false"), u(i[n], "false"), s(e.getElementById(l), "true"))
+            }, r.keytrolls = function(t) {
+                if (t.target.classList.contains(l)) {
+                    var a, r = t.keyCode || t.which,
+                        i = this.id.replace(/_panel.*$/g, "");
+                    switch (a = e.querySelectorAll("#" + i + "> li").length ? e.querySelectorAll("#" + i + " li > " + o + " ." + l) : e.querySelectorAll("#" + i + " > " + o + " ." + l), r) {
+                        case 35:
+                            t.preventDefault(), a[a.length - 1].focus();
+                            break;
+                        case 36:
+                            t.preventDefault(), a[0].focus()
+                    }
+                }
+            }, r.init = function() {
+                r.create()
+            };
+            var s = function(t, e) {
+                    t.setAttribute("aria-hidden", e)
+                },
+                u = function(t, e) {
+                    t.setAttribute("aria-expanded", e)
+                },
+                A = function(t, e) {
+                    t.setAttribute("aria-disabled", e)
+                },
+                g = function(t, e) {
+                    t.setAttribute("data-current", e)
+                };
+            r.init()
+        }(window, document);
+        </script>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img id= "cncf-image" src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2026 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2026 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+      <div class="mk-icons-footer">
+        <p>
+<!--           <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a> -->
+          <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+            <i class="fab fa-slack fa-lg"></i>
+          </a>
+          <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+            <i class="fab fa-github fa-lg"></i>
+          </a>
+          <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+            <i class="fas fa-envelope fa-lg"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+            <i class="fab fa-youtube fa-lg"></i>
+          </a>
+        </p>
+      </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+<script>
+  let pageLocation = window.location.href
+  let footerIcons = document.querySelector(".mk-icons-footer")
+
+  if(pageLocation.includes("community-resources.html")){
+    footerIcons.style.display = "none"
+  }else {null}
+
+</script>
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+

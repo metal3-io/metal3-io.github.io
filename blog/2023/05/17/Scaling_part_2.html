@@ -1,0 +1,1215 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>Scaling to 1000 clusters - Part 2 | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="Lennart Jern" >
+    <meta property="og:type" content="article" >
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="metal3, cluster API, provider, edge" >
+    <meta property="og:title" content="Scaling to 1000 clusters - Part 2 | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/blog/2023/05/17/Scaling_part_2.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="Lennart Jern" >
+    <meta property="og:article:published_time" content="2023-05-17 00:00:00 -0500" >
+    <meta name="twitter:title" content="Scaling to 1000 clusters - Part 2 | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <div role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        </div>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io">Documentation</a></li>
+          <li ><a class="mk-main-nav__item" href="/contribute.html">Contribute</a></li>
+          <li ><a class="mk-main-nav__item" href="/faqs.html">FAQs</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io/developer_environment/tryit">Try It!</a></li>
+          <li  id="mk-main-nav__search">
+            <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+              </div>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="/assets/images/search.png" style="height: 20px;" alt="">
+              </button>
+                <div id="mode-toggle">
+                  <img src="/assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                </div>
+            </form>
+          </li>
+
+        </ul>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  let iconMode = document.getElementById("mode-icon")
+  let toggleMode = document.getElementById("mode-toggle")
+  let cncfImage = document.getElementById("cncf-image")
+let isToggled = localStorage.getItem("currentMode") === "true";
+updateMode();
+toggleMode.addEventListener("click", () => {
+  isToggled = !isToggled;
+  localStorage.setItem("currentMode", isToggled);
+  updateMode();
+});
+function updateMode() {
+  let mastHead = document.querySelector(".mk-masthead");
+  let h1 = document.querySelectorAll("h1")
+  let h2 = document.querySelectorAll("h2")
+  let h3 = document.querySelectorAll("h3")
+  let li = document.querySelectorAll("li")
+  let sections = document.querySelectorAll(".mk-main__section")
+  let body = document.querySelector("body")
+  let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let blogCards = document.querySelectorAll(".mk-blog-meta__card")
+  let questions = document.querySelectorAll(".mk-faqs__question")
+  let subHeadings = document.querySelectorAll(".mk-sub-heading")
+  let p = document.querySelectorAll("p")
+  if (isToggled) {
+
+    iconMode.src = "/assets/images/moon-outline.png";
+    cncfImage.src = "/assets/images/cncf-white.svg";
+    mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.color = "var(--mk--Color--200)";
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = "var(--mk--Color--200)"
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = "var(--mk--Color--200)"
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = "var(--mk--Color--200)"
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = "var(--mk--Color--200)"
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = "var(--mk--Color--200)"
+    })
+    whyCards.forEach((whyCard)=>{
+    whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
+      whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
+    })
+    questions.forEach((question)=>{
+      question.style.color = "var(--mk--Color--200)"
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+  } else {
+    iconMode.src = "/assets/images/moon.png";
+    cncfImage.src = "/assets/images/cncf-color.svg";
+    mastHead.style.backgroundColor = "";
+    body.style.backgroundColor = "";
+    body.style.color = "var(--mk--Color--400)";
+
+
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = ""
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = ""
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = ""
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--250)";
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = ""
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = ""
+    })
+    whyCards.forEach((whyCard)=>{
+      whyCard.querySelector("h3").style.color = ""
+      whyCard.style.backgroundColor = "white"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = ""
+    })
+    questions.forEach((question)=>{
+      question.style.color = ""
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+
+
+  }
+}
+})
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", "scaling", "cncf", "community", "announcement", "IPA", "OCI", "deployment", "bare metal", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+        <h1 class="mk-masthead__content--sub__title">Blog</h1>
+        <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
+</div>
+</section>
+<main class="mk-main mk-blog">
+            <article class="mk-main__section mk-main__content mk-main__section__content">
+                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">Scaling to 1000 clusters - Part 2</h1>
+                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Wednesday, 17/05/2023</time>
+                    <div class="mk-blog-meta__item mk-blog-meta__author">By Lennart Jern</div>
+                    <div class="mk-blog-meta__categories">
+                                
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
+                                  metal3
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#cluster-api">
+                                  cluster-api
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#provider">
+                                  provider
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#edge">
+                                  edge
+                                </a>
+                              
+                </div>
+
+<div class="mk-share-buttons">
+
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2023/05/17/Scaling_part_2.html"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Share on Facebook" >
+            <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 1024 1024" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	<path d="M1024,512C1024,229.2,794.8,0,512,0S0,229.2,0,512c0,255.6,187.2,467.4,432,505.8V660H302V512h130V399.2   C432,270.9,508.4,200,625.4,200c56,0,114.6,10,114.6,10v126h-64.6c-63.6,0-83.4,39.5-83.4,80v96h142l-22.7,148H592v357.8   C836.8,979.4,1024,767.6,1024,512z"/>
+	<path class="st0" d="M711.3,660L734,512H592v-96c0-40.5,19.8-80,83.4-80H740V210c0,0-58.6-10-114.6-10   c-117,0-193.4,70.9-193.4,199.2V512H302v148h130v357.8c26.1,4.1,52.8,6.2,80,6.2s53.9-2.1,80-6.2V660H711.3z"/>
+</svg>Share on Facebook</a> -->
+
+
+        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=Scaling to 1000 clusters - Part 2&url=https://metal3.io/blog/2023/05/17/Scaling_part_2.html"
+        onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+        title="Share on Twitter" >
+        <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 250 203.1" version="1.1" viewBox="0 0 250 203.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<path class="st1" d="m78.6 203.1c94.3 0 145.9-78.2 145.9-145.9 0-2.2 0-4.4-0.1-6.6 10-7.3 18.7-16.3 25.6-26.5-9.4 4.1-19.3 6.9-29.5 8.1 10.7-6.4 18.7-16.5 22.5-28.4-10.1 6-21.1 10.2-32.6 12.4-19.4-20.7-51.9-21.7-72.6-2.2-13.3 12.5-19 31.2-14.8 49-41.1-2.1-79.6-21.6-105.6-53.6-13.6 23.4-6.7 53.4 15.9 68.4-8.2-0.2-16.1-2.4-23.3-6.4v0.6c0 24.4 17.2 45.4 41.2 50.3-7.6 2.1-15.5 2.4-23.2 0.9 6.7 20.9 26 35.2 47.9 35.6-18.2 14.3-40.6 22-63.7 22-4.1 0-8.2-0.3-12.2-0.7 23.5 15.1 50.7 23 78.6 23"/>
+</svg> Share on Twitter
+    </a>
+</div>
+        <p>In <a href="/blog/2023/05/05/Scaling_part_1.html">part 1</a>, we introduced the Bare Metal Operator test mode and saw how it can be used to play with BareMetalHosts without Ironic and without any actual hosts.
+Now we will take a look at the other end of the stack and how we can fake the workload cluster API’s.</p>
+
+<h2 id="test-setup">Test setup</h2>
+
+<p>The end goal is to have one management cluster where the Cluster API and Metal3 controllers run.
+In this cluster we would generate BareMetalHosts and create Clusters, Metal3Clusters, etc to benchmark the controllers.
+To give them a realistic test, we also need to fake the workload cluster API’s.
+These will run separately in “backing” clusters to avoid interfering with the test (e.g. by using up all the resources in the management cluster).
+Here is a diagram that describes the setup:</p>
+
+<p><img src="/assets/2023-05-17-Scaling_part_2/scaling-fake-clusters.drawio.png" alt="diagram of test setup" /></p>
+
+<p>How are we going to fake the workload cluster API’s then?
+The most obvious solution is to just run the real deal, i.e. the <code class="language-plaintext highlighter-rouge">kube-apiserver</code>.
+This is what would be run in a real workload cluster, together with the other components that make up the Kubernetes control plane.</p>
+
+<p>If you want to follow along and try to set this up yourself, you will need at least the following tools installed:</p>
+
+<ul>
+  <li><a href="https://kind.sigs.k8s.io/docs/user/quick-start">kind</a></li>
+  <li><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-kubeadm-kubelet-and-kubectl">kubectl</a></li>
+  <li><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">kubeadm</a></li>
+  <li><a href="https://cluster-api.sigs.k8s.io/user/quick-start.html#install-clusterctl">clusterctl</a></li>
+  <li><a href="https://github.com/openssl/openssl">openssl</a></li>
+  <li><a href="https://curl.se/">curl</a></li>
+  <li><a href="https://www.gnu.org/software/wget/">wget</a></li>
+</ul>
+
+<p>This has been tested with Kubernetes v1.25, kind v0.19 and clusterctl v1.4.2.
+All script snippets are assumed to be for the <code class="language-plaintext highlighter-rouge">bash</code> shell.</p>
+
+<h2 id="running-the-kubernetes-api-server">Running the Kubernetes API server</h2>
+
+<p>There are many misconceptions, maybe even superstitions, about the Kubernetes control plane.
+The fact is that it is in no way special.
+It consists of a few programs that can be run in any way you want: in a container, as a systemd unit or directly executed at the command line.
+They can run on a Node or outside of the cluster.
+You can even run multiple instances on the same host as long as you avoid port collisions.</p>
+
+<p>For our purposes we basically want to run as little as possible of the control plane components.
+We just need the API to be available and possible for us to populate with data that the controllers expect to be there.
+In other words, we need the API server and etcd.
+The scheduler is not necessary since we won’t run any actual workload (we are just pretending the Nodes are there anyway) and the controller manager would just get in the way when we want to fake resources.
+It would, for example, try to update the status of the (fake) Nodes that we want to create.</p>
+
+<p>The API server will need an etcd instance to connect to.
+It will also need some TLS configuration, both for connecting to etcd and for handling service accounts.
+One simple way to generate the needed certificates is to use kubeadm.
+But before we get there we need to think about how the configuration should look like.</p>
+
+<p>For simplicity, we will simply run the API server and etcd in a kind cluster for now.
+It would then be easy to run them in some other Kubernetes cluster later if needed.
+Let’s create it right away:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kind create cluster
+<span class="c"># Note: This has been tested with node image</span>
+<span class="c"># kindest/node:v1.26.3@sha256:61b92f38dff6ccc29969e7aa154d34e38b89443af1a2c14e6cfbd2df6419c66f</span>
+</code></pre></div></div>
+
+<p>To try to cut down on the resources required, we will also use a single multi-tenant etcd instance instead of one per API server.
+We can rely on the internal service discovery so the API server can find etcd via an address like <code class="language-plaintext highlighter-rouge">etcd-server.etd-system.svc.cluster.local</code>, instead of using IP addresses.
+Finally, we will need an endpoint where the API is exposed to the cluster where the controllers are running, but for now we can focus on just getting it up and running with <code class="language-plaintext highlighter-rouge">127.0.0.1:6443</code> as the endpoint.</p>
+
+<p>Based on the above, we can create a <code class="language-plaintext highlighter-rouge">kubeadm-config.yaml</code> file like this:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">kubeadm.k8s.io/v1beta3</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">ClusterConfiguration</span>
+<span class="na">apiServer</span><span class="pi">:</span>
+  <span class="na">certSANs</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">127.0.0.1</span>
+<span class="na">clusterName</span><span class="pi">:</span> <span class="s">test</span>
+<span class="na">controlPlaneEndpoint</span><span class="pi">:</span> <span class="s">127.0.0.1:6443</span>
+<span class="na">etcd</span><span class="pi">:</span>
+  <span class="na">local</span><span class="pi">:</span>
+    <span class="na">serverCertSANs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">etcd-server.etcd-system.svc.cluster.local</span>
+    <span class="na">peerCertSANs</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">etcd-0.etcd.etcd-system.svc.cluster.local</span>
+<span class="na">kubernetesVersion</span><span class="pi">:</span> <span class="s">v1.25.3</span>
+<span class="na">certificatesDir</span><span class="pi">:</span> <span class="s">/tmp/test/pki</span>
+</code></pre></div></div>
+
+<p>We can now use this to generate some certificates and upload them to the cluster:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Generate CA certificates</span>
+kubeadm init phase certs etcd-ca <span class="nt">--config</span> kubeadm-config.yaml
+kubeadm init phase certs ca <span class="nt">--config</span> kubeadm-config.yaml
+<span class="c"># Generate etcd peer and server certificates</span>
+kubeadm init phase certs etcd-peer <span class="nt">--config</span> kubeadm-config.yaml
+kubeadm init phase certs etcd-server <span class="nt">--config</span> kubeadm-config.yaml
+
+<span class="c"># Upload certificates</span>
+kubectl create namespace etcd-system
+kubectl <span class="nt">-n</span> etcd-system create secret tls test-etcd <span class="nt">--cert</span> /tmp/test/pki/etcd/ca.crt <span class="nt">--key</span> /tmp/test/pki/etcd/ca.key
+kubectl <span class="nt">-n</span> etcd-system create secret tls etcd-peer <span class="nt">--cert</span> /tmp/test/pki/etcd/peer.crt <span class="nt">--key</span> /tmp/test/pki/etcd/peer.key
+kubectl <span class="nt">-n</span> etcd-system create secret tls etcd-server <span class="nt">--cert</span> /tmp/test/pki/etcd/server.crt <span class="nt">--key</span> /tmp/test/pki/etcd/server.key
+</code></pre></div></div>
+
+<h3 id="deploying-a-multi-tenant-etcd-instance">Deploying a multi-tenant etcd instance</h3>
+
+<p>Now it is time to deploy etcd!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/manifests/v2/etcd.yaml <span class="se">\</span>
+  | <span class="nb">sed</span> <span class="s2">"s/CLUSTER/test/g"</span> | kubectl <span class="nt">-n</span> etcd-system apply <span class="nt">-f</span> -
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">wait </span>sts/etcd <span class="nt">--for</span><span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.availableReplicas}"</span><span class="o">=</span>1
+</code></pre></div></div>
+
+<p>As mentioned before, we want to create a <a href="https://etcd.io/docs/v3.5/op-guide/authentication/rbac/">multi-tenant etcd</a> that many API servers can share.
+For this reason, we will need to create a root user and enable authentication for etcd:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Create root role</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role add root
+<span class="c"># Create root user</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user add root <span class="nt">--new-user-password</span><span class="o">=</span><span class="s2">"rootpw"</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user grant-role root root
+<span class="c"># Enable authentication</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  auth <span class="nb">enable</span>
+</code></pre></div></div>
+
+<p>At this point we have a working etcd instance with authentication and TLS enabled.
+Each client will need to have an etcd user to interact with this instance so we need to create an etcd user for the API server.
+We already created a root user before so this should look familiar.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c">## Create etcd tenant</span>
+<span class="c"># Create user</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user add <span class="nb">test</span> <span class="nt">--new-user-password</span><span class="o">=</span><span class="nb">test</span>
+<span class="c"># Create role</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role add <span class="nb">test</span>
+<span class="c"># Add read/write permissions for prefix to the role</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role grant-permission <span class="nb">test</span> <span class="nt">--prefix</span><span class="o">=</span><span class="nb">true </span>readwrite <span class="s2">"/test/"</span>
+<span class="c"># Give the user permissions from the role</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user grant-role <span class="nb">test test</span>
+</code></pre></div></div>
+
+<p>From etcd’s point of view, everything is now ready.
+The API server could theoretically use <code class="language-plaintext highlighter-rouge">etcdctl</code> and authenticate with the username and password that we created for it.
+However, that is not how the API server works.
+It expects to be able to authenticate using client certificates.
+Luckily, etcd supports this so we just have to generate the certificates and sign them so that etcd trusts them.
+The key thing is to set the common name in the certificate to the name of the user we want to authenticate as.</p>
+
+<p>Since <code class="language-plaintext highlighter-rouge">kubeadm</code> always sets the same common name, we will here use <code class="language-plaintext highlighter-rouge">openssl</code> to generate the client certificates so that we get control over it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Generate etcd client certificate</span>
+openssl req <span class="nt">-newkey</span> rsa:2048 <span class="nt">-nodes</span> <span class="nt">-subj</span> <span class="s2">"/CN=test"</span> <span class="se">\</span>
+ <span class="nt">-keyout</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.key"</span> <span class="nt">-out</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.csr"</span>
+openssl x509 <span class="nt">-req</span> <span class="nt">-in</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.csr"</span> <span class="se">\</span>
+  <span class="nt">-CA</span> /tmp/test/pki/etcd/ca.crt <span class="nt">-CAkey</span> /tmp/test/pki/etcd/ca.key <span class="nt">-CAcreateserial</span> <span class="se">\</span>
+  <span class="nt">-out</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.crt"</span> <span class="nt">-days</span> 365
+</code></pre></div></div>
+
+<h3 id="deploying-the-api-server">Deploying the API server</h3>
+
+<p>In order to deploy the API server, we will first need to generate some more certificates.
+The client certificates for connecting to etcd are already ready, but it also needs certificates to secure the exposed API itself, and a few other things.
+Then we will also need to create secrets from all of these certificates:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubeadm init phase certs ca <span class="nt">--config</span> kubeadm-config.yaml
+kubeadm init phase certs apiserver <span class="nt">--config</span> kubeadm-config.yaml
+kubeadm init phase certs sa <span class="nt">--cert-dir</span> /tmp/test/pki
+
+kubectl create ns workload-api
+kubectl <span class="nt">-n</span> workload-api create secret tls test-ca <span class="nt">--cert</span> /tmp/test/pki/ca.crt <span class="nt">--key</span> /tmp/test/pki/ca.key
+kubectl <span class="nt">-n</span> workload-api create secret tls test-etcd <span class="nt">--cert</span> /tmp/test/pki/etcd/ca.crt <span class="nt">--key</span> /tmp/test/pki/etcd/ca.key
+kubectl <span class="nt">-n</span> workload-api create secret tls <span class="s2">"test-apiserver-etcd-client"</span> <span class="se">\</span>
+  <span class="nt">--cert</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.crt"</span> <span class="se">\</span>
+  <span class="nt">--key</span> <span class="s2">"/tmp/test/pki/apiserver-etcd-client.key"</span>
+kubectl <span class="nt">-n</span> workload-api create secret tls apiserver <span class="se">\</span>
+  <span class="nt">--cert</span> <span class="s2">"/tmp/test/pki/apiserver.crt"</span> <span class="se">\</span>
+  <span class="nt">--key</span> <span class="s2">"/tmp/test/pki/apiserver.key"</span>
+kubectl <span class="nt">-n</span> workload-api create secret generic test-sa <span class="se">\</span>
+  <span class="nt">--from-file</span><span class="o">=</span>tls.crt<span class="o">=</span><span class="s2">"/tmp/test/pki/sa.pub"</span> <span class="se">\</span>
+  <span class="nt">--from-file</span><span class="o">=</span>tls.key<span class="o">=</span><span class="s2">"/tmp/test/pki/sa.key"</span>
+</code></pre></div></div>
+
+<p>With all that out of the way, we can finally deploy the API server!
+For this we will use a normal Deployment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Deploy API server</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/manifests/v2/kube-apiserver-deployment.yaml |
+  <span class="nb">sed</span> <span class="s2">"s/CLUSTER/test/g"</span> | kubectl <span class="nt">-n</span> workload-api apply <span class="nt">-f</span> -
+kubectl <span class="nt">-n</span> workload-api <span class="nb">wait</span> <span class="nt">--for</span><span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available deploy/test-kube-apiserver
+</code></pre></div></div>
+
+<p>Time to check if it worked!
+We can use port-forwarding to access the API, but of course we will need some authentication method for it to be useful.
+With kubeadm we can generate a kubeconfig based on the certificates we already have.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubeadm kubeconfig user <span class="nt">--client-name</span> kubernetes-admin <span class="nt">--org</span> system:masters <span class="se">\</span>
+  <span class="nt">--config</span> kubeadm-config.yaml <span class="o">&gt;</span> kubeconfig.yaml
+</code></pre></div></div>
+
+<p>Now open another terminal and set up port-forwarding to the API server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubectl <span class="nt">-n</span> workload-api port-forward svc/test-kube-apiserver 6443
+</code></pre></div></div>
+
+<p>Back in the original terminal, you should now be able to reach the workload API server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubectl <span class="nt">--kubeconfig</span> kubeconfig.yaml cluster-info
+</code></pre></div></div>
+
+<p>Note that it won’t have any Nodes or Pods running.
+It is completely empty since it is running on its own.
+There is no kubelet that registered as a Node or applied static manifests, there is no scheduler or controller manager.
+Exactly like we want it.</p>
+
+<h2 id="faking-nodes-and-other-resources">Faking Nodes and other resources</h2>
+
+<p>Let’s take a step back and think about what we have done so far.
+We have deployed a Kubernetes API server and a multi-tenant etcd instance.
+More API servers can be added in the same way, so it is straight forward to scale.
+All of it runs in a kind cluster, which means that it is easy to set up and we can switch to any other Kubernetes cluster if needed later.
+Through Kubernetes we also get an easy way to access the API servers by using port-forwarding, without exposing all of them separately.</p>
+
+<p>The time has now come to think about what we need to put in the workload cluster API to convince the Cluster API and Metal3 controllers that it is healthy.
+First of all they will expect to see Nodes that match the Machines and that they have a provider ID set.
+Secondly, they will expect to see healthy control plane Pods.
+Finally, they will try to check on the etcd cluster.</p>
+
+<p>The final point is a problem, but we can work around it for now by configuring <a href="https://cluster-api.sigs.k8s.io/tasks/external-etcd.html">external etcd</a>.
+It will lead to a different code path for the bootstrap and control plane controllers, but until we have something better it will be a good enough test.</p>
+
+<p>Creating the Nodes and control plane Pods is really easy though.
+We are just adding resources and there are no controllers or validating web hooks that can interfere.
+Try it out!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Create a Node</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span>kubeconfig.yaml create <span class="nt">-f</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/fake-node.yaml
+<span class="c"># Check that it worked</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span>kubeconfig.yaml get nodes
+<span class="c"># Maybe label it as part of the control plane?</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span>kubeconfig.yaml label node fake-node node-role.kubernetes.io/control-plane<span class="o">=</span><span class="s2">""</span>
+</code></pre></div></div>
+
+<p>Now add a Pod:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>kubectl <span class="nt">--kubeconfig</span><span class="o">=</span>kubeconfig.yaml create <span class="nt">-f</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-apiserver-pod.yaml
+<span class="c"># Set status on the pods (it is not added when using create/apply).</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-apiserver-pod-status.yaml |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span>kubeconfig.yaml <span class="nt">-n</span> kube-system patch pod kube-apiserver-node-name <span class="se">\</span>
+    <span class="nt">--subresource</span><span class="o">=</span>status <span class="nt">--patch-file</span><span class="o">=</span>/dev/stdin
+</code></pre></div></div>
+
+<p>You should be able to see something like this:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">$</span><span class="w"> </span>kubectl <span class="nt">--kubeconfig</span> kubeconfig.yaml get pods <span class="nt">-A</span>
+<span class="go">NAMESPACE     NAME                       READY   STATUS    RESTARTS   AGE
+kube-system   kube-apiserver-node-name   1/1     Running   0          16h
+</span><span class="gp">$</span><span class="w"> </span>kubectl <span class="nt">--kubeconfig</span> kubeconfig.yaml get nodes
+<span class="go">NAME        STATUS   ROLES    AGE   VERSION
+</span><span class="gp">fake-node   Ready    &lt;none&gt;</span><span class="w">   </span>16h   v1.25.3
+</code></pre></div></div>
+
+<p>Now all we have to do is to ensure that the API returns information that the controllers expect.</p>
+
+<h2 id="hooking-up-the-api-server-to-a-cluster-api-cluster">Hooking up the API server to a Cluster API cluster</h2>
+
+<p>We will now set up a fresh cluster where we can run the Cluster API and Metal3 controllers.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Delete the previous cluster</span>
+kind delete cluster
+<span class="c"># Create a fresh new cluster</span>
+kind create cluster
+<span class="c"># Initialize Cluster API with Metal3</span>
+clusterctl init <span class="nt">--infrastructure</span> metal3
+<span class="c">## Deploy the Bare Metal Opearator</span>
+<span class="c"># Create the namespace where it will run</span>
+kubectl create ns baremetal-operator-system
+<span class="c"># Deploy it in normal mode</span>
+kubectl apply <span class="nt">-k</span> https://github.com/metal3-io/baremetal-operator/config/default
+<span class="c"># Patch it to run in test mode</span>
+kubectl patch <span class="nt">-n</span> baremetal-operator-system deploy baremetal-operator-controller-manager <span class="nt">--type</span><span class="o">=</span>json <span class="se">\</span>
+  <span class="nt">-p</span><span class="o">=</span><span class="s1">'[{"op": "add", "path": "/spec/template/spec/containers/0/args/-", "value": "--test-mode"}]'</span>
+</code></pre></div></div>
+
+<p>You should now have a cluster with the Cluster API, Metal3 provider and Bare Metal Operator running.
+Next, we will prepare some files that will come in handy later, namely a cluster template, BareMetalHost manifest and Kubeadm configuration file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Download cluster-template</span>
+<span class="nv">CLUSTER_TEMPLATE</span><span class="o">=</span>/tmp/cluster-template.yaml
+<span class="c"># https://github.com/metal3-io/cluster-api-provider-metal3/blob/main/examples/clusterctl-templates/clusterctl-cluster.yaml</span>
+<span class="nv">CLUSTER_TEMPLATE_URL</span><span class="o">=</span><span class="s2">"https://raw.githubusercontent.com/metal3-io/cluster-api-provider-metal3/main/examples/clusterctl-templates/clusterctl-cluster.yaml"</span>
+wget <span class="nt">-O</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER_TEMPLATE</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER_TEMPLATE_URL</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Save a manifest of a BareMetalHost</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> &gt; /tmp/test-hosts.yaml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: worker-1-bmc-secret
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: cGFzc3dvcmQ=
+---
+apiVersion: metal3.io/v1alpha1
+kind: BareMetalHost
+metadata:
+  name: worker-1
+spec:
+  online: true
+  bmc:
+    address: libvirt://192.168.122.1:6233/
+    credentialsName: worker-1-bmc-secret
+  bootMACAddress: "00:60:2F:10:E9:A7"
+</span><span class="no">EOF
+
+</span><span class="c"># Save a kubeadm config template</span>
+<span class="nb">cat</span> <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh"> &gt; /tmp/kubeadm-config-template.yaml
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+apiServer:
+  certSANs:
+    - localhost
+    - 127.0.0.1
+    - 0.0.0.0
+    - HOST
+clusterName: test
+controlPlaneEndpoint: HOST:6443
+etcd:
+  local:
+    serverCertSANs:
+      - etcd-server.etcd-system.svc.cluster.local
+    peerCertSANs:
+      - etcd-0.etcd.etcd-system.svc.cluster.local
+kubernetesVersion: v1.25.3
+certificatesDir: /tmp/CLUSTER/pki
+</span><span class="no">EOF
+</span></code></pre></div></div>
+
+<p>With this we have enough to start creating the workload cluster.
+First, we need to set up some certificates.
+This should look very familiar from earlier when we created certificates for the Kubernetes API server and etcd.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">mkdir</span> <span class="nt">-p</span> /tmp/pki/etcd
+<span class="nv">CLUSTER</span><span class="o">=</span><span class="s2">"test"</span>
+<span class="nv">NAMESPACE</span><span class="o">=</span>etcd-system
+<span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="o">=</span><span class="s2">"test-kube-apiserver.</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">.svc.cluster.local"</span>
+
+<span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s/NAMESPACE/</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">/g"</span> <span class="nt">-e</span> <span class="s2">"s/</span><span class="se">\/</span><span class="s2">CLUSTER//g"</span> <span class="nt">-e</span> <span class="s2">"s/HOST/</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">/g"</span> <span class="se">\</span>
+  /tmp/kubeadm-config-template.yaml <span class="o">&gt;</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+
+<span class="c"># Generate CA certificates</span>
+kubeadm init phase certs etcd-ca <span class="nt">--config</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+kubeadm init phase certs ca <span class="nt">--config</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+<span class="c"># Generate etcd peer and server certificates</span>
+kubeadm init phase certs etcd-peer <span class="nt">--config</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+kubeadm init phase certs etcd-server <span class="nt">--config</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+</code></pre></div></div>
+
+<p>Next, we create the namespace, the BareMetalHost and secrets from the certificates:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">CLUSTER</span><span class="o">=</span>test-1
+<span class="nv">NAMESPACE</span><span class="o">=</span>test-1
+kubectl create namespace <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> apply <span class="nt">-f</span> /tmp/test-hosts.yaml
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-etcd"</span> <span class="nt">--cert</span> /tmp/pki/etcd/ca.crt <span class="nt">--key</span> /tmp/pki/etcd/ca.key
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-ca"</span> <span class="nt">--cert</span> /tmp/pki/ca.crt <span class="nt">--key</span> /tmp/pki/ca.key
+</code></pre></div></div>
+
+<p>We are now ready to create the cluster!
+We just need a few variables for the template.
+The important part here is the <code class="language-plaintext highlighter-rouge">CLUSTER_APIENDPOINT_HOST</code> and <code class="language-plaintext highlighter-rouge">CLUSTER_APIENDPOINT_PORT</code>, since this will be used by the controllers to connect to the workload cluster API.
+You should set the IP to the private IP of the test machine or similar.
+This way we can use port-forwarding to expose the API on this IP, which the controllers can then reach.
+The port just have to be one not in use, and preferably something that is easy to remember and associate with the correct cluster.
+For example, cluster 1 gets port 10001, cluster 2 gets 10002, etc.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">export </span><span class="nv">IMAGE_CHECKSUM</span><span class="o">=</span><span class="s2">"97830b21ed272a3d854615beb54cf004"</span>
+<span class="nb">export </span><span class="nv">IMAGE_CHECKSUM_TYPE</span><span class="o">=</span><span class="s2">"md5"</span>
+<span class="nb">export </span><span class="nv">IMAGE_FORMAT</span><span class="o">=</span><span class="s2">"raw"</span>
+<span class="nb">export </span><span class="nv">IMAGE_URL</span><span class="o">=</span><span class="s2">"http://172.22.0.1/images/rhcos-ootpa-latest.qcow2"</span>
+<span class="nb">export </span><span class="nv">KUBERNETES_VERSION</span><span class="o">=</span><span class="s2">"v1.25.3"</span>
+<span class="nb">export </span><span class="nv">WORKERS_KUBEADM_EXTRA_CONFIG</span><span class="o">=</span><span class="s2">""</span>
+<span class="nb">export </span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="o">=</span><span class="s2">"172.17.0.2"</span>
+<span class="nb">export </span><span class="nv">CLUSTER_APIENDPOINT_PORT</span><span class="o">=</span><span class="s2">"10001"</span>
+<span class="nb">export </span><span class="nv">CTLPLANE_KUBEADM_EXTRA_CONFIG</span><span class="o">=</span><span class="s2">"
+    clusterConfiguration:
+      controlPlaneEndpoint: </span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">:</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_PORT</span><span class="k">}</span><span class="s2">
+      apiServer:
+        certSANs:
+        - localhost
+        - 127.0.0.1
+        - 0.0.0.0
+        - </span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">
+      etcd:
+        external:
+          endpoints:
+            - https://etcd-server:2379
+          caFile: /etc/kubernetes/pki/etcd/ca.crt
+          certFile: /etc/kubernetes/pki/apiserver-etcd-client.crt
+          keyFile: /etc/kubernetes/pki/apiserver-etcd-client.key"</span>
+</code></pre></div></div>
+
+<p>Create the cluster!</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code>clusterctl generate cluster <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--from</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER_TEMPLATE</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--target-namespace</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> | kubectl apply <span class="nt">-f</span> -
+</code></pre></div></div>
+
+<p>This will give you a cluster and all the templates and other resources that are needed.
+However, we will need to fill in for the non-existent hardware and create the workload cluster API server, like we practiced before.
+This time it is slightly different, because some of the steps are handled by the Cluster API.
+We just need to take care of what would happen on the node, plus the etcd part since we are using external etcd configuration.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/etcd"</span>
+
+<span class="c"># Generate etcd client certificate</span>
+openssl req <span class="nt">-newkey</span> rsa:2048 <span class="nt">-nodes</span> <span class="nt">-subj</span> <span class="s2">"/CN=</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+ <span class="nt">-keyout</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.key"</span> <span class="nt">-out</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.csr"</span>
+openssl x509 <span class="nt">-req</span> <span class="nt">-in</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.csr"</span> <span class="se">\</span>
+  <span class="nt">-CA</span> /tmp/pki/etcd/ca.crt <span class="nt">-CAkey</span> /tmp/pki/etcd/ca.key <span class="nt">-CAcreateserial</span> <span class="se">\</span>
+  <span class="nt">-out</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.crt"</span> <span class="nt">-days</span> 365
+
+<span class="c"># Get the k8s ca certificate and key.</span>
+<span class="c"># This is used by kubeadm to generate the api server certificates</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get secrets <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-ca"</span> <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.data.tls</span><span class="se">\.</span><span class="s2">crt}"</span> | <span class="nb">base64</span> <span class="nt">-d</span> <span class="o">&gt;</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/ca.crt"</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get secrets <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-ca"</span> <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.data.tls</span><span class="se">\.</span><span class="s2">key}"</span> | <span class="nb">base64</span> <span class="nt">-d</span> <span class="o">&gt;</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/ca.key"</span>
+
+<span class="c"># Generate certificates</span>
+<span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s/NAMESPACE/</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">/g"</span> <span class="nt">-e</span> <span class="s2">"s/CLUSTER/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/g"</span> <span class="nt">-e</span> <span class="s2">"s/HOST/</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">/g"</span> <span class="se">\</span>
+  /tmp/kubeadm-config-template.yaml <span class="o">&gt;</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+kubeadm init phase certs apiserver <span class="nt">--config</span> <span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+
+<span class="c"># Create secrets</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-apiserver-etcd-client"</span> <span class="nt">--cert</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.crt"</span> <span class="nt">--key</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.key"</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls apiserver <span class="nt">--cert</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver.crt"</span> <span class="nt">--key</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver.key"</span>
+</code></pre></div></div>
+
+<p>Now we will need to set up the fake cluster resources.
+For this we will create a second kind cluster and set up etcd, just like we did before.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Note: This will create a kubeconfig context named kind-backing-cluster-1,</span>
+<span class="c"># i.e. "kind-" is prefixed to the name.</span>
+kind create cluster <span class="nt">--name</span> backing-cluster-1
+
+<span class="c"># Setup central etcd</span>
+<span class="nv">CLUSTER</span><span class="o">=</span><span class="s2">"test"</span>
+<span class="nv">NAMESPACE</span><span class="o">=</span>etcd-system
+kubectl create namespace <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span>
+
+<span class="c"># Upload certificates</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-etcd"</span> <span class="nt">--cert</span> /tmp/pki/etcd/ca.crt <span class="nt">--key</span> /tmp/pki/etcd/ca.key
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls etcd-peer <span class="nt">--cert</span> /tmp/pki/etcd/peer.crt <span class="nt">--key</span> /tmp/pki/etcd/peer.key
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls etcd-server <span class="nt">--cert</span> /tmp/pki/etcd/server.crt <span class="nt">--key</span> /tmp/pki/etcd/server.key
+
+<span class="c"># Deploy ETCD</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/manifests/v2/etcd.yaml <span class="se">\</span>
+  | <span class="nb">sed</span> <span class="s2">"s/CLUSTER/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/g"</span> | kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> apply <span class="nt">-f</span> -
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">wait </span>sts/etcd <span class="nt">--for</span><span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.availableReplicas}"</span><span class="o">=</span>1
+
+<span class="c"># Create root role</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role add root
+<span class="c"># Create root user</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user add root <span class="nt">--new-user-password</span><span class="o">=</span><span class="s2">"rootpw"</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user grant-role root root
+<span class="c"># Enable authentication</span>
+kubectl <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  auth <span class="nb">enable</span>
+</code></pre></div></div>
+
+<p>Switch the context back to the first cluster with <code class="language-plaintext highlighter-rouge">kubectl config use-context kind-kind</code> so we don’t get confused about which is the main cluster.
+We will now need to put all the expected certificates for the fake cluster in the <code class="language-plaintext highlighter-rouge">kind-backing-cluster-1</code> so that they can be used by the API server that we will deploy there.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">CLUSTER</span><span class="o">=</span>test-1
+<span class="nv">NAMESPACE</span><span class="o">=</span>test-1
+<span class="c"># Setup fake resources for cluster test-1</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 create namespace <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-etcd"</span> <span class="nt">--cert</span> /tmp/pki/etcd/ca.crt <span class="nt">--key</span> /tmp/pki/etcd/ca.key
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-ca"</span> <span class="nt">--cert</span> /tmp/pki/ca.crt <span class="nt">--key</span> /tmp/pki/ca.key
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-apiserver-etcd-client"</span> <span class="nt">--cert</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.crt"</span> <span class="nt">--key</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver-etcd-client.key"</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> create secret tls apiserver <span class="nt">--cert</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver.crt"</span> <span class="nt">--key</span> <span class="s2">"/tmp/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/pki/apiserver.key"</span>
+
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get secrets <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">-sa"</span> <span class="nt">-o</span> yaml | kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 create <span class="nt">-f</span> -
+
+<span class="c">## Create etcd tenant</span>
+<span class="c"># Create user</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user add <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--new-user-password</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span>
+<span class="c"># Create role</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role add <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span>
+<span class="c"># Add read/write permissions for prefix to the role</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  role grant-permission <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--prefix</span><span class="o">=</span><span class="nb">true </span>readwrite <span class="s2">"/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/"</span>
+<span class="c"># Give the user permissions from the role</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> etcd-system <span class="nb">exec </span>etcd-0 <span class="nt">--</span> etcdctl <span class="nt">--user</span> root:rootpw <span class="se">\</span>
+  <span class="nt">--key</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.key <span class="nt">--cert</span><span class="o">=</span>/etc/kubernetes/pki/etcd/tls.crt <span class="nt">--cacert</span> /etc/kubernetes/pki/ca/tls.crt <span class="se">\</span>
+  user grant-role <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Check that the Metal3Machine is associated with a BareMetalHost.
+Deploy the API server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Deploy API server</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/manifests/v2/kube-apiserver-deployment.yaml |
+  <span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s/CLUSTER/</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">/g"</span> | kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> apply <span class="nt">-f</span> -
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> <span class="nb">wait</span> <span class="nt">--for</span><span class="o">=</span><span class="nv">condition</span><span class="o">=</span>Available deploy/test-kube-apiserver
+
+<span class="c"># Get kubeconfig</span>
+clusterctl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get kubeconfig <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">"</span> <span class="o">&gt;</span> <span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+<span class="c"># Edit kubeconfig to point to 127.0.0.1:${CLUSTER_APIENDPOINT_PORT}</span>
+<span class="nb">sed</span> <span class="nt">-i</span> <span class="nt">-e</span> <span class="s2">"s/</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">/127.0.0.1/"</span> <span class="nt">-e</span> <span class="s2">"s/:6443/:</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_PORT</span><span class="k">}</span><span class="s2">/"</span> <span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+<span class="c"># Port forward for accessing the API</span>
+kubectl <span class="nt">--context</span><span class="o">=</span>kind-backing-cluster-1 <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> port-forward <span class="se">\</span>
+      <span class="nt">--address</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_HOST</span><span class="k">}</span><span class="s2">,127.0.0.1"</span> svc/test-kube-apiserver <span class="s2">"</span><span class="k">${</span><span class="nv">CLUSTER_APIENDPOINT_PORT</span><span class="k">}</span><span class="s2">"</span>:6443 &amp;
+<span class="c"># Check that it is working</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> cluster-info
+</code></pre></div></div>
+
+<p>Now that we have a working API for the workload cluster, the only remaining thing is to put everything that the controllers expect in it.
+This includes adding a Node to match the Machine as well as static pods that Cluster API expects to be there.
+Let’s start with the Node!
+The Node must have the correct name and a label with the BareMetalHost UID so that the controllers can put the correct provider ID on it.
+We have only created 1 BareMetalHost so it is easy to pick the correct one.
+The name of the Node should be the same as the Machine, which is also only a single one.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nv">machine</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get machine <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.items[0].metadata.name}"</span><span class="si">)</span><span class="s2">"</span>
+<span class="nv">bmh_uid</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get bmh <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.items[0].metadata.uid}"</span><span class="si">)</span><span class="s2">"</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/fake-node.yaml |
+  <span class="nb">sed</span> <span class="nt">-e</span> <span class="s2">"s/fake-node/</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">/g"</span> <span class="nt">-e</span> <span class="s2">"s/fake-uuid/</span><span class="k">${</span><span class="nv">bmh_uid</span><span class="k">}</span><span class="s2">/g"</span> | <span class="se">\</span>
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> create <span class="nt">-f</span> -
+<span class="c"># Label it as control-plane since this is a control-plane node.</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> label node <span class="s2">"</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">"</span> node-role.kubernetes.io/control-plane<span class="o">=</span><span class="s2">""</span>
+<span class="c"># Upload kubeadm config to configmap. This will mark the KCP as initialized.</span>
+kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> <span class="nt">-n</span> kube-system create cm kubeadm-config <span class="se">\</span>
+  <span class="nt">--from-file</span><span class="o">=</span><span class="nv">ClusterConfiguration</span><span class="o">=</span><span class="s2">"/tmp/kubeadm-config-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span>
+</code></pre></div></div>
+
+<p>This should be enough to make the Machines healthy!
+You should be able to see something similar to this:</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="gp">$</span><span class="w"> </span>clusterctl <span class="nt">-n</span> test-1 describe cluster test-1
+<span class="go">NAME                                            READY  SEVERITY  REASON  SINCE  MESSAGE
+Cluster/test-1                                  True                     46s
+├─ClusterInfrastructure - Metal3Cluster/test-1  True                     114m
+└─ControlPlane - KubeadmControlPlane/test-1     True                     46s
+  └─Machine/test-1-f2nw2                        True                     47s
+</span></code></pre></div></div>
+
+<p>However, if you check the KubeadmControlPlane more carefully, you will notice that it is still complaining about control plane components.
+This is because we have not created the static pods yet, and it is also unable to check the certificate expiration date for the Machine.
+Let’s fix it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># Add static pods to make kubeadm control plane manager happy</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-apiserver-pod.yaml |
+  <span class="nb">sed</span> <span class="s2">"s/node-name/</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">/g"</span> |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> create <span class="nt">-f</span> -
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-controller-manager-pod.yaml |
+  <span class="nb">sed</span> <span class="s2">"s/node-name/</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">/g"</span> |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> create <span class="nt">-f</span> -
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-scheduler-pod.yaml |
+  <span class="nb">sed</span> <span class="s2">"s/node-name/</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">/g"</span> |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> create <span class="nt">-f</span> -
+<span class="c"># Set status on the pods (it is not added when using create/apply).</span>
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-apiserver-pod-status.yaml |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> <span class="nt">-n</span> kube-system patch pod <span class="s2">"kube-apiserver-</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--subresource</span><span class="o">=</span>status <span class="nt">--patch-file</span><span class="o">=</span>/dev/stdin
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-controller-manager-pod-status.yaml |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> <span class="nt">-n</span> kube-system patch pod <span class="s2">"kube-controller-manager-</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--subresource</span><span class="o">=</span>status <span class="nt">--patch-file</span><span class="o">=</span>/dev/stdin
+curl <span class="nt">-L</span> https://github.com/Nordix/metal3-clusterapi-docs/raw/main/metal3-scaling-experiments/kube-scheduler-pod-status.yaml |
+  kubectl <span class="nt">--kubeconfig</span><span class="o">=</span><span class="s2">"/tmp/kubeconfig-</span><span class="k">${</span><span class="nv">CLUSTER</span><span class="k">}</span><span class="s2">.yaml"</span> <span class="nt">-n</span> kube-system patch pod <span class="s2">"kube-scheduler-</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">--subresource</span><span class="o">=</span>status <span class="nt">--patch-file</span><span class="o">=</span>/dev/stdin
+
+<span class="c"># Add certificate expiry annotations to make kubeadm control plane manager happy</span>
+<span class="nv">CERT_EXPIRY_ANNOTATION</span><span class="o">=</span><span class="s2">"machine.cluster.x-k8s.io/certificates-expiry"</span>
+<span class="nv">EXPIRY_TEXT</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span>kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> get secret apiserver <span class="nt">-o</span> <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.data.tls</span><span class="se">\.</span><span class="s2">crt}"</span> | <span class="nb">base64</span> <span class="nt">-d</span> | openssl x509 <span class="nt">-enddate</span> <span class="nt">-noout</span> | <span class="nb">cut</span> <span class="nt">-d</span><span class="o">=</span> <span class="nt">-f</span> 2<span class="si">)</span><span class="s2">"</span>
+<span class="nv">EXPIRY</span><span class="o">=</span><span class="s2">"</span><span class="si">$(</span><span class="nb">date</span> <span class="nt">--date</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">EXPIRY_TEXT</span><span class="k">}</span><span class="s2">"</span> <span class="nt">--iso-8601</span><span class="o">=</span>seconds<span class="si">)</span><span class="s2">"</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> annotate machine <span class="s2">"</span><span class="k">${</span><span class="nv">machine</span><span class="k">}</span><span class="s2">"</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CERT_EXPIRY_ANNOTATION</span><span class="k">}</span><span class="s2">=</span><span class="k">${</span><span class="nv">EXPIRY</span><span class="k">}</span><span class="s2">"</span>
+kubectl <span class="nt">-n</span> <span class="s2">"</span><span class="k">${</span><span class="nv">NAMESPACE</span><span class="k">}</span><span class="s2">"</span> annotate kubeadmconfig <span class="nt">--all</span> <span class="s2">"</span><span class="k">${</span><span class="nv">CERT_EXPIRY_ANNOTATION</span><span class="k">}</span><span class="s2">=</span><span class="k">${</span><span class="nv">EXPIRY</span><span class="k">}</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Now we finally have a completely healthy cluster as far as the controllers are concerned.</p>
+
+<h2 id="conclusions-and-summary">Conclusions and summary</h2>
+
+<p>We now have all the tools necessary to start experimenting.</p>
+
+<ul>
+  <li>With the BareMetal Operator running in test mode, we can skip Ironic and still work with BareMetalHosts that act like normal.</li>
+  <li>We can set up separate “backing” clusters where we run etcd and multiple API servers to fake the workload cluster API’s.</li>
+  <li>Fake Nodes and Pods can be easily added to the workload cluster API’s, and configured as we want.</li>
+  <li>The workload cluster API’s can be exposed to the controllers in the test cluster using port-forwarding.</li>
+</ul>
+
+<p>In this post we have not automated all of this, but if you want to see a scripted setup, take a look at <a href="https://github.com/Nordix/metal3-clusterapi-docs/tree/main/metal3-scaling-experiments">this</a>.
+It is what we used to scale to 1000 clusters.
+Just remember that it may need some tweaking for your specific environment if you want to try it out!</p>
+
+<p>Specifically we used 10 “backing” clusters, i.e. 10 separate cloud VMs with kind clusters where we run etcd and the workload cluster API’s.
+Each one would hold 100 API servers.
+The test cluster was on its own separate VM also running a kind cluster with all the controllers and all the Cluster objects, etc.</p>
+
+<p>In the next and final blog post of this series we will take a look at the results of all this.
+What issues did we run into along the way?
+How did we fix or work around them?
+We will also take a look at what is going on in the community related to this and discuss potential future work in the area.</p>
+
+</article>
+<nav class="mk-pagination">
+        
+          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2023/05/05/Scaling_part_1.html" aria-label="previous page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
+                </svg>
+          </a>
+        
+        
+          <a class="mk-pagination__page mk-pagination__page--next" href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html" aria-label="next page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.6 320.1" version="1.1" viewBox="0 0 398.6 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199.6 177.1l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.7c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.5-96.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.8c9.4-9.4 24.6-9.4 33.9 0l136 136c9.4 9.3 9.4 24.6 0.1 34zm191.9-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.5c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.7z"/>
+                </svg>
+          </a>
+        
+</nav>
+
+        <aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
+    </header>
+    <ul class="mk-blog__related-entries">
+
+        
+        
+        
+        
+            
+            
+            
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2023/05/05/Scaling_part_1.html">Scaling to 1000 clusters - Part 1</a></li>
+              
+              
+                
+    </ul>
+
+</aside>
+
+    </main>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img id= "cncf-image" src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2026 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2026 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+      <div class="mk-icons-footer">
+        <p>
+<!--           <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a> -->
+          <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+            <i class="fab fa-slack fa-lg"></i>
+          </a>
+          <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+            <i class="fab fa-github fa-lg"></i>
+          </a>
+          <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+            <i class="fas fa-envelope fa-lg"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+            <i class="fab fa-youtube fa-lg"></i>
+          </a>
+        </p>
+      </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+<script>
+  let pageLocation = window.location.href
+  let footerIcons = document.querySelector(".mk-icons-footer")
+
+  if(pageLocation.includes("community-resources.html")){
+    footerIcons.style.display = "none"
+  }else {null}
+
+</script>
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+

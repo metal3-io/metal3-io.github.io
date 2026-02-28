@@ -1,0 +1,1569 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>Categories | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="The Metal³ - Metal Kubed website team, " >
+    
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="hybrid, cloud, metal3, baremetal, stack, edge, openstack, ironic, openshift, kubernetes, openstack, operator, summit, kubecon, shiftdev, metal3-dev-env, documentation, development, talk, conference, meetup, cluster-api, provider, raw-image, image-streaming, ipam, ip-address-manager, pivoting, move, scaling, cncf, community, announcement, ipa, oci, deployment, bare-metal, " >
+    <meta property="og:title" content="Categories | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/blog/categories.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="The Metal³ - Metal Kubed website team" >
+    <meta property="og:article:published_time" content="2026-02-27 18:29:37 -0600" >
+    <meta name="twitter:title" content="Categories | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <div role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        </div>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io">Documentation</a></li>
+          <li ><a class="mk-main-nav__item" href="/contribute.html">Contribute</a></li>
+          <li ><a class="mk-main-nav__item" href="/faqs.html">FAQs</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io/developer_environment/tryit">Try It!</a></li>
+          <li  id="mk-main-nav__search">
+            <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+              </div>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="/assets/images/search.png" style="height: 20px;" alt="">
+              </button>
+                <div id="mode-toggle">
+                  <img src="/assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                </div>
+            </form>
+          </li>
+
+        </ul>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  let iconMode = document.getElementById("mode-icon")
+  let toggleMode = document.getElementById("mode-toggle")
+  let cncfImage = document.getElementById("cncf-image")
+let isToggled = localStorage.getItem("currentMode") === "true";
+updateMode();
+toggleMode.addEventListener("click", () => {
+  isToggled = !isToggled;
+  localStorage.setItem("currentMode", isToggled);
+  updateMode();
+});
+function updateMode() {
+  let mastHead = document.querySelector(".mk-masthead");
+  let h1 = document.querySelectorAll("h1")
+  let h2 = document.querySelectorAll("h2")
+  let h3 = document.querySelectorAll("h3")
+  let li = document.querySelectorAll("li")
+  let sections = document.querySelectorAll(".mk-main__section")
+  let body = document.querySelector("body")
+  let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let blogCards = document.querySelectorAll(".mk-blog-meta__card")
+  let questions = document.querySelectorAll(".mk-faqs__question")
+  let subHeadings = document.querySelectorAll(".mk-sub-heading")
+  let p = document.querySelectorAll("p")
+  if (isToggled) {
+
+    iconMode.src = "/assets/images/moon-outline.png";
+    cncfImage.src = "/assets/images/cncf-white.svg";
+    mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.color = "var(--mk--Color--200)";
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = "var(--mk--Color--200)"
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = "var(--mk--Color--200)"
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = "var(--mk--Color--200)"
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = "var(--mk--Color--200)"
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = "var(--mk--Color--200)"
+    })
+    whyCards.forEach((whyCard)=>{
+    whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
+      whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
+    })
+    questions.forEach((question)=>{
+      question.style.color = "var(--mk--Color--200)"
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+  } else {
+    iconMode.src = "/assets/images/moon.png";
+    cncfImage.src = "/assets/images/cncf-color.svg";
+    mastHead.style.backgroundColor = "";
+    body.style.backgroundColor = "";
+    body.style.color = "var(--mk--Color--400)";
+
+
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = ""
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = ""
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = ""
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--250)";
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = ""
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = ""
+    })
+    whyCards.forEach((whyCard)=>{
+      whyCard.querySelector("h3").style.color = ""
+      whyCard.style.backgroundColor = "white"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = ""
+    })
+    questions.forEach((question)=>{
+      question.style.color = ""
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+
+
+  }
+}
+})
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", "scaling", "cncf", "community", "announcement", "IPA", "OCI", "deployment", "bare metal", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+    <h1 class="mk-masthead__content--sub__title">Blog</h1>
+    <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
+</div>
+</section>
+<main class="mk-main">
+    <section class="mk-blog__posts mk-main__section mk-main__section__content mk-main__content">
+        <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Categories</h2>
+        </header>
+      
+<h3 class="mk-heading mk-heading--lg" id="hybrid">hybrid</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2022/07/08/One_cluster_multiple_providers.html">One cluster - multiple providers <time datetime="2022-07-08T00:00:00-05:00" itemprop="datePublished">July 08, 2022</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="cloud">cloud</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="metal3">metal3</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2025/08/27/metal3-becomes-cncf-incubating-project.html">Metal3.io Becomes a CNCF Incubating Project <time datetime="2025-08-27T00:00:00-05:00" itemprop="datePublished">August 27, 2025</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite <time datetime="2024-12-13T00:00:00-06:00" itemprop="datePublished">December 13, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents <time datetime="2024-10-24T00:00:00-05:00" itemprop="datePublished">October 24, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3 <time datetime="2024-05-30T00:00:00-05:00" itemprop="datePublished">May 30, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/04/10/Metal3_at_KubeCon_EU_2024.html">Metal3 at KubeCon EU 2024 <time datetime="2024-04-10T00:00:00-05:00" itemprop="datePublished">April 10, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll <time datetime="2024-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/17/Scaling_part_2.html">Scaling to 1000 clusters - Part 2 <time datetime="2023-05-17T00:00:00-05:00" itemprop="datePublished">May 17, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/05/Scaling_part_1.html">Scaling to 1000 clusters - Part 1 <time datetime="2023-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2022/07/08/One_cluster_multiple_providers.html">One cluster - multiple providers <time datetime="2022-07-08T00:00:00-05:00" itemprop="datePublished">July 08, 2022</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2021/05/05/Pivoting.html">Metal3 Introduces Pivoting <time datetime="2021-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2021</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/07/06/IP_address_manager.html">Introducing the Metal3 IP Address Manager <time datetime="2020-07-06T00:00:00-05:00" itemprop="datePublished">July 06, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/07/05/raw-image-streaming.html">Raw image streaming available in Metal3 <time datetime="2020-07-05T00:00:00-05:00" itemprop="datePublished">July 05, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/06/18/Metal3-dev-env-BareMetal-Cluster-Deployment.html">Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster <time datetime="2020-06-18T00:00:00-05:00" itemprop="datePublished">June 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/03/05/CAPI_provider_renaming.html">Cluster API provider renaming <time datetime="2020-03-05T00:00:00-06:00" itemprop="datePublished">March 05, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment <time datetime="2020-02-18T04:09:00-06:00" itemprop="datePublished">February 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat <time datetime="2019-10-31T01:25:00-05:00" itemprop="datePublished">October 31, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/09/11/Baremetal-operator.html">Baremetal Operator <time datetime="2019-09-11T06:00:00-05:00" itemprop="datePublished">September 11, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/06/25/Metal3.html">Metal3 <time datetime="2019-06-25T10:19:14-05:00" itemprop="datePublished">June 25, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html">Metal³: Baremetal Provisioning for Kubernetes <time datetime="2019-04-30T15:01:58-05:00" itemprop="datePublished">April 30, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="baremetal">baremetal</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents <time datetime="2024-10-24T00:00:00-05:00" itemprop="datePublished">October 24, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll <time datetime="2024-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2021/05/05/Pivoting.html">Metal3 Introduces Pivoting <time datetime="2021-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2021</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/07/06/IP_address_manager.html">Introducing the Metal3 IP Address Manager <time datetime="2020-07-06T00:00:00-05:00" itemprop="datePublished">July 06, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/07/05/raw-image-streaming.html">Raw image streaming available in Metal3 <time datetime="2020-07-05T00:00:00-05:00" itemprop="datePublished">July 05, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/03/05/CAPI_provider_renaming.html">Cluster API provider renaming <time datetime="2020-03-05T00:00:00-06:00" itemprop="datePublished">March 05, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment <time datetime="2020-02-18T04:09:00-06:00" itemprop="datePublished">February 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat <time datetime="2019-10-31T01:25:00-05:00" itemprop="datePublished">October 31, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="stack">stack</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="edge">edge</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite <time datetime="2024-12-13T00:00:00-06:00" itemprop="datePublished">December 13, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3 <time datetime="2024-05-30T00:00:00-05:00" itemprop="datePublished">May 30, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/17/Scaling_part_2.html">Scaling to 1000 clusters - Part 2 <time datetime="2023-05-17T00:00:00-05:00" itemprop="datePublished">May 17, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/05/Scaling_part_1.html">Scaling to 1000 clusters - Part 1 <time datetime="2023-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2022/07/08/One_cluster_multiple_providers.html">One cluster - multiple providers <time datetime="2022-07-08T00:00:00-05:00" itemprop="datePublished">July 08, 2022</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="openstack">openstack</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat <time datetime="2019-10-31T01:25:00-05:00" itemprop="datePublished">October 31, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="ironic">ironic</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents <time datetime="2024-10-24T00:00:00-05:00" itemprop="datePublished">October 24, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/12/Raise_some_horns_Red_Hat_s_MetalKube_aims_to_make_Kubernetes_on_bare_machines_simple.html">Raise some horns, Red Hat's MetalKube aims to make Kubernetes on bare machines simple <time datetime="2019-04-12T14:20:00-05:00" itemprop="datePublished">April 12, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="openshift">openshift</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/09/11/Baremetal-operator.html">Baremetal Operator <time datetime="2019-09-11T06:00:00-05:00" itemprop="datePublished">September 11, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/06/25/Metal3.html">Metal3 <time datetime="2019-06-25T10:19:14-05:00" itemprop="datePublished">June 25, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html">Metal³: Baremetal Provisioning for Kubernetes <time datetime="2019-04-30T15:01:58-05:00" itemprop="datePublished">April 30, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="kubernetes">kubernetes</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/06/18/Metal3-dev-env-BareMetal-Cluster-Deployment.html">Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster <time datetime="2020-06-18T00:00:00-05:00" itemprop="datePublished">June 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat <time datetime="2019-10-31T01:25:00-05:00" itemprop="datePublished">October 31, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/09/11/Baremetal-operator.html">Baremetal Operator <time datetime="2019-09-11T06:00:00-05:00" itemprop="datePublished">September 11, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/06/25/Metal3.html">Metal3 <time datetime="2019-06-25T10:19:14-05:00" itemprop="datePublished">June 25, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/04/30/Metal-Kubed-Baremetal-Provisioning-for-Kubernetes.html">Metal³: Baremetal Provisioning for Kubernetes <time datetime="2019-04-30T15:01:58-05:00" itemprop="datePublished">April 30, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="openstack">OpenStack</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/05/13/The_new_stack_Metal3_Uses_OpenStack_Ironic_for_Declarative_Bare_Metal_Kubernetes.html">The new stack Metal³ Uses OpenStack's Ironic for Declarative Bare Metal Kubernetes <time datetime="2019-05-13T03:23:00-05:00" itemprop="datePublished">May 13, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="operator">operator</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/11/07/Kubernetes-native_Infrastructure-Managed_Baremetal_with_Kubernetes_Operators_and_OpenStack_Ironic.html">Kubernetes-native Infrastructure: Managed Baremetal with Kubernetes Operators and OpenStack Ironic - Steve Hardy, Red Hat <time datetime="2019-11-07T05:02:00-06:00" itemprop="datePublished">November 07, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/10/31/OpenStack-Ironic-and-Bare-Metal-Infrastructure_All-Abstractions-Start-Somewhere.html">OpenStack Ironic and Bare Metal Infrastructure: All Abstractions Start Somewhere - Chris Hoge, OpenStack Foundation; Julia Kreger, Red Hat <time datetime="2019-10-31T01:25:00-05:00" itemprop="datePublished">October 31, 2019</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/09/11/Baremetal-operator.html">Baremetal Operator <time datetime="2019-09-11T06:00:00-05:00" itemprop="datePublished">September 11, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="summit">summit</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2019/11/13/Extend_Your_Data_Center_to_the_Hybrid_Edge-Red_Hat_Summit.html">Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 <time datetime="2019-11-13T02:37:00-06:00" itemprop="datePublished">November 13, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="kubecon">kubecon</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/04/10/Metal3_at_KubeCon_EU_2024.html">Metal3 at KubeCon EU 2024 <time datetime="2024-04-10T00:00:00-05:00" itemprop="datePublished">April 10, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2019/12/04/Introducing_metal3_kubernetes_native_bare_metal_host_management.html">Introducing Metal³: Kubernetes Native Bare Metal Host Management - Russell Bryant & Doug Hellmann, Red Hat - KubeCon NA, November 2019 <time datetime="2019-12-04T04:09:00-06:00" itemprop="datePublished">December 04, 2019</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="shiftdev">shiftdev</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/01/20/metal3_deploy_kubernetes_on_bare_metal.html">Metal³: Deploy Kubernetes on Bare Metal - Yolanda Robla - Shift Dev 2019 <time datetime="2020-01-20T01:10:00-06:00" itemprop="datePublished">January 20, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="metal3-dev-env">metal3-dev-env</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll <time datetime="2024-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/06/18/Metal3-dev-env-BareMetal-Cluster-Deployment.html">Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster <time datetime="2020-06-18T00:00:00-05:00" itemprop="datePublished">June 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment <time datetime="2020-02-18T04:09:00-06:00" itemprop="datePublished">February 18, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="documentation">documentation</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll <time datetime="2024-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment <time datetime="2020-02-18T04:09:00-06:00" itemprop="datePublished">February 18, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="development">development</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll <time datetime="2024-01-18T00:00:00-06:00" itemprop="datePublished">January 18, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/18/metal3-dev-env-install-deep-dive.html">A detailed walkthrough of the Metal³ development environment <time datetime="2020-02-18T04:09:00-06:00" itemprop="datePublished">February 18, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="talk">talk</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/04/10/Metal3_at_KubeCon_EU_2024.html">Metal3 at KubeCon EU 2024 <time datetime="2024-04-10T00:00:00-05:00" itemprop="datePublished">April 10, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="conference">conference</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/04/10/Metal3_at_KubeCon_EU_2024.html">Metal3 at KubeCon EU 2024 <time datetime="2024-04-10T00:00:00-05:00" itemprop="datePublished">April 10, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="meetup">meetup</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/02/27/talk-kubernetes-finland-metal3.html">Metal³: Kubernetes Native Bare Metal Cluster Management - Maël Kimmerlin - Kubernetes and CNCF Finland Meetup <time datetime="2020-02-27T00:00:00-06:00" itemprop="datePublished">February 27, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="cluster-api">cluster API</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite <time datetime="2024-12-13T00:00:00-06:00" itemprop="datePublished">December 13, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents <time datetime="2024-10-24T00:00:00-05:00" itemprop="datePublished">October 24, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3 <time datetime="2024-05-30T00:00:00-05:00" itemprop="datePublished">May 30, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/17/Scaling_part_2.html">Scaling to 1000 clusters - Part 2 <time datetime="2023-05-17T00:00:00-05:00" itemprop="datePublished">May 17, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/05/Scaling_part_1.html">Scaling to 1000 clusters - Part 1 <time datetime="2023-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2022/07/08/One_cluster_multiple_providers.html">One cluster - multiple providers <time datetime="2022-07-08T00:00:00-05:00" itemprop="datePublished">July 08, 2022</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/06/18/Metal3-dev-env-BareMetal-Cluster-Deployment.html">Metal³ development environment walkthrough part 2: Deploying a new bare metal cluster <time datetime="2020-06-18T00:00:00-05:00" itemprop="datePublished">June 18, 2020</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/03/05/CAPI_provider_renaming.html">Cluster API provider renaming <time datetime="2020-03-05T00:00:00-06:00" itemprop="datePublished">March 05, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="provider">provider</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite <time datetime="2024-12-13T00:00:00-06:00" itemprop="datePublished">December 13, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3 <time datetime="2024-05-30T00:00:00-05:00" itemprop="datePublished">May 30, 2024</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/17/Scaling_part_2.html">Scaling to 1000 clusters - Part 2 <time datetime="2023-05-17T00:00:00-05:00" itemprop="datePublished">May 17, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2023/05/05/Scaling_part_1.html">Scaling to 1000 clusters - Part 1 <time datetime="2023-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2023</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2022/07/08/One_cluster_multiple_providers.html">One cluster - multiple providers <time datetime="2022-07-08T00:00:00-05:00" itemprop="datePublished">July 08, 2022</time></a></li>
+      
+      
+    
+      
+      
+      <li><a href="/blog/2020/03/05/CAPI_provider_renaming.html">Cluster API provider renaming <time datetime="2020-03-05T00:00:00-06:00" itemprop="datePublished">March 05, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="raw-image">raw image</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/07/05/raw-image-streaming.html">Raw image streaming available in Metal3 <time datetime="2020-07-05T00:00:00-05:00" itemprop="datePublished">July 05, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="image-streaming">image streaming</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/07/05/raw-image-streaming.html">Raw image streaming available in Metal3 <time datetime="2020-07-05T00:00:00-05:00" itemprop="datePublished">July 05, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="ipam">IPAM</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/07/06/IP_address_manager.html">Introducing the Metal3 IP Address Manager <time datetime="2020-07-06T00:00:00-05:00" itemprop="datePublished">July 06, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="ip-address-manager">ip address manager</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2020/07/06/IP_address_manager.html">Introducing the Metal3 IP Address Manager <time datetime="2020-07-06T00:00:00-05:00" itemprop="datePublished">July 06, 2020</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="pivoting">Pivoting</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2021/05/05/Pivoting.html">Metal3 Introduces Pivoting <time datetime="2021-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2021</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="move">Move</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2021/05/05/Pivoting.html">Metal3 Introduces Pivoting <time datetime="2021-05-05T00:00:00-05:00" itemprop="datePublished">May 05, 2021</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="scaling">scaling</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents <time datetime="2024-10-24T00:00:00-05:00" itemprop="datePublished">October 24, 2024</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="cncf">cncf</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2025/08/27/metal3-becomes-cncf-incubating-project.html">Metal3.io Becomes a CNCF Incubating Project <time datetime="2025-08-27T00:00:00-05:00" itemprop="datePublished">August 27, 2025</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="community">community</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2025/08/27/metal3-becomes-cncf-incubating-project.html">Metal3.io Becomes a CNCF Incubating Project <time datetime="2025-08-27T00:00:00-05:00" itemprop="datePublished">August 27, 2025</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="announcement">announcement</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2025/08/27/metal3-becomes-cncf-incubating-project.html">Metal3.io Becomes a CNCF Incubating Project <time datetime="2025-08-27T00:00:00-05:00" itemprop="datePublished">August 27, 2025</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="ipa">IPA</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="oci">OCI</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="deployment">deployment</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+<h3 class="mk-heading mk-heading--lg" id="bare-metal">bare metal</h3>
+  <ol>
+    
+    
+      
+      
+      <li><a href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager <time datetime="2026-02-01T00:00:00-06:00" itemprop="datePublished">February 01, 2026</time></a></li>
+      
+      
+    
+    
+    
+  </ol>
+
+</section>
+<aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Categories</h2>
+    </header>
+    <ul>
+      
+          <li><a href ="/blog/categories.html#hybrid">hybrid</a></li>
+      
+          <li><a href ="/blog/categories.html#cloud">cloud</a></li>
+      
+          <li><a href ="/blog/categories.html#metal3">metal3</a></li>
+      
+          <li><a href ="/blog/categories.html#baremetal">baremetal</a></li>
+      
+          <li><a href ="/blog/categories.html#stack">stack</a></li>
+      
+          <li><a href ="/blog/categories.html#edge">edge</a></li>
+      
+          <li><a href ="/blog/categories.html#openstack">openstack</a></li>
+      
+          <li><a href ="/blog/categories.html#ironic">ironic</a></li>
+      
+          <li><a href ="/blog/categories.html#openshift">openshift</a></li>
+      
+          <li><a href ="/blog/categories.html#kubernetes">kubernetes</a></li>
+      
+          <li><a href ="/blog/categories.html#openstack">OpenStack</a></li>
+      
+          <li><a href ="/blog/categories.html#operator">operator</a></li>
+      
+          <li><a href ="/blog/categories.html#summit">summit</a></li>
+      
+          <li><a href ="/blog/categories.html#kubecon">kubecon</a></li>
+      
+          <li><a href ="/blog/categories.html#shiftdev">shiftdev</a></li>
+      
+          <li><a href ="/blog/categories.html#metal3-dev-env">metal3-dev-env</a></li>
+      
+          <li><a href ="/blog/categories.html#documentation">documentation</a></li>
+      
+          <li><a href ="/blog/categories.html#development">development</a></li>
+      
+          <li><a href ="/blog/categories.html#talk">talk</a></li>
+      
+          <li><a href ="/blog/categories.html#conference">conference</a></li>
+      
+          <li><a href ="/blog/categories.html#meetup">meetup</a></li>
+      
+          <li><a href ="/blog/categories.html#cluster-api">cluster API</a></li>
+      
+          <li><a href ="/blog/categories.html#provider">provider</a></li>
+      
+          <li><a href ="/blog/categories.html#raw-image">raw image</a></li>
+      
+          <li><a href ="/blog/categories.html#image-streaming">image streaming</a></li>
+      
+          <li><a href ="/blog/categories.html#ipam">IPAM</a></li>
+      
+          <li><a href ="/blog/categories.html#ip-address-manager">ip address manager</a></li>
+      
+          <li><a href ="/blog/categories.html#pivoting">Pivoting</a></li>
+      
+          <li><a href ="/blog/categories.html#move">Move</a></li>
+      
+          <li><a href ="/blog/categories.html#scaling">scaling</a></li>
+      
+          <li><a href ="/blog/categories.html#cncf">cncf</a></li>
+      
+          <li><a href ="/blog/categories.html#community">community</a></li>
+      
+          <li><a href ="/blog/categories.html#announcement">announcement</a></li>
+      
+          <li><a href ="/blog/categories.html#ipa">IPA</a></li>
+      
+          <li><a href ="/blog/categories.html#oci">OCI</a></li>
+      
+          <li><a href ="/blog/categories.html#deployment">deployment</a></li>
+      
+          <li><a href ="/blog/categories.html#bare-metal">bare metal</a></li>
+      
+      </ul>
+</aside>
+
+</main>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img id= "cncf-image" src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2026 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2026 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+      <div class="mk-icons-footer">
+        <p>
+<!--           <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a> -->
+          <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+            <i class="fab fa-slack fa-lg"></i>
+          </a>
+          <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+            <i class="fab fa-github fa-lg"></i>
+          </a>
+          <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+            <i class="fas fa-envelope fa-lg"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+            <i class="fab fa-youtube fa-lg"></i>
+          </a>
+        </p>
+      </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+<script>
+  let pageLocation = window.location.href
+  let footerIcons = document.querySelector(".mk-icons-footer")
+
+  if(pageLocation.includes("community-resources.html")){
+    footerIcons.style.display = "none"
+  }else {null}
+
+</script>
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+
