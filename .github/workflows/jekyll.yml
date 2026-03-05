@@ -7,10 +7,12 @@ on:
   schedule:
   - cron: '0 0 * * *'
 
-# TODO: permissions defined
+permissions: {}
 
 jobs:
   jekyll:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
 
     if: github.repository == 'metal3-io/metal3-io.github.io'
