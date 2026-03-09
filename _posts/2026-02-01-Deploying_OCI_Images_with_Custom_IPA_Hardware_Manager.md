@@ -608,6 +608,7 @@ The implementation is shown below in expandable sections. Full source:
 <details>
 <summary>Imports and constants</summary>
 
+<div markdown="1">
 Standard library and IPA imports, plus configuration constants for
 device paths, filesystem labels, and retry parameters.
 
@@ -657,11 +658,13 @@ DEVICE_WAIT_MAX_ATTEMPTS = 5
 DEVICE_WAIT_DELAY = 5
 ```
 
+</div>
 </details>
 
 <details>
 <summary>run_command</summary>
 
+<div markdown="1">
 Wrapper around `subprocess.run` with logging support.
 
 ```python
@@ -686,11 +689,13 @@ def run_command(cmd, check=True, capture_output=True, timeout=300):
     return result
 ```
 
+</div>
 </details>
 
 <details>
 <summary>is_efi_system</summary>
 
+<div markdown="1">
 Checks if the system booted in UEFI mode by testing for `/sys/firmware/efi`.
 
 ```python
@@ -702,11 +707,13 @@ def is_efi_system():
     return os.path.isdir("/sys/firmware/efi")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>probe_device</summary>
 
+<div markdown="1">
 Runs `partprobe` and waits for device to appear in the kernel.
 
 ```python
@@ -727,11 +734,13 @@ def probe_device(device):
     )
 ```
 
+</div>
 </details>
 
 <details>
 <summary>has_interactive_users</summary>
 
+<div markdown="1">
 Checks for logged-in users via `who` command, used to pause deployment
 for debugging via BMC console.
 
@@ -757,11 +766,13 @@ def has_interactive_users():
         return False
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_configdrive_data</summary>
 
+<div markdown="1">
 Extracts configdrive dictionary from node's `instance_info`.
 
 ```python
@@ -792,11 +803,13 @@ def get_configdrive_data(node):
     return configdrive
 ```
 
+</div>
 </details>
 
 <details>
 <summary>parse_prefixed_hint_string</summary>
 
+<div markdown="1">
 Parses simplified hint format like `serial=ABC123` or `wwn=0x123456` into
 IPA hint dictionary format. Supports RAID1 with space-separated values.
 
@@ -854,11 +867,13 @@ def parse_prefixed_hint_string(hint_string):
     return {hint_type: hint_with_operator}
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_root_device_hints</summary>
 
+<div markdown="1">
 Extracts root device hints from configdrive annotation or node's
 `instance_info`. Supports both simplified string format
 (`serial=ABC123`) and standard dictionary format.
@@ -913,11 +928,13 @@ def get_root_device_hints(node, configdrive_data):
     raise ValueError("root_device hints not found in instance_info or annotation")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>find_device_by_hints</summary>
 
+<div markdown="1">
 Uses IPA's `device_hints` module to find a block device by serial or WWN.
 
 ```python
@@ -949,11 +966,13 @@ def find_device_by_hints(hints):
     return matched[0]["name"]
 ```
 
+</div>
 </details>
 
 <details>
 <summary>parse_hint_values</summary>
 
+<div markdown="1">
 Parses hint strings, stripping operator prefixes and splitting multiple
 values for RAID1 configurations.
 
@@ -982,11 +1001,13 @@ def parse_hint_values(hint):
     return parts
 ```
 
+</div>
 </details>
 
 <details>
 <summary>resolve_root_devices</summary>
 
+<div markdown="1">
 Resolves device paths from hints. Returns one device for single-disk
 or two devices for RAID1 configuration.
 
@@ -1064,11 +1085,13 @@ def resolve_root_devices(root_device_hints):
     return (primary_device, secondary_device)
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_oci_image</summary>
 
+<div markdown="1">
 Gets OCI image reference with priority: `spec.image.url` (with `oci://`
 prefix) > configdrive annotation > default `ubuntu:24.04`.
 
@@ -1117,11 +1140,13 @@ def get_oci_image(node, configdrive_data):
     return oci_image
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_disk_wipe_mode</summary>
 
+<div markdown="1">
 Determines disk cleaning behavior based on annotation or setup type. Returns
 `all` to wipe all block devices (default for RAID1) or `target` to wipe only
 specified disks (default for single disk).
@@ -1161,11 +1186,13 @@ def get_disk_wipe_mode(configdrive_data, is_raid):
     return default_mode
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_architecture_config</summary>
 
+<div markdown="1">
 Returns architecture-specific settings for x86_64 or ARM64, including
 GRUB packages and UEFI target.
 
@@ -1198,11 +1225,13 @@ def get_architecture_config(oci_image):
         raise RuntimeError(f"Unsupported architecture: {machine}")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>wait_for_device</summary>
 
+<div markdown="1">
 Waits for a block device to become available with retries.
 
 ```python
@@ -1233,11 +1262,13 @@ def wait_for_device(device):
     raise RuntimeError(f"Device {device} did not become available")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>get_partition_path</summary>
 
+<div markdown="1">
 Returns partition path, handling NVMe and MMC naming conventions.
 
 ```python
@@ -1254,11 +1285,13 @@ def get_partition_path(device, partition_number):
     return f"{device}{partition_number}"
 ```
 
+</div>
 </details>
 
 <details>
 <summary>clean_device</summary>
 
+<div markdown="1">
 Removes existing partitions, RAID arrays, LVM structures, and wipes
 the device.
 
@@ -1366,11 +1399,13 @@ def clean_device(device):
     LOG.info("Device %s cleaned", device)
 ```
 
+</div>
 </details>
 
 <details>
 <summary>clean_all_devices</summary>
 
+<div markdown="1">
 Cleans all block devices on the system to remove stray RAID/LVM metadata.
 Useful when `disk_wipe_mode` is set to `all` (default for RAID1 setups).
 
@@ -1399,11 +1434,13 @@ def clean_all_devices():
         LOG.error("Error listing block devices: %s", e)
 ```
 
+</div>
 </details>
 
 <details>
 <summary>clean_partition_signatures</summary>
 
+<div markdown="1">
 Cleans RAID, LVM, and filesystem signatures from a partition without
 removing the partition itself. Used internally by `partition_disk()` to
 clean partitions before creating RAID arrays, ensuring no stray metadata
@@ -1423,11 +1460,13 @@ def clean_partition_signatures(partition):
     run_command(["mdadm", "--zero-superblock", "--force", partition], check=False)
 ```
 
+</div>
 </details>
 
 <details>
 <summary>partition_disk</summary>
 
+<div markdown="1">
 Creates GPT partition table with EFI and LVM partitions. Sets up RAID1
 array if second device is provided. Calls `clean_partition_signatures()`
 before RAID creation to ensure clean metadata.
@@ -1576,11 +1615,13 @@ def partition_disk(
     return is_raid, pv_device
 ```
 
+</div>
 </details>
 
 <details>
 <summary>create_filesystems</summary>
 
+<div markdown="1">
 Creates FAT32 filesystem on EFI partition and ext4 on root LV.
 
 ```python
@@ -1616,11 +1657,13 @@ def create_filesystems(
     LOG.info("Filesystems created")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>setup_chroot</summary>
 
+<div markdown="1">
 Mounts `/proc`, `/sys`, `/dev` and sets up DNS resolution in chroot.
 
 ```python
@@ -1655,11 +1698,13 @@ def setup_chroot(chroot_dir):
     LOG.info("Chroot setup complete")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>teardown_chroot</summary>
 
+<div markdown="1">
 Unmounts chroot bind mounts in reverse order.
 
 ```python
@@ -1689,11 +1734,13 @@ def teardown_chroot(chroot_dir):
     LOG.info("Chroot teardown complete")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>extract_oci_image</summary>
 
+<div markdown="1">
 Extracts OCI image filesystem using `crane export` piped to `tar`.
 
 ```python
@@ -1750,11 +1797,13 @@ def extract_oci_image(image, platform, dest_dir):
     LOG.info("OCI image extraction complete")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>install_packages</summary>
 
+<div markdown="1">
 Installs cloud-init, GRUB, kernel, and other required packages via apt.
 
 {% raw %}
@@ -1888,12 +1937,13 @@ def install_packages(chroot_dir, grub_packages):
 ```
 
 {% endraw %}
-
+</div>
 </details>
 
 <details>
 <summary>write_hosts_file</summary>
 
+<div markdown="1">
 Writes `/etc/hosts` with localhost and IPv6 entries.
 
 ```python
@@ -1921,11 +1971,13 @@ def write_hosts_file(mount_point, hostname):
     LOG.info("/etc/hosts written with hostname: %s", hostname)
 ```
 
+</div>
 </details>
 
 <details>
 <summary>configure_cloud_init</summary>
 
+<div markdown="1">
 Configures cloud-init NoCloud datasource with metadata, userdata, and
 network config from configdrive.
 
@@ -1984,11 +2036,13 @@ datasource:
     LOG.info("Cloud-init configuration complete")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>write_fstab</summary>
 
+<div markdown="1">
 Writes `/etc/fstab` with root and EFI entries, plus second EFI for RAID.
 
 ```python
@@ -2017,11 +2071,13 @@ def write_fstab(mount_point, root_label, boot_label, is_raid, boot_label2=None):
     LOG.info("fstab written")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>write_mdadm_conf</summary>
 
+<div markdown="1">
 Writes `/etc/mdadm/mdadm.conf` with RAID array configuration.
 
 ```python
@@ -2051,11 +2107,13 @@ def write_mdadm_conf(mount_point):
     LOG.info("mdadm.conf written")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>configure_initramfs</summary>
 
+<div markdown="1">
 Configures initramfs-tools to include LVM and RAID modules.
 
 ```python
@@ -2113,11 +2171,13 @@ def configure_initramfs(chroot_dir, is_raid):
     LOG.info("initramfs-tools configuration complete")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>setup_grub_defaults</summary>
 
+<div markdown="1">
 Configures `/etc/default/grub` with root device and RAID options.
 
 ```python
@@ -2178,11 +2238,13 @@ def setup_grub_defaults(chroot_dir, root_label, is_raid):
     LOG.info("GRUB defaults configured")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>setup_grub_efi_sync</summary>
 
+<div markdown="1">
 Creates GRUB hook script to sync EFI partitions for RAID redundancy.
 
 ```python
@@ -2215,11 +2277,13 @@ exit 0
     LOG.info("GRUB EFI sync hook created")
 ```
 
+</div>
 </details>
 
 <details>
 <summary>class DebOCIEFILVMHardwareManager</summary>
 
+<div markdown="1">
 Main hardware manager class implementing the `deb_oci_efi_lvm` deploy step.
 Orchestrates the full deployment workflow.
 
@@ -2504,6 +2568,7 @@ class DebOCIEFILVMHardwareManager(hardware.HardwareManager):
                 )
 ```
 
+</div>
 </details>
 
 <!-- markdownlint-enable MD033 -->
