@@ -1757,6 +1757,8 @@ def extract_oci_image(image, platform, dest_dir):
 
 Installs cloud-init, GRUB, kernel, and other required packages via apt.
 
+{% raw %}
+
 ```python
 def install_packages(chroot_dir, grub_packages):
     """Install required packages in chroot.
@@ -1884,6 +1886,8 @@ def install_packages(chroot_dir, grub_packages):
 
     LOG.info("Package installation complete")
 ```
+
+{% endraw %}
 
 </details>
 
