@@ -138,6 +138,48 @@
   }
 }
 
+
+.mk-features {
+  &__cards {
+    @include flexCenter($j-content: space-between, $a-items: flex-start);
+    flex-wrap: wrap;
+  }
+
+  &__card {
+    width: 32%;
+    gap: var(--mk--spacer--md);
+    @include flexCenter(
+      $direction: column,
+      $j-content: start,
+      $a-items: start
+    );
+    margin: var(--mk--spacer--sm) 0;
+    padding: var(--mk--spacer--sm);
+    border-radius: var(--mk--BorderRadius--md);
+    background-color: #f0f0f0d0;
+    scale: 1;
+    transition: all ease-in-out 0.4s;
+    &:hover {
+      transition: all ease-in-out 0.4s;
+      scale: 1.03;
+      box-shadow: 0 0 1em 0 rgba(131, 135, 137, 0.25);
+    }
+    @media (max-width: $mk--breakpoint--xl) {
+      width: 48%;
+    }
+    @media (max-width: $mk--breakpoint--md) {
+      width: 100%;
+    }
+  }
+  h3 {
+    font-size: var(--mk--FontSize--md);
+    font-weight: 700;
+  }
+  p {
+    font-size: var(--mk--FontSize--md);
+  }
+}
+
 .mk-why-metalkubed {
     margin-bottom: 0;
 
