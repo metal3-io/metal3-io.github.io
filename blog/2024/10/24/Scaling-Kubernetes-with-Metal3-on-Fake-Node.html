@@ -1,0 +1,1048 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <script id="dpal" src="//www.redhat.com/ma/dpal.js" type="text/javascript"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png">
+    <meta name="theme-color" content="#008585">
+    
+    <title>Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents | Metal³ - Metal Kubed</title>
+    <!-- # Opengraph protocol properties: https://ogp.me/ -->
+    <meta name="author" content="Huy Mai" >
+    <meta property="og:type" content="article" >
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+    <meta name="keywords" content="metal3, cluster API, ironic, baremetal, scaling" >
+    <meta property="og:title" content="Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents | Metal³ - Metal Kubed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://metal3.io/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html" >
+    <meta property="og:image" content="https://metal3.io/assets/images/metal3logo.png">
+    <meta property="og:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes." >
+    <meta property="og:site_name" content="Metal³ - Metal Kubed" >
+    <meta property="og:article:author" content="Huy Mai" >
+    <meta property="og:article:published_time" content="2024-10-24 00:00:00 -0500" >
+    <meta name="twitter:title" content="Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents | Metal³ - Metal Kubed">
+    <meta name="twitter:description" content="Metal3.io aims to build on baremetal host provisioning technologies to provide a Kubernetes native API for managing bare metal hosts via a provisioning stack that is also running on Kubernetes.">
+
+    <link type="application/atom+xml" rel="alternate" href="https://metal3.io/feed.xml" title="Metal³ - Metal Kubed" />
+    <meta name="google-site-verification" content="HCdbGknTOCTKQVt7m-VxTG4BEYXxSqm-sDb-iklqrB0" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,400&display=swap" rel="stylesheet">
+  <script defer src="https://use.fontawesome.com/releases/v5.1.0/js/all.js" integrity="sha384-3LK/3kTpDE/Pkp8gTNp2gR/2gOiwQ6QaO7Td0zV76UFJVhqLl4Vl3KL1We6q6wR9" crossorigin="anonymous"></script>
+  <!-- Photoswipe.com gallery-->
+
+  <!-- Core CSS file -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css">
+
+  <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+      In the folder of skin CSS file there are also:
+      - .png and .svg icons sprite,
+      - preloader.gif (for browsers that do not support CSS animations) -->
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css">
+</head>
+<body>
+    <!--[if IE]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+
+<div class="mk-wrapper">
+    <section class="mk-masthead mk-masthead--sub">
+<header class="mk-main-header">
+    <a href="/" class="mk-main-header__brand">
+        <svg version="1.1" viewBox="0 0 557 540" xmlns="http://www.w3.org/2000/svg">
+          <g fill="none" fill-rule="evenodd">
+            <g transform="translate(-1)" fill-rule="nonzero">
+            <path d="m181.91 539.68h-0.7c-0.76 0-1.44-0.11-2-0.17h-0.14l-1.62-0.2c-15.204-1.867-29.364-8.7129-40.27-19.47l-1.07-1.06-49.46-61.26-73.34-90.59-0.5-0.72c-2.8927-4.0899-5.2989-8.503-7.17-13.15-1.0257-2.532-1.8875-5.1274-2.58-7.77v-0.11c-0.22-0.85-0.43-1.69-0.62-2.56v-0.14c-0.8042-3.5966-1.2861-7.2578-1.44-10.94v-0.47-0.48c-0.067687-4.136 0.26722-8.2688 1-12.34l0.11-0.61 14.51-63.64 28.72-126c4.0017-17.442 15.802-32.074 32-39.68l178.2-85.93 3.34-0.67c5.6926-1.1418 11.484-1.7201 17.29-1.7201h2.83 0.57c8.4518-0.016309 16.808 1.7879 24.5 5.2901l0.47 0.22 175.82 84.2 0.48 0.25c7.1101 3.7526 13.491 8.7481 18.84 14.75 2.7886 3.1018 5.2639 6.4715 7.39 10.06l0.17 0.29c2.1776 3.7964 3.9314 7.8205 5.23 12l0.3 1 44.23 190.25 0.17 1.42c2.0399 16.443-2.1677 33.052-11.79 46.54l-0.48 0.68-121.46 150.24c-7.2792 9.604-17.475 16.59-29.06 19.91-0.93 0.27-1.87 0.52-2.81 0.75l-0.3 0.07c-5.0328 1.1701-10.183 1.76-15.35 1.76h-194.01z" fill="#fff"/>
+            <path d="m492 131.65c-0.75221-2.3458-1.7582-4.6025-3-6.73-1.2507-2.1148-2.7114-4.0982-4.36-5.92-3.3032-3.7145-7.2456-6.8067-11.64-9.13l-179.82-86c-4.3569-1.9816-9.0938-2.9883-13.88-2.95h-0.77c-4.9428-0.19294-9.8909 0.20318-14.74 1.18l-179.72 86.6c-8.9642 4.1124-15.498 12.17-17.67 21.79l-3.69 16.16 216.29 117.67 0.34-0.18 217.22-112.72-4.56-19.77z" fill="#00E0C1"/>
+            <path d="m279 264.32l-216.29-117.67-25.77 113.1-14.73 64.63c-0.44744 2.4671-0.64178 4.9734-0.58 7.48v0.29c0.072639 2.1493 0.33702 4.2878 0.79 6.39 0.12 0.56 0.26 1.1 0.4 1.65 0.41228 1.5719 0.92671 3.1151 1.54 4.62 1.1152 2.7748 2.5517 5.4095 4.28 7.85l23.69 29.27 51 63 49.67 61.55c6.7982 6.7311 15.643 11.009 25.14 12.16 0.67 0 1.31 0.18 2 0.21h99.17v-254.34l-0.31-0.19z" fill="#00EEC4"/>
+            <path d="m536.75 324.38l-40.19-173-217.23 112.76v254.71h98.82c3.2616 0.017 6.5139-0.34884 9.69-1.0906 0.62-0.15 1.23-0.31 1.84-0.49 6.2438-1.7629 11.72-5.5604 15.56-10.79l66.09-81.75 31.31-38.73 26.94-33.33c5.8432-8.2018 8.4013-18.295 7.17-28.29z" fill="#00D1BD"/>
+            <path d="m120.94 369l137 75.89c1.3702 0.76284 3.0421 0.74251 4.3933-0.05344s2.1796-2.2483 2.1767-3.8166v-161.02c0-5.718-3.1489-10.971-8.19-13.67l-1.64-0.87-134.68-71.99c-0.8041-0.43178-1.7757-0.41032-2.56 0.056543-0.78426 0.46687-1.2663 1.3108-1.27 2.2235l-0.94 163.17c0.02 3.63 2.77 8.44 5.71 10.08z" fill="#fff"/>
+            <path d="m282.61 103.85c-4.0372-0.033083-8.0333 0.81323-11.71 2.481l-134.2 60.47c-0.91184 0.40637-1.512 1.2973-1.5476 2.295-0.032512 0.99771 0.50554 1.9274 1.3876 2.395l135.72 72.51c0.15 0.09 0.31 0.16 0.47 0.24l0.59 0.29 0.26 0.11 0.8 0.34h0.09c4.9879 1.8704 10.539 1.5061 15.24-1l139.14-73.94c1.1079-0.5822 1.7814-1.7504 1.7328-3.0009-0.054039-1.2505-0.82096-2.3596-1.9728-2.8491l-135.06-58.05c-3.4545-1.4945-7.1761-2.2735-10.94-2.291z" fill="#fff"/>
+            <path d="m442.82 192.61c-1.08-0.49333-2.4133-0.29667-4 0.59l-24.52 13.54c-3.6117 1.9922-6.3845 5.2194-7.81 9.09l-37.49 87.55-37.31-46.2c-1.59-2.29-4.2-2.45-7.81-0.45l-24.51 13.54c-1.6358 0.9266-3.0116 2.2508-4 3.85-1.0039 1.4454-1.5667 3.151-1.62 4.91v166.83c0 1.59 0.55 2.59 1.63 3s2.42 0.19 4-0.69l27.34-15.1c1.6143-0.90735 2.9864-2.1902 4-3.74 1.0178-1.3976 1.5863-3.0717 1.63-4.8v-105l23.21 30.12c2.1667 2.1267 4.6967 2.3933 7.59 0.8l11.67-6.45c3.18-1.7467 5.71-4.8067 7.59-9.18l23.43-55.9 0.25 97.1 0.17 8.31c-0.10795 1.217 0.57186 2.3675 1.69 2.86 1.2747 0.44018 2.6836 0.23517 3.78-0.55l27.27-15.83c1.5869-0.9387 2.9245-2.2455 3.9-3.81 0.9881-1.4207 1.5184-3.1095 1.5212-4.84v-166.43c0.028815-1.6-0.51118-2.64-1.6012-3.12z" fill="#fff"/>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <div role="navigation" class="mk-main-header__nav-wrapper">
+        <button class="mk-main-header__toggle" id="toggle" aria-controls="main_nav" aria-expanded="false" aria-label="navigation toggle" >
+          <svg version="1.1" viewBox="0 0 512 448" xmlns="http://www.w3.org/2000/svg">
+          <g>
+          <path d="m296 0h192c13.255 0 24 10.745 24 24v160c0 13.255-10.745 24-24 24h-192c-13.255 0-24-10.745-24-24v-160c0-13.255 10.745-24 24-24zm-80 0h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24zm-216 264v160c0 13.255 10.745 24 24 24h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24zm296 184h192c13.255 0 24-10.745 24-24v-160c0-13.255-10.745-24-24-24h-192c-13.255 0-24 10.745-24 24v160c0 13.255 10.745 24 24 24z"/>
+          </g>
+          </svg>
+          <span class="mk-main-header__toggle-text">menu</span>
+        </button>
+        </div>
+        <ul id="main_nav" class="mk-main-nav">
+          <li ><a class="mk-main-nav__item" href="/blog/index.html">Blog</a></li>
+          <li ><a class="mk-main-nav__item" href="/community-resources.html">Community Resources</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io">Documentation</a></li>
+          <li ><a class="mk-main-nav__item" href="/contribute.html">Contribute</a></li>
+          <li ><a class="mk-main-nav__item" href="/faqs.html">FAQs</a></li>
+          <li ><a class="mk-main-nav__item" href="https://book.metal3.io/developer_environment/tryit">Try It!</a></li>
+          <li  id="mk-main-nav__search">
+            <form action="/search.html" method="get" autocomplete="off" class="mk-search-form">
+              <div class="autocomplete" style="width:150px;">
+                <input type="text" id="search-input" class="docs-search--input" placeholder="Search Term" name="query">
+              </div>
+              <button type="submit" id = "search-button" class = "search-button" disabled = 'true' >
+                <img src="/assets/images/search.png" style="height: 20px;" alt="">
+              </button>
+                <div id="mode-toggle">
+                  <img src="/assets/images/moon-outline.png" id="mode-icon" style="height: 20px; margin-left: 10px;"/>
+                </div>
+            </form>
+          </li>
+
+        </ul>
+  </header>
+  
+<script>
+function autocomplete(inp, arr) {
+  /*the autocomplete function takes two arguments,
+  the text field element and an array of possible autocompleted values:*/
+  var currentFocus;
+  /*execute a function when someone writes in the text field:*/
+  inp.addEventListener("input", function(e) {
+      var a, b, i, val = this.value;
+      /*close any already open lists of autocompleted values*/
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      /*create a DIV element that will contain the items (values):*/
+      a = document.createElement("DIV");
+      a.setAttribute("id", this.id + "autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      /*append the DIV element as a child of the autocomplete container:*/
+      this.parentNode.appendChild(a);
+      /*for each item in the array...*/
+      for (i = 0; i < arr.length; i++) {
+        /*check if the item starts with the same letters as the text field value:*/
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          /*create a DIV element for each matching element:*/
+          b = document.createElement("DIV");
+          /*make the matching letters bold:*/
+          b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+          b.innerHTML += arr[i].substr(val.length);
+          /*insert a input field that will hold the current array item's value:*/
+          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function(e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              /*close the list of autocompleted values,
+              (or any other open lists of autocompleted values:*/
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  });
+  /*execute a function presses a key on the keyboard:*/
+  inp.addEventListener("keydown", function(e) {
+      document.getElementById("search-button").disabled= undefined;
+      var x = document.getElementById(this.id + "autocomplete-list");
+      if (x) x = x.getElementsByTagName("div");
+      if (e.keyCode == 40) {
+        /*If the arrow DOWN key is pressed,
+        increase the currentFocus variable:*/
+        currentFocus++;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        /*If the arrow UP key is pressed,
+        decrease the currentFocus variable:*/
+        currentFocus--;
+        /*and and make the current item more visible:*/
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        /*If the ENTER key is pressed, prevent the form from being submitted,*/
+        if (currentFocus > -1) {
+          /*and simulate a click on the "active" item:*/
+          if (x) {
+            x[currentFocus].click();
+            e.preventDefault();
+          }
+        }
+        if (document.getElementById("search-input").value == "") {
+          e.preventDefault();
+        }
+      }
+  });
+  function addActive(x) {
+    /*a function to classify an item as "active":*/
+    if (!x) return false;
+    /*start by removing the "active" class on all items:*/
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    /*add class "autocomplete-active":*/
+    x[currentFocus].classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove("autocomplete-active");
+    }
+  }
+  function closeAllLists(elmnt) {
+    /*close all autocomplete lists in the document,
+    except the one passed as an argument:*/
+    var x = document.getElementsByClassName("autocomplete-items");
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+      x[i].parentNode.removeChild(x[i]);
+    }
+  }
+}
+/*execute a function when someone clicks in the document:*/
+document.addEventListener("click", function (e) {
+    closeAllLists(e.target);
+});
+}
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  let iconMode = document.getElementById("mode-icon")
+  let toggleMode = document.getElementById("mode-toggle")
+  let cncfImage = document.getElementById("cncf-image")
+let isToggled = localStorage.getItem("currentMode") === "true";
+updateMode();
+toggleMode.addEventListener("click", () => {
+  isToggled = !isToggled;
+  localStorage.setItem("currentMode", isToggled);
+  updateMode();
+});
+function updateMode() {
+  let mastHead = document.querySelector(".mk-masthead");
+  let h1 = document.querySelectorAll("h1")
+  let h2 = document.querySelectorAll("h2")
+  let h3 = document.querySelectorAll("h3")
+  let li = document.querySelectorAll("li")
+  let sections = document.querySelectorAll(".mk-main__section")
+  let body = document.querySelector("body")
+  let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let blogCards = document.querySelectorAll(".mk-blog-meta__card")
+  let questions = document.querySelectorAll(".mk-faqs__question")
+  let subHeadings = document.querySelectorAll(".mk-sub-heading")
+  let p = document.querySelectorAll("p")
+  if (isToggled) {
+
+    iconMode.src = "/assets/images/moon-outline.png";
+    cncfImage.src = "/assets/images/cncf-white.svg";
+    mastHead.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    body.style.color = "var(--mk--Color--200)";
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = "var(--mk--Color--200)"
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = "var(--mk--Color--200)"
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = "var(--mk--Color--200)"
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = "var(--mk--Color--200)"
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--500)";
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = "var(--mk--Color--200)"
+    })
+    whyCards.forEach((whyCard)=>{
+    whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
+      whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
+    })
+    questions.forEach((question)=>{
+      question.style.color = "var(--mk--Color--200)"
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+  } else {
+    iconMode.src = "/assets/images/moon.png";
+    cncfImage.src = "/assets/images/cncf-color.svg";
+    mastHead.style.backgroundColor = "";
+    body.style.backgroundColor = "";
+    body.style.color = "var(--mk--Color--400)";
+
+
+    h1.forEach((eachH1)=>{
+      eachH1.style.color = ""
+    })
+    h2.forEach((eachH2)=>{
+      eachH2.style.color = ""
+    })
+    h3.forEach((eachH3)=>{
+      eachH3.style.color = ""
+    })
+    sections.forEach((section)=>{
+      section.style.backgroundColor = "var(--mk--BackgroundColor--250)";
+    })
+    li.forEach((eachLi)=>{
+      eachLi.style.color = ""
+    })
+    p.forEach((eachP)=>{
+      eachP.style.color = ""
+    })
+    whyCards.forEach((whyCard)=>{
+      whyCard.querySelector("h3").style.color = ""
+      whyCard.style.backgroundColor = "white"
+    })
+    blogCards.forEach((blogCard)=>{
+      blogCard.style.backgroundColor = ""
+    })
+    questions.forEach((question)=>{
+      question.style.color = ""
+    })
+    subHeadings.forEach((subHeading)=>{
+      subHeading.style.color = "var(--mk--Color--500)"
+    })
+
+
+  }
+}
+})
+</script>
+<script>
+var mykeywords = ["hybrid", "cloud", "metal3", "baremetal", "stack", "edge", "openstack", "ironic", "openshift", "kubernetes", "OpenStack", "operator", "summit", "kubecon", "shiftdev", "metal3-dev-env", "documentation", "development", "talk", "conference", "meetup", "cluster API", "provider", "raw image", "image streaming", "IPAM", "ip address manager", "Pivoting", "Move", "scaling", "cncf", "community", "announcement", "IPA", "OCI", "deployment", "bare metal", ]
+autocomplete(document.getElementById("search-input"), mykeywords);
+</script>
+<script src="/assets/js/clipboard.min.js"></script>
+<!-- Photoswipe -->
+<!-- Core JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+<!-- UI JS file -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<div class="mk-masthead__content--sub">
+        <h1 class="mk-masthead__content--sub__title">Blog</h1>
+        <p class="mk-masthead__content--sub__text">Read about the newest updates in the community.</p>
+</div>
+</section>
+<main class="mk-main mk-blog">
+            <article class="mk-main__section mk-main__content mk-main__section__content">
+                    <h1 class="mk-heading--lg mk-heading mk-m-border mk-blog__post__title">Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents</h1>
+                    <time datetime="1999-12-23" class="mk-blog-meta__timestamp mk-blog-meta__item mk-blog-meta__timestamp--light">Thursday, 24/10/2024</time>
+                    <div class="mk-blog-meta__item mk-blog-meta__author">By Huy Mai</div>
+                    <div class="mk-blog-meta__categories">
+                                
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#metal3">
+                                  metal3
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#cluster-api">
+                                  cluster-api
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#ironic">
+                                  ironic
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#baremetal">
+                                  baremetal
+                                </a>
+                              
+                                <a class="mk-blog-meta__item mk-blog-meta__category" href="/blog/categories.html#scaling">
+                                  scaling
+                                </a>
+                              
+                </div>
+
+<div class="mk-share-buttons">
+
+           <!-- <a class="mk-share-buttons__item" href="https://www.facebook.com/sharer/sharer.php?u=https://metal3.io/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html"
+            onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+            title="Share on Facebook" >
+            <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 1024 1024" version="1.1" viewBox="0 0 1024 1024" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+	<path d="M1024,512C1024,229.2,794.8,0,512,0S0,229.2,0,512c0,255.6,187.2,467.4,432,505.8V660H302V512h130V399.2   C432,270.9,508.4,200,625.4,200c56,0,114.6,10,114.6,10v126h-64.6c-63.6,0-83.4,39.5-83.4,80v96h142l-22.7,148H592v357.8   C836.8,979.4,1024,767.6,1024,512z"/>
+	<path class="st0" d="M711.3,660L734,512H592v-96c0-40.5,19.8-80,83.4-80H740V210c0,0-58.6-10-114.6-10   c-117,0-193.4,70.9-193.4,199.2V512H302v148h130v357.8c26.1,4.1,52.8,6.2,80,6.2s53.9-2.1,80-6.2V660H711.3z"/>
+</svg>Share on Facebook</a> -->
+
+
+        <a class="mk-share-buttons__item" href="https://twitter.com/intent/tweet?text=Scaling Kubernetes with Metal3: Simulating 1000 Clusters with Fake Ironic Agents&url=https://metal3.io/blog/2024/10/24/Scaling-Kubernetes-with-Metal3-on-Fake-Node.html"
+        onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+        title="Share on Twitter" >
+        <?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 250 203.1" version="1.1" viewBox="0 0 250 203.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<path class="st1" d="m78.6 203.1c94.3 0 145.9-78.2 145.9-145.9 0-2.2 0-4.4-0.1-6.6 10-7.3 18.7-16.3 25.6-26.5-9.4 4.1-19.3 6.9-29.5 8.1 10.7-6.4 18.7-16.5 22.5-28.4-10.1 6-21.1 10.2-32.6 12.4-19.4-20.7-51.9-21.7-72.6-2.2-13.3 12.5-19 31.2-14.8 49-41.1-2.1-79.6-21.6-105.6-53.6-13.6 23.4-6.7 53.4 15.9 68.4-8.2-0.2-16.1-2.4-23.3-6.4v0.6c0 24.4 17.2 45.4 41.2 50.3-7.6 2.1-15.5 2.4-23.2 0.9 6.7 20.9 26 35.2 47.9 35.6-18.2 14.3-40.6 22-63.7 22-4.1 0-8.2-0.3-12.2-0.7 23.5 15.1 50.7 23 78.6 23"/>
+</svg> Share on Twitter
+    </a>
+</div>
+        <p>If you’ve ever tried scaling out Kubernetes clusters in a bare-metal
+environment, you’ll know that large-scale testing comes with serious challenges.
+Most of us don’t have access to enough physical servers—or even virtual
+machines—to simulate the kinds of large-scale environments we need for stress
+testing, especially when deploying hundreds or thousands of clusters.</p>
+
+<p>That’s where this experiment comes in.</p>
+
+<p>Using Metal3, we simulated a massive environment—provisioning 1000 single-node
+Kubernetes clusters—without any actual hardware. The trick? A combination of
+Fake Ironic Python Agents (IPA) and Fake Kubernetes API servers. These tools
+allowed us to run an entirely realistic Metal3 provisioning workflow while
+simulating thousands of nodes and clusters, all without needing a single real
+machine.</p>
+
+<p>The motivation behind this was simple: to create a scalable testing environment
+that lets us validate Metal3’s performance, workflow, and reliability without
+needing an expensive hardware lab or virtual machine fleet. By simulating nodes
+and clusters, we could push the limits of Metal3’s provisioning process
+cost-effectively and time-efficiently.</p>
+
+<p>In this post, I’ll explain exactly how it all works, from setting up multiple
+Ironic services to faking hardware nodes and clusters and sharing the lessons
+learned. Whether you’re a Metal3 user or just curious about how to test
+large-scale Kubernetes environments, it’ll surely be a good read. Let’s get
+started!</p>
+
+<h2 id="prerequisites--setup">Prerequisites &amp; Setup</h2>
+
+<p>Before diving into the fun stuff, let’s ensure we’re on the same page. You don’t
+need to be a Metal3 expert to follow along, but having a bit of background will
+help!</p>
+
+<h3 id="what-youll-need-to-know">What You’ll Need to Know</h3>
+
+<p>Let’s start by ensuring you’re familiar with some essential tools and concepts
+that power Metal3 workflow. If you’re confident in your Metal3 skills, please
+feel free to skip this part.</p>
+
+<h4 id="a-typical-metal3-workflow">A typical Metal3 Workflow</h4>
+
+<p>The following diagram explains a typical Metal3 workflow. We will, then, go into
+details of every component.</p>
+
+<p><img src="/assets/2024-10-24-Scaling-Kubernetes-with-Metal3-on-Fake-Node/metal3-typical-workflow.jpg" alt="Metal3 Typical
+Workflow" /></p>
+
+<h4 id="cluster-api-capi">Cluster API (CAPI)</h4>
+
+<p>CAPI is a project that simplifies the deployment and management of Kubernetes
+clusters. It provides a consistent way to create, update, and scale clusters
+through Kubernetes-native APIs. The magic of CAPI is that it abstracts away many
+of the underlying details so that you can manage clusters on different platforms
+(cloud, bare metal, etc.) in a unified way.</p>
+
+<h4 id="cluster-api-provider-metal3-capm3">Cluster API Provider Metal3 (CAPM3)</h4>
+
+<p>CAPM3 extends CAPI to work specifically with Metal3 environments. It connects
+the dots between CAPI, BMO, and Ironic, allowing Kubernetes clusters to be
+deployed on bare-metal infrastructure. It handles tasks like provisioning new
+nodes, registering them with Kubernetes, and scaling clusters.</p>
+
+<h4 id="bare-metal-operator-bmo">Bare Metal Operator (BMO)</h4>
+
+<p>BMO is a controller that runs inside a Kubernetes cluster and works alongside
+Ironic to manage bare-metal infrastructure. It automates the lifecycle of
+bare-metal hosts, managing things like registering new hosts, powering them on
+or off, and monitoring their status.</p>
+
+<h5 id="bare-metal-host-bmh">Bare Metal Host (BMH)</h5>
+
+<p>A BMH is the Kubernetes representation of a bare-metal node. It contains
+information about how to reach the node it represents, and BMO monitors its
+desired state closely. When BMO notices that a BMH object state is requested to
+change (either by a human user or CAPM3), it will decide what needs to be done
+and tell Ironic.</p>
+
+<h4 id="ironic--ironic-python-agent-ipa">Ironic &amp; Ironic Python Agent (IPA)</h4>
+
+<ul>
+  <li>Ironic is a bare-metal provisioning tool that handles tasks like booting
+servers, deploying bootable media (e.g., operating systems) to disk, and
+configuring hardware. Think of Ironic as the piece of software that manages
+actual physical servers. In a Metal3 workflow, Ironic receives orders from BMO
+and translates them into actionable steps. Ironic has multiple ways to interact
+with the machines, and one of them is the so-called “ agent-based direct deploy”
+method, which is commonly used by BMO. The agent mentioned is called <strong>Ironic
+Python Agent</strong> (IPA), which is a piece of software that runs on each bare-metal
+node and carries out Ironic’s instructions. It interacts with the hardware
+directly, like wiping disks, configuring networks, and handling boot processes.</li>
+</ul>
+
+<p>In a typical Metal3 workflow, BMO reads the desired state of the node from the
+BMH object, translates the Kubernetes reconciling logic to concrete actions, and
+forwards them to Ironic, which, as part of the provisioning process, tells IPA
+the exact steps it needs to perform to get the nodes to desired states. During
+the first boot after node image installation, Kubernetes components will be
+installed on the nodes by cloud-init, and once the process succeeds, Ironic
+and IPA finish the provisioning process, and CAPI and CAPM3 will verify the
+health of the newly provisioned Kubernetes cluster(s).</p>
+
+<h2 id="the-experiment-simulating-1000-kubernetes-clusters">The Experiment: Simulating 1000 Kubernetes Clusters</h2>
+
+<p>This experiment aimed to push Metal3 to simulate 1000 single-node Kubernetes
+clusters on fake hardware. Instead of provisioning real machines, we used Fake
+Ironic Python Agents (Fake IP) and Fake Kubernetes API Servers (FKAS) to
+simulate nodes and control planes, respectively. This setup allowed us to test a
+massive environment without the need for physical infrastructure.</p>
+
+<p>Since our goal is to verify the Metal3 limit, our setup will let all the Metal3
+components (except for IPA, which runs inside and will be scaled with the nodes)
+to keep working as they do in a typical workflow. In fact, none of the
+components should be aware that they are running with fake hardware.</p>
+
+<p>Take the figure we had earlier as a base, here is the revised workflow with fake
+nodes.</p>
+
+<p><img src="/assets/2024-10-24-Scaling-Kubernetes-with-Metal3-on-Fake-Node/metal3-simulation-workflow.jpg" alt="Metal3 Simulation
+Workflow" /></p>
+
+<h3 id="step-1-setting-up-the-environment">Step 1: Setting Up the environment</h3>
+
+<p>As you may have known, a typical Metal3 workflow requires several components:
+bootstrap Kubernetes cluster, possible external networks, bare-metal nodes, etc.
+As we are working on simulating the environment, we will start with a newly
+spawned Ubuntu VM, create a cluster with minikube, add networks with libvirt,
+and so on (If you’re familiar with Metal3’s dev-env, this step is similar to
+what script
+<a href="https://github.com/metal3-io/metal3-dev-env/blob/main/01_prepare_host.sh">01</a>,
+<a href="https://github.com/metal3-io/metal3-dev-env/blob/main/02_configure_host.sh">02</a>
+and a part of
+<a href="https://github.com/metal3-io/metal3-dev-env/blob/main/03_launch_mgmt_cluster.sh">03</a>
+do). We will not discuss this part, but you can find the related setup from
+<a href="https://github.com/Nordix/metal3-clusterapi-docs/blob/main/Support/Multitenancy/Scalability-with-Fake-Nodes/vm-setup.sh">this
+script</a>
+if interested.</p>
+
+<p><strong>Note</strong>: If you intend to follow along, note that going to 1000 nodes requires
+a large environment and will take a long time. In our setup, we had a VM with 24
+cores and 32GB of RAM, of which we assigned 14 cores and 20GB of RAM to the
+minikube VM, and the process took roughly 48 hours. If your environment is less
+powerful, consider reducing the nodes you want to provision. Something like 100
+nodes will require minimal resources and time while still being impressive.</p>
+
+<h3 id="step-2-install-bmo-and-ironic">Step 2: Install BMO and Ironic</h3>
+
+<p>In Metal3’s typical workflow, we usually rely on Kustomize to install Ironic and
+BMO. Kustomize helps us define configurations for Kubernetes resources, making
+it easier to customize and deploy services. However, our current Kustomize
+overlay for Metal3 configures only a single Ironic instance. This setup works
+well for smaller environments, but it becomes a bottleneck when scaling up and
+handling thousands of nodes.</p>
+
+<p>That’s where Ironic’s <strong>special mode</strong> comes into play. Ironic has the ability
+to run <strong>multiple Ironic conductors</strong> while sharing the same database. The best
+part? Workload balancing between conductors happens automatically, which means
+that no matter which Ironic conductor receives a request, the load is evenly
+distributed across all conductors, ensuring efficient provisioning. Achieving
+this requires separating <strong>ironic conductor</strong> from the database, which allows us
+to scale up the conductor part. Each <strong>conductor</strong> will have its own
+<code class="language-plaintext highlighter-rouge">PROVISIONING_IP</code>, hence the need to have a specialized <code class="language-plaintext highlighter-rouge">configMap.</code></p>
+
+<p>We used <a href="https://helm.sh/">Helm</a> for this purpose. In our Helm chart, the
+<strong>Ironic conductor</strong> container and <strong>HTTP server (httpd)</strong> container are
+separated into a new pod, and the rest of the ironic package (mostly
+MariaDB-ironic database) stays in another pod. A list of PROVISIONING_IPs is
+provided by the chart’s <code class="language-plaintext highlighter-rouge">values.yaml</code>, and for each IP, an  <strong>ironic conductor</strong>
+pod is created, along with a config map whose values are rendered with the IP’s
+value. This way, we can dynamically scale up/down ironic (or, more specifically,
+<strong>ironic conductors</strong>) by simply adding/removing ips.</p>
+
+<p>Another piece of information that we need to keep in mind is the ipa-downloader
+container. In our current metal3-dev-env, the IPA-downloader container runs as
+an init Container for ironic, and its job is to download the IPA image to a
+Persistent Volume. This image contains the <strong>Ironic Python Agent</strong>, and it is
+assumed to exist by Ironic. For the multiple-conductor scenario, running the
+same init-container for all the conductors, at the same time, could be slow
+and/or fail due to network issue. To make it work, we made a small “hack” in the
+chart: the ipa image will exist in a specific location inside the minikube host,
+and all the conductor pods will mount to that same location. In production, a
+more throughout solution might be to keep the IPA-downloader as an
+init-container, but points the image to the local image server, which we set up
+in the previous step.</p>
+
+<p>BMO, on the other hand, still works well with kustomize, as we do not need to
+scale it. As with typical metal3 workflow, BMO and Ironic must share some
+authentication to work with TLS.</p>
+
+<p>You can check out the full Ironic helm chart
+<a href="https://github.com/Nordix/metal3-clusterapi-docs/tree/main/Support/Multitenancy/Scalability-with-Fake-Nodes/ironic">here</a>.</p>
+
+<h3 id="step-3-creating-fake-nodes-with-fake-ironic-python-agents">Step 3: Creating Fake Nodes with Fake Ironic Python Agents</h3>
+
+<p>As we mentioned at the beginning, instead of using real hardware, we will use a
+new tool called <strong>Fake Ironic Python Agent</strong>, or <strong>Fake IPA</strong> to simulate the
+nodes.</p>
+
+<p>Setting up <strong>Fake IPA</strong> is relatively straightforward, as <strong>Fake IPA</strong> runs as
+containers on the host machine, but first, we need to create the list of “nodes”
+that we will use (Fake IPA requires to have that list ready when it starts). A
+“node” typically looks like this</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="o">{</span>
+      <span class="s2">"uuid"</span>: <span class="nv">$uuid</span>,
+      <span class="s2">"name"</span>: <span class="nv">$node_name</span>,
+      <span class="s2">"power_state"</span>: <span class="s2">"Off"</span>,
+      <span class="s2">"external_notifier"</span>: <span class="s2">"True"</span>,
+      <span class="s2">"nics"</span>: <span class="o">[</span>
+        <span class="o">{</span><span class="s2">"mac"</span>: <span class="nv">$macaddr</span>, <span class="s2">"ip"</span>: <span class="s2">"192.168.0.100"</span><span class="o">}</span>
+      <span class="o">]</span>,
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>All of the variables (<code class="language-plaintext highlighter-rouge">uuid</code>, <code class="language-plaintext highlighter-rouge">node_name</code>, <code class="language-plaintext highlighter-rouge">macaddress</code>) can be dynamically
+generated in any way you want (check <a href="https://github.com/Nordix/metal3-clusterapi-docs/blob/main/Support/Multitenancy/Scalability-with-Fake-Nodes/generate_unique_nodes.sh">this
+script</a>
+out if you need an idea). Still, we must store this information to generate the
+BMH objects that match those “nodes.” The <code class="language-plaintext highlighter-rouge">ip</code> is, on the other hand, not
+essential. It could be anything.</p>
+
+<p>We must also start up the <strong>sushy-tools</strong> container in this step. It is a tool
+that simulates the <a href="https://www.techtarget.com/searchnetworking/definition/baseboard-management-controller">Baseboard Management
+Controller</a>
+for non-bare-metal hardware, and we have been using it extensively inside Metal3
+dev-env and CI to control and provision VMs as if they are bare-metal nodes. In
+a bare-metal setup, Ironic will ask the BMC to install IPA on the node, and in
+our setup, <strong>sushy-tools</strong> will get the same request, but it will simply fake
+the installation and, in the end, forward <strong>Ironic</strong> traffic to the <strong>Fake IPA</strong>
+container.</p>
+
+<p>Another piece of information we will need is the cert that <strong>Ironic</strong> will use
+in its communication with <strong>IPA</strong>. IPA is supposed to get it from Ironic, but as
+<strong>Fake IPA</strong> cannot do that (at least not yet), we must get the cert and provide
+it in <strong>Fake IPA</strong> config.</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nb">mkdir </span>cert
+kubectl get secret <span class="nt">-n</span> baremetal-operator-system ironic-cert <span class="nt">-o</span> json <span class="se">\</span>
+  <span class="nt">-o</span><span class="o">=</span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.data.ca</span><span class="se">\.</span><span class="s2">crt}"</span> | <span class="nb">base64</span> <span class="nt">-d</span> <span class="o">&gt;</span>cert/ironic-ca.crt
+</code></pre></div></div>
+
+<p>Also note that one set of <strong>sushy-tools</strong> and <strong>Fake IPA</strong> containers won’t be
+enough to provision 1000 nodes. Just like <strong>Ironic</strong>, they need to be scaled up
+extensively (about 20-30 pairs will be sufficient for 1000 nodes), but
+fortunately, the scaling is straightforward: We just need to give them different
+ports. Both of these components also require a Python-based config file. For
+convenience, in this setup, we create a big file and provide it to both of them,
+using the following shell script:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="k">for </span>i <span class="k">in</span> <span class="si">$(</span><span class="nb">seq </span>1 <span class="s2">"</span><span class="nv">$N_SUSHY</span><span class="s2">"</span><span class="si">)</span><span class="p">;</span> <span class="k">do
+  </span><span class="nv">container_conf_dir</span><span class="o">=</span><span class="s2">"</span><span class="nv">$SUSHY_CONF_DIR</span><span class="s2">/sushy-</span><span class="nv">$i</span><span class="s2">"</span>
+
+  <span class="c"># Use round-robin to choose fake-ipa and sushy-tools containers for the node</span>
+  <span class="nv">fake_ipa_port</span><span class="o">=</span><span class="k">$((</span><span class="m">9901</span> <span class="o">+</span> <span class="o">((</span><span class="nv">$i</span> <span class="o">%</span> <span class="k">${</span><span class="nv">N_FAKE_IPA</span><span class="k">:-</span><span class="nv">1</span><span class="k">}))</span><span class="o">))</span>
+  <span class="nv">sushy_tools_port</span><span class="o">=</span><span class="k">$((</span><span class="m">8000</span> <span class="o">+</span> i<span class="k">))</span>
+  ports+<span class="o">=(</span><span class="k">${</span><span class="nv">sushy_tools_port</span><span class="k">}</span><span class="o">)</span>
+
+  <span class="c"># This is only so that we have the list of the needed ports for other</span>
+  <span class="c"># purposes, like configuring the firewalls.</span>
+  ports+<span class="o">=(</span><span class="k">${</span><span class="nv">fake_ipa_port</span><span class="k">}</span><span class="o">)</span>
+
+  <span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="k">${</span><span class="nv">container_conf_dir</span><span class="k">}</span><span class="s2">"</span>
+
+  <span class="c"># Generate the htpasswd file, which is required by sushy-tools</span>
+  <span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="sh">'</span><span class="no">EOF</span><span class="sh">' &gt;"</span><span class="k">${</span><span class="nv">container_conf_dir</span><span class="k">}</span><span class="sh">"/htpasswd
+admin:</span><span class="nv">$2b$12$/</span><span class="sh">dVOBNatORwKpF.ss99KB.vESjfyONOxyH.UgRwNyZi1Xs/W2pGVS
+</span><span class="no">EOF
+
+</span>  <span class="c"># Set configuration options</span>
+  <span class="nb">cat</span> <span class="o">&lt;&lt;</span><span class="no">EOF</span><span class="sh"> &gt;"</span><span class="k">${</span><span class="nv">container_conf_dir</span><span class="k">}</span><span class="sh">"/conf.py
+import collections
+
+SUSHY_EMULATOR_LIBVIRT_URI = "</span><span class="k">${</span><span class="nv">LIBVIRT_URI</span><span class="k">}</span><span class="sh">"
+SUSHY_EMULATOR_IGNORE_BOOT_DEVICE = False
+SUSHY_EMULATOR_VMEDIA_VERIFY_SSL = False
+SUSHY_EMULATOR_AUTH_FILE = "/root/sushy/htpasswd"
+SUSHY_EMULATOR_FAKE_DRIVER = True
+SUSHY_EMULATOR_LISTEN_PORT = "</span><span class="k">${</span><span class="nv">sushy_tools_port</span><span class="k">}</span><span class="sh">"
+EXTERNAL_NOTIFICATION_URL = "http://</span><span class="k">${</span><span class="nv">ADVERTISE_HOST</span><span class="k">}</span><span class="sh">:</span><span class="k">${</span><span class="nv">fake_ipa_port</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_API_URL = "</span><span class="k">${</span><span class="nv">API_URL</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_URL = "http://</span><span class="k">${</span><span class="nv">ADVERTISE_HOST</span><span class="k">}</span><span class="sh">:</span><span class="k">${</span><span class="nv">fake_ipa_port</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_INSPECTION_CALLBACK_URL = "</span><span class="k">${</span><span class="nv">CALLBACK_URL</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_ADVERTISE_ADDRESS_IP = "</span><span class="k">${</span><span class="nv">ADVERTISE_HOST</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_ADVERTISE_ADDRESS_PORT = "</span><span class="k">${</span><span class="nv">fake_ipa_port</span><span class="k">}</span><span class="sh">"
+FAKE_IPA_CAFILE = "/root/cert/ironic-ca.crt"
+SUSHY_FAKE_IPA_LISTEN_IP = "</span><span class="k">${</span><span class="nv">ADVERTISE_HOST</span><span class="k">}</span><span class="sh">"
+SUSHY_FAKE_IPA_LISTEN_PORT = "</span><span class="k">${</span><span class="nv">fake_ipa_port</span><span class="k">}</span><span class="sh">"
+SUSHY_EMULATOR_FAKE_IPA = True
+SUSHY_EMULATOR_FAKE_SYSTEMS = </span><span class="si">$(</span><span class="nb">cat </span>nodes.json<span class="si">)</span><span class="sh">
+</span><span class="no">EOF
+
+</span>  <span class="c"># Start sushy-tools</span>
+  docker run <span class="nt">-d</span> <span class="nt">--net</span> host <span class="nt">--name</span> <span class="s2">"sushy-tools-</span><span class="k">${</span><span class="nv">i</span><span class="k">}</span><span class="s2">"</span> <span class="se">\</span>
+    <span class="nt">-v</span> <span class="s2">"</span><span class="k">${</span><span class="nv">container_conf_dir</span><span class="k">}</span><span class="s2">"</span>:/root/sushy <span class="se">\</span>
+    <span class="s2">"</span><span class="k">${</span><span class="nv">SUSHY_TOOLS_IMAGE</span><span class="k">}</span><span class="s2">"</span>
+
+  <span class="c"># Start fake-ipa</span>
+  docker run <span class="se">\</span>
+    <span class="nt">-d</span> <span class="nt">--net</span> host <span class="nt">--name</span> fake-ipa-<span class="k">${</span><span class="nv">i</span><span class="k">}</span> <span class="se">\</span>
+    <span class="nt">-v</span> <span class="s2">"</span><span class="k">${</span><span class="nv">container_conf_dir</span><span class="k">}</span><span class="s2">"</span>:/app <span class="se">\</span>
+    <span class="nt">-v</span> <span class="s2">"</span><span class="si">$(</span><span class="nb">realpath </span>cert<span class="si">)</span><span class="s2">"</span>:/root/cert <span class="se">\</span>
+    <span class="s2">"</span><span class="k">${</span><span class="nv">FAKEIPA_IMAGE</span><span class="k">}</span><span class="s2">"</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>In this setup, we made it so that all the <strong>sushy-tools</strong> containers will
+listen on the port range running from 8001, 8002,…, while the <strong>Fake IPA</strong>
+containers have ports 9001, 9002,…</p>
+
+<h3 id="step-4-add-the-bmh-objects">Step 4: Add the BMH objects</h3>
+
+<p>Now that we have <strong>sushy-tools</strong> and <strong>Fake IPA</strong> containers running, we can
+already generate the manifest for BMH objects, and apply them to the cluster. A
+BMH object will look like this</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Secret</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">name-bmc-secret</span>
+  <span class="na">labels</span><span class="pi">:</span>
+    <span class="na">environment.metal3.io</span><span class="pi">:</span> <span class="s">baremetal</span>
+<span class="na">type</span><span class="pi">:</span> <span class="s">Opaque</span>
+<span class="na">data</span><span class="pi">:</span>
+  <span class="na">username</span><span class="pi">:</span> <span class="s">YWRtaW4=</span>
+  <span class="na">password</span><span class="pi">:</span> <span class="s">cGFzc3dvcmQ=</span>
+<span class="nn">---</span>
+<span class="na">apiVersion</span><span class="pi">:</span> <span class="s">metal3.io/v1alpha1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">BareMetalHost</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">name</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">online</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">bmc</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">redfish+http://192.168.222.1:{port}/redfish/v1/Systems/{uuid}</span>
+    <span class="na">credentialsName</span><span class="pi">:</span> <span class="s">name-bmc-secret</span>
+  <span class="na">bootMACAddress</span><span class="pi">:</span> <span class="s">random_mac</span>
+  <span class="na">bootMode</span><span class="pi">:</span> <span class="s">legacy</span>
+</code></pre></div></div>
+
+<p>In this manifest:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">name</code> is the node name we generated in the previous step.</li>
+  <li><code class="language-plaintext highlighter-rouge">uuid</code> is the random uuid we generated for the same node.</li>
+  <li><code class="language-plaintext highlighter-rouge">random_mac</code> is a random mac address for the boot. It’s NOT the same as the
+NIC mac address we generated for the node.</li>
+  <li><code class="language-plaintext highlighter-rouge">port</code> is the listening port on one of the <strong>sushy-tools</strong> containers we
+created in the previous step. Since every <strong>sushy-tools</strong> and <strong>Fake IPA</strong>
+container has information about ALL the nodes, we can decide what container to
+locate the “node”. In general, it’s a good idea to spread them out, so all
+containers are loaded equally.</li>
+</ul>
+
+<p>We can now run <code class="language-plaintext highlighter-rouge">kubectl apply -f</code> on one (or all of) the BMH manifests. What you
+expect to see is that a BMH object is created, and its state will change from
+<code class="language-plaintext highlighter-rouge">registering</code> to <code class="language-plaintext highlighter-rouge">available</code> after a while. It means <strong>ironic</strong> acknowledged
+that the node is valid, in good state and ready to be provisioned.</p>
+
+<h3 id="step-5-deploy-the-fake-nodes-to-kubernetes-clusters">Step 5: Deploy the fake nodes to kubernetes clusters</h3>
+
+<p>Before provisioning our clusters, let’s init the process, so that we have CAPI
+and CAPM3 installed</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code>clusterctl init <span class="nt">--infrastructure</span><span class="o">=</span>metal3
+</code></pre></div></div>
+
+<p>After a while, we should see that CAPI, CAPM3, and IPAM pods become available.</p>
+
+<p>In a standard Metal3 workflow, after having the BMH objects in an <code class="language-plaintext highlighter-rouge">available</code>
+state, we can provision new Kubernetes clusters with <code class="language-plaintext highlighter-rouge">clusterctl</code>. However, with
+fake nodes, things get a tiny bit more complex. At the end of the provisioning
+process, <strong>Cluster API</strong> expects that there is a new kubernetes API server
+created for the new cluster, from which it will check if all nodes are up, all
+the control planes have <code class="language-plaintext highlighter-rouge">apiserver</code>, <code class="language-plaintext highlighter-rouge">etcd</code>, etc. pods up and running, and so
+on. It is where the <a href="https://github.com/metal3-io/cluster-api-provider-metal3/blob/main/hack/fake-apiserver/README.md"><strong>Fake Kubernetes API Server</strong>
+(FKAS)</a>
+comes in.</p>
+
+<p>As the <strong>FKAS README</strong> linked above already described how it works, we won’t go
+into details. We simply need to send <strong>FKAS</strong> a <code class="language-plaintext highlighter-rouge">register</code> POST request (with
+the new cluster’s namespace and cluster name), and it will give us an IP and a
+port, which we can plug into our cluster template and then run <code class="language-plaintext highlighter-rouge">clusterctl
+generate cluster</code>.</p>
+
+<p>Under the hood, <strong>FKAS</strong> generates unique API servers for different clusters.
+Each of the fake API servers does the following jobs:</p>
+
+<ul>
+  <li>Mimicking API Calls: The Fake Kubernetes API server was set up to respond to
+the essential Kubernetes API calls made during provisioning.</li>
+  <li>Node Registration: When CAPM3 registered nodes, the Fake API server returned
+success responses, making Metal3 believe the nodes had joined a real Kubernetes
+cluster.</li>
+  <li>Cluster Health and Status: The Fake API responded with “healthy” statuses,
+allowing CAPI/CAPM3 to continue its workflow without interruption.</li>
+  <li>Node Creation and Deletion: When CAPI queried for node status or attempted to
+add/remove nodes, the Fake API server responded realistically, ensuring the
+provisioning process continued smoothly.</li>
+  <li>Pretending to Host Kubelet: The Fake API server also simulated kubelet
+responses, which allowed CAPI/CAPM3 to interact with the fake clusters as though
+they were managing actual nodes.</li>
+</ul>
+
+<p>Note that in this experiment, we provisioned every one of the 1000 fake nodes to
+a single-node cluster, but it’s possible to increase the number of control
+planes and worker nodes by changing the <code class="language-plaintext highlighter-rouge">--control-plane-machine-count</code> and
+<code class="language-plaintext highlighter-rouge">worker-machine-count</code> parameters in the <code class="language-plaintext highlighter-rouge">clusterctl generate cluster</code> command.
+However, you will need to ensure that all clusters’ total nodes do not exceed
+the number of BMHs.</p>
+
+<p>As a glance, the whole simulation looks like this:</p>
+
+<p><img src="/assets/2024-10-24-Scaling-Kubernetes-with-Metal3-on-Fake-Node/simulation-layout.jpg" alt="Simulation
+layout" /></p>
+
+<p>It will likely take some time, but once the BMHs are all provisioned, we should
+be able to verify that all, or at least, most of the clusters are in good shape:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code><span class="c"># This will list the clusters.</span>
+kubectl get clusters <span class="nt">-A</span>
+
+<span class="c"># This will determine the clusters' readiness.</span>
+kubectl get kcp <span class="nt">-A</span>
+</code></pre></div></div>
+
+<ul>
+  <li>For each cluster, it’s also a good idea to perform a <a href="https://cluster-api.sigs.k8s.io/clusterctl/commands/describe-cluster.html?highlight=describe%20cluster#clusterctl-describe-cluster">clusterctl
+check</a>.</li>
+</ul>
+
+<h3 id="accessing-the-fake-cluster">Accessing the fake cluster</h3>
+
+<p>A rather interesting (but not essential for our goal) check we can perform on
+the fake clusters is to try accessing them. Let’s start with fetching a
+cluster’s kubeconfig:</p>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="syntax"><code>clusterctl <span class="nt">-n</span> &lt;cluster-namespace&gt; get kubeconfig &lt;cluster-name&gt; <span class="o">&gt;</span> kubeconfig-&lt;cluster-name&gt;.yaml
+</code></pre></div></div>
+
+<p>As usual, <code class="language-plaintext highlighter-rouge">clusterctl</code> will generate a kubeconfig file, but we cannot use it
+just yet. Recall that we generated the API endpoint using FKAS; the address we
+have now will be a combination of a port with FKAS’s IP address, which isn’t
+accessible from outside the cluster. What we should do now is:</p>
+
+<ul>
+  <li>Edit the <code class="language-plaintext highlighter-rouge">kubeconfig-&lt;cluster-name&gt;.yaml</code> so that the endpoint is in the form
+<code class="language-plaintext highlighter-rouge">localhost:&lt;port&gt;</code>.</li>
+  <li>Port-forward the FKAS Pod to the same port the kubeconfig has shown.</li>
+</ul>
+
+<p>And voila, now we can access the fake cluster with <code class="language-plaintext highlighter-rouge">kubectl --kubeconfig
+kubeconfig-&lt;cluster-name&gt;.yaml</code>. You can inspect its state and check the
+resources (nodes, pods, etc.), but we won’t be able to run any workload on it as
+it’s fake.</p>
+
+<h2 id="results">Results</h2>
+
+<p>In this post, we have demonstrated how it is possible to “generate”
+bare-metal-based Kubernetes clusters from thin air (or rather, a bunch of nodes
+that do not exist). Of course, these “clusters” are not very useful. Still,
+successfully provisioning them without letting any of our main components
+(<strong>CAPI</strong>, <strong>CAPM3</strong>, <strong>BMO</strong>, and <strong>Ironic</strong>) know they are working with fake
+hardware proves that <strong>Metal3</strong> is capable of handling a heavy workload and
+provision multiple nodes/clusters.</p>
+
+<p>If interested, you could also check (and try out) the experiment by yourself
+<a href="https://github.com/Nordix/metal3-clusterapi-docs/blob/main/Support/Multitenancy/Scalability-with-Fake-Nodes/README.md">here</a>.</p>
+
+</article>
+<nav class="mk-pagination">
+        
+          <a class="mk-pagination__page mk-pagination__page--prev" href="/blog/2024/05/30/Scaling_part_3.html" aria-label="previous page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.7 320.1" version="1.1" viewBox="0 0 398.7 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199 143.1l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-96.3 96.5 96.4 96.4c9.4 9.4 9.4 24.6 0 33.9l-22.6 22.6c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.3-9.5-24.6-0.1-33.9zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9l-96.3-96.5 96.4-96.4c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.7c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.3-9.5 24.6-0.1 34z"/>
+                </svg>
+          </a>
+        
+        
+          <a class="mk-pagination__page mk-pagination__page--next" href="/blog/2024/12/13/Introducing-BMO-E2E.html" aria-label="next page">
+                <?xml version="1.0" encoding="UTF-8"?>
+                <svg enable-background="new 0 0 398.6 320.1" version="1.1" viewBox="0 0 398.6 320.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                <path d="m199.6 177.1l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.7c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.5-96.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.8c9.4-9.4 24.6-9.4 33.9 0l136 136c9.4 9.3 9.4 24.6 0.1 34zm191.9-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.5c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.7z"/>
+                </svg>
+          </a>
+        
+</nav>
+
+        <aside class="mk-blog__categories mk-main__aside">
+    <header class="mk-main__header">
+            <h2 class="mk-heading mk-heading--xl mk-m-border">Related entries</h2>
+    </header>
+    <ul class="mk-blog__related-entries">
+
+        
+        
+        
+        
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2026/02/01/Deploying_OCI_Images_with_Custom_IPA_Hardware_Manager.html">Deploying OCI Container Images to Bare Metal with a Custom IPA Hardware Manager</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/12/13/Introducing-BMO-E2E.html">Introducing Baremetal Operator end-to-end test suite</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/05/30/Scaling_part_3.html">Scaling to 1000 clusters - Part 3</a></li>
+              
+              
+            
+          
+            
+            
+            
+            
+          
+            
+            
+            
+            
+              <li class="mk-blog__related-entries__item"><a class="mk-blog__related-entries__link" href="/blog/2024/01/18/How_to_run_Metal3_website_locally_with_Jekyll.html">How to run Metal3 website locally with Jekyll</a></li>
+              
+              
+                
+    </ul>
+
+</aside>
+
+    </main>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <!--  Controls are self-explanatory. Order can be changed. -->
+                <div class="pswp__counter"></div>
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/photoswipe-page.js">
+</script>
+
+</main>
+<footer class="mk-main-footer">
+  <div>
+    <div class="mk-cncf-footer">
+      <p>We are a <a href="https://cncf.io/">Cloud Native Computing Foundation</a> sandbox project.</p>
+      <p><img id= "cncf-image" src="/assets/images/cncf-color.png"/></p>
+      <p>Copyright 2026 The Metal³ Contributors - <a href="/privacy-statement.html">Privacy Statement</a></p>
+      <p>Copyright 2026 The Linux Foundation. All Rights Reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page.</p>
+    </div>
+      <div class="mk-icons-footer">
+        <p>
+<!--           <a href="https://twitter.com/metal3_io" aria-label="Visit us on Twitter">
+            <i class="fab fa-twitter fa-lg"></i>
+          </a> -->
+          <a href="https://kubernetes.slack.com/messages/CHD49TLE7" data-placement="top" title="Join our Slack channel">
+            <i class="fab fa-slack fa-lg"></i>
+          </a>
+          <a href="https://github.com/metal3-io" aria-label="View our repo on GitHub">
+            <i class="fab fa-github fa-lg"></i>
+          </a>
+          <a href="https://groups.google.com/g/metal3-dev" aria-label="Send us an email">
+            <i class="fas fa-envelope fa-lg"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UC_xneeYbo-Dl4g-U78xW15g/videos" aria-label="See our YouTube channel">
+            <i class="fab fa-youtube fa-lg"></i>
+          </a>
+        </p>
+      </div>
+  </div>
+</footer>
+</div><!--wrapper-->
+<script>
+var toggle = document.querySelector('#toggle');
+var menu = document.querySelector('#main_nav');
+var menuItems = document.querySelectorAll('#main_nav li a');
+
+toggle.addEventListener('click', function(){
+if (menu.classList.contains('is-active')) {
+  this.setAttribute('aria-expanded', 'false');
+  menu.classList.remove('is-active');
+} else {
+  menu.classList.add('is-active');
+  this.setAttribute('aria-expanded', 'true');
+  //menuItems[0].focus();
+}
+});
+</script>
+    <script src="/assets/js/copy.js"></script>
+    <!-- This comes from DTM/DPAL and must be latest entry in body-->
+<script>
+  let pageLocation = window.location.href
+  let footerIcons = document.querySelector(".mk-icons-footer")
+
+  if(pageLocation.includes("community-resources.html")){
+    footerIcons.style.display = "none"
+  }else {null}
+
+</script>
+    <script type="text/javascript">
+        if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+            _satellite.pageBottom();
+        }
+    </script>
+</body>
+</html>
+
