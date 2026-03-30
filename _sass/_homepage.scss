@@ -156,7 +156,7 @@
     margin: var(--mk--spacer--sm) 0;
     padding: var(--mk--spacer--sm);
     border-radius: var(--mk--BorderRadius--md);
-    background-color: #f0f0f0d0;
+    background-color: var(--mk--BackgroundColor--300);
     scale: 1;
     transition: all ease-in-out 0.4s;
     &:hover {

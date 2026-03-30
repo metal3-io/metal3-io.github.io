@@ -181,6 +181,7 @@ function updateMode() {
   let sections = document.querySelectorAll(".mk-main__section")
   let body = document.querySelector("body")
   let whyCards = document.querySelectorAll(".mk-why-baremetal__card")
+  let featureCards = document.querySelectorAll(".mk-features__card")
   let blogCards = document.querySelectorAll(".mk-blog-meta__card")
   let questions = document.querySelectorAll(".mk-faqs__question")
   let subHeadings = document.querySelectorAll(".mk-sub-heading")
@@ -213,6 +214,12 @@ function updateMode() {
     whyCards.forEach((whyCard)=>{
     whyCard.querySelector("h3").style.color = "var(--mk--BackgroundColor--150)"
       whyCard.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+    })
+    featureCards.forEach((card)=>{
+      card.style.backgroundColor = "var(--mk--BackgroundColor--175)"
+      card.querySelectorAll("a").forEach((a)=>{
+        a.style.color = "var(--mk--color-brand--100)"
+      })
     })
     blogCards.forEach((blogCard)=>{
       blogCard.style.backgroundColor = "var(--mk--color-brand--400)";
@@ -252,6 +259,12 @@ function updateMode() {
     whyCards.forEach((whyCard)=>{
       whyCard.querySelector("h3").style.color = ""
       whyCard.style.backgroundColor = "white"
+    })
+    featureCards.forEach((card)=>{
+      card.style.backgroundColor = ""
+      card.querySelectorAll("a").forEach((a)=>{
+        a.style.color = ""
+      })
     })
     blogCards.forEach((blogCard)=>{
       blogCard.style.backgroundColor = ""
