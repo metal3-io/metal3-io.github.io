@@ -22,6 +22,6 @@
     "url": "https://github.com/metal3-io/metal3-io.github.io/issues"
   },
   "devDependencies": {
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^2.0.0"
   }
 }
