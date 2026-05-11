@@ -2001,13 +2001,11 @@ def configure_cloud_init(mount_point, configdrive_data):
     # Write datasource config
     datasource_cfg = os.path.join(cloud_init_cfg_dir, "99-nocloud-seed.cfg")
     with open(datasource_cfg, "w", encoding="utf-8") as f:
-        f.write(
-            """datasource_list: [ NoCloud, None ]
+        f.write("""datasource_list: [ NoCloud, None ]
 datasource:
   NoCloud:
     seedfrom: file:///var/lib/cloud/seed/nocloud-net/
-"""
-        )
+""")
 
     # Write meta-data
     meta_data = configdrive_data.get("meta_data", {})
@@ -2259,8 +2257,7 @@ def setup_grub_efi_sync(chroot_dir, boot_label2):
     grub_hook = os.path.join(chroot_dir, "etc", "grub.d", "90_copy_to_boot_efi2")
 
     with open(grub_hook, "w", encoding="utf-8") as f:
-        f.write(
-            f"""#!/bin/sh
+        f.write(f"""#!/bin/sh
 # Sync GRUB updates to both EFI partitions for RAID redundancy
 set -e
 
@@ -2270,8 +2267,7 @@ if mountpoint --quiet --nofollow /boot/efi; then
     umount -l /boot/efi2
 fi
 exit 0
-"""
-        )
+""")
 
     os.chmod(grub_hook, 0o755)  # nosec B103
     LOG.info("GRUB EFI sync hook created")
