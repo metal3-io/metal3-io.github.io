@@ -28,9 +28,12 @@ jobs:
     - name: Run zizmor (SARIF)
       if: github.event_name == 'push'
       uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8 # v0.5.2
+      with:
+        config: .zizmor.yml
     # Block PRs with findings
     - name: Run zizmor (PR check)
       if: github.event_name == 'pull_request'
       uses: zizmorcore/zizmor-action@71321a20a9ded102f6e9ce5718a2fcec2c4f70d8 # v0.5.2
       with:
         advanced-security: false
+        config: .zizmor.yml
