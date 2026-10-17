@@ -1,0 +1,21 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
+approvers:
+- metal3-io-github-io-maintainers
+
+reviewers:
+- metal3-io-github-io-maintainers
+- metal3-io-github-io-reviewers
+
+emeritus_approvers:
+- codificat
+- fmuyassarov
+- hardys
+- iranzo
+- knowncitizen
+- matthewcarleton
+- russellb
+
+emeritus_reviewers:
+- mboukhalfa
+- mquhuy
