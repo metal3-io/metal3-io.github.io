@@ -177,4 +177,4 @@ openshift-worker-0   OK       ready                                      ipmi://
 
 ## Getting Involved
 
-All development is happening on [github](https://github.com/metal3-io). We have a [metal3-dev mailing list](https://groups.google.com/forum/#!forum/metal3-dev) and use #cluster-api-baremetal on [Kubernetes Slack](https://communityinviter.com/apps/kubernetes/community) to chat. Occasional project updates are posted to [@metal3_io on Twitter](https://twitter.com/metal3_io).
+All development is happening on [github](https://github.com/metal3-io). We have a [metal3-dev mailing list](https://groups.google.com/forum/#!forum/metal3-dev) and use #cluster-api-baremetal on [Kubernetes Slack](https://slack.k8s.io/) to chat. Occasional project updates are posted to [@metal3_io on Twitter](https://twitter.com/metal3_io).

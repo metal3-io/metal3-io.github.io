@@ -23,4 +23,4 @@ In this video, Paul Cormier, Burr Sutter and Garima Sharma show how you can brin
 
 ## Video
 
-- [Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019](https://www.pscp.tv/RedHatOfficial/1vAGRWYPjngJl?t=1h27m51s)
+- Extend Your Data Center to the Hybrid Edge - Red Hat Summit, May 2019 (video no longer available)
