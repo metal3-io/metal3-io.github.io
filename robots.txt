@@ -1,0 +1,1 @@
+Sitemap: https://metal3.io/sitemap.xml
