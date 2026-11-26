@@ -4,14 +4,14 @@ IMAGE_TAG ?= bullseye
 HOST_PORT ?= 4000
 
 .PHONY: serve
-serve: # Serve the website on localhost:3000
+serve: # Serve the website on localhost:$(HOST_PORT)
 	$(CONTAINER_RUNTIME) run \
 	--rm -it --name metal3-io \
 	-w /srv/jekyll \
 	-v "$$(pwd):/srv/jekyll:Z" \
 	-p $(HOST_PORT):4000 \
 	$(IMAGE_NAME):$(IMAGE_TAG) \
-	sh -c "bundle install && bundle exec jekyll serve --future --watch --host 0.0.0.0 --port $(HOST_PORT)"
+	sh -c "bundle install && bundle exec jekyll serve --future --watch --host 0.0.0.0 --port 4000"
 
 ## ------------------------------------
 ## Linting and testing

@@ -15,6 +15,6 @@ else
         --volume "${PWD}:/workdir:z" \
         --entrypoint sh \
         --workdir /workdir \
-        docker.io/python:3.12.3-bullseye@sha256:82e37316cd3f0e9c696bb9428df38a2e39a9286ee864286f8285185b685b60ee \
+        docker.io/python:3.14-bookworm@sha256:fbaf91204f2758a70a7f7d6cf3c2871851227152a54e6a7b5b59941c4566b6b5 \
         /workdir/hack/pre-commit.sh "$@"
 fi
